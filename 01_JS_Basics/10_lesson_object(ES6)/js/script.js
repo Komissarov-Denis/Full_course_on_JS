@@ -11,19 +11,20 @@ const options = {
     bg: 'red',
   },
   makeTest: function() {
-    console.log('Test')
+    console.log('Test') // так записываются методы!!!
   }
 };
 options.makeTest(); // мы можем создавать собственные методы!!!!!!!!!!!!!
 
 // ДЕСТРУКТУРИЗАЦИЯ ОБЪЕКТА!!!!
-const { border, bg } = options.colors;
-console.log(border);
+const { border, bg } = options.colors; // запись деструктурированного объекта!!!!
+console.log(border); // вытаскиваем кусочки свойств в качестве отдельных переменных!!!
+console.log(bg); // вытаскиваем кусочки свойств в качестве отдельных переменных!!!
 
 console.log(options.name);
 console.log(options.colors);
-console.log(options['colors']['border']);
-console.log(options.colors.border);
+console.log(options['colors']['border']); // запись не особо правильная, для этого существует деструктуризация объекта =>
+console.log(options.colors.border); 
 console.log(options['colors']['bg']);
 console.log(options.colors.bg);
 // delete options.name; // оператор удаления

@@ -1,44 +1,36 @@
 // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!!
 
-let numberOfFilms;
-let privatStatus;
-
-function checkPrivatStatus() {
-  // personalMovieDB.privat = confirm('Это частная информация?');
-  privatStatus = confirm('Это частная информация?');
-  console.log('DONE');
-}
-checkPrivatStatus();
-console.log(privatStatus);
-
-function start() {
-  numberOfFilms = +prompt('Сколько фильмов Вы уже посмотрели?', '');
-
-  while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) { // isNaN(numberOfFilms) - если не число!!!
-    numberOfFilms = +prompt('Сколько фильмов Вы уже посмотрели?', '');
-  }
-}
-start();
-
 const personalMovieDB = {
-  count: numberOfFilms,
+  count: {},
   movies: {},
   actors: {},
   genres: [],
-  privat: privatStatus,
-  // privat: {},
+  privat: {},
 };
-  // ------------------------------------------------------------------------------
-  // const a = prompt('Один из последних просмотренных фильмов?', '');
-  // const b = +prompt('На сколько оцените его?', '');
-  // const c = prompt('Один из последних просмотренных фильмов?', '');
-  // const d = +prompt('На сколько оцените его?', '');
-  // personalMovieDB.movies[a] = b;
-  // personalMovieDB.movies[c] = d;
-  // console.log(personalMovieDB);
 
+function checkPrivatStatus() {
+  personalMovieDB.privat = confirm('Это частная информация?');
+  console.log(personalMovieDB.privat);
+}
+checkPrivatStatus();
+
+function numbOfFilms() {
+  personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '');
+  while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count)) { // isNaN(numberOfFilms) - если не число!!!
+    personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '');
+  }
+}
+numbOfFilms();
+
+// ------------------------------------------------------------------------------
+// const a = prompt('Один из последних просмотренных фильмов?', '');
+// const b = +prompt('На сколько оцените его?', '');
+// const c = prompt('Один из последних просмотренных фильмов?', '');
+// const d = +prompt('На сколько оцените его?', '');
+// personalMovieDB.movies[a] = b;
+// personalMovieDB.movies[c] = d;
+// console.log(personalMovieDB);
 // -------------------------------------------------------------------------------
-
 // автоматизируем двойные вопросы
 // Если ЮЗЕР оставляет пустую строку, отменяет ответ или вводит название кино длиннее 50 символов,
 // возвращаем его снова проходить вопросы
