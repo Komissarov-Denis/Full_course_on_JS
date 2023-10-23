@@ -3,7 +3,7 @@
 // // 'use strict';
 
 // to String - все что получаем от пользователя, всегда будет иметь тип STRING.
-// Это и данные иp PROMPT, данные из INPUT / TEXTAREA и прочее. ВСЕ ЭТО СТРОКИ!!!
+// Это и данные и PROMPT, данные из INPUT / TEXTAREA и прочее. ВСЕ ЭТО СТРОКИ!!!
 // 1)
 console.log(typeof(String(null)));
 console.log(String(null));
