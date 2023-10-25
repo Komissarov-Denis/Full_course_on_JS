@@ -65,9 +65,9 @@ divMod.classList.add('div__mod'); // добавляем классы к блок
 document.body.append(divMod);
 divMod.style.cssText = `width: ${width + 300}px`;
 divMod.style.height = `${heigth + 30}px`;
-// divMod.innerHTML = 'Hello World!'; // добавляем текст в блок
+divMod.innerHTML = 'Hello World!'; // добавляем текст в блок
 divMod.innerHTML = '<p>Hello World!</p>'; // добавляем параграф в блок - только работа с HTML структурой!!!
-// divMod.textContent = 'Hello'; // применяем, когда хотим получить от пользователя ТОЛЬКО ТЕКСТ!!!
+divMod.textContent = 'Hello'; // применяем, когда хотим получить от пользователя ТОЛЬКО ТЕКСТ!!! меняет текст в элементе!!!
 divMod.insertAdjacentHTML('beforebegin', '<h2>Hello!!!!</h2>'); // метод ставит код перед блоком
 divMod.insertAdjacentHTML('afterbegin', '<h2>Bye!</h2>'); // метод ставит код в начале блока
 divMod.insertAdjacentHTML('beforeend', '<h2>Hello!</h2>'); // метод ставит код в конце блока

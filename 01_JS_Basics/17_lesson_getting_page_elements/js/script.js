@@ -19,9 +19,11 @@ console.log(circles);
 
 const hearts = document.querySelectorAll('.heart'); // более современный метод выборки по селектору CSS!
 console.log(hearts); // имеет метод FOR EACH!!!! ТОЧКА/# В СЕЛЕКТОРАХ ОБЯЗАТЕЛЬНЫ!!!
+// innerHTML не работает
 hearts.forEach(item => {
     console.log(item);
 });
 
 const oneHeart = document.querySelector('.heart');
 console.log(oneHeart); // метод querySelector возвращает ПЕРВЫЙ элемент со страницы
+// имеет метод innerHTML
