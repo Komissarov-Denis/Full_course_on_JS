@@ -1,4 +1,7 @@
-// ПЕРВОЕ ПРИЛОЖЕНИЕ!!!!
+// ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
+
+'use strict';
+
 
 const numberOfFilms = +prompt('Сколько фильмов Вы уже посмотрели?', '');
 const personalMovieDB = {

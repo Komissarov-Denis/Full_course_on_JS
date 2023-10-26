@@ -1,6 +1,7 @@
 // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
-// 'use strict';
+'use strict';
+
 
 const options = {
   name: 'test',

@@ -1,6 +1,6 @@
-// // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
+// ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
-// // 'use strict';
+'use strict';
 
 const soldier = {
   health: 400,

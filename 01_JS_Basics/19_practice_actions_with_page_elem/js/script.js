@@ -1,6 +1,7 @@
-// Задания на урок:
+// ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
 'use strict';
+
 
 const movieDB = {
   movies: [

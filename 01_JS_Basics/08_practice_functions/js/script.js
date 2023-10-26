@@ -1,4 +1,7 @@
-// ПЕРВОЕ ПРИЛОЖЕНИЕ!!!!
+// ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
+
+'use strict';
+
 
 const personalMovieDB = {
   count: {},

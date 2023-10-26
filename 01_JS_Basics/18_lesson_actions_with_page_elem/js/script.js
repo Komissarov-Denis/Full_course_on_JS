@@ -1,4 +1,7 @@
-// // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
+// ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
+
+'use strict';
+
 
 const box = document.getElementById('box');
 const btns = document.getElementsByTagName('button');
