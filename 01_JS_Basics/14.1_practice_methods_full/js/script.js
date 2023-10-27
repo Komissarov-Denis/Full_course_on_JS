@@ -25,30 +25,36 @@ const personalMovieDB = {
       personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '');
     }
   },
+  detectPersonalLevel: function() {
+    const a = personalMovieDB.count;
+    for (let i = 0; i < a; i++) {
+      if (personalMovieDB.count === 1) {
+        console.log('Вы не можете оценивать, результаты будут некорректны!');
+        console.log(personalMovieDB.count);
+        console.log(a);
+        break;
+      } else if (personalMovieDB.count > 1 && personalMovieDB.count <= 10) {
+        console.log('Просмотрено слишком мало фильмов для оценки!');
+      } else if (personalMovieDB.count > 10 && personalMovieDB.count < 30) {
+        console.log('Вы классический зритель!');
+      } else if (personalMovieDB.count >= 30) {
+        console.log('Вы настоящий киноман!');
+      } else {
+        console.log('ERROR');
+      }
+    }
+  },
   rememberMyFilms: function() {
     for (let i = 0; i < 2; i++) {
       const a = prompt('Один из последних просмотренных фильмов?', '');
       const b = +prompt('На сколько оцените его?', '');
-      if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+      if (a != null && b != null && a != '' && b != '' && !isNaN(b) && a.length < 50) {
         personalMovieDB.movies[a] = b;
         console.log('DONE');
       } else {
         console.log('ERROR');
         i--;
       }
-    }
-  },
-  detectPersonalLevel: function() {
-    if (personalMovieDB.count = 1) {
-      console.log('Вы не можете оценивать, результаты будут некорректны!');
-    } else if (personalMovieDB.count > 1 && personalMovieDB.count <= 10) {
-      console.log('Просмотрено слишком мало фильмов для оценки!');
-    } else if (personalMovieDB.count > 10 && personalMovieDB.count < 30) {
-      console.log('Вы классический зритель!');
-    } else if (personalMovieDB.count >= 30) {
-      console.log('Вы настоящий киноман!');
-    } else {
-      console.log('ERROR');
     }
   },
   showMyDB: function() {
@@ -81,6 +87,6 @@ const personalMovieDB = {
 personalMovieDB.checkPrivatStatus();
 personalMovieDB.showMyDB();
 personalMovieDB.numbOfFilms();
-personalMovieDB.rememberMyFilms();
 personalMovieDB.detectPersonalLevel();
+personalMovieDB.rememberMyFilms();
 personalMovieDB.writeYourGenres();
