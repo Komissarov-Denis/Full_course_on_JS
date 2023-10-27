@@ -21,6 +21,7 @@ const personalMovieDB = {
   numbOfFilms: function() {
     personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '');
     while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count) || personalMovieDB.count <= -1) {
+      alert('Некорректные данные!');
       personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '');
     }
   },
@@ -39,7 +40,7 @@ const personalMovieDB = {
   },
   detectPersonalLevel: function() {
     if (personalMovieDB.count = 1) {
-      console.log('Вы не можете оценивать, результаты некорректны!');
+      console.log('Вы не можете оценивать, результаты будут некорректны!');
     } else if (personalMovieDB.count > 1 && personalMovieDB.count <= 10) {
       console.log('Просмотрено слишком мало фильмов для оценки!');
     } else if (personalMovieDB.count > 10 && personalMovieDB.count < 30) {
