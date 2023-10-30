@@ -1,6 +1,6 @@
 // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
-'use strict';
+// 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => { // коллбэк ф-ция запустится когда DOM структура загрузится!!!
   const movieDB = { // оптимизация выполнения JS на странице после загрузки всей верстки!!!

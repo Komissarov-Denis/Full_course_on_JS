@@ -1,7 +1,6 @@
 // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
-'use strict';
-
+// 'use strict';
 
 // 1.задача переписать код, чтобы разрозненные функции стали методами объекта personalMovieDB:
 // 2.задача в методе writeYourGenres запретить пользователю нажимать кнопку "ОТМЕНА" или оставлять
@@ -27,7 +26,7 @@ const personalMovieDB = {
   },
   detectPersonalLevel: function() {
     const a = personalMovieDB.count;
-    for (let i = 0; i < a; i++) {
+    for (let i = 0; i < a; i++) { //??????????????????
       if (personalMovieDB.count === 1) {
         console.log('Вы не можете оценивать, результаты будут некорректны!');
         console.log(personalMovieDB.count);

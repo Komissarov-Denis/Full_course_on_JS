@@ -1,7 +1,6 @@
 // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
-'use strict';
-
+// 'use strict';
 
 // получаем элемент со страницы методом - getElementBy... - устаревший метод
 const box = document.getElementById('box');

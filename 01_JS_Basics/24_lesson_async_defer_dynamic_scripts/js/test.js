@@ -1,5 +1,5 @@
 // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
-'use strict';
+// 'use strict';
 
 console.log('TEST');

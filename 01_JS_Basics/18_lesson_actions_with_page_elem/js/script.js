@@ -1,7 +1,6 @@
 // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
-'use strict';
-
+// 'use strict';
 
 const box = document.getElementById('box');
 const btns = document.getElementsByTagName('button');
