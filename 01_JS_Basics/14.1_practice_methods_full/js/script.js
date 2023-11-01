@@ -19,32 +19,28 @@ const personalMovieDB = {
 	},
 	numbOfFilms: function() {
 		personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '');
-		while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count) || personalMovieDB.count <= -1) {
-			alert('Некорректные данные!');
+		while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count) || personalMovieDB.count <= 1) {
+			alert('Вы не можете оценивать, результаты будут некорректны!');
 			personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '');
 		}
 	},
 	detectPersonalLevel: function() {
-		const a = personalMovieDB.count;
-		for (let i = 0; i < a; i++) { //????? временно не отрабатывает как требуется!!!?????
-			if (personalMovieDB.count === 1) {
-				console.log('Вы не можете оценивать, результаты будут некорректны!');
-				console.log(personalMovieDB.count);
-				console.log(a);
-				break;
-			} else if (personalMovieDB.count > 1 && personalMovieDB.count <= 10) {
-				console.log('Просмотрено слишком мало фильмов для оценки!');
-			} else if (personalMovieDB.count > 10 && personalMovieDB.count < 30) {
-				console.log('Вы классический зритель!');
-			} else if (personalMovieDB.count >= 30) {
-				console.log('Вы настоящий киноман!');
-			} else {
-				console.log('ERROR');
-			}
+		if (personalMovieDB.count > 1 && personalMovieDB.count <= 10) {
+			console.log('Просмотрено слишком мало фильмов для оценки!');
+		} else if (personalMovieDB.count > 10 && personalMovieDB.count < 30) {
+			console.log('Вы классический зритель!');
+		} else if (personalMovieDB.count >= 30) {
+			console.log('Вы настоящий киноман!');
+		} else {
+			console.log('ERROR');
 		}
 	},
 	rememberMyFilms: function() {
-		for (let i = 0; i < 2; i++) {
+		const num = personalMovieDB.count;
+		for (let i = 0; i < num; i++) {
+			console.log(personalMovieDB.count);
+			console.log(num);
+			console.log(i);
 			const a = prompt('Один из последних просмотренных фильмов?', '');
 			const b = +prompt('На сколько оцените его?', '');
 			if (a != null && b != null && a != '' && b != '' && !isNaN(b) && a.length < 50) {
