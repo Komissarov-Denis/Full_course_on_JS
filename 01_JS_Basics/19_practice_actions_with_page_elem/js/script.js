@@ -3,19 +3,19 @@
 // 'use strict';
 
 const movieDB = {
-  movies: [
-    'Логан',
-    'Лига справедливости',
-    'Ла-ла лэнд',
-    'Одержимость',
-    'Скотт Пилигрим против...',
-  ],
+	movies: [
+		'Логан',
+		'Лига справедливости',
+		'Ла-ла лэнд',
+		'Одержимость',
+		'Скотт Пилигрим против...',
+	],
 };
 
 // 1) задача: Удалить все рекламные блоки со страницы (правая часть сайта)
 const adv = document.querySelectorAll('.promo__adv img');
 adv.forEach(item => { // adv.forEach(function (item) {
-  item.remove();
+	item.remove();
 });
 
 // 2) задача: Изменить жанр фильма, поменять "комедия" на "драма"
@@ -33,9 +33,9 @@ const movieList = document.querySelector('.promo__interactive-list'); // querySe
 movieList.innerHTML = ''; // записываем пустую строку в элементы!!! Чистим страницу!
 movieDB.movies.sort(); // сортируем элементы по порядку
 movieDB.movies.forEach((film, i) => {
-  movieList.innerHTML += `
-    <li class="promo__interactive-item">${i + 1} ${film}
-        <div class="delete"></div>
-    </li>
-  `;
+	movieList.innerHTML += `
+		<li class="promo__interactive-item">${i + 1} ${film}
+				<div class="delete"></div>
+		</li>
+	`;
 });

@@ -5,9 +5,9 @@
 // ВИДЫ ДАННЫХ!!!
 
 const obj = {
-  name: 'John',
-  age: 13,
-  isMarried: false,
+	name: 'John',
+	age: 13,
+	isMarried: false,
 };
 console.log(obj);
 
@@ -22,8 +22,8 @@ console.log(result);
 const answer = prompt('Вам есть 18?', 'Да, мне 18!');
 console.log(typeof (answer)); // ВСЯ ИНФА ОТ ПОЛЬЗОВАТЕЛЯ - ПРИХОДИТ В ВИДЕ СТРОК!!!!!!!!!!!!!!
 
-const answer = +prompt('Вам есть 18?', 'Да, мне 18!');
-console.log(answer + 5);  // +prompt, Т.Е "+" ПЕРЕВОДИТ СТРОКОВЫЕ В ЧИСЛОВЫЕ ДАНННЫЕ!!!!!
+const answer2 = +prompt('Вам есть 18?', 'Да, мне 18!');
+console.log(answer2 + 5);  // +prompt, Т.Е "+" ПЕРЕВОДИТ СТРОКОВЫЕ В ЧИСЛОВЫЕ ДАНННЫЕ!!!!!
 
 const answers = [];
 answers[0] = prompt('Как Ваше имя?', '');
@@ -60,8 +60,8 @@ console.log(2 * 4 == '8'); // сравнение
 console.log(2 * 4 === 7); // строгое равенство
 console.log(2 * 4 === '8'); // строгое равенство
 
-&& - оператор И
-|| - оператор ИЛИ
+// && - оператор И
+// || - оператор ИЛИ
 const isCheked = true;
 const isClosed = false;
 console.log(isCheked && isClosed);

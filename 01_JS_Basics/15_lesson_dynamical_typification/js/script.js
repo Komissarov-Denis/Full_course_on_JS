@@ -13,10 +13,10 @@ console.log(typeof(String(4)));
 console.log(typeof(5 + '')); // ПРИ СЛОЖЕНИИ СО СТРОКОЙ ПОЛУЧАЕМ СТРОКУ!!!
 
 const num = 5;
-console.log('http://vk.com/catalog' + num); // старый код, сейчас используется интерполяция,
-// ссылка на каталог для динамического перехода на пятую строчку каталога!!!
+console.log('http://vk.com/catalog' + num); // старый код, сейчас используется интерполяция, ссылка на каталог для динамического перехода на пятую строчку каталога!!!
 
 const fontSize = 26 + 'px'; // динамическая типизация при передаче стилей в строковом выражении
+console.log(fontSize);
 
 // to Number
 // 1)
@@ -33,11 +33,11 @@ console.log(typeof(parseInt('15px', 10)));
 // 0, '', null, undefined, NaN - превращается в FALSE!!!!!!!!!!
 let switcher = null;
 if (switcher) {
-  console.log('Working...'); // тут скрипт работать не будет так как в switcher значение FALSE!
+	console.log('Working...'); // тут скрипт работать не будет так как в switcher значение FALSE!
 }
 switcher = 1;
 if (switcher) {
-  console.log('Working...');// тут скрипт работать отработает так как в switcher значение TRUE!
+	console.log('Working...'); // тут скрипт отработает так как в switcher значение TRUE!
 }
 
 // 2)

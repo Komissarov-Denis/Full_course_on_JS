@@ -2,19 +2,21 @@
 
 // 'use strict';
 
-if (4 === 9) {
-  console.log('OK!');
+const a = 4,
+	b = 5;
+if (a === b) {
+	console.log('OK!');
 } else {
-  console.log('ERROR!');
+	console.log('ERROR!');
 }
 
 const num = 50;
 if (num < 49) {
-  console.log('Error');
+	console.log('Error');
 } else if (num > 100) {
-  console.log('Много');
+	console.log('Много');
 } else {
-  console.log('OK!');
+	console.log('OK!');
 }
 
 // ( ? : ) - тернарный оператор, в его работе три аргумента!!!!
@@ -27,16 +29,16 @@ const num1 = 49;
 // модификация switch, так же это работает и со строковыми const num2 = '30';
 const num2 = 30;
 switch (num2) {
-  case 49: // если так и есть, то: сообщение //  case '49':
-    console.log('OK!');
-    break;
-  case 100: // case '100':
-    console.log('Wrong!');
-    break;
-  case 50: // case '50':
-    console.log('Wriht!');
-    break;
-  default:
-    console.log('Next time!');
-    break;
+case 49: // если так и есть, то: сообщение //  case '49':
+	console.log('OK!');
+	break;
+case 100: // case '100':
+	console.log('Wrong!');
+	break;
+case 50: // case '50':
+	console.log('Wriht!');
+	break;
+default:
+	console.log('Next time!');
+	break;
 }

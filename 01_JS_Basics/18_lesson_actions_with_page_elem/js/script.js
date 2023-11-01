@@ -26,7 +26,7 @@ box.style.cssText = `background-color: green; width: ${num}px`; // можно п
 // но они практически не используются, взмен есть методы!!! =>
 // }
 hearts.forEach(item => {
-  item.style.backgroundColor = 'blue';
+	item.style.backgroundColor = 'blue';
 });
 
 // методы создания верстви в JS
@@ -42,7 +42,7 @@ divRed.classList.add('div__red'); // добавляем классы к блок
 divRed.style.cssText = `background-color: red; width: ${width}px`;
 divRed.style.height = `${heigth}px`;
 const wrapper = document.querySelector('.wrapper'); // добавляем div в wrapper
-// wrapper.append(divRed); // добавляем div в wrapper последним элементом
+wrapper.append(divRed); // добавляем div в wrapper последним элементом
 // wrapper.appendChild(divRed); // добавляем div в wrapper последним элементом УСТАРЕВШИЙ!!!
 wrapper.prepend(divRed); // добавляем div в wrapper первым элементом
 
@@ -50,7 +50,7 @@ const divYellow = document.createElement('div');
 divYellow.classList.add('div__yellow');
 divYellow.style.cssText = `background-color: yellow; width: ${width}px`;
 divYellow.style.height = `${heigth}px`;
-// hearts[1].before(divYellow); // добавляем div в hearts перед элементом
+hearts[1].before(divYellow); // добавляем div в hearts перед элементом
 // wrapper.insertBefore(divYellow, hearts[1]); // добавляем div в hearts перед элементом УСТАРЕВШЕЕ!
 hearts[1].after(divYellow); // добавляем div в hearts после элемента
 
@@ -58,8 +58,7 @@ circles[2].remove(); // удаление объектов по порядку
 // wrapper.removeChild(hearts[1]); // удаление объектов по порядку УСТАРЕВШЕЕ!
 
 hearts[1].replaceWith(circles[1]); // замещение одного предмета другим по порядку
-// wrapper.replaceChild(circles[0], hearts[0]); // замещение одного предмета другим
-// по порядку УСТАРЕВШЕЕ!
+// wrapper.replaceChild(circles[0], hearts[0]); // замещение одного предмета другим по порядку УСТАРЕВШЕЕ!
 
 // Добавление html код или текст в элементы;
 const divMod = document.createElement('div');

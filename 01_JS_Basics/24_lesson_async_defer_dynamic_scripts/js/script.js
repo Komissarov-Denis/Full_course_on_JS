@@ -13,10 +13,10 @@ console.log(p);
 // чтобы избежать этого, перед document.body.append(script); прописываем script.async = false;
 
 function loadScript(src) {
-  const script = document.createElement('script');
-  script.src = src;
-  script.async = false;
-  document.body.append(script);
+	const script = document.createElement('script');
+	script.src = src;
+	script.async = false;
+	document.body.append(script);
 }
 loadScript('js/test.js');
 loadScript('js/some.js'); // выполняются строго друг за другом!!!

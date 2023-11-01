@@ -28,8 +28,8 @@ console.log(document.querySelector('[data-current="3"]').nextElementSibling);
 console.log(document.querySelector('[data-current="3"]').previousElementSibling);
 
 for (let node of document.body.childNodes) {
-  if (node.nodeName == '#text') {
-    continue; // остановит выполнение оператора и при обнаружении '#text' и продолжит искать другие!!!
-  }
-  console.log(node);
+	if (node.nodeName == '#text') {
+		continue; // остановит выполнение оператора и при обнаружении '#text' и продолжит искать другие!!!
+	}
+	console.log(node);
 }
