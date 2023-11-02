@@ -3,14 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Food</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="title" content="Food">
+    <meta name="description" content="Доставка питания">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metatags.io/">
+    <meta property="og:title" content="Доставка питания">
+    <meta property="og:description" content='Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Для людей, которые интересуются спортом; активных и здоровых.'>
+    <meta property="og:image" content="img/promo/main_bg.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://metatags.io/">
+    <meta property="twitter:title" content="Доставка питания">
+    <meta property="twitter:description" content='Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Для людей, которые интересуются спортом; активных и здоровых.'>
+    <meta property="twitter:image" content="img/promo/main_bg.png">
+
+    <!-- Favicon  -->
+    <link rel="apple-touch-icon" sizes="57x57" href="icons/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="icons/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="icons/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="icons/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="icons/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="icons/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="icons/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="icons/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon/favicon-16x16.png">
+    <link rel="manifest" href="icons/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="icons/favicon/ms-icon-144x144.png">
+    <!-- <meta name="theme-color" content="#ffffff"> -->
+
+    <link rel="stylesheet" href="css/style.min.css">
 </head>
+
 <body>
     <header class="header">
         <div class="header__left-block">
             <div class="header__logo">
-                <img src="icons/logo.svg" alt="Логотип">
+                <img src="icons/logo.svg" alt="Логотип" title="FooD">
             </div>
             <nav class="header__links">
                 <a href="#" class="header__link">Доставка питания</a>
@@ -226,7 +264,7 @@
                 <input required placeholder="Ваше имя" name="name" type="text" class="order__input">
                 <input required placeholder="Ваш номер телефона" name="phone" type="phone" class="order__input">
                 <img src="icons/right.svg" alt="right">
-                <button class="btn btn_dark btn_min">Перезвонить мне</button>
+                <button class="btn btn_dark btn_min" type="button">Перезвонить мне</button>
             </form>
         </div>
     </div>
@@ -295,10 +333,19 @@
                     <div class="modal__title">Мы свяжемся с вами как можно быстрее!</div>
                     <input required placeholder="Ваше имя" name="name" type="text" class="modal__input">
                     <input required placeholder="Ваш номер телефона" name="phone" type="phone" class="modal__input">
-                    <button class="btn btn_dark btn_min">Перезвонить мне</button>
+                    <button class="btn btn_dark btn_min" type="button">Перезвонить мне</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <!-- <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+
+    <!-- <script src="js/slick.min.js"></script> -->
+    <!-- <script src="js/jquery.validate.min.js"></script> -->
+    <!-- <script src="js/jquery.maskedinput.min.js"></script> -->
+    <!-- <script src="js/wow.min.js"></script> -->
+    <script src="js/script.js" type="module"></script>
 </body>
 </html>
