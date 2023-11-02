@@ -3,16 +3,36 @@
   height: 150px;
   background-color: red;
 }
+
+.btn-block {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-content: center; 
+   margin-bottom: 50px;
+   background-color: yellowgreen;
+   height: 80px;
+}
+
 button {
 	width: 80px;
 	height: 30px;
-	margin-top: 10px;
+	/* margin-top: 10px; */
 	border: none;
 	border-radius: 8px;
-	background-color: #000;
+	background-color: #028383;
 	color: #fff;
 	cursor: pointer;
 	outline: none;
+   /* margin-bottom: 50px; */
+}
+
+.blue {
+   background-color: blue;
+}
+
+.red {
+   background-color: red;
 }
 
 .circle {
