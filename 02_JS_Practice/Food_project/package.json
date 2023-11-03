@@ -1,7 +1,7 @@
 {
-  "name": "runsmart",
+  "name": "food",
   "version": "1.0.0",
-  "description": "RunSmart",
+  "description": "FooD",
   "main": "index.js",
   "type": "module",
   "scripts": {
