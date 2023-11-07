@@ -57,4 +57,4 @@ function myAnimation() {
 		}
 	}
 }
-btn2.addEventListener('click', myAnimation); // вызываем функцию через собите click по кнопке
+btn2.addEventListener('click', myAnimation); // вызываем функцию через событие click по кнопке
