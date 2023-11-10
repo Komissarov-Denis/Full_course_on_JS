@@ -79,4 +79,32 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 	setClock('.timer', deadLine);
 
+	// MODAL----------------------------------------------------------
+	const modalTrigger = document.querySelectorAll('[data-modal]');
+	const modalWindow = document.querySelector('.modal');
+	const modalCloseBtn = document.querySelector('[data-close]');
+	modalTrigger.forEach(btn => {
+		btn.addEventListener('click', () => {
+			modalWindow.classList.add('show');
+			modalWindow.classList.remove('hide');
+			document.body.style.overflow = 'hidden'; // при открытии модального окна, скрываем скролл страницы
+		});
+	});
+	function closeModalWindow() {
+		modalWindow.classList.add('hide');
+		modalWindow.classList.remove('show');
+		document.body.style.overflow = ''; // при закрытии модального окна, включаем скролл страницы
+	}
+	modalCloseBtn.addEventListener('click', closeModalWindow);
+	modalWindow.addEventListener('click', (e) => {
+		if (e.target === modalWindow) { // если по клику целевое событие совпадает с модальным окном, то модальное окно закрывается
+			closeModalWindow();			
+		}
+	});
+	document.addEventListener('keydown', (e) => {
+		if (e.code === 'Escape' && modalWindow.classList.contains('show')) { // по клавише ESC закрывается окно
+			closeModalWindow();
+		}
+	});
+
 });
