@@ -83,13 +83,15 @@ window.addEventListener('DOMContentLoaded', () => {
 	const modalTrigger = document.querySelectorAll('[data-modal]');
 	const modalWindow = document.querySelector('.modal');
 	const modalCloseBtn = document.querySelector('[data-close]');
+	function openModalWindow() {
+		modalWindow.classList.add('show');
+		modalWindow.classList.remove('hide');
+		document.body.style.overflow = 'hidden'; // при открытии модального окна, скрываем скролл страницы	
+		clearInterval(modalTimerId); // если пользователь сам зарыл модальное окно, сбрасываем интервал его автооткрытия
+	}
 	modalTrigger.forEach(btn => {
-		btn.addEventListener('click', () => {
-			modalWindow.classList.add('show');
-			modalWindow.classList.remove('hide');
-			document.body.style.overflow = 'hidden'; // при открытии модального окна, скрываем скролл страницы
-		});
-	});
+		btn.addEventListener('click', openModalWindow);
+	}); 
 	function closeModalWindow() {
 		modalWindow.classList.add('hide');
 		modalWindow.classList.remove('show');
@@ -106,5 +108,16 @@ window.addEventListener('DOMContentLoaded', () => {
 			closeModalWindow();
 		}
 	});
+	const modalTimerId = setTimeout(openModalWindow, 6000); // функция автооткрытия модального окна
+	function showModalWindowByScroll() {
+		if (window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight) { // отслеживаем сколько пикселей по оси Y отлистал пользователь + высота видимой части сравниваются с высотой/прокруткой всего контента
+			openModalWindow(); // если они совпадают, то пользователь долистал до конца контена => открывается модальное окно, но при каждом долистовании!!!
+			window.removeEventListener('scroll', showModalWindowByScroll); // как только пользователь долистал до конца, модальное окно выйдет только ОДИН РАЗ!!!!
+		} // нужно избежать подобных повторов, но =>
+	} // }, {once: true}); в данном случае не подходит, так как единоразовая прокрутка вызывает это условие!!!
+	window.addEventListener('scroll', showModalWindowByScroll); // отслеживаем событие scroll во всем окне браузера
+		
+	
+
 
 });
