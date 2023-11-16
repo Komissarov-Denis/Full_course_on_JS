@@ -139,9 +139,8 @@ window.addEventListener('DOMContentLoaded', () => {
 				this.element = 'menu__item';
 				element.classList.add(this.element);
 			} else { // если у массива this.classes хоть один класс присутствует, то добавляем класс
-				this.classes.forEach(className => element.classList.add(className)); // для каждого элемента массива обращаемся к classList созданного в element div и добавляю каждый класс, который находится в массиве className
-			}			
-			// console.log(this.classes);
+				this.classes.forEach(className => element.classList.add(className)); // для каждого элемента массива обращаемся к classList созданного в element div и добавляю каждый класс, который находится в массиве className				
+			}
 			element.innerHTML =`					
 				<img src=${this.srcImg} alt=${this.altText}>
 				<h3 class="menu__item-subtitle">${this.title}</h3>
@@ -153,6 +152,8 @@ window.addEventListener('DOMContentLoaded', () => {
 				</div>				
 			`;
 			this.parentSelector.append(element); // метод append() добавляет в container новый element
+				
+			console.log(this.classes);
 		}
 	}
 	new MenuCards(
@@ -161,9 +162,10 @@ window.addEventListener('DOMContentLoaded', () => {
 		'Меню "Фитнес"',
 		'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
 		9,
-		'.menu .container'
-		// "menu__item",
-		// 'big',		
+		'.menu .container',
+		'menu__item',  // классы успешно добавляются
+		'1', // классы успешно добавляются
+		'big', // классы успешно добавляются
 	).render(); // заполняем новый класс MenuCards с помощью метода render()
 	new MenuCards(
 		'img/tabs/elite.jpg',
@@ -171,8 +173,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		'Меню "Премиум"',
 		'В меню "Премиум" мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
 		14,
-		'.menu .container'
-		// "menu__item",
+		'.menu .container',
+		'2', // классы успешно добавляются
+		'blue', // классы успешно добавляются
 	).render(); // заполняем новый класс MenuCards с помощью метода render()
 	new MenuCards(
 		'img/tabs/post.jpg',
@@ -180,8 +183,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		'Меню "Постное"',
 		'Меню "Постное" - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
 		21,
-		'.menu .container'
-		// "menu__item",
+		'.menu .container',
+		'3', // классы успешно добавляются
+		'red',  // классы успешно добавляются
 	).render(); // заполняем новый класс MenuCards с помощью метода render()
 
 });
