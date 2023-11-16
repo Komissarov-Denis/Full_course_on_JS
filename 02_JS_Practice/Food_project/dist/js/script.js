@@ -119,14 +119,15 @@ window.addEventListener('DOMContentLoaded', () => {
 		
 	// CLASSES-for-CARDS--------------------------------------------------
 	class MenuCards {
-		constructor(srcImg, altText, title, descr, price, parentSelector) {
+		constructor(srcImg, altText, title, descr, price, parentSelector, ...classes) { // добавил REST оператор, так как не известно - будут ли еще изменения в карточках меню
 			this.srcImg = srcImg;
 			this.altText = altText;
 			this.title = title;
 			this.descr = descr;
 			this.price = price;
 			this.transfer = 100; // курс доллара к рублю
-			this.parentSelector = document.querySelector(parentSelector); // тут теперь лежит DOM  элемент!!!
+			this.classes = classes;
+			this.parentSelector = document.querySelector(parentSelector); // тут теперь лежит DOM  элемент!!!			
 			this.changeToRub(); // вызываем метод после построения всех свойств объекта
 		}
 		changeToRub() {
@@ -134,17 +135,22 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 		render() { // классическое название для формирование верстки
 			const element = document.createElement('div');
-			element.innerHTML = `
-				<div class="menu__item">
-					<img src=${this.srcImg} alt=${this.altText}>
-					<h3 class="menu__item-subtitle">${this.title}</h3>
-					<div class="menu__item-descr">${this.descr}</div>
-					<div class="menu__item-divider"></div>
-					<div class="menu__item-price">
-						<div class="menu__item-cost">Цена:</div>
-						<div class="menu__item-total"><span>${this.price}</span> руб./день</div>
-					</div>
-				</div>
+			if (this.classes.length === 0 ) { // если у массива this.classes нет классов, то присваиваем класс menu__item всем div элементам
+				this.element = 'menu__item';
+				element.classList.add(this.element);
+			} else { // если у массива this.classes хоть один класс присутствует, то добавляем класс
+				this.classes.forEach(className => element.classList.add(className)); // для каждого элемента массива обращаемся к classList созданного в element div и добавляю каждый класс, который находится в массиве className
+			}			
+			// console.log(this.classes);
+			element.innerHTML =`					
+				<img src=${this.srcImg} alt=${this.altText}>
+				<h3 class="menu__item-subtitle">${this.title}</h3>
+				<div class="menu__item-descr">${this.descr}</div>
+				<div class="menu__item-divider"></div>
+				<div class="menu__item-price">
+					<div class="menu__item-cost">Цена:</div>
+					<div class="menu__item-total"><span>${this.price}</span> руб./день</div>
+				</div>				
 			`;
 			this.parentSelector.append(element); // метод append() добавляет в container новый element
 		}
@@ -156,6 +162,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
 		9,
 		'.menu .container'
+		// "menu__item",
+		// 'big',		
 	).render(); // заполняем новый класс MenuCards с помощью метода render()
 	new MenuCards(
 		'img/tabs/elite.jpg',
@@ -164,6 +172,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		'В меню "Премиум" мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
 		14,
 		'.menu .container'
+		// "menu__item",
 	).render(); // заполняем новый класс MenuCards с помощью метода render()
 	new MenuCards(
 		'img/tabs/post.jpg',
@@ -172,6 +181,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		'Меню "Постное" - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
 		21,
 		'.menu .container'
+		// "menu__item",
 	).render(); // заполняем новый класс MenuCards с помощью метода render()
 
 });
