@@ -2,6 +2,8 @@
 
 'use strict';
 
+// JSON - JavaScript Object Notation  — текстовый формат обмена данными с сервером, основанный на JavaScript. 
+
 const person = {
 	name: 'Alex',
 	tel: '+7444444444',
