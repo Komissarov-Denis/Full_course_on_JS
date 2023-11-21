@@ -151,9 +151,8 @@ window.addEventListener('DOMContentLoaded', () => {
 					<div class="menu__item-total"><span>${this.price}</span> руб./день</div>
 				</div>				
 			`;
-			this.parentSelector.append(element); // метод append() добавляет в container новый element
-				
-			console.log(this.classes);
+			this.parentSelector.append(element); // метод append() добавляет в container новый element				
+			// console.log(this.classes);
 		}
 	}
 	new MenuCards(
