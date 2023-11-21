@@ -164,8 +164,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		9,
 		'.menu .container',
 		'menu__item',  // классы успешно добавляются
-		'first', // классы успешно добавляются
-		'first__green', // классы успешно добавляются
+		// 'first', // классы успешно добавляются
+		// 'first__green', // классы успешно добавляются
 	).render(); // заполняем новый класс MenuCards с помощью метода render()
 	new MenuCards(
 		'img/tabs/elite.jpg',
@@ -175,8 +175,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		14,
 		'.menu .container',
 		'menu__item',  // классы успешно добавляются
-		'second', // классы успешно добавляются
-		'second__blue', // классы успешно добавляются
+		// 'second', // классы успешно добавляются
+		// 'second__blue', // классы успешно добавляются
 	).render(); // заполняем новый класс MenuCards с помощью метода render()
 	new MenuCards(
 		'img/tabs/post.jpg',
@@ -186,8 +186,20 @@ window.addEventListener('DOMContentLoaded', () => {
 		21,
 		'.menu .container',
 		'menu__item',  // классы успешно добавляются
-		'third', // классы успешно добавляются
-		'third__red',  // классы успешно добавляются
+		// 'third', // классы успешно добавляются
+		// 'third__red',  // классы успешно добавляются
 	).render(); // заполняем новый класс MenuCards с помощью метода render()
+
+	// SEND-FORMS------------------------------------------------------------------------
+	const forms = document.querySelectorAll('form');
+	function postData(form) { // передавать будем какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
+		form.addEventListener('submit', (e) => {
+			e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера
+			const request = new XMLHttpRequest(); // создаем новый объект для формирования документа запроса
+			request.open('POST', 'server.php');
+			request.setRequestHeader('Content-type', 'multipart/form-data'); // задаем заголовок контента
+			const formData = new FormData(form); // FormData(form) отыскивает в html атрибут name в тегах input всех форм, без него работать не будет!!!
+		}); 
+	}
 
 });
