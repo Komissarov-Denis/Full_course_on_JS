@@ -192,13 +192,34 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// SEND-FORMS------------------------------------------------------------------------
 	const forms = document.querySelectorAll('form');
+	const message = {
+		loading: 'Загрузка...',
+		success: 'Спасибо! Скоро с Вами свяжемся!',
+		failure: 'Что-то пошло не так...',
+	};
+	forms.forEach(item => { // берем все созданные формы и подвязываем функцию postData
+		postData(item);
+	});
 	function postData(form) { // передавать будем какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
 		form.addEventListener('submit', (e) => {
 			e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера
+			const statusMessage = document.createElement('div'); // создаем блок для сообщений
+			statusMessage.classList.add('status'); // добавляем класс блоку сообщений
+			statusMessage.textContent = message.loading; // заполняем блок главным сообщением 'Загрузка...'
+			form.append(statusMessage); // к форме добавляем это сообщение 'Загрузка...'
 			const request = new XMLHttpRequest(); // создаем новый объект для формирования документа запроса
 			request.open('POST', 'server.php');
-			request.setRequestHeader('Content-type', 'multipart/form-data'); // задаем заголовок контента
+			request.setRequestHeader('Content-type', 'multipart/form-data'); // задаем заголовок контента...
 			const formData = new FormData(form); // FormData(form) отыскивает в html атрибут name в тегах input всех форм, без него работать не будет!!!
+			request.send(formData); // отправляем вновь созданный объект formData
+			request.addEventListener('load', () => {
+				if (request.status === 200) {
+					console.log(request.response);
+					statusMessage.textContent = message.success; // и так как statusMessage теперь стал DOM узлом на странице html, помещаем соощение 'Спасибо! Скоро с Вами свяжемся!'
+				} else {
+					statusMessage.textContent = message.failure; // если произошел сбой, то помещаем 'Что-то пошло не так...'
+				}
+			});
 		}); 
 	}
 
