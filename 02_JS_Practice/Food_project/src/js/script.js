@@ -82,7 +82,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	// MODAL----------------------------------------------------------
 	const modalTrigger = document.querySelectorAll('[data-modal]');
 	const modalWindow = document.querySelector('.modal');
-	const modalCloseBtn = document.querySelector('[data-close]');
+	// const modalCloseBtn = document.querySelector('[data-close]'); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную переменную
 	function openModalWindow() {
 		modalWindow.classList.add('show');
 		modalWindow.classList.remove('hide');
@@ -97,10 +97,10 @@ window.addEventListener('DOMContentLoaded', () => {
 		modalWindow.classList.remove('show');
 		document.body.style.overflow = ''; // при закрытии модального окна, включаем скролл страницы
 	}
-	modalCloseBtn.addEventListener('click', closeModalWindow);
+	// modalCloseBtn.addEventListener('click', closeModalWindow); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную часть
 	modalWindow.addEventListener('click', (e) => {
-		if (e.target === modalWindow) { // если по клику целевое событие совпадает с модальным окном, то модальное окно закрывается
-			closeModalWindow();			
+		if (e.target === modalWindow || e.target.getAttribute('data-close') == '') { // если по клику целевое событие совпадает с модальным окном, то модальное окно закрывается
+			closeModalWindow();	// для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ добавляем условие  || e.target.getAttribute('data-close') == '' т.е. когда в елементе есть data-close со значение пустой строки, кликаем на подложку или крестик - окно закрывается		
 		}
 	});
 	document.addEventListener('keydown', (e) => {
@@ -108,7 +108,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			closeModalWindow();
 		}
 	});
-	const modalTimerId = setTimeout(openModalWindow, 6000); // функция автооткрытия модального окна
+	const modalTimerId = setTimeout(openModalWindow, 60000); // функция автооткрытия модального окна
 	function showModalWindowByScroll() {
 		if (window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight) { // отслеживаем сколько пикселей по оси Y отлистал пользователь + высота видимой части сравниваются с высотой/прокруткой всего контента
 			openModalWindow(); // если они совпадают, то пользователь долистал до конца контена => открывается модальное окно, но при каждом долистовании!!!
@@ -192,7 +192,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	// SEND-FORMS------------------------------------------------------------------------
 	const forms = document.querySelectorAll('form');
 	const message = {
-		loading: 'Загрузка...',
+		// loading: 'Загрузка...',
+		loading: 'img/form/spinner.svg', // добавляем картинку спиннера вместо надписи в блоке div Загрузка...
 		success: 'Спасибо! Скоро с Вами свяжемся!',
 		failure: 'Что-то пошло не так...',
 	};
@@ -202,10 +203,17 @@ window.addEventListener('DOMContentLoaded', () => {
 	function postData(form) { // передавать будем какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
 		form.addEventListener('submit', (e) => {
 			e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера
-			const statusMessage = document.createElement('div'); // создаем блок для сообщений
-			statusMessage.classList.add('status'); // добавляем класс блоку сообщений
+			// const statusMessage = document.createElement('div'); // создаем блок для сообщений
+			const statusMessage = document.createElement('img'); // вместо блока теперь будем использовать картинку спиннера
+			// statusMessage.classList.add('status'); // добавляем класс блоку сообщений
+			statusMessage.src = message.loading; // используем путь к спиннеру
 			statusMessage.textContent = message.loading; // заполняем блок главным сообщением 'Загрузка...'
-			form.append(statusMessage); // к форме добавляем это сообщение 'Загрузка...'
+			statusMessage.style.cssText = `
+				display: block;
+				margin: 0 auto;
+			`; // добавляем стили спиннеру
+			// form.append(statusMessage); // к форме добавляем это сообщение 'Загрузка...'
+			form.insertAdjacentElement('afterend', statusMessage); // чтобы спиннер не сбивал верстку используем insertAdjacentElement()!!!
 			const request = new XMLHttpRequest(); // создаем новый объект для формирования документа запроса
 			request.open('POST', 'server.php');
 			// request.setRequestHeader('Content-type', 'multipart/form-data'); // задаем заголовок контента для php...НО, В СВЯЗКЕ XMLHttpRequest() И FormData() - ЗАГОЛОВОК УСТАНАВЛИВАТЬ НЕ НУЖНО!!!
@@ -221,17 +229,38 @@ window.addEventListener('DOMContentLoaded', () => {
 			request.addEventListener('load', () => {
 				if (request.status === 200) {
 					console.log(request.response);
-					statusMessage.textContent = message.success; // и так как statusMessage теперь стал DOM узлом на странице html, помещаем соощение 'Спасибо! Скоро с Вами свяжемся!'
+					// statusMessage.textContent = message.success; // и так как statusMessage теперь стал DOM узлом на странице html, помещаем соощение 'Спасибо! Скоро с Вами свяжемся!'
+					showThanksModal(message.success); // вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
 					form.reset(); // очищаем форму после выведением сообщения
-					setTimeout(() => {
-						statusMessage.remove();
-					}, 4000); // очистка формы через 4 секунды
+					// setTimeout(() => { // после делегирования событий функции showThanksModal убираем setTimeout(),
+					statusMessage.remove(); //  так как statusMessage.remove() будет использоваться для loading спиннера, который будет отображаться на странице
+					// }, 4000); // очистка формы через 4 секунды
 				} else {
-					statusMessage.textContent = message.failure; // если произошел сбой, то помещаем 'Что-то пошло не так...'
+					// statusMessage.textContent = message.failure; // если произошел сбой, то помещаем 'Что-то пошло не так...'
+					showThanksModal(message.failure);// вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
 				}
 			});
 		}); 
 	}
-
+	function showThanksModal(message) { // создаем функцию динамической замены элементов мадального окна с отправкой сообщения message
+		const prevModalDialog = document.querySelector('.modal__dialog'); // получаем элемент modal__dialog
+		prevModalDialog.classList.add('hide'); // добавляем класс hide элементу modal__dialog
+		openModalWindow(); // команда открытия модальных окон
+		const thanksModal = document.createElement('div'); // создаем новый контент обертку
+		thanksModal.classList.add('modal__dialog'); // будем заменять один modal__dialog другим с новым контентом
+		thanksModal.innerHTML = ` 
+			<div class="modal__content">
+				<div class="modal__close" data-close>&times;</div>
+				<div class="modal__title">${message}</div>
+			</div>
+		`; // создаем новый контент и в первоначальном скрипте (MODAL----) настраиваем ДЕЛЕГИРОВАНИЕ СОБЫТИЙ!!!
+		document.querySelector('.modal').append(thanksModal); // помещаем новое модальное окно на страницу
+		setTimeout(() => { // чтобы новый динамический блок исчезал через 4 сек. и появлялся предыдущий сверстанный блок modal__dialog, применим асинхронную операцию setTimeout()
+			thanksModal.remove(); // thanksModal будем удалять, чтобы вновь созданные блоки не накапливались
+			prevModalDialog.classList.add('show'); // заменяем классы отображения сверстанного модального окна modal__dialog
+			prevModalDialog.classList.remove('hide');
+			closeModalWindow(); // закрываем модальное окно, чтобы не мешать пользователю
+		}, 4000);
+	}
 
 });
