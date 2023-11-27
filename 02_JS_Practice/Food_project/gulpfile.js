@@ -51,6 +51,7 @@ gulp.task('watch', function() {
 	gulp.watch('src/*.html').on('change', gulp.parallel('html'));
 	gulp.watch('src/js/**/*.js').on('change', gulp.parallel('scripts'));
 	gulp.watch('src/*.php').on('change', gulp.parallel('php'));
+	gulp.watch('src/*.json').on('change', gulp.parallel('json'));
 	gulp.watch('src/fonts/**/*').on('all', gulp.parallel('fonts'));
 	gulp.watch('src/icons/**/*').on('all', gulp.parallel('icons'));
 	gulp.watch('src/img/**/*').on('all', gulp.parallel('images'));
@@ -70,6 +71,12 @@ gulp.task('scripts', function() {
 
 gulp.task('php', function() {
 	return gulp.src('src/*.php')
+		.pipe(gulp.dest('dist/'))
+		.pipe(browserSync.stream());
+});
+
+gulp.task('json', function() {
+	return gulp.src('src/*.json')
 		.pipe(gulp.dest('dist/'))
 		.pipe(browserSync.stream());
 });
@@ -100,4 +107,4 @@ gulp.task('mailer', function() {
 });
 
 // задача, запускающая параллельно сервер, и стайлс, и вотч
-gulp.task('default', gulp.parallel('watch', 'server', 'styles', 'html', 'scripts', 'php','fonts', 'icons', 'images', 'mailer'));
+gulp.task('default', gulp.parallel('watch', 'server', 'styles', 'html', 'scripts', 'php', 'json','fonts', 'icons', 'images', 'mailer'));
