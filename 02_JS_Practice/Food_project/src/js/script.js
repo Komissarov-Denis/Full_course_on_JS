@@ -332,7 +332,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			closeModalWindow(); // закрываем модальное окно, чтобы не мешать пользователю
 		}, 4000);
 	}
-	fetch('http://localhost:3000/menu') // обращаемся к db.json - к базе данных, созданной вручную
+	fetch('db.json') // обращаемся к db.json - к базе данных, созданной вручную
 		.then(data => data.json()) // отсет от сервера data преобразуем в JS объект в формате json
 		.then(result => console.log(result));
 

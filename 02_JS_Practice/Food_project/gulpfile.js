@@ -2,8 +2,9 @@
 
 // const gulp = require('gulp');
 // const browserSync = require('browser-sync');
+// const jsonServer = require('gulp-json-srv');
 // const sass = require('gulp-sass')(require('sass'));
-// const rename = require("gulp-rename");
+// const rename = require('gulp-rename');
 // const autoprefixer = require('gulp-autoprefixer');
 // const cleanCSS = require('gulp-clean-css');
 // const htmlmin = require('gulp-htmlmin');
@@ -11,16 +12,30 @@
 // const del = require('del'); 
 
 import gulp from 'gulp';
-import browserSync from 'browser-sync';
+import browserSync from 'browser-sync'; // синхронизатор браузера
+import jsonServer from 'gulp-json-srv'; // сервер JSON ????
 import rename from 'gulp-rename';
-import autoprefixer from 'gulp-autoprefixer';
-import cleanCSS from 'gulp-clean-css';
-import htmlmin from 'gulp-htmlmin';
-import imagemin from 'gulp-imagemin';
-
+import autoprefixer from 'gulp-autoprefixer'; // подставляет автопрефиксы для различных браузеров
+import cleanCSS from 'gulp-clean-css'; // оптимизатор пробелов и пустых мест
+import htmlmin from 'gulp-htmlmin'; // оптимизатор html
+import imagemin from 'gulp-imagemin'; // оптимизатор картинок
 import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
+
 const sass = gulpSass(dartSass);
+
+const gulpJsonServer = jsonServer.create({ //запускаем gulp-json-srv сервер с портом 25000 
+	port: 25000,
+});
+gulp.task('jsonServerStart', function(){
+	return gulp.src('src/db.json')
+		.pipe(gulpJsonServer.pipe());
+}); // запускаем gulp-json-srv сервер  ????
+
+// gulp.watch(['db.json'], function(){
+// 	gulpJsonServer.reload();
+// }); // добавляем вотчер для сервера gulp-json-srv ?????
+
 
 // Static server запускается функция сервер из указанной папки src
 gulp.task('server', function() {
@@ -35,13 +50,13 @@ gulp.task('server', function() {
 //новая задача стайлс берет данные и возвращает по выпонению скомпилированные файлы sass/scss во всех папках src/css, так же синхронизирует браузер как лайв-сервер
 //outputStyle - итоговый стиль compressed - сжатый, on('error', sass.logError)) - подскажет об ошибке  и ему добавиться суффикс ".мин" + автопрефиксы добавляются, после префиксов файл очищается
 gulp.task('styles', function() {
-	return gulp.src('src/sass/**/*.+(scss|sass)')
-		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-		.pipe(rename({suffix: '.min', prefix: ''}))
-		.pipe(autoprefixer({cascade: false}))
-		.pipe(cleanCSS({compatibility: 'ie8'}))  
-		.pipe(gulp.dest('dist/css'))
-		.pipe(browserSync.stream());
+	return gulp.src('src/sass/**/*.+(scss|sass)') // используем либо scss, либо sass
+		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError)) // запускает компилятор сжатия и подсказывает, если есть ошибка
+		.pipe(rename({suffix: '.min', prefix: ''})) // переименовщик в style.min.css
+		.pipe(autoprefixer()) // подставляем автопрефиксы в style.min.css для последних версий браузеров, настройки берет из package.json
+		.pipe(cleanCSS({compatibility: 'ie8'})) // после автопрефиксов style.min.css будет очищаться
+		.pipe(gulp.dest('dist/css')) // определяем папку назначаения
+		.pipe(browserSync.stream()); // перезапускает browserSync в потоке
 });
 
 //задача на отслеживание изменений в коде src/sass по факту изменений запускается стайлс и обновляет  browserSync - наш браузер
@@ -107,4 +122,4 @@ gulp.task('mailer', function() {
 });
 
 // задача, запускающая параллельно сервер, и стайлс, и вотч
-gulp.task('default', gulp.parallel('watch', 'server', 'styles', 'html', 'scripts', 'php', 'json','fonts', 'icons', 'images', 'mailer'));
+gulp.task('default', gulp.parallel('watch', 'server', 'jsonServerStart','styles', 'html', 'scripts', 'php', 'json','fonts', 'icons', 'images', 'mailer'));
