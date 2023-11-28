@@ -171,7 +171,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		'elite',
 		'Меню "Премиум"',
 		'В меню "Премиум" мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
-		14,
+		21,
 		'.menu .container',
 		'menu__item',  // классы успешно добавляются
 		// 'second', // классы успешно добавляются
@@ -182,86 +182,12 @@ window.addEventListener('DOMContentLoaded', () => {
 		'post',
 		'Меню "Постное"',
 		'Меню "Постное" - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
-		21,
+		14,
 		'.menu .container',
 		'menu__item',  // классы успешно добавляются
 		// 'third', // классы успешно добавляются
 		// 'third__red',  // классы успешно добавляются
 	).render(); // заполняем новый класс MenuCards с помощью метода render()
-
-	// // SEND-FORMS----------------устаревший способ------------XMLHttpRequest()
-	// const forms = document.querySelectorAll('form');
-	// const message = {
-	// 	// loading: 'Загрузка...',
-	// 	loading: 'img/form/spinner.svg', // добавляем картинку спиннера вместо надписи в блоке div Загрузка...
-	// 	success: 'Спасибо! Скоро с Вами свяжемся!',
-	// 	failure: 'Что-то пошло не так...',
-	// };
-	// forms.forEach(item => { // берем все созданные формы и подвязываем функцию postData
-	// 	postData(item);
-	// });
-	// function postData(form) { // передавать будем какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
-	// 	form.addEventListener('submit', (e) => {
-	// 		e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера
-	// 		// const statusMessage = document.createElement('div'); // создаем блок для сообщений
-	// 		const statusMessage = document.createElement('img'); // вместо блока теперь будем использовать картинку спиннера
-	// 		// statusMessage.classList.add('status'); // добавляем класс блоку сообщений
-	// 		statusMessage.src = message.loading; // используем путь к спиннеру
-	// 		statusMessage.textContent = message.loading; // заполняем блок главным сообщением 'Загрузка...'
-	// 		statusMessage.style.cssText = `
-	// 			display: block;
-	// 			margin: 0 auto;
-	// 		`; // добавляем стили спиннеру
-	// 		// form.append(statusMessage); // к форме добавляем это сообщение 'Загрузка...'
-	// 		form.insertAdjacentElement('afterend', statusMessage); // чтобы спиннер не сбивал верстку используем insertAdjacentElement()!!!
-	// 		const request = new XMLHttpRequest(); // создаем новый объект для формирования документа запроса
-	// 		request.open('POST', 'server.php');
-	// 		// request.setRequestHeader('Content-type', 'multipart/form-data'); // задаем заголовок контента для php...НО, В СВЯЗКЕ XMLHttpRequest() И FormData() - ЗАГОЛОВОК УСТАНАВЛИВАТЬ НЕ НУЖНО!!!
-	// 		request.setRequestHeader('Content-type', 'application/json'); // задаем заголовок контента для отправки в формате json, если этого затребует бэкэндер
-	// 		const formData = new FormData(form); // FormData(form) отыскивает в html атрибут name в тегах input всех форм, без него работать не будет!!!
-	// 		const objectJson = {}; // сождал новый объект для отправки данных в формате json
-	// 		formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
-	// 			objectJson[key] = value;
-	// 		});
-	// 		const json = JSON.stringify(objectJson); // конвертируем objectJson в строку JSON с двойными ковычками
-	// 		request.send(json); // отправляем запрос в формате json
-	// 		// request.send(formData); // отправляем вновь созданный объект formData КОММЕНТИРУЕМ/РАЗКОММЕНТИРУЕМ НУЖНЫЙ ФОРМАТ ОТПРАВКИ php/json
-	// 		request.addEventListener('load', () => {
-	// 			if (request.status === 200) {
-	// 				console.log(request.response);
-	// 				// statusMessage.textContent = message.success; // и так как statusMessage теперь стал DOM узлом на странице html, помещаем соощение 'Спасибо! Скоро с Вами свяжемся!'
-	// 				showThanksModal(message.success); // вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
-	// 				form.reset(); // очищаем форму после выведением сообщения
-	// 				// setTimeout(() => { // после делегирования событий функции showThanksModal убираем setTimeout(),
-	// 				statusMessage.remove(); //  так как statusMessage.remove() будет использоваться для loading спиннера, который будет отображаться на странице
-	// 				// }, 4000); // очистка формы через 4 секунды
-	// 			} else {
-	// 				// statusMessage.textContent = message.failure; // если произошел сбой, то помещаем 'Что-то пошло не так...'
-	// 				showThanksModal(message.failure);// вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
-	// 			}
-	// 		});
-	// 	}); 
-	// }
-	// function showThanksModal(message) { // создаем функцию динамической замены элементов мадального окна с отправкой сообщения message
-	// 	const prevModalDialog = document.querySelector('.modal__dialog'); // получаем элемент modal__dialog
-	// 	prevModalDialog.classList.add('hide'); // добавляем класс hide элементу modal__dialog
-	// 	openModalWindow(); // команда открытия модальных окон
-	// 	const thanksModal = document.createElement('div'); // создаем новый контент обертку
-	// 	thanksModal.classList.add('modal__dialog'); // будем заменять один modal__dialog другим с новым контентом
-	// 	thanksModal.innerHTML = ` 
-	// 		<div class="modal__content">
-	// 			<div class="modal__close" data-close>&times;</div>
-	// 			<div class="modal__title">${message}</div>
-	// 		</div>
-	// 	`; // создаем новый контент и в первоначальном скрипте (MODAL----) настраиваем ДЕЛЕГИРОВАНИЕ СОБЫТИЙ!!!
-	// 	document.querySelector('.modal').append(thanksModal); // помещаем новое модальное окно на страницу
-	// 	setTimeout(() => { // чтобы новый динамический блок исчезал через 4 сек. и появлялся предыдущий сверстанный блок modal__dialog, применим асинхронную операцию setTimeout()
-	// 		thanksModal.remove(); // thanksModal будем удалять, чтобы вновь созданные блоки не накапливались
-	// 		prevModalDialog.classList.add('show'); // заменяем классы отображения сверстанного модального окна modal__dialog
-	// 		prevModalDialog.classList.remove('hide');
-	// 		closeModalWindow(); // закрываем модальное окно, чтобы не мешать пользователю
-	// 	}, 4000);
-	// }
 
 	// SEND-FORMS--------------------------------------fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ 
 	const forms = document.querySelectorAll('form');
