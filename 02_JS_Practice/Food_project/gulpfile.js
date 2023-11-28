@@ -9,7 +9,6 @@
 // const cleanCSS = require('gulp-clean-css');
 // const htmlmin = require('gulp-htmlmin');
 // const imagemin = require('gulp-imagemin');
-// const del = require('del'); 
 
 import gulp from 'gulp';
 import browserSync from 'browser-sync'; // синхронизатор браузера
@@ -41,21 +40,21 @@ gulp.task('jsonServerStart', function(){
 gulp.task('server', function() {
 	browserSync({
 		server: {
-			baseDir: 'dist'
+			baseDir: 'dist' // запускаем server из готовой скомпилированной папки dist
 		}
 	});
-	gulp.watch('src/*.html').on('change', browserSync.reload); // обновляет страницу при изменениях
+	gulp.watch('src/*.html').on('change', browserSync.reload); // следит за изменениями файлов .html и обновляет страницу при изменениях
 });
 
 //новая задача стайлс берет данные и возвращает по выпонению скомпилированные файлы sass/scss во всех папках src/css, так же синхронизирует браузер как лайв-сервер
 //outputStyle - итоговый стиль compressed - сжатый, on('error', sass.logError)) - подскажет об ошибке  и ему добавиться суффикс ".мин" + автопрефиксы добавляются, после префиксов файл очищается
 gulp.task('styles', function() {
-	return gulp.src('src/sass/**/*.+(scss|sass)') // используем компиляцию для всех папок и файлов внутри папки sass и scss, и sass
+	return gulp.src('src/sass/**/*.+(scss|sass|css)') // используем компиляцию для всех папок и файлов внутри папки sass и scss, и sass (css - на всякий "пожарный" случай)
 		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError)) // запускает компилятор сжатия и подсказывает, если есть ошибка
 		.pipe(rename({suffix: '.min', prefix: ''})) // переименовщик в style.min.css
 		.pipe(autoprefixer()) // подставляем автопрефиксы в style.min.css для последних версий браузеров, настройки берет из package.json
 		.pipe(cleanCSS({compatibility: 'ie8'})) // после автопрефиксов style.min.css будет очищаться
-		.pipe(gulp.dest('dist/css')) // определяем папку назначаения
+		.pipe(gulp.dest('dist/css')) // определяем папку назначаения после компиляции style.min.css
 		.pipe(browserSync.stream()); // перезапускает browserSync в потоке
 });
 
