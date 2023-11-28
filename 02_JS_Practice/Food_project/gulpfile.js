@@ -50,7 +50,7 @@ gulp.task('server', function() {
 //новая задача стайлс берет данные и возвращает по выпонению скомпилированные файлы sass/scss во всех папках src/css, так же синхронизирует браузер как лайв-сервер
 //outputStyle - итоговый стиль compressed - сжатый, on('error', sass.logError)) - подскажет об ошибке  и ему добавиться суффикс ".мин" + автопрефиксы добавляются, после префиксов файл очищается
 gulp.task('styles', function() {
-	return gulp.src('src/sass/**/*.+(scss|sass)') // используем либо scss, либо sass
+	return gulp.src('src/sass/**/*.+(scss|sass)') // используем компиляцию для всех папок и файлов внутри папки sass и scss, и sass
 		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError)) // запускает компилятор сжатия и подсказывает, если есть ошибка
 		.pipe(rename({suffix: '.min', prefix: ''})) // переименовщик в style.min.css
 		.pipe(autoprefixer()) // подставляем автопрефиксы в style.min.css для последних версий браузеров, настройки берет из package.json
