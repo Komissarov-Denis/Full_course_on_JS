@@ -12,7 +12,7 @@
 
 import gulp from 'gulp';
 import browserSync from 'browser-sync'; // синхронизатор браузера
-import jsonServer from 'gulp-json-srv'; // сервер JSON ????
+import jsonServer from 'gulp-json-srv'; // сервер JSON
 import rename from 'gulp-rename';
 import autoprefixer from 'gulp-autoprefixer'; // подставляет автопрефиксы для различных браузеров
 import cleanCSS from 'gulp-clean-css'; // оптимизатор пробелов и пустых мест
@@ -28,16 +28,11 @@ const gulpJsonServer = jsonServer.create({ //запускаем gulp-json-srv с
 });
 gulp.task('jsonServerStart', function(){
 	return gulp.src('src/db.json')
-		.pipe(gulpJsonServer.pipe());
-}); // запускаем gulp-json-srv сервер  ????
-
-// gulp.watch(['db.json'], function(){
-// 	gulpJsonServer.reload();
-// }); // добавляем вотчер для сервера gulp-json-srv ?????
-
+		.pipe(gulpJsonServer.pipe())
+}); // запускаем gulp-json-srv сервер
 
 // Static server запускается функция сервер из указанной папки src
-gulp.task('server', function() {
+gulp.task('browserSyncServer', function() {
 	browserSync({
 		server: {
 			baseDir: 'dist' // запускаем server из готовой скомпилированной папки dist
@@ -121,4 +116,4 @@ gulp.task('mailer', function() {
 });
 
 // задача, запускающая параллельно сервер, и стайлс, и вотч
-gulp.task('default', gulp.parallel('watch', 'server', 'jsonServerStart','styles', 'html', 'scripts', 'php', 'json','fonts', 'icons', 'images', 'mailer'));
+gulp.task('default', gulp.parallel('watch', 'browserSyncServer', 'jsonServerStart','styles', 'html', 'scripts', 'php', 'json','fonts', 'icons', 'images', 'mailer'));

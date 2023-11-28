@@ -332,8 +332,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			closeModalWindow(); // закрываем модальное окно, чтобы не мешать пользователю
 		}, 4000);
 	}
-	fetch('db.json') // обращаемся к db.json - к базе данных, созданной вручную
-		.then(data => data.json()) // отсет от сервера data преобразуем в JS объект в формате json
+	// fetch('http://localhost:3000/menu') // для json-server
+	fetch('http://localhost:25000/menu') // обращаемся к db.json - к базе данных, созданной вручную в gulp-json-srv
+		.then(data => data.json()) // ответ от сервера data преобразуем в JS объект в формате json
 		.then(result => console.log(result));
 
 
