@@ -224,12 +224,15 @@ window.addEventListener('DOMContentLoaded', () => {
 			`; // добавляем стили спиннеру
 			// form.append(statusMessage); // к форме добавляем это сообщение 'Загрузка...'
 			form.insertAdjacentElement('afterend', statusMessage); // чтобы спиннер не сбивал верстку используем insertAdjacentElement() - вставить соседний элемент ()!!!
-			const formData = new FormData(form); // FormData(form) отыскивает в html атрибут name в тегах input всех форм, без него работать не будет!!!			
-			const objectJson = {}; // сождал новый объект для отправки данных в формате json
-			formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
-				objectJson[key] = value;
-			});
-			postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем objectJson в строку JSON с двойными ковычками
+			const formData = new FormData(form); // FormData(form) отыскивает в html атрибут name в тегах input всех форм, без него работать не будет!!!
+			// const objectJson = {}; // создал новый объект для отправки данных в формате json
+			// formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
+			// 	objectJson[key] = value;
+			// });
+			// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем оson в строку JSON с двойными ковычками =>
+			// это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
+			const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
+			postData('http://localhost:3000/requests', json)
 			// .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
 			.then(data => { // сервер вернет данные data, пока это не JSON
 				console.log(data); // берем data данные, которые вернул сервер из PROMISE (успешный исход)

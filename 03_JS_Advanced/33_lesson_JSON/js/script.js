@@ -41,3 +41,8 @@ console.log(clone);
 // 	tel: '+7444444444',
 // 	parents: { mom: 'Ann', dad: 'Mike' }
 // }
+
+const json = JSON.stringify(Object.fromEntries(formData.entries())); // пример конвертации запросов из проекта FOOD
+const obj = {a: 23, b: 50};
+console.log(Object.entries(obj)); // получил [ [ 'a', 23 ], [ 'b', 50 ] ] массив массивов
+console.log(Object.fromEntries(Object.entries(obj))); // получил { a: 23, b: 50 } конвертировал обратно в объект
