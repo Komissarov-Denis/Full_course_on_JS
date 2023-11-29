@@ -262,9 +262,6 @@ window.addEventListener('DOMContentLoaded', () => {
 			closeModalWindow(); // закрываем модальное окно, чтобы не мешать пользователю
 		}, 4000);
 	}
-	// fetch('http://localhost:3000/menu') // для json-server
-	// .then(data => data.json()) // ответ от сервера data преобразуем в JS объект в формате json
-	// .then(result => console.log(result));
 
 
 });
