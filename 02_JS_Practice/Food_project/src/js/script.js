@@ -197,10 +197,20 @@ window.addEventListener('DOMContentLoaded', () => {
 		success: 'Спасибо! Скоро с Вами свяжемся!',
 		failure: 'Что-то пошло не так...',
 	};
-	forms.forEach(item => { // берем все созданные формы и подвязываем функцию postData
-		postData(item);
+	forms.forEach(item => { // берем все созданные формы и подвязываем функцию bindpostData
+		bindPostData(item);
 	});
-	function postData(form) { // передавать будем какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
+	const postData = async (url, data) => { // function expression -  без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + async в связи с асинхронностью 
+		const result = await fetch(url, { // в fetch(), url - указываем первым аргументом адрес сервера, data - данные, которые будут поститься - т.е. отправляем сформированный запрос + await для ожидания ответа от сервера
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' 
+			},
+			body: data,	// создаем новый объект для формирования документа запроса fetch(), метод и заголовки указывать обязательно!!!	
+		}); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные
+		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
+	}; 
+	function bindPostData(form) { // будем (bind) привязывать какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
 		form.addEventListener('submit', (e) => {
 			e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера
 			// const statusMessage = document.createElement('div'); // создаем блок для сообщений
@@ -219,23 +229,17 @@ window.addEventListener('DOMContentLoaded', () => {
 			formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
 				objectJson[key] = value;
 			});
-			fetch('server.php', { // создаем новый объект для формирования документа запроса fetch(), метод и заголовки указывать обязательно!!!
-				method: 'POST',
-				headers: {
-					'Content-type': 'application/json' // закомментировал, так как пока не JSON отправляем!!!
-				},
-				body: JSON.stringify(objectJson), // конвертируем objectJson в строку JSON с двойными ковычками
-			})	
-				.then(data => data.text())
-				.then(data => { // сервер вернет данные data, пока это не JSON
-					console.log(data); // берем data данные, которые вернул сервер из PROMISE (успешный исход)
-					showThanksModal(message.success); // вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
-					statusMessage.remove(); // удаляем наш спинер по выполнению PROMISE
-				}).catch(() => { // catch метод обязательно нужно прописывать для обратоток ошибок!!!
-					showThanksModal(message.failure);// вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!				
-				}).finally(() => { // finally метод обязательно нужно прописывать для обратоток оконечных действий
-					form.reset(); // очищаем форму после выведением сообщения				
-				});
+			postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем objectJson в строку JSON с двойными ковычками
+			// .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
+			.then(data => { // сервер вернет данные data, пока это не JSON
+				console.log(data); // берем data данные, которые вернул сервер из PROMISE (успешный исход)
+				showThanksModal(message.success); // вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
+				statusMessage.remove(); // удаляем наш спинер по выполнению PROMISE
+			}).catch(() => { // catch метод обязательно нужно прописывать для обратоток ошибок!!!
+				showThanksModal(message.failure);// вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!				
+			}).finally(() => { // finally метод обязательно нужно прописывать для обратоток оконечных действий
+				form.reset(); // очищаем форму после выведением сообщения				
+			});
 		}); 
 	}
 	function showThanksModal(message) { // создаем функцию динамической замены элементов мадального окна с отправкой сообщения message
@@ -259,9 +263,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		}, 4000);
 	}
 	// fetch('http://localhost:3000/menu') // для json-server
-	fetch('http://localhost:25000/menu') // обращаемся к db.json - к базе данных, созданной вручную в gulp-json-srv
-		.then(data => data.json()) // ответ от сервера data преобразуем в JS объект в формате json
-		.then(result => console.log(result));
+	// .then(data => data.json()) // ответ от сервера data преобразуем в JS объект в формате json
+	// .then(result => console.log(result));
 
 
 });

@@ -2,7 +2,6 @@
 
 // const gulp = require('gulp');
 // const browserSync = require('browser-sync');
-// const jsonServer = require('gulp-json-srv');
 // const sass = require('gulp-sass')(require('sass'));
 // const rename = require('gulp-rename');
 // const autoprefixer = require('gulp-autoprefixer');
@@ -12,7 +11,6 @@
 
 import gulp from 'gulp';
 import browserSync from 'browser-sync'; // синхронизатор браузера
-import jsonServer from 'gulp-json-srv'; // сервер JSON
 import rename from 'gulp-rename';
 import autoprefixer from 'gulp-autoprefixer'; // подставляет автопрефиксы для различных браузеров
 import cleanCSS from 'gulp-clean-css'; // оптимизатор пробелов и пустых мест
@@ -23,16 +21,7 @@ import gulpSass from 'gulp-sass';
 
 const sass = gulpSass(dartSass);
 
-const gulpJsonServer = jsonServer.create({ //запускаем gulp-json-srv сервер с портом 25000 
-	port: 25000,
-});
-gulp.task('jsonServerStart', function(){
-	return gulp.src('src/db.json')
-		.pipe(gulpJsonServer.pipe())
-}); // запускаем gulp-json-srv сервер
-
-// Static server запускается функция сервер из указанной папки src
-gulp.task('browserSyncServer', function() {
+gulp.task('browserSyncServer', function() { // Static server запускается функция сервер из указанной папки src
 	browserSync({
 		server: {
 			baseDir: 'dist' // запускаем server из готовой скомпилированной папки dist
@@ -116,4 +105,4 @@ gulp.task('mailer', function() {
 });
 
 // задача, запускающая параллельно сервер, и стайлс, и вотч
-gulp.task('default', gulp.parallel('watch', 'browserSyncServer', 'jsonServerStart','styles', 'html', 'scripts', 'php', 'json','fonts', 'icons', 'images', 'mailer'));
+gulp.task('default', gulp.parallel('watch', 'browserSyncServer', 'styles', 'html', 'scripts', 'php', 'json','fonts', 'icons', 'images', 'mailer'));
