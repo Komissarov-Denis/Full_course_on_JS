@@ -164,11 +164,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
 	};
 	getResources('http://localhost:3000/menu') // оптимизируем работу с карточками МЕНЮ
-	.then(data => {
-		data.forEach(({img, altimg, title, descr, price}) => { // перебираем весь массив db.json состоящий из объектов деструктурировав его методом ({img, altimg, title, descr, price})
-			new MenuCards(img, altimg, title, descr, price, '.menu .container').render(); // запускаем конструктор - MenuCards() для заполнения - render() карточек меню столько раз, сколько объектов в массиве db.json
+		.then(data => {
+			data.forEach(({img, altimg, title, descr, price}) => { // перебираем весь массив db.json состоящий из объектов деструктурировав его методом ({img, altimg, title, descr, price})
+				new MenuCards(img, altimg, title, descr, price, '.menu .container').render(); // запускаем конструктор - MenuCards() для заполнения - render() карточек меню столько раз, сколько объектов в массиве db.json
+			});
 		});
-	});
 	// new MenuCards(
 	// 	'img/tabs/vegy.jpg',
 	// 	'vegy',
@@ -248,15 +248,15 @@ window.addEventListener('DOMContentLoaded', () => {
 			const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
 			postData('http://localhost:3000/requests', json)
 			// .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
-			.then(data => { // сервер вернет данные data, пока это не JSON
-				console.log(data); // берем data данные, которые вернул сервер из PROMISE (успешный исход)
-				showThanksModal(message.success); // вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
-				statusMessage.remove(); // удаляем наш спинер по выполнению PROMISE
-			}).catch(() => { // catch метод обязательно нужно прописывать для обратоток ошибок!!!
-				showThanksModal(message.failure);// вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!				
-			}).finally(() => { // finally метод обязательно нужно прописывать для обратоток оконечных действий
-				form.reset(); // очищаем форму после выведением сообщения				
-			});
+				.then(data => { // сервер вернет данные data, пока это не JSON
+					console.log(data); // берем data данные, которые вернул сервер из PROMISE (успешный исход)
+					showThanksModal(message.success); // вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
+					statusMessage.remove(); // удаляем наш спинер по выполнению PROMISE
+				}).catch(() => { // catch метод обязательно нужно прописывать для обратоток ошибок!!!
+					showThanksModal(message.failure);// вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!				
+				}).finally(() => { // finally метод обязательно нужно прописывать для обратоток оконечных действий
+					form.reset(); // очищаем форму после выведением сообщения				
+				});
 		}); 
 	}
 	function showThanksModal(message) { // создаем функцию динамической замены элементов мадального окна с отправкой сообщения message
