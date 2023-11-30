@@ -279,6 +279,6 @@ window.addEventListener('DOMContentLoaded', () => {
 			closeModalWindow(); // закрываем модальное окно, чтобы не мешать пользователю
 		}, 4000);
 	}
-
+	
 
 });
