@@ -163,6 +163,25 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
 	};
+	// getResources('http://localhost:3000/menu')
+	// 	.then(data => createMenuCards(data));
+	// function createMenuCards(data) {
+	// 	data.forEach(({img, altimg, title, descr, price}) => {
+	// 		const element = document.createElement('div');
+	// 		element.classList.add('menu__item');
+	// 		element.innerHTML = `					
+	// 			<img src=${img} alt=${altimg}>
+	// 			<h3 class="menu__item-subtitle">${title}</h3>
+	// 			<div class="menu__item-descr">${descr}</div>
+	// 			<div class="menu__item-divider"></div>
+	// 			<div class="menu__item-price">
+	// 				<div class="menu__item-cost">Цена:</div>
+	// 				<div class="menu__item-total"><span>${price}</span> руб./день</div>
+	// 			</div>			
+	// 		`;
+	// 		document.querySelector('.menu .container').append(element);
+	// 	});
+	// }
 	getResources('http://localhost:3000/menu') // оптимизируем работу с карточками МЕНЮ
 		.then(data => {
 			data.forEach(({img, altimg, title, descr, price}) => { // перебираем весь массив db.json состоящий из объектов деструктурировав его методом ({img, altimg, title, descr, price})
