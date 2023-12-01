@@ -300,43 +300,71 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 	
 	// SLIDER-------------------------------------ПРОСТОЙ ВАРИАНТ--------------------
+	// const slides = document.querySelectorAll('.offer__slide'); // получаем все слайды на странице
+	// const prev = document.querySelector('.offer__slider-prev'); // получаем стрелки перелистывания слайдов
+	// const next = document.querySelector('.offer__slider-next'); // получаем стрелки перелистывания слайдов
+	// const totalSlides = document.querySelector('#total'); // получаем значение элементов по идентификатору
+	// const currentSlide = document.querySelector('#current'); // получаем значение элемента по идентификатору
+	// let slideIndex = 1; // назначаем индекс каждому слайду
+	// showSlides(slideIndex); // инициализируем функцию showSlides() со значением "1"
+	// if (slides.length < 10) { // если количество слайдов меньше
+	// 	totalSlides.textContent = `0${slides.length}`; // то добавляем к порядковому значению слайда "0"
+	// } else { // иначе
+	// 	totalSlides.textContent = slides.length; // просто записываем порядковое значение слайда
+	// }
+	// function showSlides(n)  { // присваиваем порядковый номер каждому слайду "n"
+	// 	if (n > slides.length) {// если количество слайдов slides.length меньше порядкового номера слайда "n"
+	// 		slideIndex = 1; // если ушли в "правую границу" слайдов, то перемещаемся в самое "начало" => slideIndex = 1
+	// 	}
+	// 	if (n < 1) {// если порядковый номер слайда "n" меньше 1
+	// 		slideIndex = slides.length; // если ушли в "левую границу" слайдов, то перемещаемся в самый "конец" => slideIndex = slides.length
+	// 	}
+	// 	slides.forEach(item => item.style.display = 'none'); // сначала скрываем все слайды на страничке
+	// 	slides[slideIndex - 1].style.display = 'block' ; // потом по нажатию показываем нужный слайд, выбираем [slideIndex - 1] так как массив начинается с "0"
+	// 	if (slides.length < 10) { // если количество слайдов меньше
+	// 		currentSlide.textContent = `0${slideIndex}`; // то добавляем к порядковому значению слайда "0"
+	// 	} else { // иначе
+	// 		currentSlide.textContent = slideIndex; // просто записываем порядковое значение слайда
+	// 	}
+	// }
+	// function plusSlide(n) { // перебираем слайды по нажатию на стрелочки
+	// 	showSlides(slideIndex += n); // если n=1, то прибавляем, если n=-1, то отнимаем 
+	// }
+	// prev.addEventListener('click', () => { // при нажатии на стрелочку "влево", передаем в функцию plusSlide() минус один
+	// 	plusSlide(-1);
+	// });
+	// next.addEventListener('click', () => { // при нажатии на стрелочку "вправо", передаем в функцию plusSlide() плюс один
+	// 	plusSlide(1);
+	// });
+	
+	// CAROUSEL-------------------------------------БОЛЕЕ СЛОЖНЫЙ ВАРИАНТ------------
 	const slides = document.querySelectorAll('.offer__slide'); // получаем все слайды на странице
 	const prev = document.querySelector('.offer__slider-prev'); // получаем стрелки перелистывания слайдов
 	const next = document.querySelector('.offer__slider-next'); // получаем стрелки перелистывания слайдов
 	const totalSlides = document.querySelector('#total'); // получаем значение элементов по идентификатору
 	const currentSlide = document.querySelector('#current'); // получаем значение элемента по идентификатору
-	let slideIndex = 1; // назначаем индекс каждому слайду
-	showSlides(slideIndex); // инициализируем функцию showSlides() со значением "1"
-	if (slides.length < 10) { // если количество слайдов меньше
-		totalSlides.textContent = `0${slides.length}`; // то добавляем к порядковому значению слайда "0"
-	} else { // иначе
-		totalSlides.textContent = slides.length; // просто записываем порядковое значение слайда
-	}
-	function showSlides(n)  { // присваиваем порядковый номер каждому слайду "n"
-		if (n > slides.length) {// если количество слайдов slides.length меньше порядкового номера слайда "n"
-			slideIndex = 1; // если ушли в "правую границу" слайдов, то перемещаемся в самое "начало" => slideIndex = 1
-		}
-		if (n < 1) {// если порядковый номер слайда "n" меньше 1
-			slideIndex = slides.length; // если ушли в "левую границу" слайдов, то перемещаемся в самый "конец" => slideIndex = slides.length
-		}
-		slides.forEach(item => item.style.display = 'none'); // сначала скрываем все слайды на страничке
-		slides[slideIndex - 1].style.display = 'block' ; // потом по нажатию показываем нужный слайд, выбираем [slideIndex - 1] так как массив начинается с "0"
-		if (slides.length < 10) { // если количество слайдов меньше
-			currentSlide.textContent = `0${slideIndex}`; // то добавляем к порядковому значению слайда "0"
-		} else { // иначе
-			currentSlide.textContent = slideIndex; // просто записываем порядковое значение слайда
-		}
-	}
-	function plusSlide(n) { // перебираем слайды по нажатию на стрелочки
-		showSlides(slideIndex += n); // если n=1, то прибавляем, если n=-1, то отнимаем 
-	}
-	prev.addEventListener('click', () => { // при нажатии на стрелочку "влево", передаем в функцию plusSlide() минус один
-		plusSlide(-1);
+	const slidesWrapper = document.querySelector('.offer__slider-wrapper');
+	const sliderInner = document.querySelector('.offer__slider-inner');
+	const sliderWidth = window.getComputedStyle(slidesWrapper).width;
+	let slideIndex = 1; // назначаем индекс каждому слайду	
+	let slideOffset = 0; // назначим отступ как ориентир сдвига слайдов
+	sliderInner.style.width = 100 * slides.length + '%'; // 100% умножаем на значение ширины блока offer__slide (это запись css стилей), чтобы слайды помещались в блок offer__slider-inner
+	sliderInner.style.display = 'flex'; // присваиваем CSS свойства блоку offer__slider-inner для того, чтобы слайды выстроились в строку
+	sliderInner.style.transition = '0.5s all'; // присваиваем CSS свойства блоку offer__slider-inner для того, чтобы слайды перемещались плавно
+	slidesWrapper.style.overflow = 'hidden'; // ограничим отображение сверх блока offer__slider-wrapper
+	slides.forEach(slide => { // ограничим ширину всех слайдов, обратившись к каждому слайду на странице, установив определенную ширину
+		slide.style.width = sliderWidth;
 	});
-	next.addEventListener('click', () => { // при нажатии на стрелочку "вправо", передаем в функцию plusSlide() плюс один
-		plusSlide(1);
+	prev.addEventListener('click', () => { // при нажатии на стрелочку "влево",  смещаем слайд вправо на плюсовое значение slideOffset
+		sliderInner.style.transform = `translateX(${slideOffset}px)`;
 	});
-	
-	// CAROUSEL-------------------------------------БОЛЕЕ СЛОЖНЫЙ ВАРИАНТ------------
-	
+	next.addEventListener('click', () => { // при нажатии на стрелочку "вправо", смещаем слайд влево на минусовое значение slideOffset 
+		if (slideOffset == sliderWidth * (slides - 1)) {
+			slideOffset = 0;
+		}
+		sliderInner.style.transform = `translateX(-${slideOffset}px)`;
+	});
+
+
+
 });
