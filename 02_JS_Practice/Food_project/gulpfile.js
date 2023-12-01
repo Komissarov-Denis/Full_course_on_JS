@@ -8,6 +8,7 @@
 // const cleanCSS = require('gulp-clean-css');
 // const htmlmin = require('gulp-htmlmin');
 // const imagemin = require('gulp-imagemin');
+// `import sass from 'sass'` is deprecated. Please use `import * as sass from 'sass'` instead.
 
 import gulp from 'gulp';
 import browserSync from 'browser-sync'; // синхронизатор браузера
@@ -16,8 +17,9 @@ import autoprefixer from 'gulp-autoprefixer'; // подставляет авто
 import cleanCSS from 'gulp-clean-css'; // оптимизатор пробелов и пустых мест
 import htmlmin from 'gulp-htmlmin'; // оптимизатор html
 import imagemin from 'gulp-imagemin'; // оптимизатор картинок
-import dartSass from 'sass';
+// import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
+import * as dartSass from 'sass';
 
 const sass = gulpSass(dartSass);
 
@@ -57,7 +59,7 @@ gulp.task('watch', function() {
 
 gulp.task('html', function() {
 	return gulp.src('src/*.html')
-		.pipe(htmlmin({ collapseWhitespace: true }))
+		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('dist/'));
 });
 
