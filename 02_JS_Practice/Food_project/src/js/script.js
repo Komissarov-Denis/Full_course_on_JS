@@ -444,6 +444,20 @@ window.addEventListener('DOMContentLoaded', () => {
 		dotsArr.forEach(dot => dot.style.opacity = '.5');
 		dotsArr[slideIndex - 1].style.opacity = 1;
 	});
-
+	dotsArr.forEach(dot => {
+		dot.addEventListener('click', (e) => { // назначаем каждой из точек событие
+			const slideTo = e.target.getAttribute('data-slide-to');
+			slideIndex = slideTo;
+			slideOffset = +sliderWidth.slice(0, sliderWidth.length - 2) * (slideTo - 1);
+			sliderInner.style.transform = `translateX(-${slideOffset}px)`;
+			if (slides.length < 10) {
+				currentSlide.textContent = `0${slideIndex}`;
+			} else {
+				currentSlide.textContent = slideIndex;
+			}
+			dotsArr.forEach(dot => dot.style.opacity = '.5');
+			dotsArr[slideIndex - 1].style.opacity = 1;
+		});
+	});
 
 });
