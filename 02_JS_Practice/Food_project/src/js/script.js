@@ -402,7 +402,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			dot.style.opacity = 1; // то к первому dot добавляем белый класс активности
 		}
 		dots.append(dot);
-		dotsArr.push(dot); // создаем массив с точками!!!!!!!!!!!!!!!!!!!!!!!
+		dotsArr.push(dot); // создаем массив с точками
 	}
 	prev.addEventListener('click', () => { // при нажатии на стрелочку "влево",  смещаем слайд вправо на плюсовое значение slideOffset
 		if (slideOffset == 0) { // после сравнения и выяснения, что у нас возвращен первый слайд, перемещаемся в самый конец
@@ -421,6 +421,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		} else {
 			currentSlide.textContent = slideIndex;
 		}
+		dotsArr.forEach(dot => dot.style.opacity = '.5');
+		dotsArr[slideIndex - 1].style.opacity = 1;
 	});
 	next.addEventListener('click', () => { // при нажатии на стрелочку "вправо", смещаем слайд влево на минусовое значение slideOffset 
 		if (slideOffset == +sliderWidth.slice(0, sliderWidth.length - 2) * (slides.length - 1)) { // отступ равен ширине одного слайда (из строки '650px' вырезаем длину символов минус последние два ) умноженного на (число слайдов минус один) 
@@ -439,6 +441,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		} else {
 			currentSlide.textContent = slideIndex;
 		}
+		dotsArr.forEach(dot => dot.style.opacity = '.5');
+		dotsArr[slideIndex - 1].style.opacity = 1;
 	});
 
 
