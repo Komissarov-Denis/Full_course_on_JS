@@ -403,13 +403,15 @@ window.addEventListener('DOMContentLoaded', () => {
 			dot.style.opacity = 1; // то к первому dot добавляем класс активности (opacity) непрозрачность
 		}
 		dots.append(dot); // добавляем в слайдер и в блок ol нумерованного списка, навигационные кнопки нумерованного списка
-		dotsArr.push(dot); // связываем массив с точками(элементами) нумерованного списка в слайдере
+		dotsArr.push(dot); // связываем массив с точками(элементами) нумерованного списка в слайдере (push - добавлять в массив)
 	}
 	prev.addEventListener('click', () => { // при нажатии на стрелочку "влево",  смещаем слайд вправо на плюсовое значение slideOffset
 		if (slideOffset == 0) { // после сравнения и выяснения, что у нас возвращен первый слайд, перемещаемся в самый конец
 			slideOffset = +sliderWidth.slice(0, sliderWidth.length - 2) * (slides.length - 1); // т.е. долистываем до самого начала блока слайдов и переключаемся на последний слайд - отступ равен ширине одного слайда (из строки '650px' с длинной символов 5 - вырезаем последние два) умноженного на (число слайдов минус один) = 1950
+			sliderInner.style.transition = '0.25s all';
 		} else {
 			slideOffset -= +sliderWidth.slice(0, sliderWidth.length - 2); // по нажатию срелочки "влево", к -slideOffset добавляется ширина еще одного слайда и слайд смещается на определенную величину
+			sliderInner.style.transition = '0.5s all';
 		}
 		sliderInner.style.transform = `translateX(-${slideOffset}px)`; // сдвигаем слайд с помощью transform: translateX(), так как значение плюсовое - сдвиг вправо 
 		if (slideIndex == 1) { // если текущий slideIndex равен 1 
@@ -427,9 +429,11 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 	next.addEventListener('click', () => { // при нажатии на стрелочку "вправо", смещаем слайд влево на минусовое значение slideOffset 
 		if (slideOffset == +sliderWidth.slice(0, sliderWidth.length - 2) * (slides.length - 1)) { // отступ равен ширине одного слайда (из строки '650px' с длинной символов 5 - вырезаем последние два) умноженного на (число слайдов минус один) 
+			sliderInner.style.transition = '0.25s all';
 			slideOffset = 0; // т.е. долистываем до самого конца блока слайдов и переключаемся на первый слайд
 		} else {
-			slideOffset += +sliderWidth.slice(0, sliderWidth.length - 2); // когда мы нажимаем срелочку "вправо", к +slideOffset добавляется ширина еще одного слайда и слайд смещается на определенную величину
+			sliderInner.style.transition = '0.5s all';
+			slideOffset += +sliderWidth.slice(0, sliderWidth.length - 2); // когда мы нажимаем срелочку "вправо", к +slideOffset добавляется ширина еще одного слайда и слайд смещается на определенную величину			
 		}
 		sliderInner.style.transform = `translateX(-${slideOffset}px)`; // сдвигаем слайд с помощью transform: translateX(), так как значение минусовое - сдвиг влево 
 		if (slideIndex == slides.length) { // если текущий slideIndex равен количеству слайдов
@@ -460,6 +464,6 @@ window.addEventListener('DOMContentLoaded', () => {
 			dotsArr[slideIndex - 1].style.opacity = 1; // так как массив начинается с 0, то slideIndex - 1 = 0
 		});
 	});
-
+	
 
 });
