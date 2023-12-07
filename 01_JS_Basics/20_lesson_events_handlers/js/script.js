@@ -3,7 +3,7 @@
 'use strict';
 
 
-// ОБработчик события - это функция, которая срабатывает как только событие произошло
+// Обработчик события - это функция, которая срабатывает как только событие произошло
 // <button onclick="alert('Click')" id="btn">Нажми меня!</button>
 // <!-- onclick - обработчик событий, alert - функция
 
@@ -16,10 +16,10 @@ btn.onclick = function() {
 };
 // самый оптимальный вариант: =>
 btn.addEventListener('click', function() {
-	alert('Click'); // click - аргумент, function - коллбэк ф-ция!!!
+	alert('Click'); // click - аргумент, function - коллбэк функция!!!
 });
 btn.addEventListener('click', function() {
-	alert('Second click'); // события в JS выполняюися по порядку поступления
+	alert('Second click'); // события в JS выполняются по порядку поступления
 });
 
 btn.addEventListener('mouseenter', function(event) {
@@ -54,8 +54,8 @@ const deleteElement = function(e) {
 };
 btn2.addEventListener('click', deleteElement);
 overlay.addEventListener('click', deleteElement);
-// ВСПЛЫТИЕ СОБЫТИЙ - ЭТО КОНДА ОБРАБОТЧИК ОТРАБАТЫВАЕТ НА САМОМ ЭЛЕМЕНТЕ,
-// ПОТОМ НА РОДИТЕЛЕ, ПОТОМ НА УРОВНИ ВЫШЕ И ВЫШЕ ПО ИЕРАРХИИ!!!
+// ВСПЛЫТИЕ СОБЫТИЙ - ЭТО КОГДА ОБРАБОТЧИК ОТРАБАТЫВАЕТ НА САМОМ ЭЛЕМЕНТЕ,
+// ПОТОМ НА РОДИТЕЛЕ, ПОТОМ УХОДИТ НА УРОВНИ ВЫШЕ И ВЫШЕ ПО ИЕРАРХИИ!!!
 
 const link = document.querySelector('a');
 link.addEventListener('click', (e) => {
