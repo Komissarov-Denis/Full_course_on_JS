@@ -7,7 +7,7 @@ const a = 4,
 if (a === b) {
 	console.log('OK!');
 } else {
-	console.log('ERROR!');
+	console.log('ERROR!'); // получил ERROR!
 }
 
 const num = 50;
@@ -16,12 +16,12 @@ if (num < 49) {
 } else if (num > 100) {
 	console.log('Много');
 } else {
-	console.log('OK!');
+	console.log('OK!'); // получил OK! 
 }
 
 // ( ? : ) - тернарный оператор, в его работе три аргумента!!!!
 const num1 = 49;
-(num1 === 50) ? console.log('OK') : console.log('Error');
+(num1 === 50) ? console.log('OK') : console.log('Error!'); // получил Error!
 // №1            №2                   №3
 // 4 + 4; // + это бинарный аргумент
 // +'4'; // + это унарный аргумент

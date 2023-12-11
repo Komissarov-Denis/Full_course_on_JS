@@ -9,10 +9,10 @@ const obj = {
 	age: 13,
 	isMarried: false,
 };
-console.log(obj);
+console.log(obj); // получил { name: 'John', age: 13, isMarried: false }
 
 const arr = ['plum.png', 'orange.jpg', 6, 'apple.bpm', {}, []];
-console.log(arr[5]);
+console.log(arr[3]); // получил apple.bpm
 
 alert('Hallo!');
 
@@ -53,7 +53,7 @@ decr--; // оператор декремента, уменшения на 1 - п
 console.log(++incr);
 console.log(--decr);
 
-console.log(5%2); // остаток от деления двух чисел = 1 !!!
+console.log(5%2); // получил 1, остаток от деления двух чисел = 1 !!!
 
 console.log(2 * 4 == 8); // сравнение
 console.log(2 * 4 == '8'); // сравнение
