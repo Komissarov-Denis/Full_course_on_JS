@@ -39,6 +39,6 @@ case 50: // case '50':
 	console.log('Wriht!');
 	break;
 default:
-	console.log('Next time!');
+	console.log('Next time!'); // получил => Next time!
 	break;
 }
