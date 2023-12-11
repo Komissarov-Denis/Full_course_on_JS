@@ -5,10 +5,9 @@
 let a = 5;
 let b = a;
 b = b + 5;
-console.log(a);
-console.log(b); // получили обжидаемый результат 5
-//                                               10
-// так как эта схема реботает только с примитивами!!!
+console.log(a); // получил 5
+console.log(b); // получил 10
+// ожидаемый результат, так как эта схема работает только с примитивами!!!
 
 const obj = {
 	a: 5,
@@ -27,7 +26,7 @@ function copy(mainObj) {
 	let objCopy = {}; // создаем пустой объект objCopy
 	let key; // создаем переменную key, можно и вне цикла!
 	for (key in mainObj) { // с помощью цикла for (...in...) перебираем все key в mainObj
-		objCopy[key] = mainObj[key]; // создаем новое св-во в objCopy через []. Присваиваем ему значения из mainObj
+		objCopy[key] = mainObj[key]; // создаем новое свойство в objCopy через []. Присваиваем ему значения из mainObj
 	}
 	return objCopy; // возвращаем новый скопированный объект
 }
@@ -42,10 +41,8 @@ const numbers = {
 const newNumbers = copy(numbers);
 newNumbers.a = 9; // это ПОВЕРХНОСТНАЯ копия объекта первого уровня - замена свойства!!!
 newNumbers.c.x = 8; // это ПОВЕРХНОСТНАЯ копия объекта второго уровная - ссылочная копия!!!!
-console.log(numbers);
-console.log(newNumbers);
-// { a: 2, b: 5, c: { x: 8, y: 4 } }
-// { a: 9, b: 5, c: { x: 8, y: 4 } }
+console.log(numbers); // получил { a: 2, b: 5, c: { x: 8, y: 4 } }
+console.log(newNumbers); // получил { a: 9, b: 5, c: { x: 8, y: 4 } }
 
 const numbers2 = {
 	a: 2,
@@ -59,28 +56,27 @@ const add = {
 	d: 17,
 	e: 20,
 };
-console.log(Object.assign(numbers2, add)); // Object.assign метод объединения объектов
-
-const clone = Object.assign({}, add); // это ПОВЕРХНОСТНАЯ копия объекта первого уровня - замена свойства!!!
-clone.d = 20;
-console.log(add);
-console.log(clone);
+console.log(Object.assign(numbers2, add)); // получил { a: 2, b: 5, c: { x: 7, y: 4 }, d: 17, e: 20 } Object.assign метод объединения объектов
+const clone = Object.assign({}, add); // получил  это ПОВЕРХНОСТНАЯ копия объекта первого уровня - замена свойства!!!
+clone.d = 21;
+console.log(add); // получил { d: 17, e: 20 }
+console.log(clone); // получил { d: 21, e: 20 }
 
 const oldArray = ['a', 'b', 'c'];
 const newArray = oldArray.slice(); // метод копирующий старый массив!!!!!
 newArray[1] = 'asdasfasfasf';
-console.log(oldArray);
-console.log(newArray);
+console.log(oldArray); // получил [ 'a', 'b', 'c' ]
+console.log(newArray); // получил [ 'a', 'asdasfasfasf', 'c' ]
 
 const video = ['youtube', 'vimeo', 'rutube']; // оператор spread - разворота!!!!
 const blogs = ['wordpress', 'livejournal', 'blogger'];
 const internet = [...video, ...blogs, 'vk', 'facebook'];
-console.log(internet);
+console.log(internet); // получил ['youtube', 'vimeo', 'rutube', 'wordpress', 'livejournal', 'blogger', 'vk', 'facebook'] объединяет в один массив по заданным аргументам
 
 function log(f, g, h) {
-	console.log(f);
-	console.log(g);
-	console.log(h);
+	console.log(f); // получил 2
+	console.log(g); // получил 5
+	console.log(h); // получил 7
 }
 const num = [2, 5, 7];
 log(...num); // оператор spread - разворота!!!! ES8
@@ -91,6 +87,6 @@ const q = {
 	one: 1,
 	two: 2,
 };
-const newObj = { ...q }; // оператор spread - разворота ES8 в объектах!!!
-console.log(newArray2);
-console.log(newObj);
+const newObj = {...q}; // оператор spread - разворота ES8 в объектах!!!
+console.log(newArray2); // получил [ 'a', 'b' ]
+console.log(newObj); // получил { one: 1, two: 2 }
