@@ -42,9 +42,9 @@ console.log(box.getBoundingClientRect()); // метод получение ко�
 console.log(box.getBoundingClientRect().top); // до конкретной стороны элемента на странице
 
 // getComputedStyle - метод получения стилей, которые были применены в CSS к элементу, эти стили не изменяются!!!
-const style = window.getComputedStyle(box); // синтаксис только через window!!!!!!!!!!
+const style = window.getComputedStyle(box); // синтаксис только через window!!!
 console.log(style.display); // получаем block
-console.log(style.height); // получсаем 350px
+console.log(style.height); // получаем 350px
 
 console.log(document.documentElement.scrollTop); // сколько элементов пролистано на странице!!!
 console.log(window.scrollBy(0, 400)); // от текущей позиции страницы скролит на 400 пикселей вниз по оси Y (X, Y)

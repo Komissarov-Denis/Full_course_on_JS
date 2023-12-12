@@ -5,17 +5,17 @@
 const btn = document.querySelectorAll('button'), // выбираем через селектор тега и делегируем свойства его классам:
 	wrapper = document.querySelector('.btn-block');
 
-console.log(btn[0].classList); // так как у псевдомассива нет свойства classList, обратились к конкретному элементу по индексу и получили свойство classList
-console.log(btn[0].classList.length); // получили 2 (длинна или количество элементов в массиве)
-console.log(btn[0].classList.item(0)); // метод item(0) позволяет получать класс элемента под индексом "0" - blue !!!
-console.log(btn[0].classList.item(1)); // класс элемента под индексом "1" - some !!!
+console.log(btn[0].classList); // так как у псевдомассива нет свойства classList, обратились к конкретному элементу по индексу и получил свойство: classList
+console.log(btn[0].classList.length); // получил: 2 (длинна или количество элементов в массиве)
+console.log(btn[0].classList.item(0)); // метод item(0) позволяет получать класс элемента под индексом 0: blue !!!
+console.log(btn[0].classList.item(1)); // класс элемента под индексом 1: some !!!
 console.log(btn[0].classList.add('red')); // метод add('class') подволяет добавлять выбранному элементу новый класс!!!
-console.log(btn[2].classList.add('blue', 'ertrert', 'pop')); //через запятую можно добавлять несколько классов
+console.log(btn[2].classList.add('blue', 'ertrert', 'pop')); // через запятую можно добавлять несколько классов
 console.log(btn[0].classList.remove('blue')); // метод remove('class') подволяет удалять у выбранного элемента класс!!!
 console.log(btn[0].classList.toggle('some')); // метод toggle('class') подволяет переключать или удалять у выбранного элемента класс, если он есть и наоборот !!!
 console.log(btn[0].classList.toggle('some')); // теперь он добавился!!!! КРАЙНЕ КРУТОЕ СВОЙСТВО!!!
 
-// условие if contains - позволяет проверять наличие класса на элементе и в случае true выполняем действия
+// условие if contains() - позволяет проверять наличие класса на элементе и, в случае true, выполняет действия
 console.log(btn[1].classList.add('red'));
 if (btn[1].classList.contains('red')) {
 	console.log('red');
@@ -36,16 +36,16 @@ btn[3].addEventListener('click', () => {
 });
 
 // ДЕЛЕГИРОВАНИЕ СОБЫТИЙ - ОДНО И ТОЖЕ СОБЫТИЕ НАЗНАЧАЕТСЯ СРАЗУ НЕСКОЛЬКИМ ЭЛЕМЕНТАМ ЧЕРЕЗ РОДИТЕЛЯ ЭЛЕМЕНТОВ, экономит размер скрипта!!!
-wrapper.addEventListener('click', (event) => {
-	// console.dir(event.target); // просматриваем событие event.target на существование в качестве объекта, находим свойство кнопки button tagName: 'BUTTON'
-	if (event.target && event.target.tagName == 'BUTTON') { // делегировали всем кнопкам
+wrapper.addEventListener('click', (event) => { // делегировали всем кнопкам
+	if (event.target && event.target.tagName == 'BUTTON') { // просматриваем событие event.target на существование в качестве объекта, находим свойство кнопки button tagName: 'BUTTON'
+		// console.dir(event.target);
 		console.log('Hello!');
 	}
 });
 
-wrapper.addEventListener('click', (event) => {
-	// console.dir(event.target); // просматриваем событие event.target на существование в качестве объекта, находим свойство кнопки button tagName: 'BUTTON'
-	if (event.target && event.target.classList.contains('red')) { // делегировали всем кнопкам с классом red
+wrapper.addEventListener('click', (event) => { // делегировали всем кнопкам с классом red
+	// console.dir(event.target);
+	if (event.target && event.target.classList.contains('red')) { // просматриваем событие event.target на существование в качестве объекта, находим свойство кнопки button tagName: 'BUTTON'
 		console.log('Hello2!');
 	}
 });
@@ -58,5 +58,5 @@ wrapper.addEventListener('click', (event) => {
 });
 const btnNew = document.createElement('button');
 btnNew.classList.add('blue'); // назначаем класс
-wrapper.append(btnNew); // так как wrapper динамический элемент, мы пользуемся методом append('') для помещения новой кнопки в обертку
+wrapper.append(btnNew); // так как wrapper динамический элемент, мы пользуемся методом append('') для добавления новой кнопки в обертку
 btnNew.textContent = '8 NEW'; // добавляем текст в выбранную новую кнопку
