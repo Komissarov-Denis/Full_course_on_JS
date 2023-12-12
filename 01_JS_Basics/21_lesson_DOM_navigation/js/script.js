@@ -2,9 +2,7 @@
 
 // 'use strict';
 
-// взять элемент и поменять класс у его родителя
-
-// метод обращения к внутреним узлам родителя
+// взять элемент и поменять класс у его родителя + метод обращения к внутреним узлам родителя
 console.log(document.documentElement);
 console.log(document.head);
 console.log(document.body);
@@ -19,8 +17,7 @@ console.log(document.querySelector('#current').parentNode); // родитель�
 console.log(document.querySelector('#current').parentNode.parentNode);
 console.log(document.querySelector('#current').parentElement);
 
-// "<li data-current="3">3</li>" - дата атрибуты "data"-основная;
-// "-current="3"-произвольная по смыслу, ' ="3" или = true'
+// "<li data-current="3">3</li>" - дата атрибуты "data"- основная; "-current="3"-произвольная по смыслу, ' ="3" или = true'
 console.log(document.querySelector('[data-current="3"]'));
 console.log(document.querySelector('[data-current="3"]').nextSibling);
 console.log(document.querySelector('[data-current="3"]').previousSibling);

@@ -29,7 +29,7 @@ hearts.forEach(item => {
 	item.style.backgroundColor = 'blue';
 });
 
-// методы создания верстви в JS
+// методы создания верстки в JS
 const divBlack = document.createElement('div'); // создание блока внутри JS файла
 // const text = document.createTextNode('Тут был я!');
 divBlack.classList.add('div__black'); // добавляем классы к блоку
