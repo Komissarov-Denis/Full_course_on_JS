@@ -46,18 +46,18 @@ console.log(anotherNum); // получил 50
 // FUNCTION EXPRESION - ФУНКЦИОНАЛЬНОЕ ВЫРАЖЕНИЕ - ФУНКЦИЯ ПОМЕЩАЕТСЯ В ПЕРЕМЕННУЮ!!!
 // ОНА ЗАПУСКАЕТСЯ ИМЕННО ТОГДА, КОГДА ОБЪЯВЛЯЕТСЯ ПЕРЕМЕННАЯ!!!
 const logger = function () {
-	console.log('Hellow World!'); // получил Hellow World!
+	console.log('Hellow World!'); // получил: Hellow World!
 }; // тут переменная, точка с запятой обязательна!!!
 logger();
 
 // СТРЕЛОЧНЫЕ ФУНКЦИИ -
 
 const calc1 = (a, b) => { return a + b; }; // полная форма
-console.log(calc1(4, 3)); // получил 7
-console.log(calc1(5, 7)); // получил 12
-console.log(calc1(8, 13)); // получил 21
+console.log(calc1(4, 3)); // получил: 7
+console.log(calc1(5, 7)); // получил: 12
+console.log(calc1(8, 13)); // получил: 21
 
 const calc2 = (a, b) => a + b; // сокращенная форма!!! НЕ ИМЕЕТ КОНТЕКСТА ВЫЗОВА и ПРИМЕНИМА В ОБРАБОТЧИКАХ СОБЫТИЙ!!!
-console.log(calc2(4, 3)); // получил 7
-console.log(calc2(5, 7)); // получил 12
-console.log(calc2(8, 13)); // получил 21
+console.log(calc2(4, 3)); // получил: 7
+console.log(calc2(5, 7)); // получил: 12
+console.log(calc2(8, 13)); // получил: 21

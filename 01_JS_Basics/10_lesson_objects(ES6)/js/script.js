@@ -11,27 +11,33 @@ const options = {
 		bg: 'red',
 	},
 	makeTest: function() {
-		console.log('Test'); // так записываются методы!!!
+		console.log('Test'); // получил: Test, так записываются методы!!!
 	}
 };
-options.makeTest(); // мы можем создавать собственные методы!!!!!!!!!!!!!
+options.makeTest(); // мы можем создавать собственные методы!!!
 
 // ДЕСТРУКТУРИЗАЦИЯ ОБЪЕКТА!!!!
-const { border, bg } = options.colors; // запись деструктурированного объекта!!!!
-console.log(border); // вытаскиваем кусочки свойств в качестве отдельных переменных!!!
-console.log(bg); // вытаскиваем кусочки свойств в качестве отдельных переменных!!!
+const {border, bg} = options.colors; // запись деструктурированного объекта!!!
+console.log(border); // получил: black, вытаскиваем кусочки свойств в качестве отдельных переменных!!!
+console.log(bg); // получил: red, вытаскиваем кусочки свойств в качестве отдельных переменных!!!
+console.log(options.name); // получил: test
+console.log(options.colors); // получил: { border: 'black', bg: 'red' }
+console.log(options['colors']['border']);  // получил: black, запись не особо правильная, для этого существует деструктуризация объекта =>
+console.log(options.colors.border);  // получил: black
+console.log(options['colors']['bg']); // получил: red
+console.log(options.colors.bg); // получил: red
 
-console.log(options.name);
-console.log(options.colors);
-console.log(options['colors']['border']); // запись не особо правильная, для этого существует деструктуризация объекта =>
-console.log(options.colors.border); 
-console.log(options['colors']['bg']);
-console.log(options.colors.bg);
-delete options.name; // оператор удаления
-// console.log(options);
-console.log(Object.keys(options)); // метод перебора ключей объекта
+delete options.name;// оператор удаления
+console.log(options); // получил: 
+// {
+// 	width: 1024,
+// 	heigth: 1024,
+// 	colors: { border: 'black', bg: 'red' },
+// 	makeTest: [Function: makeTest]
+// }
 
-console.log(Object.keys(options).length); // у строк и у массивов есть свойство length!!!
+console.log(Object.keys(options));  // получил: [ 'width', 'heigth', 'colors', 'makeTest' ], метод перебора ключей объекта после удаления ключа: name!!!
+console.log(Object.keys(options).length);  // получил: 4, у строк и у массивов есть свойство length!!!
 
 // подсчет свойств во всем объекте!!!!
 let counter = 0;
@@ -46,4 +52,12 @@ for (let key in options) {
 		counter++; // количество свойств на верхнем уровне!!!!!
 	}
 }
-console.log(counter);
+console.log(counter); // получил:
+// Свойство - width имеет значение - 1024
+// Свойство - heigth имеет значение - 1024
+// Свойство - border имеет значение - black
+// Свойство - bg имеет значение - red
+// Свойство - makeTest имеет значение - function() {
+// 		console.log('Test'); // получил: Test, так записываются методы!!!
+// }
+// 3
