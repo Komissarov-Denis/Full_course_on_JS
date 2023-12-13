@@ -9,7 +9,7 @@ const person = {
 	tel: '+7444444444',
 };
 console.log(JSON.stringify(person)); // подготовка для передачи данных на сервер, все значения в двойных кавычках "" - {"name":"Alex","tel":"+7444444444"}!!!
-console.log(JSON.parse(JSON.stringify(person))); // получаем обратно самый обычный объект - { name: 'Alex', tel: '+7444444444' }!!!
+console.log(JSON.parse(JSON.stringify(person))); // получаем обратно самый обычный объект - {name: 'Alex', tel: '+7444444444'}!!!
 
 const person2 = {
 	name: 'Alex',
@@ -19,7 +19,7 @@ const person2 = {
 		dad: 'Mike',
 	}
 };
-const clone = JSON.parse(JSON.stringify(person2)); // ОЧЕНЬ УДОБНЫЙ МЕТОД ДЛЯ ГЛУБИННОГО КЛОНИРОВАНИЯ/КОПИРОВАНИЯ ОБЪЕКТОВ!!!!
+const clone = JSON.parse(JSON.stringify(person2)); // ОЧЕНЬ УДОБНЫЙ МЕТОД ДЛЯ ГЛУБИННОГО КЛОНИРОВАНИЯ/КОПИРОВАНИЯ ОБЪЕКТОВ!!!
 console.log(clone);
 clone.parents.mom = 'Ann';
 console.log(person2);
@@ -44,5 +44,6 @@ console.log(clone);
 
 const json = JSON.stringify(Object.fromEntries(formData.entries())); // пример конвертации запросов из проекта FOOD
 const obj = {a: 23, b: 50};
+console.log(Object.entries(json));
 console.log(Object.entries(obj)); // получил [ [ 'a', 23 ], [ 'b', 50 ] ] массив массивов
 console.log(Object.fromEntries(Object.entries(obj))); // получил { a: 23, b: 50 } конвертировал обратно в объект
