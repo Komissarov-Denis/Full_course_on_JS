@@ -3,19 +3,19 @@
 'use strict';
 
 // КЛАССЫ это те же ФУНКЦИИ
-class Rectangle { // имя класса прописываем с ЗАГЛАВНОЙ буквы!!!! (прямоугольник)
+class Rectangle { // (прямоугольник) имя класса прописываем с ЗАГЛАВНОЙ буквы!!!
 	constructor(height, width) { // параметры (height, width) будут приходить извне при создании экземпляра класса
 		this.height = height; // переданные аргументы записываются в свойства нового объекта, так как классы также служат для создания новых объектов
 		this.width = width;
-	}															// КОНЦЕПЦИЯ ЕДИНООБРАЗНЫХ ДЕЙСТВИЙ!!!
-	calcArea() { // тут методы записываются без знаков препиния!!!
+	}															// => КОНЦЕПЦИЯ ЕДИНООБРАЗНЫХ ДЕЙСТВИЙ!!!
+	calcArea() { // (вычислитель площади) тут методы записываются без знаков препиния!!!
 		return this.height * this.width;
 	}
 }
-const square = new Rectangle(10, 12); // получил 120
-const long = new Rectangle(10, 22); // получил 220				// СОЗДАННЫЕ НА ОСНОВЕ КОНЦЕПЦИИ ЭКЗЕМПЛЯРЫ!!!
-console.log(square.calcArea());
-console.log(long.calcArea());
+const square = new Rectangle(10, 12);
+const long = new Rectangle(10, 22);								// => СОЗДАННЫЕ НА ОСНОВЕ КОНЦЕПЦИИ ЭКЗЕМПЛЯРЫ!!!
+console.log(square.calcArea());  // получил: 120
+console.log(long.calcArea()); // получил: 220	
 
 class ColoredRectangleWithText extends Rectangle { // принцип наследования от Rectangle
 	constructor(height, width, text, bgColor) {
