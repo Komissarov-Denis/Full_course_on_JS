@@ -9,10 +9,9 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
 	headers: {
 		'Content-type': 'application/json'
 	}
-}) // 
-	.then(response => response.json())		// тут мы получаем ответ от сервера в формате json (JS объект, который можно дальше использовать), т.е. вернется PROMISE, если он успешен =>
-	.then(json => console.log(json));	// то дальше мы его используем в консоли
-
+}) 
+	.then(response => response.json()) // тут мы получаем ответ от сервера в формате json (JS объект, который можно дальше использовать), т.е. вернется PROMISE, если он успешен =>
+	.then(json => console.log(json)); // то дальше мы его используем в консоли
 // Получил:
 // {name: 'Alex', id: 101}id: 101name: "Alex"[[Prototype]]: Object
 // соответственно: нам вернулась 101 запись, так как на фетче уже 100 постов, это корректное поведение для проверки, с ним работа проще чем с XMLHttpRequest
@@ -29,7 +28,7 @@ const message = {
 forms.forEach(item => { // берем все созданные формы и подвязываем функцию bindpostData
 	bindPostData(item);
 });
-const postData = async (url, data) => { // function expression -  без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + async в связи с асинхронностью 
+const postData = async (url, data) => { // function expression - без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + async в связи с асинхронностью 
 	const result = await fetch(url, { // в fetch(), url - указываем первым аргументом адрес сервера, data - данные, которые будут поститься - т.е. отправляем сформированный запрос + await для ожидания ответа от сервера
 		method: 'POST',
 		headers: {
@@ -58,7 +57,7 @@ function bindPostData(form) { // будем (bind) привязывать как
 		// formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
 		// 	objectJson[key] = value;
 		// });
-		// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем оson в строку JSON с двойными ковычками =>
+		// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем json в строку JSON с двойными ковычками =>
 		// это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
 		const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
 		postData('http://localhost:3000/requests', json)

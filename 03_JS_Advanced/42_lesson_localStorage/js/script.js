@@ -7,7 +7,7 @@
 localStorage.setItem('number', 5); // первым аргументом передаем ключ - number, вторым его значение - 5.  (если есть такое значение, то оно перезапишется)
 localStorage.removeItem('number'); // удаление ключа
 localStorage.clear(); // очищаем все значения localStorage
-console.log(localStorage.getItem('number')); // получаем значения от localStorage - 5
+console.log(localStorage.getItem('number')); // получаем значения от localStorage: 5
 
 const checkbox = document.querySelector('#checkbox');
 const form = document.querySelector('form');
