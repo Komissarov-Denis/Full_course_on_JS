@@ -10,7 +10,7 @@ const inputRub = document.querySelector('#rub');
 const inputUsd = document.querySelector('#usd');
 
 // inputRub.addEventListener('change'); // событие change возникает, когда inputRub уходит из фокуса (кликаем на другой input)
-inputRub.addEventListener('input', () => { // более универсальное событие
+inputRub.addEventListener('input', () => { // более универсальное событие, срабатывает при клике в поле input
 	const request = new XMLHttpRequest(); // с помощью конструктора создаем новый объект
 	request.open('GET', 'js/current.json'); // метод собирает настройки для запроса
 	request.setRequestHeader('Content-Type', 'application/json; charset=utf-8'); // заголовок для передачи JSON файла
@@ -78,7 +78,7 @@ function postData(form) { // передавать будем какую-то ф�
 		// request.setRequestHeader('Content-type', 'multipart/form-data'); // задаем заголовок контента для php...НО, В СВЯЗКЕ XMLHttpRequest() И FormData() - ЗАГОЛОВОК УСТАНАВЛИВАТЬ НЕ НУЖНО!!!
 		request.setRequestHeader('Content-type', 'application/json'); // задаем заголовок контента для отправки в формате json, если этого затребует бэкэндер
 		const formData = new FormData(form); // FormData(form) отыскивает в html атрибут name в тегах input всех форм, без него работать не будет!!!
-		const objectJson = {}; // сождал новый объект для отправки данных в формате json
+		const objectJson = {}; // создал новый объект для отправки данных в формате json
 		formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
 			objectJson[key] = value;
 		});
