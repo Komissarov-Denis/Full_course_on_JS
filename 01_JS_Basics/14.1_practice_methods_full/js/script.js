@@ -84,3 +84,14 @@ personalMovieDB.numbOfFilms();
 personalMovieDB.detectPersonalLevel();
 personalMovieDB.rememberMyFilms();
 personalMovieDB.writeYourGenres();
+
+
+// const result = document.querySelector('.calculating__result span'); // получили по селектору класс, в который будем записывать результат расчета
+// let sex, height, weight, age, ratio; // объявили несколко переменных (через let так как они будут меняться): пол, рост, вес, возраст и коэффициент активности
+// function calcTotal() { // подсчитываем конечный результат, но начинать подсчет будем с проверки наличия всех заполненных данных, запускаться будет при внесении изменений
+// 	if (!sex || !height || !weight || !age || !ratio) {
+// 		result.textContent = 'Нет данных!!!';
+// 		return; // прерываем досрочно функцию при отсутствии заполнения хотя бы одной переменной, все условия после return работать не будут!!!
+// 	}
+// 	if
+// }

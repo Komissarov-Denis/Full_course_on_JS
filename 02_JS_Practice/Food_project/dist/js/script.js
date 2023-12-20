@@ -463,5 +463,73 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 	
+	// CALCULATOR---------------------------------------------------------------------------
+	const result = document.querySelector('.calculating__result span'); // получили по селектору класс, в который будем записывать результат расчета
+	let sex = 'female', height, weight, age, ratio = 1.375; // объявили несколко переменных (через let так как они будут меняться): пол, рост, вес, возраст и коэффициент активности
+	function calcTotal() { // подсчитываем конечный результат, но начинать подсчет будем с проверки наличия всех заполненных данных, запускаться будет при внесении изменений
+		if (!sex || !height || !weight || !age || !ratio) {
+			result.textContent = '...';
+			return; // прерываем досрочно функцию при отсутствии заполнения хотя бы одной переменной, все условия после return работать не будут!!!
+		}
+		if (sex === 'female') {
+			result.textContent = Math.round((447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * ratio); // метод Math.round() - округляет до целого числа 
+		} else {
+			result.textContent = Math.round((88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * ratio); // метод Math.round() - округляет до целого числа 
+		}
+	}
+	calcTotal();
+	function getStaticInformation(parentSelector, activeClass) { // применять функцию будем на двух аргументах: народительском селекторе и классе активности, для получения информации со статических блоков
+		const elements = document.querySelectorAll(`${parentSelector} div`); // получим элементы (все div) внутри родительского блока
+		elements.forEach(elem => {
+			elem.addEventListener('click', (e) => { // отслеживаем все клики по родительскому элементу, который содержит все div (делегирование событий) при помощи коллбэк функции
+				if (e.target.getAttribute('data-ratio')) { // если это блок - ratio (т.е. содержит атрибут data-ratio), то получаем значения по data-ratio атрибуту, 
+					ratio = +e.target.getAttribute('data-ratio'); // присваиваем переменной ratio числовое значение атрибута data-ratio
+				} else {
+					sex = e.target.getAttribute('id'); // если блок - gender/sex, то значаения получаем по id 
+				}
+				console.log(ratio, sex);
+				elements.forEach(elem => { // меняем классы активности
+					elem.classList.remove(activeClass);
+				});
+				e.target.classList.add(activeClass);
+				calcTotal();
+			});
+		});
+		// document.querySelector(parentSelector).addEventListener('click', (e) => { // отслеживаем все клики по родительскому элементу, который содержит все div (делегирование событий) при помощи коллбэк функции
+		// 	if (e.target.getAttribute('data-ratio')) { // если это блок - ratio (т.е. содержит атрибут data-ratio), то получаем значения по data-ratio атрибуту, 
+		// 		ratio = +e.target.getAttribute('data-ratio'); // присваиваем переменной ratio числовое значение атрибута data-ratio
+		// 	} else {
+		// 		sex = e.target.getAttribute('id'); // если блок - gender/sex, то значаения получаем по id 
+		// 	}
+		// 	console.log(ratio, sex);
+		// 	elements.forEach(elem => { // меняем классы активности
+		// 		elem.classList.remove(activeClass);
+		// 	});
+		// 	e.target.classList.add(activeClass);
+		// 	calcTotal();
+		// }); // но делегширование в данном случаесоздает сложность, когда кликаешь на родительский блок, он подсвечивается, так как ему назначается класс активности
+	}
+	getStaticInformation('#gender', 'calculating__choose-item_active');
+	getStaticInformation('.calculating__choose_big', 'calculating__choose-item_active');
+	function getDynamicInformation(selector) { // функция обрабатывает каждый отдельный input
+		const input = document.querySelector(selector);
+		input.addEventListener('input', () => { // используем switch case конструкцию
+			switch(input.getAttribute('id')) { // проверяем input по уникальному идентификатору
+			case 'height': // если это рост, то записываем в него значение роста
+				height = +input.value;
+				break;
+			case 'weight': // если это вес, то записываем в него значение веса
+				weight = +input.value;
+				break;
+			case 'age': // если это возраст, то записываем в него значение возраста
+				age = +input.value;
+				break;
+			}
+			calcTotal();
+		});
+	}
+	getDynamicInformation('#height');
+	getDynamicInformation('#weight');
+	getDynamicInformation('#age');
 
 });
