@@ -1,0 +1,35 @@
+{
+	"name": "module_webpack_test",
+	"version": "1.0.0",
+	"description": "module_webpack_test",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Komissarov Denis",
+	"license": "ISC",
+	"devDependencies": {
+		"browser-sync": "^2.29.1",
+		"gulp": "^4.0.2",
+		"gulp-autoprefixer": "^8.0.0",
+		"gulp-clean": "^0.4.0",
+		"gulp-clean-css": "^4.3.0",
+		"gulp-cli": "^2.3.0",
+		"gulp-htmlmin": "^5.0.1",
+		"gulp-imagemin": "^7.1.0",
+		"gulp-rename": "^2.0.0",
+		"gulp-sass": "^5.1.0",
+		"imagemin": "^8.0.1",
+		"json-server": "^0.17.4",
+		"sass": "^1.62.0",
+		"webpack": "^5.89.0",
+		"webpack-cli": "^5.1.4",
+		"webpack-stream": "^7.0.0"
+	},
+	"browserslist": [
+		"last 1 version",
+		"> 1%",
+		"not dead"
+	]
+}
