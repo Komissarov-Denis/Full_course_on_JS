@@ -7,10 +7,22 @@
 	<title>Lesson</title>
 </head>
 <body>
-    
 
-    <!-- <script src="../js/webpack/script.bundle.js"></script> -->
-	<script src="./js/webpack/script.bundle.js"></script>
+	<h1>INDEX.HTML</h1>
+
+	@@include('html/sections/nav.html')
+	@@include('html/sections/menu.html')
+	@@include('html/sections/offer.html')
+	@@include('html/sections/order.html')
+
+	<div class="contacts__policy">
+		<div class="contacts__agreement">Я согласен(а)</div>
+		<a class="contacts__link" href="/policy.html">с политикой конфиденциальности</a>
+	</div>
+
+
+	<!-- <script src="./js/webpack/script.bundle.js"></script> -->
+	<script src="./webpack/script.bundle.js"></script>
 
 </body>
 </html>
