@@ -1,146 +1,135 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	// The require scope
-/******/ 	var __webpack_require__ = {};
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-/*!**************************!*\
-  !*** ./src/js/script.js ***!
-  \**************************/
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/js/modules/calculator.js":
+/*!**************************************!*\
+  !*** ./src/js/modules/calculator.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
 __webpack_require__.r(__webpack_exports__);
 /* eslint-disable linebreak-style */
-window.addEventListener('DOMContentLoaded', () => {
-
-	// TABS-----------------------------------------------------------
-	const tabs =  document.querySelectorAll('.tabheader__item');
-	const tabsContent = document.querySelectorAll('.tabcontent');
-	const tabsParent = document.querySelector('.tabheader__items');
-	function hideTabContent() { // функция скрывает часть табов
-		tabsContent.forEach(item => {
-			// item.style.display = 'none';
-			item.classList.add('hide');
-			item.classList.remove('show', 'fade');
-		});
-		tabs.forEach(item => {
-			item.classList.remove('tabheader__item_active');
-		});
+// CALCULATOR-----------------------------------------------------
+function Calculator() {
+	const result = document.querySelector('.calculating__result span'); // получили по селектору класс, в который будем записывать результат расчета
+	let sex, height, weight, age, ratio = 1.375; // объявили несколко переменных (через let так как они будут меняться): пол, рост, вес, возраст и коэффициент активности
+	if (localStorage.getItem('sex')) { // назначим проверку при получении значений элементов из localStorage
+		sex = localStorage.getItem('sex'); // присваиваем значение переменной sex из localStorage
+	} else {
+		sex = 'female'; // если нет значения элементов sex из localStorage, то вводим их вручную
+		localStorage.setItem('sex', 'female'); // присваиваем в localStorage опционально значение полу
 	}
-	function showTabContent(i = 0) { // ES6 позволяет по умолчанию задать значение аргумента в "0"!!!
-		// tabsContent[i].style.display = 'block';
-		tabsContent[i].classList.add('show', 'fade');
-		tabsContent[i].classList.remove('hide');
-		tabs[i].classList.add('tabheader__item_active');
+	if (localStorage.getItem('ratio')) { // назначим проверку при получении значений элементов из localStorage
+		ratio = localStorage.getItem('ratio'); // присваиваем значение переменной ratio из localStorage
+	} else {
+		ratio = 1.375; // если нет значения элементов ratio из localStorage, то вводим их вручную
+		localStorage.setItem('ratio', 1.375); // присваиваем в localStorage опционально значение активности
 	}
-	hideTabContent();
-	showTabContent();
-	tabsParent.addEventListener('click', (event) => {
-		const target = event.target; // ЧАСТОЕ ИСПОЛЬЗОВАНИЕ event.target УДОБНО ПЕРЕОПРЕДЕЛИТЬ В ПЕРЕМЕННУЮ!!!
-		if (target && target.classList.contains('tabheader__item')) {
-			tabs.forEach((item, i) => { // для каждого элемента item (tab) с номером i в массиве
-				if (target == item) { // если целевое событие соответствует этому элементу по клику
-					hideTabContent();
-					showTabContent(i); // при переключении tab скрываем остальные
-				}
-			});
-		}
-	});
-
-	// TAIMER-(обратного отсчета)-------------------------------------
-	const deadLine = '2023-12-31'; // переводим в миллисекунды строку, создав новую переменную в виде строки... setClock('.timer', deadLine);
-	function getTimeRemaining(endTime) { // функция оставшегося времени определяет разницу между deadLine (endTime) и текущим временем (new Date())
-		const t = Date.parse(endTime) - Date.parse(new Date()); // метод Date.parse - переводит строку в миллисекунды
-		const days = Math.floor(t / (1000 * 60 * 60 * 24)); // Math.floor - округление до ближайшего целого (миллисек * сек * мин * час в сутках)!
-		const hours = Math.floor((t / (1000 * 60 * 60) % 24)); // % - остаток от деления, например 50 / 24 = 2 дня и 2 часа, возвращаем 2 часа!
-		const minutes = Math.floor((t / 1000 / 60) % 60);
-		const seconds = Math.floor((t / 1000) % 60);
-		return { // создаем объект!!!
-			'total': t,
-			'days': days,
-			'hours': hours,
-			'minutes': minutes,
-			'seconds': seconds,
-		};
-	}
-	function getZero(num) { // функция подставления 0 до двузначного числа!!!
-		if (num >= 0 && num < 10) {
-			return `0${num}`;
-		} else {
-			return num;
-		}
-	}
-	function setClock(selector, endTime) {
-		const timer = document.querySelector(selector); // это div.timer так как setClock('.timer', deadLine);
-		const days = timer.querySelector('#days');
-		const hours = timer.querySelector('#hours');
-		const minutes = timer.querySelector('#minutes');
-		const seconds = timer.querySelector('#seconds');
-		const timeInterval = setInterval(updateClock, 1000); // функция updateClock будет запускаться каждые 1000 миллисекунд
-		updateClock(); // функция запускается один раз первоначально, для избежания мигания таймера, потом устанавливается setInterval в 1000 миллисекунд
-		function updateClock () { // расчет времени на данную секунду, разница между планируемым временем и текущим
-			const t = getTimeRemaining(endTime); // расчет времени запишется на страницу
-			days.innerHTML = getZero(t.days);
-			hours.innerHTML = getZero(t.hours);
-			minutes.innerHTML = getZero(t.minutes);
-			seconds.innerHTML = getZero(t.seconds);
-			if (t.total <= 0) {
-				clearInterval(timeInterval); // останавливаем таймер как только время выйдет, когда (new Date()) будет больше (endTime)
+	function initLocalSettings(selector, activeClass) { // перебираем все элементы в sex и ratio, при совпадении с ключами в localStorage с sex: female и ratio: 1.375, назначаем класс активности
+		const elements = document.querySelectorAll(selector); // присваиваем селектор переменной elements
+		elements.forEach(elem => { // начинаемперебирать все элементы в sex и ratio
+			elem.classList.remove(activeClass); // удаляем сразу все классы активности заранее
+			if (elem.getAttribute('id') === localStorage.getItem('sex')) { // перебираем по id соответствия в localStorage с sex: female с назначением класса активности
+				elem.classList.add(activeClass);
 			}
+			if (elem.getAttribute('data-ratio') === localStorage.getItem('ratio')) { // перебираем по id соответствия в localStorage с ratio: 1.375 с назначением класса активности
+				elem.classList.add(activeClass);
+			}
+		});
+	} // при этом данная функция должна вызываться один раз при занесенных пользователем данных!!!!
+	initLocalSettings('#gender div', 'calculating__choose-item_active');
+	initLocalSettings('.calculating__choose_big div', 'calculating__choose-item_active');
+	function calcTotal() { // подсчитываем конечный результат, но начинать подсчет будем с проверки наличия всех заполненных данных, запускаться будет при внесении изменений
+		if (!sex || !height || !weight || !age || !ratio) { // строка (+'fbgdfj') при преобразовании в числовой формат дает NaN, а NaN == false; при проверке значения: true, т.е. на наличие =>
+			result.textContent = '?...'; // => всех заполненых переменных, они преобразуются в конструкции switch к числу (+input.value;); но если хотя бы одно значение будет NaN == false, то =>
+			return; // => прерываем досрочно функцию с сообщением '?...' и все условия после return работать не будут!!!
+		}
+		if (sex === 'female') {
+			result.textContent = Math.round((447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * ratio); // метод Math.round() - округляет до целого числа 
+		} else {
+			result.textContent = Math.round((88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * ratio); // метод Math.round() - округляет до целого числа 
 		}
 	}
-	setClock('.timer', deadLine);
+	calcTotal();
+	function getStaticInformation(selector, activeClass) { // применять функцию будем на двух аргументах: на селекторе и классе активности, для получения информации со статических блоков
+		const elements = document.querySelectorAll(selector); // получим элементы (все div) внутри блоков #gender и .calculating__choose_big
+		elements.forEach(elem => {
+			elem.addEventListener('click', (e) => { // отслеживаем все клики по родительскому элементу, который содержит все div (делегирование событий) при помощи коллбэк функции
+				if (e.target.getAttribute('data-ratio')) { // если это блок - ratio (т.е. содержит атрибут data-ratio), то получаем значения по data-ratio атрибуту, 
+					ratio = +e.target.getAttribute('data-ratio'); // присваиваем переменной ratio числовое значение атрибута data-ratio
+					localStorage.setItem('ratio', +e.target.getAttribute('data-ratio')); // добавляем в localStorage постоянные данные, выбранные пользователем
+				} else {
+					sex = e.target.getAttribute('id'); // если блок - gender/sex, то значаения получаем по id
+					localStorage.setItem('sex', e.target.getAttribute('id')); // добавляем в localStorage постоянные данные, выбранные пользователем
+				}
+				console.log(ratio, sex);
+				elements.forEach(elem => { // меняем классы активности
+					elem.classList.remove(activeClass);
+				});
+				e.target.classList.add(activeClass);
+				calcTotal();
+			});
+		});
+		// function getStaticInformation(parentSelector, activeClass) { // применять функцию будем на двух аргументах: на родительском селекторе и классе активности, для получения информации со статических блоков
+		// 	const elements = document.querySelectorAll(`${parentSelector} div`); // получим элементы (все div) внутри родительского блока
+		// document.querySelector(parentSelector).addEventListener('click', (e) => { // отслеживаем все клики по родительскому элементу, который содержит все div (делегирование событий) при помощи коллбэк функции
+		// 	if (e.target.getAttribute('data-ratio')) { // если это блок - ratio (т.е. содержит атрибут data-ratio), то получаем значения по data-ratio атрибуту, 
+		// 		ratio = +e.target.getAttribute('data-ratio'); // присваиваем переменной ratio числовое значение атрибута data-ratio
+		// 	} else {
+		// 		sex = e.target.getAttribute('id'); // если блок - gender/sex, то значаения получаем по id 
+		// 	}
+		// 	console.log(ratio, sex);
+		// 	elements.forEach(elem => { // меняем классы активности
+		// 		elem.classList.remove(activeClass);
+		// 	});
+		// 	e.target.classList.add(activeClass);
+		// 	calcTotal();
+		// }); // !!!но делегирование в данном случае создает сложность, когда кликаешь на родительский блок, он подсвечивается, так как ему назначается класс активности!!!
+		// }
+	}
+	getStaticInformation('#gender div', 'calculating__choose-item_active');
+	getStaticInformation('.calculating__choose_big div', 'calculating__choose-item_active');
+	function getDynamicInformation(selector) { // функция обрабатывает каждый отдельный input
+		const input = document.querySelector(selector);
+		input.addEventListener('input', () => { // используем switch case конструкцию
+			if (input.value.match(/\D/g)) { // если мы вводим в input значение value не соответствующее цифрам, то не позволяем выполнять вычисления!!!
+				input.style.border = '2px solid red'; // так же задаём красныую обводку блоку input
+			} else {
+				input.style.border = 'none'; // ПРОВЕРКА НА ОТМЕТКУ/ВВОД ДАННЫХ В ИНПУТ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			}
+			switch(input.getAttribute('id')) { // проверяем input по уникальному идентификатору
+			case 'height': // если это рост, то записываем в него значение роста
+				height = +input.value;
+				break;
+			case 'weight': // если это вес, то записываем в него значение веса
+				weight = +input.value;
+				break;
+			case 'age': // если это возраст, то записываем в него значение возраста
+				age = +input.value;
+				break;
+			}
+			calcTotal();
+		});
+	}
+	getDynamicInformation('#height');
+	getDynamicInformation('#weight');
+	getDynamicInformation('#age');
+}
+/* harmony default export */ __webpack_exports__["default"] = (Calculator);
 
-	// MODAL----------------------------------------------------------
-	const modalTrigger = document.querySelectorAll('[data-modal]');
-	const modalWindow = document.querySelector('.modal');
-	// const modalCloseBtn = document.querySelector('[data-close]'); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную переменную
-	function openModalWindow() {
-		modalWindow.classList.add('show');
-		modalWindow.classList.remove('hide');
-		document.body.style.overflow = 'hidden'; // при открытии модального окна, скрываем скролл страницы	
-		clearInterval(modalTimerId); // если пользователь сам зарыл модальное окно, сбрасываем интервал его автооткрытия
-	}
-	modalTrigger.forEach(btn => {
-		btn.addEventListener('click', openModalWindow);
-	}); 
-	function closeModalWindow() {
-		modalWindow.classList.add('hide');
-		modalWindow.classList.remove('show');
-		document.body.style.overflow = ''; // при закрытии модального окна, включаем скролл страницы
-	}
-	// modalCloseBtn.addEventListener('click', closeModalWindow); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную часть
-	modalWindow.addEventListener('click', (e) => {
-		if (e.target === modalWindow || e.target.getAttribute('data-close') == '') { // если по клику целевое событие совпадает с модальным окном, то модальное окно закрывается
-			closeModalWindow();	// для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ добавляем условие  || e.target.getAttribute('data-close') == '' т.е. когда в елементе есть data-close со значение пустой строки, кликаем на подложку или крестик - окно закрывается		
-		}
-	});
-	document.addEventListener('keydown', (e) => {
-		if (e.code === 'Escape' && modalWindow.classList.contains('show')) { // по клавише ESC закрывается окно
-			closeModalWindow();
-		}
-	});
-	const modalTimerId = setTimeout(openModalWindow, 60000); // функция автооткрытия модального окна
-	function showModalWindowByScroll() {
-		if (window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight) { // отслеживаем сколько пикселей по оси Y отлистал пользователь + высота видимой части сравниваются с высотой/прокруткой всего контента
-			openModalWindow(); // если они совпадают, то пользователь долистал до конца контена => открывается модальное окно, но при каждом долистовании!!!
-			window.removeEventListener('scroll', showModalWindowByScroll); // как только пользователь долистал до конца, модальное окно выйдет только ОДИН РАЗ!!!! УДАЛЯЕМ ОБРАБОТЧИК!!!
-		} // нужно избежать подобных повторов, но =>
-	} // }, {once: true}); в данном случае не подходит, так как единоразовая прокрутка на 1px вызывает это условие!!!
-	window.addEventListener('scroll', showModalWindowByScroll); // отслеживаем событие scroll во всем окне браузера
-		
-	// CLASSES-for-CARDS--------------------------------------------------
+/***/ }),
+
+/***/ "./src/js/modules/cards.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/cards.js ***!
+  \*********************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* eslint-disable linebreak-style */
+// CLASSES-for-CARDS--------------------------------------------------
+function Cards() {    
 	class MenuCards {
 		constructor(srcImg, altText, title, descr, price, parentSelector, ...classes) { // добавил REST оператор, так как не известно - будут ли еще изменения в карточках меню
 			this.srcImg = srcImg;
@@ -244,85 +233,21 @@ window.addEventListener('DOMContentLoaded', () => {
 	// 	// 'third', // классы успешно добавляются
 	// 	// 'third__red',  // классы успешно добавляются
 	// ).render(); // заполняем новый класс MenuCards с помощью метода render()
+}
+/* harmony default export */ __webpack_exports__["default"] = (Cards);
 
-	// SEND-FORMS--------------------------------------fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ 
-	const forms = document.querySelectorAll('form');
-	const message = {
-		// loading: 'Загрузка...', // текст комментируем, так как будем использовать спиннер картинку
-		loading: 'img/form/spinner.svg', // добавляем картинку спиннера вместо надписи в блоке div Загрузка...
-		success: 'Спасибо! Скоро с Вами свяжемся!',
-		failure: 'Что-то пошло не так...',
-	};
-	forms.forEach(item => { // берем все созданные формы и подвязываем функцию bindpostData
-		bindPostData(item);
-	});
-	const postData = async (url, data) => { // function expression -  без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + async в связи с асинхронностью выполнения
-		const result = await fetch(url, { // в fetch(), url - указываем первым аргументом адрес сервера, data - данные, которые будут поститься - т.е. отправляем сформированный запрос + await для ожидания ответа от сервера
-			method: 'POST',
-			headers: {
-				'Content-type': 'application/json' 
-			},
-			body: data,	// создаем новый объект для формирования документа запроса fetch(), метод и заголовки указывать обязательно!!!	
-		}); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные
-		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
-	};
-	function bindPostData(form) { // будем (bind) привязывать какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
-		form.addEventListener('submit', (e) => {
-			e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера
-			// const statusMessage = document.createElement('div'); // создаем блок для сообщений
-			const statusMessage = document.createElement('img'); // вместо блока теперь будем использовать картинку спиннера
-			// statusMessage.classList.add('status'); // добавляем класс блоку сообщений
-			statusMessage.src = message.loading; // используем путь к спиннеру
-			statusMessage.textContent = message.loading; // заполняем блок главным сообщением 'Загрузка...'
-			statusMessage.style.cssText = `
-				display: block;
-				margin: 0 auto;
-			`; // добавляем стили спиннеру
-			// form.append(statusMessage); // к форме добавляем это сообщение 'Загрузка...'
-			form.insertAdjacentElement('afterend', statusMessage); // чтобы спиннер не сбивал верстку используем insertAdjacentElement() - вставить соседний элемент ()!!!
-			const formData = new FormData(form); // FormData(form) отыскивает в html атрибут name в тегах input всех форм, без него работать не будет!!!
-			// const objectJson = {}; // создал новый объект для отправки данных в формате json
-			// formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
-			// 	objectJson[key] = value;
-			// });
-			// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем оson в строку JSON с двойными ковычками =>
-			// это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
-			const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
-			postData('http://localhost:3000/requests', json)
-			// .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
-				.then(data => { // сервер вернет данные data, пока это не JSON
-					console.log(data); // берем data данные, которые вернул сервер из PROMISE (успешный исход)
-					showThanksModal(message.success); // вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
-					statusMessage.remove(); // удаляем наш спинер по выполнению PROMISE
-				}).catch(() => { // catch метод обязательно нужно прописывать для обратоток ошибок!!!
-					showThanksModal(message.failure);// вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!				
-				}).finally(() => { // finally метод обязательно нужно прописывать для обратоток оконечных действий
-					form.reset(); // очищаем форму после выведением сообщения				
-				});
-		}); 
-	}
-	function showThanksModal(message) { // создаем функцию динамической замены элементов мадального окна с отправкой сообщения message
-		const prevModalDialog = document.querySelector('.modal__dialog'); // получаем элемент modal__dialog
-		prevModalDialog.classList.add('hide'); // добавляем класс hide элементу modal__dialog
-		openModalWindow(); // команда открытия модальных окон
-		const thanksModal = document.createElement('div'); // создаем новый контент обертку
-		thanksModal.classList.add('modal__dialog'); // будем заменять один modal__dialog другим с новым контентом
-		thanksModal.innerHTML = ` 
-			<div class="modal__content">
-				<div class="modal__close" data-close>&times;</div>
-				<div class="modal__title">${message}</div>
-			</div>
-		`; // создаем новый контент и в первоначальном скрипте (MODAL----) настраиваем ДЕЛЕГИРОВАНИЕ СОБЫТИЙ!!!
-		document.querySelector('.modal').append(thanksModal); // помещаем новое модальное окно на страницу
-		setTimeout(() => { // чтобы новый динамический блок исчезал через 4 сек. и появлялся предыдущий сверстанный блок modal__dialog, применим асинхронную операцию setTimeout()
-			thanksModal.remove(); // thanksModal будем удалять, чтобы вновь созданные блоки не накапливались
-			prevModalDialog.classList.add('show'); // заменяем классы отображения сверстанного модального окна modal__dialog
-			prevModalDialog.classList.remove('hide');
-			closeModalWindow(); // закрываем модальное окно, чтобы не мешать пользователю
-		}, 4000);
-	}
-	
-	// SLIDER-------------------------------------ПРОСТОЙ ВАРИАНТ--------------------
+/***/ }),
+
+/***/ "./src/js/modules/carousel.js":
+/*!************************************!*\
+  !*** ./src/js/modules/carousel.js ***!
+  \************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* eslint-disable linebreak-style */
+function Carousel() {
+	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
 	// const slides = document.querySelectorAll('.offer__slide'); // получаем все слайды на странице
 	// const prev = document.querySelector('.offer__slider-prev'); // получаем стрелки перелистывания слайдов
 	// const next = document.querySelector('.offer__slider-next'); // получаем стрелки перелистывания слайдов
@@ -485,113 +410,351 @@ window.addEventListener('DOMContentLoaded', () => {
 			changeDotСondition();
 		});
 	});
-	
-	// CALCULATOR---------------------------------------------------------------------------
-	const result = document.querySelector('.calculating__result span'); // получили по селектору класс, в который будем записывать результат расчета
-	let sex, height, weight, age, ratio = 1.375; // объявили несколко переменных (через let так как они будут меняться): пол, рост, вес, возраст и коэффициент активности
-	if (localStorage.getItem('sex')) { // назначим проверку при получении значений элементов из localStorage
-		sex = localStorage.getItem('sex'); // присваиваем значение переменной sex из localStorage
-	} else {
-		sex = 'female'; // если нет значения элементов sex из localStorage, то вводим их вручную
-		localStorage.setItem('sex', 'female'); // присваиваем в localStorage опционально значение полу
-	}
-	if (localStorage.getItem('ratio')) { // назначим проверку при получении значений элементов из localStorage
-		ratio = localStorage.getItem('ratio'); // присваиваем значение переменной ratio из localStorage
-	} else {
-		ratio = 1.375; // если нет значения элементов ratio из localStorage, то вводим их вручную
-		localStorage.setItem('ratio', 1.375); // присваиваем в localStorage опционально значение активности
-	}
-	function initLocalSettings(selector, activeClass) { // перебираем все элементы в sex и ratio, при совпадении с ключами в localStorage с sex: female и ratio: 1.375, назначаем класс активности
-		const elements = document.querySelectorAll(selector); // присваиваем селектор переменной elements
-		elements.forEach(elem => { // начинаемперебирать все элементы в sex и ratio
-			elem.classList.remove(activeClass); // удаляем сразу все классы активности заранее
-			if (elem.getAttribute('id') === localStorage.getItem('sex')) { // перебираем по id соответствия в localStorage с sex: female с назначением класса активности
-				elem.classList.add(activeClass);
-			}
-			if (elem.getAttribute('data-ratio') === localStorage.getItem('ratio')) { // перебираем по id соответствия в localStorage с ratio: 1.375 с назначением класса активности
-				elem.classList.add(activeClass);
-			}
-		});
-	} // при этом данная функция должна вызываться один раз при занесенных пользователем данных!!!!
-	initLocalSettings('#gender div', 'calculating__choose-item_active');
-	initLocalSettings('.calculating__choose_big div', 'calculating__choose-item_active');
-	function calcTotal() { // подсчитываем конечный результат, но начинать подсчет будем с проверки наличия всех заполненных данных, запускаться будет при внесении изменений
-		if (!sex || !height || !weight || !age || !ratio) { // строка (+'fbgdfj') при преобразовании в числовой формат дает NaN, а NaN == false; при проверке значения: true, т.е. на наличие =>
-			result.textContent = '?...'; // => всех заполненых переменных, они преобразуются в конструкции switch к числу (+input.value;); но если хотя бы одно значение будет NaN == false, то =>
-			return; // => прерываем досрочно функцию с сообщением '?...' и все условия после return работать не будут!!!
-		}
-		if (sex === 'female') {
-			result.textContent = Math.round((447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * ratio); // метод Math.round() - округляет до целого числа 
-		} else {
-			result.textContent = Math.round((88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * ratio); // метод Math.round() - округляет до целого числа 
-		}
-	}
-	calcTotal();
-	function getStaticInformation(selector, activeClass) { // применять функцию будем на двух аргументах: на селекторе и классе активности, для получения информации со статических блоков
-		const elements = document.querySelectorAll(selector); // получим элементы (все div) внутри блоков #gender и .calculating__choose_big
-		elements.forEach(elem => {
-			elem.addEventListener('click', (e) => { // отслеживаем все клики по родительскому элементу, который содержит все div (делегирование событий) при помощи коллбэк функции
-				if (e.target.getAttribute('data-ratio')) { // если это блок - ratio (т.е. содержит атрибут data-ratio), то получаем значения по data-ratio атрибуту, 
-					ratio = +e.target.getAttribute('data-ratio'); // присваиваем переменной ratio числовое значение атрибута data-ratio
-					localStorage.setItem('ratio', +e.target.getAttribute('data-ratio')); // добавляем в localStorage постоянные данные, выбранные пользователем
-				} else {
-					sex = e.target.getAttribute('id'); // если блок - gender/sex, то значаения получаем по id
-					localStorage.setItem('sex', e.target.getAttribute('id')); // добавляем в localStorage постоянные данные, выбранные пользователем
-				}
-				console.log(ratio, sex);
-				elements.forEach(elem => { // меняем классы активности
-					elem.classList.remove(activeClass);
+}
+/* harmony default export */ __webpack_exports__["default"] = (Carousel);
+
+/***/ }),
+
+/***/ "./src/js/modules/forms.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/forms.js ***!
+  \*********************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* eslint-disable linebreak-style */
+// SEND-FORMS---------fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ 
+function Forms() {
+	const forms = document.querySelectorAll('form');
+	const message = {
+		// loading: 'Загрузка...', // текст комментируем, так как будем использовать спиннер картинку
+		loading: 'img/form/spinner.svg', // добавляем картинку спиннера вместо надписи в блоке div Загрузка...
+		success: 'Спасибо! Скоро с Вами свяжемся!',
+		failure: 'Что-то пошло не так...',
+	};
+	forms.forEach(item => { // берем все созданные формы и подвязываем функцию bindpostData
+		bindPostData(item);
+	});
+	const postData = async (url, data) => { // function expression -  без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + async в связи с асинхронностью выполнения
+		const result = await fetch(url, { // в fetch(), url - указываем первым аргументом адрес сервера, data - данные, которые будут поститься - т.е. отправляем сформированный запрос + await для ожидания ответа от сервера
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' 
+			},
+			body: data,	// создаем новый объект для формирования документа запроса fetch(), метод и заголовки указывать обязательно!!!	
+		}); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные
+		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
+	};
+	function bindPostData(form) { // будем (bind) привязывать какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
+		form.addEventListener('submit', (e) => {
+			e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера
+			// const statusMessage = document.createElement('div'); // создаем блок для сообщений
+			const statusMessage = document.createElement('img'); // вместо блока теперь будем использовать картинку спиннера
+			// statusMessage.classList.add('status'); // добавляем класс блоку сообщений
+			statusMessage.src = message.loading; // используем путь к спиннеру
+			statusMessage.textContent = message.loading; // заполняем блок главным сообщением 'Загрузка...'
+			statusMessage.style.cssText = `
+				display: block;
+				margin: 0 auto;
+			`; // добавляем стили спиннеру
+			// form.append(statusMessage); // к форме добавляем это сообщение 'Загрузка...'
+			form.insertAdjacentElement('afterend', statusMessage); // чтобы спиннер не сбивал верстку используем insertAdjacentElement() - вставить соседний элемент ()!!!
+			const formData = new FormData(form); // FormData(form) отыскивает в html атрибут name в тегах input всех форм, без него работать не будет!!!
+			// const objectJson = {}; // создал новый объект для отправки данных в формате json
+			// formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
+			// 	objectJson[key] = value;
+			// });
+			// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем оson в строку JSON с двойными ковычками =>
+			// это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
+			const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
+			postData('http://localhost:3000/requests', json)
+			// .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
+				.then(data => { // сервер вернет данные data, пока это не JSON
+					console.log(data); // берем data данные, которые вернул сервер из PROMISE (успешный исход)
+					showThanksModal(message.success); // вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
+					statusMessage.remove(); // удаляем наш спинер по выполнению PROMISE
+				}).catch(() => { // catch метод обязательно нужно прописывать для обратоток ошибок!!!
+					showThanksModal(message.failure);// вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!				
+				}).finally(() => { // finally метод обязательно нужно прописывать для обратоток оконечных действий
+					form.reset(); // очищаем форму после выведением сообщения				
 				});
-				e.target.classList.add(activeClass);
-				calcTotal();
+		}); 
+	}
+	function showThanksModal(message) { // создаем функцию динамической замены элементов мадального окна с отправкой сообщения message
+		const prevModalDialog = document.querySelector('.modal__dialog'); // получаем элемент modal__dialog
+		prevModalDialog.classList.add('hide'); // добавляем класс hide элементу modal__dialog
+		openModalWindow(); // команда открытия модальных окон
+		const thanksModal = document.createElement('div'); // создаем новый контент обертку
+		thanksModal.classList.add('modal__dialog'); // будем заменять один modal__dialog другим с новым контентом
+		thanksModal.innerHTML = ` 
+			<div class="modal__content">
+				<div class="modal__close" data-close>&times;</div>
+				<div class="modal__title">${message}</div>
+			</div>
+		`; // создаем новый контент и в первоначальном скрипте (MODAL----) настраиваем ДЕЛЕГИРОВАНИЕ СОБЫТИЙ!!!
+		document.querySelector('.modal').append(thanksModal); // помещаем новое модальное окно на страницу
+		setTimeout(() => { // чтобы новый динамический блок исчезал через 4 сек. и появлялся предыдущий сверстанный блок modal__dialog, применим асинхронную операцию setTimeout()
+			thanksModal.remove(); // thanksModal будем удалять, чтобы вновь созданные блоки не накапливались
+			prevModalDialog.classList.add('show'); // заменяем классы отображения сверстанного модального окна modal__dialog
+			prevModalDialog.classList.remove('hide');
+			closeModalWindow(); // закрываем модальное окно, чтобы не мешать пользователю
+		}, 4000);
+	}
+}
+/* harmony default export */ __webpack_exports__["default"] = (Forms);
+
+/***/ }),
+
+/***/ "./src/js/modules/modal.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/modal.js ***!
+  \*********************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* eslint-disable linebreak-style */
+// MODAL----------------------------------------------------------
+function Modal() {
+	const modalTrigger = document.querySelectorAll('[data-modal]');
+	const modalWindow = document.querySelector('.modal');
+	// const modalCloseBtn = document.querySelector('[data-close]'); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную переменную
+	function openModalWindow() {
+		modalWindow.classList.add('show');
+		modalWindow.classList.remove('hide');
+		document.body.style.overflow = 'hidden'; // при открытии модального окна, скрываем скролл страницы	
+		clearInterval(modalTimerId); // если пользователь сам зарыл модальное окно, сбрасываем интервал его автооткрытия
+	}
+	modalTrigger.forEach(btn => {
+		btn.addEventListener('click', openModalWindow);
+	}); 
+	function closeModalWindow() {
+		modalWindow.classList.add('hide');
+		modalWindow.classList.remove('show');
+		document.body.style.overflow = ''; // при закрытии модального окна, включаем скролл страницы
+	}
+	// modalCloseBtn.addEventListener('click', closeModalWindow); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную часть
+	modalWindow.addEventListener('click', (e) => {
+		if (e.target === modalWindow || e.target.getAttribute('data-close') == '') { // если по клику целевое событие совпадает с модальным окном, то модальное окно закрывается
+			closeModalWindow();	// для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ добавляем условие  || e.target.getAttribute('data-close') == '' т.е. когда в елементе есть data-close со значение пустой строки, кликаем на подложку или крестик - окно закрывается		
+		}
+	});
+	document.addEventListener('keydown', (e) => {
+		if (e.code === 'Escape' && modalWindow.classList.contains('show')) { // по клавише ESC закрывается окно
+			closeModalWindow();
+		}
+	});
+	const modalTimerId = setTimeout(openModalWindow, 60000); // функция автооткрытия модального окна
+	function showModalWindowByScroll() {
+		if (window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight) { // отслеживаем сколько пикселей по оси Y отлистал пользователь + высота видимой части сравниваются с высотой/прокруткой всего контента
+			openModalWindow(); // если они совпадают, то пользователь долистал до конца контена => открывается модальное окно, но при каждом долистовании!!!
+			window.removeEventListener('scroll', showModalWindowByScroll); // как только пользователь долистал до конца, модальное окно выйдет только ОДИН РАЗ!!!! УДАЛЯЕМ ОБРАБОТЧИК!!!
+		} // нужно избежать подобных повторов, но =>
+	} // }, {once: true}); в данном случае не подходит, так как единоразовая прокрутка на 1px вызывает это условие!!!
+	window.addEventListener('scroll', showModalWindowByScroll); // отслеживаем событие scroll во всем окне браузера
+}
+/* harmony default export */ __webpack_exports__["default"] = (Modal);
+
+/***/ }),
+
+/***/ "./src/js/modules/tabs.js":
+/*!********************************!*\
+  !*** ./src/js/modules/tabs.js ***!
+  \********************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* eslint-disable linebreak-style */
+// TABS-----------------------------------------------------------
+function Tabs() {
+	const tabs =  document.querySelectorAll('.tabheader__item');
+	const tabsContent = document.querySelectorAll('.tabcontent');
+	const tabsParent = document.querySelector('.tabheader__items');
+	function hideTabContent() { // функция скрывает часть табов
+		tabsContent.forEach(item => {
+			// item.style.display = 'none';
+			item.classList.add('hide');
+			item.classList.remove('show', 'fade');
+		});
+		tabs.forEach(item => {
+			item.classList.remove('tabheader__item_active');
+		});
+	}
+	function showTabContent(i = 0) { // ES6 позволяет по умолчанию задать значение аргумента в "0"!!!
+		// tabsContent[i].style.display = 'block';
+		tabsContent[i].classList.add('show', 'fade');
+		tabsContent[i].classList.remove('hide');
+		tabs[i].classList.add('tabheader__item_active');
+	}
+	hideTabContent();
+	showTabContent();
+	tabsParent.addEventListener('click', (event) => {
+		const target = event.target; // ЧАСТОЕ ИСПОЛЬЗОВАНИЕ event.target УДОБНО ПЕРЕОПРЕДЕЛИТЬ В ПЕРЕМЕННУЮ!!!
+		if (target && target.classList.contains('tabheader__item')) {
+			tabs.forEach((item, i) => { // для каждого элемента item (tab) с номером i в массиве
+				if (target == item) { // если целевое событие соответствует этому элементу по клику
+					hideTabContent();
+					showTabContent(i); // при переключении tab скрываем остальные
+				}
 			});
-		});
-		// function getStaticInformation(parentSelector, activeClass) { // применять функцию будем на двух аргументах: на родительском селекторе и классе активности, для получения информации со статических блоков
-		// 	const elements = document.querySelectorAll(`${parentSelector} div`); // получим элементы (все div) внутри родительского блока
-		// document.querySelector(parentSelector).addEventListener('click', (e) => { // отслеживаем все клики по родительскому элементу, который содержит все div (делегирование событий) при помощи коллбэк функции
-		// 	if (e.target.getAttribute('data-ratio')) { // если это блок - ratio (т.е. содержит атрибут data-ratio), то получаем значения по data-ratio атрибуту, 
-		// 		ratio = +e.target.getAttribute('data-ratio'); // присваиваем переменной ratio числовое значение атрибута data-ratio
-		// 	} else {
-		// 		sex = e.target.getAttribute('id'); // если блок - gender/sex, то значаения получаем по id 
-		// 	}
-		// 	console.log(ratio, sex);
-		// 	elements.forEach(elem => { // меняем классы активности
-		// 		elem.classList.remove(activeClass);
-		// 	});
-		// 	e.target.classList.add(activeClass);
-		// 	calcTotal();
-		// }); // !!!но делегирование в данном случае создает сложность, когда кликаешь на родительский блок, он подсвечивается, так как ему назначается класс активности!!!
-		// }
+		}
+	});
+}
+/* harmony default export */ __webpack_exports__["default"] = (Tabs);
+
+/***/ }),
+
+/***/ "./src/js/modules/timer.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/timer.js ***!
+  \*********************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* eslint-disable linebreak-style */
+// TAIMER-(обратного отсчета)-------------------------------------
+function Timer() {
+	const deadLine = '2023-12-31'; // переводим в миллисекунды строку, создав новую переменную в виде строки... setClock('.timer', deadLine);
+	function getTimeRemaining(endTime) { // функция оставшегося времени определяет разницу между deadLine (endTime) и текущим временем (new Date())
+		const t = Date.parse(endTime) - Date.parse(new Date()); // метод Date.parse - переводит строку в миллисекунды
+		const days = Math.floor(t / (1000 * 60 * 60 * 24)); // Math.floor - округление до ближайшего целого (миллисек * сек * мин * час в сутках)!
+		const hours = Math.floor((t / (1000 * 60 * 60) % 24)); // % - остаток от деления, например 50 / 24 = 2 дня и 2 часа, возвращаем 2 часа!
+		const minutes = Math.floor((t / 1000 / 60) % 60);
+		const seconds = Math.floor((t / 1000) % 60);
+		return { // создаем объект!!!
+			'total': t,
+			'days': days,
+			'hours': hours,
+			'minutes': minutes,
+			'seconds': seconds,
+		};
 	}
-	getStaticInformation('#gender div', 'calculating__choose-item_active');
-	getStaticInformation('.calculating__choose_big div', 'calculating__choose-item_active');
-	function getDynamicInformation(selector) { // функция обрабатывает каждый отдельный input
-		const input = document.querySelector(selector);
-		input.addEventListener('input', () => { // используем switch case конструкцию
-			if (input.value.match(/\D/g)) { // если мы вводим в input значение value не соответствующее цифрам, то не позволяем выполнять вычисления!!!
-				input.style.border = '2px solid red'; // так же задаём красныую обводку блоку input
-			} else {
-				input.style.border = 'none'; // ПРОВЕРКА НА ОТМЕТКУ/ВВОД ДАННЫХ В ИНПУТ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			}
-			switch(input.getAttribute('id')) { // проверяем input по уникальному идентификатору
-			case 'height': // если это рост, то записываем в него значение роста
-				height = +input.value;
-				break;
-			case 'weight': // если это вес, то записываем в него значение веса
-				weight = +input.value;
-				break;
-			case 'age': // если это возраст, то записываем в него значение возраста
-				age = +input.value;
-				break;
-			}
-			calcTotal();
-		});
+	function getZero(num) { // функция подставления 0 до двузначного числа!!!
+		if (num >= 0 && num < 10) {
+			return `0${num}`;
+		} else {
+			return num;
+		}
 	}
-	getDynamicInformation('#height');
-	getDynamicInformation('#weight');
-	getDynamicInformation('#age');
+	function setClock(selector, endTime) {
+		const timer = document.querySelector(selector); // это div.timer так как setClock('.timer', deadLine);
+		const days = timer.querySelector('#days');
+		const hours = timer.querySelector('#hours');
+		const minutes = timer.querySelector('#minutes');
+		const seconds = timer.querySelector('#seconds');
+		const timeInterval = setInterval(updateClock, 1000); // функция updateClock будет запускаться каждые 1000 миллисекунд
+		updateClock(); // функция запускается один раз первоначально, для избежания мигания таймера, потом устанавливается setInterval в 1000 миллисекунд
+		function updateClock () { // расчет времени на данную секунду, разница между планируемым временем и текущим
+			const t = getTimeRemaining(endTime); // расчет времени запишется на страницу
+			days.innerHTML = getZero(t.days);
+			hours.innerHTML = getZero(t.hours);
+			minutes.innerHTML = getZero(t.minutes);
+			seconds.innerHTML = getZero(t.seconds);
+			if (t.total <= 0) {
+				clearInterval(timeInterval); // останавливаем таймер как только время выйдет, когда (new Date()) будет больше (endTime)
+			}
+		}
+	}
+	setClock('.timer', deadLine);
+}
+/* harmony default export */ __webpack_exports__["default"] = (Timer);
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+!function() {
+/*!**************************!*\
+  !*** ./src/js/script.js ***!
+  \**************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modules_tabs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/tabs.js */ "./src/js/modules/tabs.js");
+/* harmony import */ var _modules_cards_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/cards.js */ "./src/js/modules/cards.js");
+/* harmony import */ var _modules_timer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/timer.js */ "./src/js/modules/timer.js");
+/* harmony import */ var _modules_modal_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/modal.js */ "./src/js/modules/modal.js");
+/* harmony import */ var _modules_forms_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/forms.js */ "./src/js/modules/forms.js");
+/* harmony import */ var _modules_carousel_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/carousel.js */ "./src/js/modules/carousel.js");
+/* harmony import */ var _modules_calculator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calculator.js */ "./src/js/modules/calculator.js");
+/* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
+
+
+
+
+
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+
+	// TABS-----------------------------------------------------------
+	const moduleTabs = new _modules_tabs_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+	// moduleTabs();
+
+	// TAIMER-(обратного отсчета)-------------------------------------
+	const moduleTimer = new _modules_timer_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
+	// moduleTimer();
+
+	// MODAL----------------------------------------------------------
+	const moduleModal = new _modules_modal_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
+	// moduleModal();
+
+	// CLASSES-for-CARDS----------------------------------------------
+	const moduleCards = new _modules_cards_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
+	// moduleCards();
+
+	// SEND-FORMS----fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ
+	const moduleForms = new _modules_forms_js__WEBPACK_IMPORTED_MODULE_4__["default"]();
+	// moduleForms();
+
+	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
+	const moduleCarousel = new _modules_carousel_js__WEBPACK_IMPORTED_MODULE_5__["default"]();
+	// moduleCarousel();
+
+	// CALCULATOR-----------------------------------------------------
+	const moduleCalculator = new _modules_calculator_js__WEBPACK_IMPORTED_MODULE_6__["default"]();
+	// moduleCalculator();
 
 });
+}();
 /******/ })()
 ;
 //# sourceMappingURL=script.bundle.js.map
