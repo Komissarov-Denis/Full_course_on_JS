@@ -9,20 +9,40 @@
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ sayHi2; },
+/* harmony export */   one: function() { return /* binding */ one; },
+/* harmony export */   sayHi: function() { return /* binding */ sayHi; },
+/* harmony export */   two: function() { return /* binding */ two; }
+/* harmony export */ });
 /* eslint-disable linebreak-style */
 
-function MyModule() { // создаем модуль, который будет отграничен в маленьком файлике с помощью функций конструкторов
-	this.hello = function() { // через контекст вызова this создаем функцию hello
-		console.log('Hello!');
-	};
-	this.goodbye = function() { // через контекст вызова this создаем функцию goodbye
-		console.log('Bye!');
-	};
-	this.hye = function() {
-		console.log('HELLO WORLD!');
-	};
+// function MyModule() { // создаем модуль, который будет отграничен в маленьком файлике с помощью функций конструкторов
+// 	this.hello = function() { // через контекст вызова this создаем функцию hello
+// 		console.log('Hello!');
+// 	};
+// 	this.goodbye = function() { // через контекст вызова this создаем функцию goodbye
+// 		console.log('Bye!');
+// 	};
+// 	this.hye = function() {
+// 		console.log('HELLO WORLD!');
+// 	};
+// }
+// export default MyModule; // default - говорит, что по умолчанию из данного файлика будет экспортироваться именно эта функция
+
+// поименнованный синтаксис
+let one = 1;
+
+let two = 2;
+
+
+function sayHi() {
+	console.log('Hi... Function!');
 }
-/* harmony default export */ __webpack_exports__["default"] = (MyModule);
+
+function sayHi2() { // export default - дает преимущество прямого экспортирования и использования уже как самую отдельную функцию при этом на странице должен быть только один!!!
+	console.log('Hi... NEW Function!');
+}
 
 /***/ })
 
@@ -53,6 +73,23 @@ function MyModule() { // создаем модуль, который будет 
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	!function() {
 /******/ 		// define __esModule on exports
@@ -75,15 +112,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_hello_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/hello.js */ "./src/js/modules/hello.js");
 /* eslint-disable linebreak-style */
 
-console.log('SCRIPT FILE:');
+// console.log('SCRIPT FILE:'); // получил: SCRIPT FILE:
 
-  // для импортирования функции myModule из /modules/hello.js, создаем переменную myModule с синтаксисом функции
+// import MyModule from './modules/hello.js';  // для импортирования функции myModule из /modules/hello.js, создаем переменную myModule с синтаксисом функции
 
-const myModuleInstance = new _modules_hello_js__WEBPACK_IMPORTED_MODULE_0__["default"](); // создаем экземпляр модуля для применения к нему различных методов =>
+// const myModuleInstance = new MyModule(); // создаем экземпляр модуля для применения к нему различных методов =>
 
-myModuleInstance.hello();
-myModuleInstance.goodbye();
-myModuleInstance.hye();
+// myModuleInstance.hello(); // получил: Hello!
+// myModuleInstance.goodbye(); // получил: Bye!
+// myModuleInstance.hye(); // получил: HELLO WORLD!
+
+// поименнованный синтаксис
+
+// import {one, two} from './modules/hello.js'; // фигурные скобки {} для поименнованного синтаксиса обязательны, так как экспортируется большой объект
+// console.log(`${one} + ${two} = ${one + two}`); // получил: 1 + 2 = 3
+
+// import {one as first} from './modules/hello.js'; // при импорте можно сразу переименовывать экспортируемые переменные
+// console.log(first); // получил: 1
+
+// другой вариант импортирования всех данных разом:
+
+console.log(`${_modules_hello_js__WEBPACK_IMPORTED_MODULE_0__.one} + ${_modules_hello_js__WEBPACK_IMPORTED_MODULE_0__.two} = ${_modules_hello_js__WEBPACK_IMPORTED_MODULE_0__.one + _modules_hello_js__WEBPACK_IMPORTED_MODULE_0__.two}`); // получил: 1 + 2 = 3, так как data это объект, который включает в себя все экспортируемое из файла hello.js
+_modules_hello_js__WEBPACK_IMPORTED_MODULE_0__.sayHi();  // получил: Hi... Function!
+
+
+(0,_modules_hello_js__WEBPACK_IMPORTED_MODULE_0__["default"])(); // export default - дает преимущество прямого экспортирования и использования уже как самую отдельную функцию,  // получил:  Hi... NEW Function!
 }();
 /******/ })()
 ;
