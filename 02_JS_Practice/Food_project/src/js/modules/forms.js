@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 // SEND-FORMS---------fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ 
-function Forms() {
+export default function forms() {
 	const forms = document.querySelectorAll('form');
 	const message = {
 		// loading: 'Загрузка...', // текст комментируем, так как будем использовать спиннер картинку
@@ -77,4 +77,3 @@ function Forms() {
 		}, 4000);
 	}
 }
-export default Forms;

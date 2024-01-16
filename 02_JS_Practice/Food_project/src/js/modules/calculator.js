@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 // CALCULATOR-----------------------------------------------------
-function Calculator() {
+export default function calculator() {
 	const result = document.querySelector('.calculating__result span'); // получили по селектору класс, в который будем записывать результат расчета
 	let sex, height, weight, age, ratio = 1.375; // объявили несколко переменных (через let так как они будут меняться): пол, рост, вес, возраст и коэффициент активности
 	if (localStorage.getItem('sex')) { // назначим проверку при получении значений элементов из localStorage
@@ -105,4 +105,3 @@ function Calculator() {
 	getDynamicInformation('#weight');
 	getDynamicInformation('#age');
 }
-export default Calculator;

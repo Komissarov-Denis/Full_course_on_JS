@@ -25,6 +25,7 @@ import gulpWebpack  from 'webpack-stream';
 import clean from 'gulp-clean';
 import fs from 'fs'; // fileSystem
 import fileInclude from 'gulp-file-include';
+import changed from 'gulp-changed';
 
 const sass = gulpSass(dartSass);
 
@@ -124,6 +125,7 @@ gulp.task('html', function() {
 			'src/html/pages/*.html',
 			// '!src/section/*.html', => можно указать конкретные папки или файлы, которые не нужно обрабатывать плагином
 		])
+		.pipe(changed('dist/'))
 		.pipe(fileInclude({ // плагин объединения блоков в html на основе объекта с ключевыми свойствами и их значениями 
 			prefix: '@@', // данные префиксы позволяют дополнять секции в html
 			basepath: '@file', // это настройка пути файла для дополнения в html
@@ -136,6 +138,7 @@ gulp.task('html', function() {
 gulp.task('webpack', function() { // передаем в GULP задачу task, первым аргументом идет наименование действия webpack => отслеживаем и обрабатываем изменения в конкретной папке,
 	return gulp // вторым аргументом передаем функцию function(done){}, функция в нутри любой задачи GULP должна возвращать return в pipe() "поток"/"трубу" кода данные
 		.src('src/js/**/*.js') // передаем в GULP данные о всех исходных файлах папки src/js для компилирования => отслеживания и обработки
+		.pipe(changed('dist/webpack'))
 		.pipe(gulpWebpack(webpackConfig, webpack)) // запускаем development-сборку JS-файлов в соответствии с настройками в webpack.config.js, передаем файлы из .src() для обработки плагинами
 		.pipe(gulp.dest('dist/webpack')) // передаем в pipe() "поток"/"трубу" кода компилятора информацию о папке размещения конечных скомпилированных файлов
 		.pipe(browserSync.stream()); // перезапускаем браузер через плагин browserSync в потоке pipe()
@@ -144,6 +147,7 @@ gulp.task('webpack', function() { // передаем в GULP задачу task,
 gulp.task('jsLib', function() {
 	return gulp
 		.src('src/js/lib/*.js')
+		.pipe(changed('dist/webpack/lib'))
 		.pipe(gulp.dest('dist/webpack/lib'))
 		.pipe(browserSync.stream());
 });
@@ -151,6 +155,7 @@ gulp.task('jsLib', function() {
 gulp.task('php', function() {
 	return gulp
 		.src('src/*.php')
+		.pipe(changed('dist/'))
 		.pipe(gulp.dest('dist/'))
 		.pipe(browserSync.stream());
 });
@@ -158,20 +163,23 @@ gulp.task('php', function() {
 gulp.task('json', function() {
 	return gulp
 		.src('src/*.json')
+		.pipe(changed('dist/'))
 		.pipe(gulp.dest('dist/'))
 		.pipe(browserSync.stream());
 });
 
 gulp.task('fonts', function() {
 	return gulp
-		.src('src/fonts/**/*') 
+		.src('src/fonts/**/*')
+		.pipe(changed('dist/fonts'))
 		.pipe(gulp.dest('dist/fonts'))
 		.pipe(browserSync.stream());
 });
 
 gulp.task('icons', function() {
 	return gulp
-		.src('src/icons/**/*') 
+		.src('src/icons/**/*')
+		.pipe(changed('dist/icons'))
 		.pipe(gulp.dest('dist/icons'))
 		.pipe(browserSync.stream());
 });
@@ -179,6 +187,7 @@ gulp.task('icons', function() {
 gulp.task('images', function() {
 	return gulp
 		.src('src/img/**/*')
+		.pipe(changed('dist/img'))
 		.pipe(imagemin({verbose: true})) // verbose: true - отображает величину оптимизации картинок
 		.pipe(gulp.dest('dist/img'))
 		.pipe(browserSync.stream());
@@ -186,14 +195,16 @@ gulp.task('images', function() {
 
 gulp.task('mailer', function() {
 	return gulp
-		.src('src/mailer/**/*') 
+		.src('src/mailer/**/*')
+		.pipe(changed('dist/mailer')) 
 		.pipe(gulp.dest('dist/mailer'))
 		.pipe(browserSync.stream());
 });
 
 gulp.task('files', function() {
 	return gulp
-		.src('src/files/**/*') 
+		.src('src/files/**/*')
+		.pipe(changed('dist/files'))
 		.pipe(gulp.dest('dist/files'))
 		.pipe(browserSync.stream());
 });

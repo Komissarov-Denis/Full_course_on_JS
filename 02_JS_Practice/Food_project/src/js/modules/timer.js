@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 // TAIMER-(обратного отсчета)-------------------------------------
-function Timer() {
+export default function timer() {
 	const deadLine = '2023-12-31'; // переводим в миллисекунды строку, создав новую переменную в виде строки... setClock('.timer', deadLine);
 	function getTimeRemaining(endTime) { // функция оставшегося времени определяет разницу между deadLine (endTime) и текущим временем (new Date())
 		const t = Date.parse(endTime) - Date.parse(new Date()); // метод Date.parse - переводит строку в миллисекунды
@@ -44,4 +44,3 @@ function Timer() {
 	}
 	setClock('.timer', deadLine);
 }
-export default Timer;

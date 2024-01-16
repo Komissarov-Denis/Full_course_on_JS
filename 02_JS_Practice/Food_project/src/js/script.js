@@ -1,41 +1,33 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-unused-vars */
-import Tabs from './modules/tabs.js';
-import Cards from './modules/cards.js';
-import Timer from './modules/timer.js';
-import Modal from './modules/modal.js';
-import Forms from './modules/forms.js';
-import Carousel from './modules/carousel.js';
-import Calculator from './modules/calculator.js';
+import tabs from './modules/tabs.js';
+import cards from './modules/cards.js';
+import timer from './modules/timer.js';
+import modal from './modules/modal.js';
+import forms from './modules/forms.js';
+import carousel from './modules/carousel.js';
+import calculator from './modules/calculator.js';
 
 window.addEventListener('DOMContentLoaded', () => {
 
 	// TABS-----------------------------------------------------------
-	const moduleTabs = new Tabs();
-	// moduleTabs();
+	tabs();
 
 	// TAIMER-(обратного отсчета)-------------------------------------
-	const moduleTimer = new Timer();
-	// moduleTimer();
+	timer();
 
-	// MODAL----------------------------------------------------------
-	const moduleModal = new Modal();
-	// moduleModal();
+	// MODAL----------------------------------------------------------	
+	modal();
 
 	// CLASSES-for-CARDS----------------------------------------------
-	const moduleCards = new Cards();
-	// moduleCards();
+	cards();
 
 	// SEND-FORMS----fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ
-	const moduleForms = new Forms();
-	// moduleForms();
+	forms();
 
 	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
-	const moduleCarousel = new Carousel();
-	// moduleCarousel();
+	carousel();
 
 	// CALCULATOR-----------------------------------------------------
-	const moduleCalculator = new Calculator();
-	// moduleCalculator();
+	calculator();
 
 });

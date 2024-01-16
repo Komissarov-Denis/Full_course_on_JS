@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-function Carousel() {
+export default function carousel() {
 	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
 	// const slides = document.querySelectorAll('.offer__slide'); // получаем все слайды на странице
 	// const prev = document.querySelector('.offer__slider-prev'); // получаем стрелки перелистывания слайдов
@@ -164,4 +164,3 @@ function Carousel() {
 		});
 	});
 }
-export default Carousel;

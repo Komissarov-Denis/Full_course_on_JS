@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 // CLASSES-for-CARDS--------------------------------------------------
-function Cards() {    
+export default function cards() {    
 	class MenuCards {
 		constructor(srcImg, altText, title, descr, price, parentSelector, ...classes) { // добавил REST оператор, так как не известно - будут ли еще изменения в карточках меню
 			this.srcImg = srcImg;
@@ -105,4 +105,3 @@ function Cards() {
 	// 	// 'third__red',  // классы успешно добавляются
 	// ).render(); // заполняем новый класс MenuCards с помощью метода render()
 }
-export default Cards;

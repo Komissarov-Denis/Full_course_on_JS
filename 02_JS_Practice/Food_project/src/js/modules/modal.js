@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 // MODAL----------------------------------------------------------
-function Modal() {
+export default function modal() {
 	const modalTrigger = document.querySelectorAll('[data-modal]');
 	const modalWindow = document.querySelector('.modal');
 	// const modalCloseBtn = document.querySelector('[data-close]'); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную переменную
@@ -38,4 +38,3 @@ function Modal() {
 	} // }, {once: true}); в данном случае не подходит, так как единоразовая прокрутка на 1px вызывает это условие!!!
 	window.addEventListener('scroll', showModalWindowByScroll); // отслеживаем событие scroll во всем окне браузера
 }
-export default Modal;

@@ -9,9 +9,12 @@
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ calculator; }
+/* harmony export */ });
 /* eslint-disable linebreak-style */
 // CALCULATOR-----------------------------------------------------
-function Calculator() {
+function calculator() {
 	const result = document.querySelector('.calculating__result span'); // получили по селектору класс, в который будем записывать результат расчета
 	let sex, height, weight, age, ratio = 1.375; // объявили несколко переменных (через let так как они будут меняться): пол, рост, вес, возраст и коэффициент активности
 	if (localStorage.getItem('sex')) { // назначим проверку при получении значений элементов из localStorage
@@ -116,7 +119,6 @@ function Calculator() {
 	getDynamicInformation('#weight');
 	getDynamicInformation('#age');
 }
-/* harmony default export */ __webpack_exports__["default"] = (Calculator);
 
 /***/ }),
 
@@ -127,9 +129,12 @@ function Calculator() {
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ cards; }
+/* harmony export */ });
 /* eslint-disable linebreak-style */
 // CLASSES-for-CARDS--------------------------------------------------
-function Cards() {    
+function cards() {    
 	class MenuCards {
 		constructor(srcImg, altText, title, descr, price, parentSelector, ...classes) { // добавил REST оператор, так как не известно - будут ли еще изменения в карточках меню
 			this.srcImg = srcImg;
@@ -234,7 +239,6 @@ function Cards() {
 	// 	// 'third__red',  // классы успешно добавляются
 	// ).render(); // заполняем новый класс MenuCards с помощью метода render()
 }
-/* harmony default export */ __webpack_exports__["default"] = (Cards);
 
 /***/ }),
 
@@ -245,8 +249,11 @@ function Cards() {
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ carousel; }
+/* harmony export */ });
 /* eslint-disable linebreak-style */
-function Carousel() {
+function carousel() {
 	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
 	// const slides = document.querySelectorAll('.offer__slide'); // получаем все слайды на странице
 	// const prev = document.querySelector('.offer__slider-prev'); // получаем стрелки перелистывания слайдов
@@ -411,7 +418,6 @@ function Carousel() {
 		});
 	});
 }
-/* harmony default export */ __webpack_exports__["default"] = (Carousel);
 
 /***/ }),
 
@@ -422,9 +428,12 @@ function Carousel() {
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ forms; }
+/* harmony export */ });
 /* eslint-disable linebreak-style */
 // SEND-FORMS---------fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ 
-function Forms() {
+function forms() {
 	const forms = document.querySelectorAll('form');
 	const message = {
 		// loading: 'Загрузка...', // текст комментируем, так как будем использовать спиннер картинку
@@ -501,7 +510,6 @@ function Forms() {
 		}, 4000);
 	}
 }
-/* harmony default export */ __webpack_exports__["default"] = (Forms);
 
 /***/ }),
 
@@ -512,9 +520,12 @@ function Forms() {
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ modal; }
+/* harmony export */ });
 /* eslint-disable linebreak-style */
 // MODAL----------------------------------------------------------
-function Modal() {
+function modal() {
 	const modalTrigger = document.querySelectorAll('[data-modal]');
 	const modalWindow = document.querySelector('.modal');
 	// const modalCloseBtn = document.querySelector('[data-close]'); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную переменную
@@ -552,7 +563,6 @@ function Modal() {
 	} // }, {once: true}); в данном случае не подходит, так как единоразовая прокрутка на 1px вызывает это условие!!!
 	window.addEventListener('scroll', showModalWindowByScroll); // отслеживаем событие scroll во всем окне браузера
 }
-/* harmony default export */ __webpack_exports__["default"] = (Modal);
 
 /***/ }),
 
@@ -563,9 +573,12 @@ function Modal() {
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ tabs; }
+/* harmony export */ });
 /* eslint-disable linebreak-style */
 // TABS-----------------------------------------------------------
-function Tabs() {
+function tabs() {
 	const tabs =  document.querySelectorAll('.tabheader__item');
 	const tabsContent = document.querySelectorAll('.tabcontent');
 	const tabsParent = document.querySelector('.tabheader__items');
@@ -599,7 +612,6 @@ function Tabs() {
 		}
 	});
 }
-/* harmony default export */ __webpack_exports__["default"] = (Tabs);
 
 /***/ }),
 
@@ -610,9 +622,12 @@ function Tabs() {
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ timer; }
+/* harmony export */ });
 /* eslint-disable linebreak-style */
 // TAIMER-(обратного отсчета)-------------------------------------
-function Timer() {
+function timer() {
 	const deadLine = '2023-12-31'; // переводим в миллисекунды строку, создав новую переменную в виде строки... setClock('.timer', deadLine);
 	function getTimeRemaining(endTime) { // функция оставшегося времени определяет разницу между deadLine (endTime) и текущим временем (new Date())
 		const t = Date.parse(endTime) - Date.parse(new Date()); // метод Date.parse - переводит строку в миллисекунды
@@ -656,7 +671,6 @@ function Timer() {
 	}
 	setClock('.timer', deadLine);
 }
-/* harmony default export */ __webpack_exports__["default"] = (Timer);
 
 /***/ })
 
@@ -687,6 +701,23 @@ function Timer() {
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	!function() {
 /******/ 		// define __esModule on exports
@@ -714,7 +745,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_carousel_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/carousel.js */ "./src/js/modules/carousel.js");
 /* harmony import */ var _modules_calculator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calculator.js */ "./src/js/modules/calculator.js");
 /* eslint-disable linebreak-style */
-/* eslint-disable no-unused-vars */
 
 
 
@@ -726,32 +756,25 @@ __webpack_require__.r(__webpack_exports__);
 window.addEventListener('DOMContentLoaded', () => {
 
 	// TABS-----------------------------------------------------------
-	const moduleTabs = new _modules_tabs_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
-	// moduleTabs();
+	(0,_modules_tabs_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
 
 	// TAIMER-(обратного отсчета)-------------------------------------
-	const moduleTimer = new _modules_timer_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
-	// moduleTimer();
+	(0,_modules_timer_js__WEBPACK_IMPORTED_MODULE_2__["default"])();
 
-	// MODAL----------------------------------------------------------
-	const moduleModal = new _modules_modal_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
-	// moduleModal();
+	// MODAL----------------------------------------------------------	
+	(0,_modules_modal_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
 
 	// CLASSES-for-CARDS----------------------------------------------
-	const moduleCards = new _modules_cards_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
-	// moduleCards();
+	(0,_modules_cards_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
 
 	// SEND-FORMS----fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ
-	const moduleForms = new _modules_forms_js__WEBPACK_IMPORTED_MODULE_4__["default"]();
-	// moduleForms();
+	(0,_modules_forms_js__WEBPACK_IMPORTED_MODULE_4__["default"])();
 
 	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
-	const moduleCarousel = new _modules_carousel_js__WEBPACK_IMPORTED_MODULE_5__["default"]();
-	// moduleCarousel();
+	(0,_modules_carousel_js__WEBPACK_IMPORTED_MODULE_5__["default"])();
 
 	// CALCULATOR-----------------------------------------------------
-	const moduleCalculator = new _modules_calculator_js__WEBPACK_IMPORTED_MODULE_6__["default"]();
-	// moduleCalculator();
+	(0,_modules_calculator_js__WEBPACK_IMPORTED_MODULE_6__["default"])();
 
 });
 }();
