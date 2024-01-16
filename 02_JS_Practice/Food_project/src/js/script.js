@@ -6,26 +6,37 @@ import modal from './modules/modal.js';
 import forms from './modules/forms.js';
 import carousel from './modules/carousel.js';
 import calculator from './modules/calculator.js';
+import {openModalWindow} from './modules/modal.js';
 
 window.addEventListener('DOMContentLoaded', () => {
+	const modalTimerId = setTimeout(() => openModalWindow('.modal', modalTimerId), 60000); // функция автооткрытия модального окна
 
 	// TABS-----------------------------------------------------------
-	tabs();
+	tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
 
 	// TAIMER-(обратного отсчета)-------------------------------------
-	timer();
+	timer('.timer', '2024-01-25');
 
 	// MODAL----------------------------------------------------------	
-	modal();
+	modal('[data-modal]', '.modal', modalTimerId);
 
 	// CLASSES-for-CARDS----------------------------------------------
 	cards();
 
 	// SEND-FORMS----fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ
-	forms();
+	forms('form', modalTimerId);
 
 	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
-	carousel();
+	carousel({ // принцип деструктуризации, создаем объект аргументов
+		container: '.offer__slider',
+		slide: '.offer__slide',
+		nextArrow: '.offer__slider-next',
+		prevArrow: '.offer__slider-prev',
+		totalCounter: '#total',
+		currentCounter: '#current',
+		wrapper: '.offer__slider-wrapper',
+		field: '.offer__slider-inner',
+	});
 
 	// CALCULATOR-----------------------------------------------------
 	calculator();

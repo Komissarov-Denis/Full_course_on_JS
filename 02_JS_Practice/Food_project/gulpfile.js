@@ -33,7 +33,8 @@ gulp.task('clean', function(done) {
 	if (fs.existsSync('./dist/')) { // через файловую систему проверяем наличие папки, при наличии удаляем все содержимое
 		return gulp
 			.src('./dist/', {read: false}) // данная опция ускоряет проверку наличия директории dist, так как внутри не читает файлы
-			.pipe(clean({force: true})); // {force: true} удаляет файлы, которые блокируются системой до подтверждения согласия на удаление
+			.pipe(clean({force: true})) // {force: true} удаляет файлы, которые блокируются системой до подтверждения согласия на удаление
+		;	
 	}
 	done(); // если папки нет, процесс завершается коллбэк функцией!!!
 });
@@ -102,7 +103,8 @@ gulp.task('styles', function() { // передаем в GULP задачу task, 
 		.pipe(autoprefixer()) // подставляем автопрефиксы в style.min.css для последних версий браузеров, настройки берет из package.json
 		.pipe(cleanCSS({compatibility: 'ie8'})) // после автопрефиксов style.min.css будет очищаться
 		.pipe(gulp.dest('dist/css')) // определяем папку назначаения после компиляции style.min.css
-		.pipe(browserSync.stream()); // перезапускает browserSync в потоке
+		.pipe(browserSync.stream()) // перезапускает browserSync в потоке
+	;	
 }); //задача на отслеживание изменений в коде src/sass по факту изменений запускается стайлс и обновляет  browserSync - наш браузер
 
 //так же отслеживает изменения в файлах по каждому обновлению браузера
@@ -132,7 +134,8 @@ gulp.task('html', function() {
 		}))
 		.pipe(htmlmin({collapseWhitespace: true})) // удаляем пробелы и оптимизируем код
 		.pipe(gulp.dest('dist/'))
-		.pipe(browserSync.stream());
+		.pipe(browserSync.stream())
+	;
 });
 
 gulp.task('webpack', function() { // передаем в GULP задачу task, первым аргументом идет наименование действия webpack => отслеживаем и обрабатываем изменения в конкретной папке,
@@ -141,7 +144,8 @@ gulp.task('webpack', function() { // передаем в GULP задачу task,
 		.pipe(changed('dist/webpack'))
 		.pipe(gulpWebpack(webpackConfig, webpack)) // запускаем development-сборку JS-файлов в соответствии с настройками в webpack.config.js, передаем файлы из .src() для обработки плагинами
 		.pipe(gulp.dest('dist/webpack')) // передаем в pipe() "поток"/"трубу" кода компилятора информацию о папке размещения конечных скомпилированных файлов
-		.pipe(browserSync.stream()); // перезапускаем браузер через плагин browserSync в потоке pipe()
+		.pipe(browserSync.stream()) // перезапускаем браузер через плагин browserSync в потоке pipe()
+	;	
 }); // если ввести команду в терминале консоли gulp webpack, то задача webpack будет запущена индивидуально!!!
 
 gulp.task('jsLib', function() {
@@ -149,7 +153,8 @@ gulp.task('jsLib', function() {
 		.src('src/js/lib/*.js')
 		.pipe(changed('dist/webpack/lib'))
 		.pipe(gulp.dest('dist/webpack/lib'))
-		.pipe(browserSync.stream());
+		.pipe(browserSync.stream())
+	;
 });
 
 gulp.task('php', function() {
@@ -157,7 +162,8 @@ gulp.task('php', function() {
 		.src('src/*.php')
 		.pipe(changed('dist/'))
 		.pipe(gulp.dest('dist/'))
-		.pipe(browserSync.stream());
+		.pipe(browserSync.stream())
+	;
 });
 
 gulp.task('json', function() {
@@ -165,7 +171,8 @@ gulp.task('json', function() {
 		.src('src/*.json')
 		.pipe(changed('dist/'))
 		.pipe(gulp.dest('dist/'))
-		.pipe(browserSync.stream());
+		// .pipe(browserSync.stream())
+	;
 });
 
 gulp.task('fonts', function() {
@@ -173,7 +180,8 @@ gulp.task('fonts', function() {
 		.src('src/fonts/**/*')
 		.pipe(changed('dist/fonts'))
 		.pipe(gulp.dest('dist/fonts'))
-		.pipe(browserSync.stream());
+		.pipe(browserSync.stream())
+	;
 });
 
 gulp.task('icons', function() {
@@ -181,7 +189,8 @@ gulp.task('icons', function() {
 		.src('src/icons/**/*')
 		.pipe(changed('dist/icons'))
 		.pipe(gulp.dest('dist/icons'))
-		.pipe(browserSync.stream());
+		.pipe(browserSync.stream())
+	;
 });
 
 gulp.task('images', function() {
@@ -190,7 +199,8 @@ gulp.task('images', function() {
 		.pipe(changed('dist/img'))
 		.pipe(imagemin({verbose: true})) // verbose: true - отображает величину оптимизации картинок
 		.pipe(gulp.dest('dist/img'))
-		.pipe(browserSync.stream());
+		.pipe(browserSync.stream())
+	;
 });
 
 gulp.task('mailer', function() {
@@ -198,7 +208,8 @@ gulp.task('mailer', function() {
 		.src('src/mailer/**/*')
 		.pipe(changed('dist/mailer')) 
 		.pipe(gulp.dest('dist/mailer'))
-		.pipe(browserSync.stream());
+		.pipe(browserSync.stream())
+	;
 });
 
 gulp.task('files', function() {
@@ -206,7 +217,8 @@ gulp.task('files', function() {
 		.src('src/files/**/*')
 		.pipe(changed('dist/files'))
 		.pipe(gulp.dest('dist/files'))
-		.pipe(browserSync.stream());
+		.pipe(browserSync.stream())
+	;
 });
 
 gulp.task('default', gulp.series(

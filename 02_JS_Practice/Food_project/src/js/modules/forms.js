@@ -1,7 +1,10 @@
 /* eslint-disable linebreak-style */
+import {openModalWindow, closeModalWindow} from './modal.js';
+import {postData} from '../services/services.js';
+
 // SEND-FORMS---------fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ 
-export default function forms() {
-	const forms = document.querySelectorAll('form');
+export default function forms(formSelector, modalTimerId) {
+	const forms = document.querySelectorAll(formSelector);
 	const message = {
 		// loading: 'Загрузка...', // текст комментируем, так как будем использовать спиннер картинку
 		loading: 'img/form/spinner.svg', // добавляем картинку спиннера вместо надписи в блоке div Загрузка...
@@ -11,16 +14,6 @@ export default function forms() {
 	forms.forEach(item => { // берем все созданные формы и подвязываем функцию bindpostData
 		bindPostData(item);
 	});
-	const postData = async (url, data) => { // function expression -  без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + async в связи с асинхронностью выполнения
-		const result = await fetch(url, { // в fetch(), url - указываем первым аргументом адрес сервера, data - данные, которые будут поститься - т.е. отправляем сформированный запрос + await для ожидания ответа от сервера
-			method: 'POST',
-			headers: {
-				'Content-type': 'application/json' 
-			},
-			body: data,	// создаем новый объект для формирования документа запроса fetch(), метод и заголовки указывать обязательно!!!	
-		}); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные
-		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
-	};
 	function bindPostData(form) { // будем (bind) привязывать какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
 		form.addEventListener('submit', (e) => {
 			e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера
@@ -59,7 +52,7 @@ export default function forms() {
 	function showThanksModal(message) { // создаем функцию динамической замены элементов мадального окна с отправкой сообщения message
 		const prevModalDialog = document.querySelector('.modal__dialog'); // получаем элемент modal__dialog
 		prevModalDialog.classList.add('hide'); // добавляем класс hide элементу modal__dialog
-		openModalWindow(); // команда открытия модальных окон
+		openModalWindow('.modal', modalTimerId); // команда открытия модальных окон
 		const thanksModal = document.createElement('div'); // создаем новый контент обертку
 		thanksModal.classList.add('modal__dialog'); // будем заменять один modal__dialog другим с новым контентом
 		thanksModal.innerHTML = ` 
@@ -73,7 +66,7 @@ export default function forms() {
 			thanksModal.remove(); // thanksModal будем удалять, чтобы вновь созданные блоки не накапливались
 			prevModalDialog.classList.add('show'); // заменяем классы отображения сверстанного модального окна modal__dialog
 			prevModalDialog.classList.remove('hide');
-			closeModalWindow(); // закрываем модальное окно, чтобы не мешать пользователю
+			closeModalWindow('.modal'); // закрываем модальное окно, чтобы не мешать пользователю
 		}, 4000);
 	}
 }

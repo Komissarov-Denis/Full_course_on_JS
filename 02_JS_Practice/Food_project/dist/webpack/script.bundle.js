@@ -132,7 +132,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ cards; }
 /* harmony export */ });
+/* harmony import */ var _services_services_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/services.js */ "./src/js/services/services.js");
 /* eslint-disable linebreak-style */
+
+
 // CLASSES-for-CARDS--------------------------------------------------
 function cards() {    
 	class MenuCards {
@@ -172,14 +175,6 @@ function cards() {
 			// console.log(this.classes);
 		}
 	}
-	const getResources = async (url) => { // function expression - без объявления присваивается в переменную, getResources отвечает за получение данных с сервера + async в связи с асинхронностью выполнения
-		const result = await fetch(url); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные, но fetch сигналы 404, 403, 401 не распознает как ОШИБКИ!!! 
-		// ошибками для него являются отсутствие Интернета или критические неполадки в запросе!!! Поэтому создаем условие на сравнение:
-		if (!result.ok) { // если с result что-то не то.... то
-			throw new Error(`Could not fetch ${url}, status: ${result.status}`); // то выбрасываем новыю ошибку
-		}
-		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
-	};
 	// getResources('http://localhost:3000/menu') => еще вариант формирования MenuCards
 	// 	.then(data => createMenuCards(data));
 	// function createMenuCards(data) {
@@ -199,7 +194,7 @@ function cards() {
 	// 		document.querySelector('.menu .container').append(element);
 	// 	});
 	// }
-	getResources('http://localhost:3000/menu') // оптимизируем работу с карточками МЕНЮ
+	(0,_services_services_js__WEBPACK_IMPORTED_MODULE_0__.getResources)('http://localhost:3000/menu') // оптимизируем работу с карточками МЕНЮ
 		.then(data => {
 			data.forEach(({img, altimg, title, descr, price}) => { // перебираем весь массив db.json состоящий из объектов деструктурировав его методом ({img, altimg, title, descr, price})
 				new MenuCards(img, altimg, title, descr, price, '.menu .container').render(); // запускаем конструктор - MenuCards() для заполнения - render() карточек меню столько раз, сколько объектов в массиве db.json
@@ -253,7 +248,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": function() { return /* binding */ carousel; }
 /* harmony export */ });
 /* eslint-disable linebreak-style */
-function carousel() {
+function carousel({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) { // принцип деструктуризации, создаем объект аргументов
 	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
 	// const slides = document.querySelectorAll('.offer__slide'); // получаем все слайды на странице
 	// const prev = document.querySelector('.offer__slider-prev'); // получаем стрелки перелистывания слайдов
@@ -293,14 +288,14 @@ function carousel() {
 	// });
 	
 	// CAROUSEL-------------------------------------БОЛЕЕ СЛОЖНЫЙ ВАРИАНТ------------
-	const slides = document.querySelectorAll('.offer__slide'); // получаем все слайды на странице (length: 4)
-	const slider = document.querySelector('.offer__slider'); // получаем весь блок слайдера
-	const prev = document.querySelector('.offer__slider-prev'); // получаем стрелки перелистывания слайдов
-	const next = document.querySelector('.offer__slider-next'); // получаем стрелки перелистывания слайдов
-	const totalSlides = document.querySelector('#total'); // получаем общее значение элементов по идентификатору
-	const currentSlide = document.querySelector('#current'); // получаем текущее значение элемента по идентификатору
-	const slidesWrapper = document.querySelector('.offer__slider-wrapper'); // получаем блок-обертку слайдеров
-	const sliderInner = document.querySelector('.offer__slider-inner'); // получаем дополнительно созданный блок, объединяющий в линию все слайды
+	const slides = document.querySelectorAll(slide); // получаем все слайды на странице (length: 4)
+	const slider = document.querySelector(container); // получаем весь блок слайдера
+	const prev = document.querySelector(prevArrow); // получаем стрелки перелистывания слайдов
+	const next = document.querySelector(nextArrow); // получаем стрелки перелистывания слайдов
+	const totalSlides = document.querySelector(totalCounter); // получаем общее значение элементов по идентификатору
+	const currentSlide = document.querySelector(currentCounter); // получаем текущее значение элемента по идентификатору
+	const slidesWrapper = document.querySelector(wrapper); // получаем блок-обертку слайдеров
+	const sliderInner = document.querySelector(field); // получаем дополнительно созданный блок, объединяющий в линию все слайды
 	const sliderWidth = window.getComputedStyle(slidesWrapper).width; // получаем значение ширины слайдера из блока-обёртки слайдов (применим для расчета ширины одного слайда) = 650px
 	let slideIndex = 1; // назначаем индекс каждому слайду	
 	let slideOffset = 0; // назначим отступ как ориентир сдвига слайдов
@@ -431,10 +426,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ forms; }
 /* harmony export */ });
+/* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal.js */ "./src/js/modules/modal.js");
+/* harmony import */ var _services_services_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/services.js */ "./src/js/services/services.js");
 /* eslint-disable linebreak-style */
+
+
+
 // SEND-FORMS---------fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ 
-function forms() {
-	const forms = document.querySelectorAll('form');
+function forms(formSelector, modalTimerId) {
+	const forms = document.querySelectorAll(formSelector);
 	const message = {
 		// loading: 'Загрузка...', // текст комментируем, так как будем использовать спиннер картинку
 		loading: 'img/form/spinner.svg', // добавляем картинку спиннера вместо надписи в блоке div Загрузка...
@@ -444,16 +444,6 @@ function forms() {
 	forms.forEach(item => { // берем все созданные формы и подвязываем функцию bindpostData
 		bindPostData(item);
 	});
-	const postData = async (url, data) => { // function expression -  без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + async в связи с асинхронностью выполнения
-		const result = await fetch(url, { // в fetch(), url - указываем первым аргументом адрес сервера, data - данные, которые будут поститься - т.е. отправляем сформированный запрос + await для ожидания ответа от сервера
-			method: 'POST',
-			headers: {
-				'Content-type': 'application/json' 
-			},
-			body: data,	// создаем новый объект для формирования документа запроса fetch(), метод и заголовки указывать обязательно!!!	
-		}); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные
-		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
-	};
 	function bindPostData(form) { // будем (bind) привязывать какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
 		form.addEventListener('submit', (e) => {
 			e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера
@@ -476,7 +466,7 @@ function forms() {
 			// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем оson в строку JSON с двойными ковычками =>
 			// это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
 			const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
-			postData('http://localhost:3000/requests', json)
+			(0,_services_services_js__WEBPACK_IMPORTED_MODULE_1__.postData)('http://localhost:3000/requests', json)
 			// .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
 				.then(data => { // сервер вернет данные data, пока это не JSON
 					console.log(data); // берем data данные, которые вернул сервер из PROMISE (успешный исход)
@@ -492,7 +482,7 @@ function forms() {
 	function showThanksModal(message) { // создаем функцию динамической замены элементов мадального окна с отправкой сообщения message
 		const prevModalDialog = document.querySelector('.modal__dialog'); // получаем элемент modal__dialog
 		prevModalDialog.classList.add('hide'); // добавляем класс hide элементу modal__dialog
-		openModalWindow(); // команда открытия модальных окон
+		(0,_modal_js__WEBPACK_IMPORTED_MODULE_0__.openModalWindow)('.modal', modalTimerId); // команда открытия модальных окон
 		const thanksModal = document.createElement('div'); // создаем новый контент обертку
 		thanksModal.classList.add('modal__dialog'); // будем заменять один modal__dialog другим с новым контентом
 		thanksModal.innerHTML = ` 
@@ -506,7 +496,7 @@ function forms() {
 			thanksModal.remove(); // thanksModal будем удалять, чтобы вновь созданные блоки не накапливались
 			prevModalDialog.classList.add('show'); // заменяем классы отображения сверстанного модального окна modal__dialog
 			prevModalDialog.classList.remove('hide');
-			closeModalWindow(); // закрываем модальное окно, чтобы не мешать пользователю
+			(0,_modal_js__WEBPACK_IMPORTED_MODULE_0__.closeModalWindow)('.modal'); // закрываем модальное окно, чтобы не мешать пользователю
 		}, 4000);
 	}
 }
@@ -521,48 +511,58 @@ function forms() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ modal; }
+/* harmony export */   closeModalWindow: function() { return /* binding */ closeModalWindow; },
+/* harmony export */   openModalWindow: function() { return /* binding */ openModalWindow; }
 /* harmony export */ });
 /* eslint-disable linebreak-style */
-// MODAL----------------------------------------------------------
-function modal() {
-	const modalTrigger = document.querySelectorAll('[data-modal]');
-	const modalWindow = document.querySelector('.modal');
-	// const modalCloseBtn = document.querySelector('[data-close]'); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную переменную
-	function openModalWindow() {
-		modalWindow.classList.add('show');
-		modalWindow.classList.remove('hide');
-		document.body.style.overflow = 'hidden'; // при открытии модального окна, скрываем скролл страницы	
+
+function openModalWindow(modalSelector, modalTimerId) {
+	const modalWindow = document.querySelector(modalSelector);
+	modalWindow.classList.add('show');
+	modalWindow.classList.remove('hide');
+	document.body.style.overflow = 'hidden'; // при открытии модального окна, скрываем скролл страницы
+	console.log(modalTimerId);
+	if (modalTimerId) { // если modalTimerId был передан, то только тогда будет запускаться clearInterval()
 		clearInterval(modalTimerId); // если пользователь сам зарыл модальное окно, сбрасываем интервал его автооткрытия
-	}
+	}	
+} 
+function closeModalWindow(modalSelector) {
+	const modalWindow = document.querySelector(modalSelector);
+	modalWindow.classList.add('hide');
+	modalWindow.classList.remove('show');
+	document.body.style.overflow = ''; // при закрытии модального окна, включаем скролл страницы
+}
+
+// MODAL----------------------------------------------------------
+function modal(triggerSelector, modalSelector, modalTimerId) { // добавим длва аргумента triggerSelector, modalSelector для инкапсуляции 
+	const modalTrigger = document.querySelectorAll(triggerSelector);
+	const modalWindow = document.querySelector(modalSelector);
+	// const modalCloseBtn = document.querySelector('[data-close]'); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную переменную
 	modalTrigger.forEach(btn => {
-		btn.addEventListener('click', openModalWindow);
-	}); 
-	function closeModalWindow() {
-		modalWindow.classList.add('hide');
-		modalWindow.classList.remove('show');
-		document.body.style.overflow = ''; // при закрытии модального окна, включаем скролл страницы
-	}
+		btn.addEventListener('click', () => openModalWindow(modalSelector, modalTimerId)); // переданная в обработчик события коллбэк функция openModalWindow(modalSelector)) не дожна сразу вызываться, а просто объявляться, () => стрелочная функция оборачивает коллбэк и вызывает его по клику
+	});
 	// modalCloseBtn.addEventListener('click', closeModalWindow); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную часть
 	modalWindow.addEventListener('click', (e) => {
 		if (e.target === modalWindow || e.target.getAttribute('data-close') == '') { // если по клику целевое событие совпадает с модальным окном, то модальное окно закрывается
-			closeModalWindow();	// для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ добавляем условие  || e.target.getAttribute('data-close') == '' т.е. когда в елементе есть data-close со значение пустой строки, кликаем на подложку или крестик - окно закрывается		
+			closeModalWindow(modalSelector);	// для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ добавляем условие  || e.target.getAttribute('data-close') == '' т.е. когда в елементе есть data-close со значение пустой строки, кликаем на подложку или крестик - окно закрывается		
 		}
 	});
 	document.addEventListener('keydown', (e) => {
 		if (e.code === 'Escape' && modalWindow.classList.contains('show')) { // по клавише ESC закрывается окно
-			closeModalWindow();
+			closeModalWindow(modalSelector);
 		}
 	});
-	const modalTimerId = setTimeout(openModalWindow, 60000); // функция автооткрытия модального окна
 	function showModalWindowByScroll() {
 		if (window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight) { // отслеживаем сколько пикселей по оси Y отлистал пользователь + высота видимой части сравниваются с высотой/прокруткой всего контента
-			openModalWindow(); // если они совпадают, то пользователь долистал до конца контена => открывается модальное окно, но при каждом долистовании!!!
+			openModalWindow(modalSelector, modalTimerId); // если они совпадают, то пользователь долистал до конца контена => открывается модальное окно, но при каждом долистовании!!!
 			window.removeEventListener('scroll', showModalWindowByScroll); // как только пользователь долистал до конца, модальное окно выйдет только ОДИН РАЗ!!!! УДАЛЯЕМ ОБРАБОТЧИК!!!
 		} // нужно избежать подобных повторов, но =>
 	} // }, {once: true}); в данном случае не подходит, так как единоразовая прокрутка на 1px вызывает это условие!!!
 	window.addEventListener('scroll', showModalWindowByScroll); // отслеживаем событие scroll во всем окне браузера
 }
+/* harmony default export */ __webpack_exports__["default"] = (modal);
+
+
 
 /***/ }),
 
@@ -578,10 +578,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* eslint-disable linebreak-style */
 // TABS-----------------------------------------------------------
-function tabs() {
-	const tabs =  document.querySelectorAll('.tabheader__item');
-	const tabsContent = document.querySelectorAll('.tabcontent');
-	const tabsParent = document.querySelector('.tabheader__items');
+function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass) {
+	const tabs =  document.querySelectorAll(tabsSelector);
+	const tabsContent = document.querySelectorAll(tabsContentSelector);
+	const tabsParent = document.querySelector(tabsParentSelector);
 	function hideTabContent() { // функция скрывает часть табов
 		tabsContent.forEach(item => {
 			// item.style.display = 'none';
@@ -589,20 +589,20 @@ function tabs() {
 			item.classList.remove('show', 'fade');
 		});
 		tabs.forEach(item => {
-			item.classList.remove('tabheader__item_active');
+			item.classList.remove(activeClass);
 		});
 	}
 	function showTabContent(i = 0) { // ES6 позволяет по умолчанию задать значение аргумента в "0"!!!
 		// tabsContent[i].style.display = 'block';
 		tabsContent[i].classList.add('show', 'fade');
 		tabsContent[i].classList.remove('hide');
-		tabs[i].classList.add('tabheader__item_active');
+		tabs[i].classList.add(activeClass);
 	}
 	hideTabContent();
 	showTabContent();
 	tabsParent.addEventListener('click', (event) => {
 		const target = event.target; // ЧАСТОЕ ИСПОЛЬЗОВАНИЕ event.target УДОБНО ПЕРЕОПРЕДЕЛИТЬ В ПЕРЕМЕННУЮ!!!
-		if (target && target.classList.contains('tabheader__item')) {
+		if (target && target.classList.contains(tabsSelector.slice(1))) { // убираем точку у селектора '.tabheader__item'
 			tabs.forEach((item, i) => { // для каждого элемента item (tab) с номером i в массиве
 				if (target == item) { // если целевое событие соответствует этому элементу по клику
 					hideTabContent();
@@ -627,8 +627,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* eslint-disable linebreak-style */
 // TAIMER-(обратного отсчета)-------------------------------------
-function timer() {
-	const deadLine = '2023-12-31'; // переводим в миллисекунды строку, создав новую переменную в виде строки... setClock('.timer', deadLine);
+function timer(id, deadLine) {
+	// const deadLine = '2023-12-31'; // переводим в миллисекунды строку, создав новую переменную в виде строки... setClock('.timer', deadLine);
 	function getTimeRemaining(endTime) { // функция оставшегося времени определяет разницу между deadLine (endTime) и текущим временем (new Date())
 		const t = Date.parse(endTime) - Date.parse(new Date()); // метод Date.parse - переводит строку в миллисекунды
 		const days = Math.floor(t / (1000 * 60 * 60 * 24)); // Math.floor - округление до ближайшего целого (миллисек * сек * мин * час в сутках)!
@@ -669,8 +669,43 @@ function timer() {
 			}
 		}
 	}
-	setClock('.timer', deadLine);
+	setClock(id, deadLine);
 }
+
+/***/ }),
+
+/***/ "./src/js/services/services.js":
+/*!*************************************!*\
+  !*** ./src/js/services/services.js ***!
+  \*************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getResources: function() { return /* binding */ getResources; },
+/* harmony export */   postData: function() { return /* binding */ postData; }
+/* harmony export */ });
+/* eslint-disable linebreak-style */
+const postData = async (url, data) => { // function expression -  без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + async в связи с асинхронностью выполнения
+	const result = await fetch(url, { // в fetch(), url - указываем первым аргументом адрес сервера, data - данные, которые будут поститься - т.е. отправляем сформированный запрос + await для ожидания ответа от сервера
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json' 
+		},
+		body: data,	// создаем новый объект для формирования документа запроса fetch(), метод и заголовки указывать обязательно!!!	
+	}); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные
+	return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
+};
+const getResources = async (url) => { // function expression - без объявления присваивается в переменную, getResources отвечает за получение данных с сервера + async в связи с асинхронностью выполнения
+	const result = await fetch(url); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные, но fetch сигналы 404, 403, 401 не распознает как ОШИБКИ!!! 
+	// ошибками для него являются отсутствие Интернета или критические неполадки в запросе!!! Поэтому создаем условие на сравнение:
+	if (!result.ok) { // если с result что-то не то.... то
+		throw new Error(`Could not fetch ${url}, status: ${result.status}`); // то выбрасываем новыю ошибку
+	}
+	return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
+};
+
+
 
 /***/ })
 
@@ -753,25 +788,36 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 window.addEventListener('DOMContentLoaded', () => {
+	const modalTimerId = setTimeout(() => (0,_modules_modal_js__WEBPACK_IMPORTED_MODULE_3__.openModalWindow)('.modal', modalTimerId), 60000); // функция автооткрытия модального окна
 
 	// TABS-----------------------------------------------------------
-	(0,_modules_tabs_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
+	(0,_modules_tabs_js__WEBPACK_IMPORTED_MODULE_0__["default"])('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
 
 	// TAIMER-(обратного отсчета)-------------------------------------
-	(0,_modules_timer_js__WEBPACK_IMPORTED_MODULE_2__["default"])();
+	(0,_modules_timer_js__WEBPACK_IMPORTED_MODULE_2__["default"])('.timer', '2024-01-25');
 
 	// MODAL----------------------------------------------------------	
-	(0,_modules_modal_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
+	(0,_modules_modal_js__WEBPACK_IMPORTED_MODULE_3__["default"])('[data-modal]', '.modal', modalTimerId);
 
 	// CLASSES-for-CARDS----------------------------------------------
 	(0,_modules_cards_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
 
 	// SEND-FORMS----fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ
-	(0,_modules_forms_js__WEBPACK_IMPORTED_MODULE_4__["default"])();
+	(0,_modules_forms_js__WEBPACK_IMPORTED_MODULE_4__["default"])('form', modalTimerId);
 
 	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
-	(0,_modules_carousel_js__WEBPACK_IMPORTED_MODULE_5__["default"])();
+	(0,_modules_carousel_js__WEBPACK_IMPORTED_MODULE_5__["default"])({ // принцип деструктуризации, создаем объект аргументов
+		container: '.offer__slider',
+		slide: '.offer__slide',
+		nextArrow: '.offer__slider-next',
+		prevArrow: '.offer__slider-prev',
+		totalCounter: '#total',
+		currentCounter: '#current',
+		wrapper: '.offer__slider-wrapper',
+		field: '.offer__slider-inner',
+	});
 
 	// CALCULATOR-----------------------------------------------------
 	(0,_modules_calculator_js__WEBPACK_IMPORTED_MODULE_6__["default"])();

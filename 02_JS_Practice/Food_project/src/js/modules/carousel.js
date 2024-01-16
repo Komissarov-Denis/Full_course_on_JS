@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-export default function carousel() {
+export default function carousel({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) { // принцип деструктуризации, создаем объект аргументов
 	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
 	// const slides = document.querySelectorAll('.offer__slide'); // получаем все слайды на странице
 	// const prev = document.querySelector('.offer__slider-prev'); // получаем стрелки перелистывания слайдов
@@ -39,14 +39,14 @@ export default function carousel() {
 	// });
 	
 	// CAROUSEL-------------------------------------БОЛЕЕ СЛОЖНЫЙ ВАРИАНТ------------
-	const slides = document.querySelectorAll('.offer__slide'); // получаем все слайды на странице (length: 4)
-	const slider = document.querySelector('.offer__slider'); // получаем весь блок слайдера
-	const prev = document.querySelector('.offer__slider-prev'); // получаем стрелки перелистывания слайдов
-	const next = document.querySelector('.offer__slider-next'); // получаем стрелки перелистывания слайдов
-	const totalSlides = document.querySelector('#total'); // получаем общее значение элементов по идентификатору
-	const currentSlide = document.querySelector('#current'); // получаем текущее значение элемента по идентификатору
-	const slidesWrapper = document.querySelector('.offer__slider-wrapper'); // получаем блок-обертку слайдеров
-	const sliderInner = document.querySelector('.offer__slider-inner'); // получаем дополнительно созданный блок, объединяющий в линию все слайды
+	const slides = document.querySelectorAll(slide); // получаем все слайды на странице (length: 4)
+	const slider = document.querySelector(container); // получаем весь блок слайдера
+	const prev = document.querySelector(prevArrow); // получаем стрелки перелистывания слайдов
+	const next = document.querySelector(nextArrow); // получаем стрелки перелистывания слайдов
+	const totalSlides = document.querySelector(totalCounter); // получаем общее значение элементов по идентификатору
+	const currentSlide = document.querySelector(currentCounter); // получаем текущее значение элемента по идентификатору
+	const slidesWrapper = document.querySelector(wrapper); // получаем блок-обертку слайдеров
+	const sliderInner = document.querySelector(field); // получаем дополнительно созданный блок, объединяющий в линию все слайды
 	const sliderWidth = window.getComputedStyle(slidesWrapper).width; // получаем значение ширины слайдера из блока-обёртки слайдов (применим для расчета ширины одного слайда) = 650px
 	let slideIndex = 1; // назначаем индекс каждому слайду	
 	let slideOffset = 0; // назначим отступ как ориентир сдвига слайдов

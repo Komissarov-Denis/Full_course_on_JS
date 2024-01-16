@@ -1,4 +1,6 @@
 /* eslint-disable linebreak-style */
+import {getResources} from '../services/services.js';
+
 // CLASSES-for-CARDS--------------------------------------------------
 export default function cards() {    
 	class MenuCards {
@@ -38,14 +40,6 @@ export default function cards() {
 			// console.log(this.classes);
 		}
 	}
-	const getResources = async (url) => { // function expression - без объявления присваивается в переменную, getResources отвечает за получение данных с сервера + async в связи с асинхронностью выполнения
-		const result = await fetch(url); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные, но fetch сигналы 404, 403, 401 не распознает как ОШИБКИ!!! 
-		// ошибками для него являются отсутствие Интернета или критические неполадки в запросе!!! Поэтому создаем условие на сравнение:
-		if (!result.ok) { // если с result что-то не то.... то
-			throw new Error(`Could not fetch ${url}, status: ${result.status}`); // то выбрасываем новыю ошибку
-		}
-		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
-	};
 	// getResources('http://localhost:3000/menu') => еще вариант формирования MenuCards
 	// 	.then(data => createMenuCards(data));
 	// function createMenuCards(data) {
