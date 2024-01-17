@@ -171,7 +171,7 @@ gulp.task('json', function() {
 		.src('src/*.json')
 		.pipe(changed('dist/'))
 		.pipe(gulp.dest('dist/'))
-		// .pipe(browserSync.stream())
+		// .pipe(browserSync.stream()) // убрал обновление браузера, чтобы при изменении базы данных не обновлялся браузер, иначе переоткрываются модальные окна
 	;
 });
 
