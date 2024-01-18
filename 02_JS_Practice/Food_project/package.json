@@ -41,6 +41,8 @@
 		"not dead"
 	],
 	"dependencies": {
-		"@babel/polyfill": "^7.12.1"
+		"@babel/polyfill": "^7.12.1",
+		"es6-promise": "^4.2.8",
+		"nodelist-foreach-polyfill": "^1.2.0"
 	}
 }

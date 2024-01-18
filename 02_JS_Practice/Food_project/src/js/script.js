@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
-
+import 'es6-promise'; // добавил полифилы из node_modules после установки в package.json
+import 'nodelist-foreach-polyfill'; // добавил полифилы из node_modules после установки в package.json
 
 import tabs from './modules/tabs.js';
 import cards from './modules/cards.js';
