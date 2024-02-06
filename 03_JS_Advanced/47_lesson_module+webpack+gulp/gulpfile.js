@@ -26,6 +26,7 @@ import clean from 'gulp-clean';
 import fs from 'fs'; // fileSystem
 import fileInclude from 'gulp-file-include';
 import changed from 'gulp-changed';
+import babel from 'gulp-babel';
 
 const sass = gulpSass(dartSass);
 
@@ -46,7 +47,7 @@ const router = jsonServer.router('src/db.json');
 const middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(router);
-server.listen(3000, () => {
+server.listen(5000, () => { // указываем серверный порт 5000 ('http://localhost:5000/menu') в фетч запросах, чтобы не было конфликтов с browserSync
 	console.log('JSON Server is running >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
 }); //--------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -65,22 +66,22 @@ const webpackConfig =  { // это экспортируемый объект н�
 	watch: true, // если выставлено true, то webpack будет отслеживать изменение файлов и автоматически собирать проект при каждом сохранении изменений
 	devtool: 'source-map', // собранный и оптимизированный проект собирается в один JS файл, он становится нечитаемым, эта технология хранит информацию об исходниках и месте расположения кода
 	module: {
-		// rules: [
-		// 	{
-		// 		test: /\.m?js$/,
-		// 		exclude: /(node_modules|bower_components)/,
-		// 		use: {
-		// 			loader: 'babel-loader',
-		// 			options: {
-		// 				presets: [['@babel/preset-env', {
-		// 					debug: true,
-		// 					corejs: 3,
-		// 					useBuiltIns: 'usage',
-		// 				}]]
-		// 			}
-		// 		}
-		// 	}
-		// ]
+		rules: [
+			{
+				test: /\.m?js$/, // выбираем все файлы js с помощью регулярок
+				exclude: /(node_modules|bower_components)/, // исключаемые файлы и папки
+				use: {
+					loader: 'babel-loader', // технология связывающая webpack с babel, но я установил gulp-babel
+					options: {
+						presets: [['@babel/preset-env', { // используем preset-env
+							debug: true, // позволяет видеть ошибки и т.д.
+							corejs: 3, // библиотека corejs: 3 для polyfill, необходима библиотека core-js
+							useBuiltIns: 'usage', // опция позволяет выбрать только те polyfill, которые нужны, например для обработки метода ForeEach()
+						}]]
+					}
+				}
+			}
+		]
 	} // тут настраиваются модули, можно например установить babel как модуль webpack
 }; //---------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -111,7 +112,7 @@ gulp.task('styles', function() { // передаем в GULP задачу task, 
 gulp.task('watch', function() {
 	gulp.watch('src/sass/**/*.+(scss|sass|css)', gulp.parallel('styles'));
 	gulp.watch('src/**/*.html').on('change', gulp.parallel('html'));
-	gulp.watch('src/js/**/*.js').on('change', gulp.parallel('webpack', 'jsLib'));
+	gulp.watch('src/js/**/*.js').on('change', gulp.parallel('webpack', 'jsLibs'));
 	gulp.watch('src/*.php').on('change', gulp.parallel('php'));
 	gulp.watch('src/*.json').on('change', gulp.parallel('json'));
 	gulp.watch('src/fonts/**/*').on('all', gulp.parallel('fonts'));
@@ -129,7 +130,7 @@ gulp.task('html', function() {
 		])
 		.pipe(changed('dist/'))
 		.pipe(fileInclude({ // плагин объединения блоков в html на основе объекта с ключевыми свойствами и их значениями 
-			prefix: '@@', // данные префиксы позволяют дополнять секции в html
+			prefix: '@@', // данные префиксы позволяют дополнять секции в html для многостраничных сайтов, оптимизирует работу [ вставляем @@include('html/sections/nav.html') ]
 			basepath: '@file', // это настройка пути файла для дополнения в html
 		}))
 		.pipe(htmlmin({collapseWhitespace: true})) // удаляем пробелы и оптимизируем код
@@ -142,17 +143,18 @@ gulp.task('webpack', function() { // передаем в GULP задачу task,
 	return gulp // вторым аргументом передаем функцию function(done){}, функция в нутри любой задачи GULP должна возвращать return в pipe() "поток"/"трубу" кода данные
 		.src('src/js/**/*.js') // передаем в GULP данные о всех исходных файлах папки src/js для компилирования => отслеживания и обработки
 		.pipe(changed('dist/webpack'))
+		.pipe(babel())
 		.pipe(gulpWebpack(webpackConfig, webpack)) // запускаем development-сборку JS-файлов в соответствии с настройками в webpack.config.js, передаем файлы из .src() для обработки плагинами
 		.pipe(gulp.dest('dist/webpack')) // передаем в pipe() "поток"/"трубу" кода компилятора информацию о папке размещения конечных скомпилированных файлов
 		.pipe(browserSync.stream()) // перезапускаем браузер через плагин browserSync в потоке pipe()
 	;	
 }); // если ввести команду в терминале консоли gulp webpack, то задача webpack будет запущена индивидуально!!!
 
-gulp.task('jsLib', function() {
+gulp.task('jsLibs', function() {
 	return gulp
-		.src('src/js/lib/*.js')
-		.pipe(changed('dist/webpack/lib'))
-		.pipe(gulp.dest('dist/webpack/lib'))
+		.src('src/js/libs/*.js')
+		.pipe(changed('dist/webpack/libs'))
+		.pipe(gulp.dest('dist/webpack/libs'))
 		.pipe(browserSync.stream())
 	;
 });
@@ -171,7 +173,7 @@ gulp.task('json', function() {
 		.src('src/*.json')
 		.pipe(changed('dist/'))
 		.pipe(gulp.dest('dist/'))
-		// .pipe(browserSync.stream())
+		// .pipe(browserSync.stream()) // убрал обновление браузера, чтобы при изменении базы данных не обновлялся браузер, иначе переоткрываются модальные окна
 	;
 });
 
@@ -229,7 +231,7 @@ gulp.task('default', gulp.series(
 		'styles', 
 		'html',
 		'webpack',
-		'jsLib', 
+		'jsLibs', 
 		'php', 
 		'json', 
 		'fonts', 
