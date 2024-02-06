@@ -5,7 +5,7 @@ function openModalWindow(modalSelector, modalTimerId) {
 	modalWindow.classList.add('show');
 	modalWindow.classList.remove('hide');
 	document.body.style.overflow = 'hidden'; // при открытии модального окна, скрываем скролл страницы
-	console.log(modalTimerId);
+	// console.log(modalTimerId);
 	if (modalTimerId) { // если modalTimerId был передан, то только тогда будет запускаться clearInterval()
 		clearInterval(modalTimerId); // если пользователь сам зарыл модальное окно, сбрасываем интервал его автооткрытия
 	}	

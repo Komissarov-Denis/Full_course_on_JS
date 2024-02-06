@@ -1423,7 +1423,7 @@ function cards() {
   // 		document.querySelector('.menu .container').append(element);
   // 	});
   // }
-  (0,_services_services_js__WEBPACK_IMPORTED_MODULE_0__.getResources)('http://localhost:3000/menu') // оптимизируем работу с карточками МЕНЮ
+  (0,_services_services_js__WEBPACK_IMPORTED_MODULE_0__.getResources)('http://localhost:5000/menu') // оптимизируем работу с карточками МЕНЮ
   .then(data => {
     data.forEach(({
       img,
@@ -1729,10 +1729,10 @@ function forms(formSelector, modalTimerId) {
       // formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
       // 	objectJson[key] = value;
       // });
-      // postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем оson в строку JSON с двойными ковычками =>
+      // postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем json в строку JSON с двойными ковычками =>
       // это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
       const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
-      (0,_services_services_js__WEBPACK_IMPORTED_MODULE_1__.postData)('http://localhost:3000/requests', json)
+      (0,_services_services_js__WEBPACK_IMPORTED_MODULE_1__.postData)('http://localhost:5000/requests', json)
       // .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
       .then(data => {
         // сервер вернет данные data, пока это не JSON
@@ -1793,7 +1793,7 @@ function openModalWindow(modalSelector, modalTimerId) {
   modalWindow.classList.add('show');
   modalWindow.classList.remove('hide');
   document.body.style.overflow = 'hidden'; // при открытии модального окна, скрываем скролл страницы
-  console.log(modalTimerId);
+  // console.log(modalTimerId);
   if (modalTimerId) {
     // если modalTimerId был передан, то только тогда будет запускаться clearInterval()
     clearInterval(modalTimerId); // если пользователь сам зарыл модальное окно, сбрасываем интервал его автооткрытия

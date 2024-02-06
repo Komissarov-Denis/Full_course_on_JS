@@ -33,10 +33,10 @@ export default function forms(formSelector, modalTimerId) {
 			// formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
 			// 	objectJson[key] = value;
 			// });
-			// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем оson в строку JSON с двойными ковычками =>
+			// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем json в строку JSON с двойными ковычками =>
 			// это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
 			const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
-			postData('http://localhost:3000/requests', json)
+			postData('http://localhost:5000/requests', json)
 			// .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
 				.then(data => { // сервер вернет данные data, пока это не JSON
 					console.log(data); // берем data данные, которые вернул сервер из PROMISE (успешный исход)

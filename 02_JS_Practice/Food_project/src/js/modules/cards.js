@@ -59,7 +59,7 @@ export default function cards() {
 	// 		document.querySelector('.menu .container').append(element);
 	// 	});
 	// }
-	getResources('http://localhost:3000/menu') // оптимизируем работу с карточками МЕНЮ
+	getResources('http://localhost:5000/menu') // оптимизируем работу с карточками МЕНЮ
 		.then(data => {
 			data.forEach(({img, altimg, title, descr, price}) => { // перебираем весь массив db.json состоящий из объектов деструктурировав его методом ({img, altimg, title, descr, price})
 				new MenuCards(img, altimg, title, descr, price, '.menu .container').render(); // запускаем конструктор - MenuCards() для заполнения - render() карточек меню столько раз, сколько объектов в массиве db.json

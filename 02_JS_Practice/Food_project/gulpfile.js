@@ -47,7 +47,7 @@ const router = jsonServer.router('src/db.json');
 const middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(router);
-server.listen(3000, () => {
+server.listen(5000, () => { // указываем серверный порт 5000 ('http://localhost:5000/menu') в фетч запросах, чтобы не было конфликтов с browserSync
 	console.log('JSON Server is running >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
 }); //--------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -112,7 +112,7 @@ gulp.task('styles', function() { // передаем в GULP задачу task, 
 gulp.task('watch', function() {
 	gulp.watch('src/sass/**/*.+(scss|sass|css)', gulp.parallel('styles'));
 	gulp.watch('src/**/*.html').on('change', gulp.parallel('html'));
-	gulp.watch('src/js/**/*.js').on('change', gulp.parallel('webpack', 'jsLib'));
+	gulp.watch('src/js/**/*.js').on('change', gulp.parallel('webpack', 'jsLibs'));
 	gulp.watch('src/*.php').on('change', gulp.parallel('php'));
 	gulp.watch('src/*.json').on('change', gulp.parallel('json'));
 	gulp.watch('src/fonts/**/*').on('all', gulp.parallel('fonts'));
@@ -130,7 +130,7 @@ gulp.task('html', function() {
 		])
 		.pipe(changed('dist/'))
 		.pipe(fileInclude({ // плагин объединения блоков в html на основе объекта с ключевыми свойствами и их значениями 
-			prefix: '@@', // данные префиксы позволяют дополнять секции в html
+			prefix: '@@', // данные префиксы позволяют дополнять секции в html для многостраничных сайтов, оптимизирует работу [ вставляем @@include('html/sections/nav.html') ]
 			basepath: '@file', // это настройка пути файла для дополнения в html
 		}))
 		.pipe(htmlmin({collapseWhitespace: true})) // удаляем пробелы и оптимизируем код
@@ -150,11 +150,11 @@ gulp.task('webpack', function() { // передаем в GULP задачу task,
 	;	
 }); // если ввести команду в терминале консоли gulp webpack, то задача webpack будет запущена индивидуально!!!
 
-gulp.task('jsLib', function() {
+gulp.task('jsLibs', function() {
 	return gulp
-		.src('src/js/lib/*.js')
-		.pipe(changed('dist/webpack/lib'))
-		.pipe(gulp.dest('dist/webpack/lib'))
+		.src('src/js/libs/*.js')
+		.pipe(changed('dist/webpack/libs'))
+		.pipe(gulp.dest('dist/webpack/libs'))
 		.pipe(browserSync.stream())
 	;
 });
@@ -231,7 +231,7 @@ gulp.task('default', gulp.series(
 		'styles', 
 		'html',
 		'webpack',
-		'jsLib', 
+		'jsLibs', 
 		'php', 
 		'json', 
 		'fonts', 
