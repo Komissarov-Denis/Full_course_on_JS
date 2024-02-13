@@ -127,7 +127,7 @@ gulp.task('watch', function() {
 	gulp.watch('src/sass/**/*.+(scss|sass|css)', gulp.parallel('styles'));
 	gulp.watch('src/**/*.html').on('change', gulp.parallel('html'));
 	gulp.watch('src/js/**/*.js').on('change', gulp.parallel('webpack', 'jsLibs'));
-	gulp.watch('src/*.php').on('change', gulp.parallel('php'));
+	gulp.watch('src/**/*.php').on('change', gulp.parallel('php'));
 	gulp.watch('src/*.json').on('change', gulp.parallel('json'));
 	gulp.watch('src/fonts/**/*').on('all', gulp.parallel('fonts'));
 	gulp.watch('src/icons/**/*').on('all', gulp.parallel('icons'));
@@ -175,7 +175,7 @@ gulp.task('jsLibs', function() {
 
 gulp.task('php', function() {
 	return gulp
-		.src('src/*.php')
+		.src('src/**/*.php')
 		.pipe(changed('dist/'))
 		.pipe(gulp.dest('dist/'))
 		.pipe(browserSync.stream())
