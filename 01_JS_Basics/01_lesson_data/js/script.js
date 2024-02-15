@@ -38,23 +38,23 @@ let und;
 console.log(und); // получил: undefined - значение не определено
 
 // Виды запросов на основе модальных окон браузера: alert(), confirm(), prompt()
-alert('Hallo!');
+alert('Hallo!'); // предупреждает о важном!!!
 
-const result = confirm('Are you here?');
+const result = confirm('Are you here?'); // запрашивает ответ на "Да"/"Нет" (true/false)
 console.log(result);
 
-const answer = prompt('Вам есть 18?', 'Да, мне 18!');
+const answer = prompt('Вам есть 18?', 'Да, мне 18!'); // запрос ответа от пользователя в виде строковых данных или числовых
 console.log(typeof (answer)); // ВСЯ ИНФА ОТ ПОЛЬЗОВАТЕЛЯ - ПРИХОДИТ В ВИДЕ СТРОК!!!
 
-const answer2 = +prompt('Вам есть 18?', 'Да, мне 18!');
-console.log(answer2 + 5);  // +prompt, Т.Е "+" ПЕРЕВОДИТ СТРОКОВЫЕ В ЧИСЛОВЫЕ ДАНННЫЕ!!!
+const answer2 = +prompt('Вам есть 18?', 'Да, мне 18!'); // второй аргумент - это PLACE HOLDER в окне!!!
+console.log(answer2 + 5);  // +prompt, т.е. "+" ПЕРЕВОДИТ СТРОКОВЫЕ В ЧИСЛОВЫЕ ДАНННЫЕ!!! ЧИСЛОВЫЕ И СТРОКОВЫЕ СКЛЕИВАЮТСЯ, а НЕ СКЛАДЫВАЮТСЯ!!!
 
 const answers = [];
-answers[0] = prompt('Как Ваше имя?', '');
+answers[0] = prompt('Как Ваше имя?', ''); // второй аргумент - это пустой PLACE HOLDER в окне!!!
 answers[1] = prompt('Как Ваша фамилия?', '');
 answers[2] = prompt('Сколько Вам лет?', '');
-document.write(answers);
-console.log(typeof (answers));
+document.write(answers); // устаревшая команда
+console.log(typeof(answers)); // получил: object - так как массив есть частный случай объекта!!!
 
 const category = 'toys';
 console.log('http://someurl.com/' + category + '/' + '5'); // пример конкотинации или объединения строк!!! получил: http://someurl.com/toys/5
