@@ -56,13 +56,6 @@ answers[2] = prompt('Сколько Вам лет?', '');
 document.write(answers); // устаревшая команда
 console.log(typeof(answers)); // получил: object - так как массив есть частный случай объекта!!!
 
-const category = 'toys';
-console.log('http://someurl.com/' + category + '/' + '5'); // пример конкотинации или объединения строк!!! получил: http://someurl.com/toys/5
-console.log(`http://someurl.com/${category}/5`); // `бэктики` или косые ковычки для интерполяции!!!Более УДОБНО!!! получил: http://someurl.com/toys/5
-
-const user = 'DEN';
-alert(`Привет, ${user}`);
-
 console.log('arr' + ' - object'); // получил: arr - object
 console.log(4 + ' - object'); // получил: 4 - object
 console.log(4 + +'5'); // унарный плюс без пробела!!! получил: 9
@@ -165,4 +158,13 @@ const arrObj3 = {
 	}
 };
 console.log(arrObj3); // получил: { '1': 'b', '2': 'c', a: 'a', abc: { def: { dd: [Array], y: '10' } } }
+
 //------------------------------------------------------------------
+
+//ИНТЕРПОЛЯЦИЯ
+const category = 'toys';
+console.log('http://someurl.com/' + category + '/' + '5'); // пример КОНКОТИНАЦИЯ или объединения строк!!! получил: http://someurl.com/toys/5
+console.log(`http://someurl.com/${category}/5`); // `бэктики` или косые ковычки для ИНТЕРПОЛЯЦИИ!!!Более УДОБНО!!! получил: http://someurl.com/toys/5
+
+const user = 'DEN';
+alert(`Привет, ${user}`);
