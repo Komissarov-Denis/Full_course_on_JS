@@ -227,3 +227,19 @@ if (hamburger6 || cola2 || fries6) {
 }
 
 console.log(0 || 0 || null); // получил: null - последнее ложное значение!!!
+
+let johnReport, alexReport, samReport, mariaReport = 'done';
+// alexReport = 1; если пропишем так, то получим: 1!!! 
+console.log(johnReport || alexReport || samReport || mariaReport); // получил: done, так как отчеты все готовы и выводим первое правдивое выражение
+
+//Комбинации операторов--------------------------------------
+const hamburger7 = 3; // наличие гамбургеров в кафе - true
+const fries7 = 3; // наличие картофеля ФРИ в кафе - true
+const cola3 = 0; // наличие колы в кафе - false
+const nuggets = 2; // наличие наггетсов в кафе - true
+if (hamburger7 === 3 && cola3 === 2 || fries7 === 3 && nuggets) { // (fries7 === 3 && nuggets) правдивое значение
+	console.log('Все довольны!'); // получил: Все довольны!, логический оператор || возвращает первое правдивое значение, на котором он остановился, запнулся!!!
+} else {
+	console.log('Мы уходим!');
+}
+console.log(hamburger7 === 3 && cola3 === 2 || fries7 === 3 && nuggets); // (fries7 === 3 && nuggets) правдивое значение, и так как прописано просто nuggets, получил: 2
