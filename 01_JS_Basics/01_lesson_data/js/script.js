@@ -243,3 +243,7 @@ if (hamburger7 === 3 && cola3 === 2 || fries7 === 3 && nuggets) { // (fries7 ===
 	console.log('Мы уходим!');
 }
 console.log(hamburger7 === 3 && cola3 === 2 || fries7 === 3 && nuggets); // (fries7 === 3 && nuggets) правдивое значение, и так как прописано просто nuggets, получил: 2
+console.log(hamburger7 === 3 && (cola3 === 2 || fries7 === 3) && nuggets); // получил: 2
+
+// Оператор НЕ => !0 - не нуль
+console.log(!0); // получил: true
