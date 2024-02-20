@@ -63,3 +63,19 @@ const calc2 = (a, b) => a + b; // сокращенная форма!!! НЕ ИМ
 console.log(calc2(4, 3)); // получил: 7
 console.log(calc2(5, 7)); // получил: 12
 console.log(calc2(8, 13)); // получил: 21
+
+// АРГУМЕНТЫ ФУНКЦИЙ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+const usdCurrency = (1 / 100);
+const euroCurrency = (1 / 110);
+const ukCurrency = (1 / 108);
+const amountRub = 1000;
+function convert(currency, amount) { // конвертер курса валюты, но ФУНКЦИЯ ИЗНАЧАЛЬНО НЕ ЗНАЕТ, КАКОЕ ЗНАЧЕНИЕ ВВЕДЕТ ПОЛЬЗОВАТЕЛЬ НА САЙТЕ!!!
+	return (Math.round((currency * amount)* 100) / 100); // amount - количество рублей для конвертации, метод Math.round(х * 100) / 100 позволяет округлять до сотых!!!
+}
+const usdAmount = convert(usdCurrency, amountRub); // получил: 10 долларов
+const euroAmount = convert(euroCurrency, amountRub); // получил: 9.09 евро
+const ukAmount = convert(ukCurrency, amountRub); // получил: 9.26 фунтов
+console.log(`${usdAmount} долларов`);
+console.log(`${euroAmount} евро`);
+console.log(`${ukAmount} фунтов`);
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
