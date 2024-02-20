@@ -72,10 +72,10 @@ const amountRub = 1000;
 function convert(currency, amount) { // конвертер курса валюты, но ФУНКЦИЯ ИЗНАЧАЛЬНО НЕ ЗНАЕТ, КАКОЕ ЗНАЧЕНИЕ ВВЕДЕТ ПОЛЬЗОВАТЕЛЬ НА САЙТЕ!!!
 	return (Math.round((currency * amount)* 100) / 100); // amount - количество рублей для конвертации, метод Math.round(х * 100) / 100 позволяет округлять до сотых!!!
 }
-const usdAmount = convert(usdCurrency, amountRub); // получил: 10 долларов
-const euroAmount = convert(euroCurrency, amountRub); // получил: 9.09 евро
-const ukAmount = convert(ukCurrency, amountRub); // получил: 9.26 фунтов
-console.log(`${usdAmount} долларов`);
-console.log(`${euroAmount} евро`);
-console.log(`${ukAmount} фунтов`);
+const usdAmount = convert(usdCurrency, amountRub);
+const euroAmount = convert(euroCurrency, amountRub);
+const ukAmount = convert(ukCurrency, amountRub);
+console.log(`${usdAmount} долларов`); // получил: 10 долларов
+console.log(`${euroAmount} евро`); // получил: 9.09 евро
+console.log(`${ukAmount} фунтов`); // получил: 9.26 фунтов
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
