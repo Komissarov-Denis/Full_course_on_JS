@@ -60,13 +60,13 @@ const personalMovieDB = {
 			console.log(num);
 			console.log(i);
 			const a = prompt('Один из последних просмотренных фильмов?', '');
-			const b = +prompt('На сколько оцените его?', '');
-			if (a != null && b != null && a != '' && b != '' && !isNaN(b) && a.length < 50) {
+			const b = +prompt('На сколько оцените его?', ''); // + превращает строку в числовой тип данных, а пустую строку в нуль!!!
+			if (a != null && b != null && a != '' && b != '' && !isNaN(b)  && a.length > 3 && a.length < 50) { // null - это клик по кнопке "Отмена"
 				personalMovieDB.movies[a] = b;
 				console.log('DONE');
 			} else {
 				console.log('ERROR');
-				i--;
+				i--; // так как выводится сообщение об ошибке в 'else', то нужно вернуться на цикл назад!!!
 			}
 		}
 	},
