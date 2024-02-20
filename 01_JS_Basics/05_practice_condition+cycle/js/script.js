@@ -29,9 +29,9 @@ const personalMovieDB = {
 // '' - пустая строка
 for (let i = 0; i < 2; i++) {
 	const a = prompt('Один из последних просмотренных фильмов?', '');
-	const b = +prompt('На сколько оцените его?', '');
+	const b = +prompt('На сколько оцените его?', ''); // + превращает строку в числовой тип данных, а пустую строку в нуль!!!
 
-	if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+	if (a != null && b != null && a != '' && b != '' && a.length > 3 && a.length < 50) { // null - это клик по кнопке "Отмена"
 		personalMovieDB.movies[a] = b;
 		console.log('DONE');
 	} else {
