@@ -68,14 +68,47 @@ console.log(calc2(8, 13)); // получил: 21
 const usdCurrency = (1 / 100);
 const euroCurrency = (1 / 110);
 const ukCurrency = (1 / 108);
-const amountRub = 1000;
+const amountRub = 1000; // Задача 1000 рублей обменять по курсу и расчитать скидку на товар по курсу
 function convert(currency, amount) { // конвертер курса валюты, но ФУНКЦИЯ ИЗНАЧАЛЬНО НЕ ЗНАЕТ, КАКОЕ ЗНАЧЕНИЕ ВВЕДЕТ ПОЛЬЗОВАТЕЛЬ НА САЙТЕ!!!
-	return (Math.round((currency * amount)* 100) / 100); // amount - количество рублей для конвертации, метод Math.round(х * 100) / 100 позволяет округлять до сотых!!!
+	return (Math.round((currency * amount) * 100) / 100); // amount - количество рублей для конвертации, метод (Math.round(X * 100) / 100) позволяет округлять до сотых!!!
 }
 const usdAmount = convert(usdCurrency, amountRub); // ОСНОВНОЙ ПРИНЦИП ПЕРЕДАЧИ АРГУМЕНТОВ В ФУНКЦИЮ: currency === usdCurrency И amount === amountRub =>
 const euroAmount = convert(euroCurrency, amountRub); // => ДАЕТ ВОЗМОЖНОСТЬ ВСЕГО ОДНОЙ ФУНКЦИЕЙ ВЫПОЛНИТЬ РАСЧЕТЫ ДЛЯ РАЗНЫХ ВАЛЮТ, ЧЕРЕЗ ДОБАВЛЕНИЕ НОВЫХ
 const ukAmount = convert(ukCurrency, amountRub); // ГЛОБАЛЬНЫХ ПЕРЕМЕННЫХ И ПРИСВАИВАНИЯ ВЫЧИСЛЕНИЙ ФУНКЦИИ ПО СРЕДСТВОМ ЕЕ ДОПОЛНИТЕЛЬНОГО ВЫЗОВА !!!
-console.log(`${usdAmount} долларов`); // получил: 10 долларов
+console.log(`${usdAmount} доллар(а)ов`); // получил: 10 доллар(а)ов
 console.log(`${euroAmount} евро`); // получил: 9.09 евро
-console.log(`${ukAmount} фунтов`); // получил: 9.26 фунтов
+console.log(`${ukAmount} фунт(а)ов`); // получил: 9.26 фунт(а)ов
+
+const discount = 0.2; // допустим, нужно при продаже применить скидки 20%
+function promotion (amount, discount) {
+	return (Math.round((amount * discount) * 100) / 100);
+} 
+const usdPromoRes = promotion(usdAmount, discount);
+const euroPromoRes = promotion(euroAmount, discount);
+const ukPromoRes = promotion(ukAmount, discount);
+console.log(`${usdPromoRes} доллар(а)ов`); // получил: 2 доллар(а)ов
+console.log(`${euroPromoRes} евро`); // получил: 1.82 евро
+console.log(`${ukPromoRes} фунт(а)ов`); // получил: 1.85 фунт(а)ов
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// В ОСНОВЕ ПРИЕМА КОМПОНЕНТА ВЫСШЕГО ПОРЯДКА ЛЕЖИТ ТО, ЧТО ФУНКЦИЯ ВОЗВРАЩАЕТ ДРУГУЮ ФУНКУЦИЮ!!!
+function xxxxxx () {
+	console.log(Math.round((amount * discount) * 100) / 100);
+	return function zzzzzzz() {
+	};
+}
+xxxxxx();
+
+function test() {
+	for (let i = 0; i < 5; i++) {
+		console.log(i);
+		if (i === 3) return; // как только цикл в функции натыкается на строгое равенство 3, функция останавливается и DONE не выведится!!! 
+	}
+	console.log('DONE');
+}
+test();
+
+function doNothing() {}
+console.log(doNothing() === undefined);  // получил: true, функция всегда что-то возвращает, даже если не указан return!!!
+
+console.log('11'); // если запустить данную команду в браузере, то получим 11 и undefined, потому, что console - это функция, log() - её метод, и функция всегда что-то возвращает, если нет значения, то undefined!!! 
