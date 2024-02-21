@@ -21,31 +21,34 @@ const personalMovieDB = {
 	showMyDB: function() {
 		if (personalMovieDB.privat == false) {
 			console.log(personalMovieDB);
-			console.log('Открытый доступ!');
-			alert('Открытый доступ!');
+			console.log('Доступ открыт! Ответьте пожалуйста на вопросы!');
+			alert('Доступ открыт! Ответьте пожалуйста на вопросы!');
 		} else {
-			console.log('Это частная информация!');
-			alert('Это частная информация!');
-		}
+			console.log('Доступ закрыт! Опрос завершен!');
+			alert('Доступ закрыт! Опрос завершен!');
+			return;
+		}		
+		personalMovieDB.numbOfFilms();
+		personalMovieDB.detectPersonalLevel();
 	},
 	numbOfFilms: function() {
-		personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '');
+		personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '').trim();
 		while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count) || personalMovieDB.count <= 0) {
 			alert('Вы не можете оценивать, результаты будут некорректны!');
-			personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '');
+			personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '').trim();
 		}
 	},
 	detectPersonalLevel: function() {
 		if (personalMovieDB.count >= 1 && personalMovieDB.count <= 3) {
-			console.log('Просмотрено слишком мало фильмов для оценки! Опрос завершен!');			
-			alert('Просмотрено слишком мало фильмов для оценки! Опрос завершен!');
+			console.log(`Просмотрено слишком мало фильмов для оценки! Всего ${personalMovieDB.count} фильм(а). Опрос завершен!`);
+			alert(`Просмотрено слишком мало фильмов для оценки! Всего ${personalMovieDB.count} фильм(а). Опрос завершен!`);
 			return; 
 		}	else if (personalMovieDB.count > 3 && personalMovieDB.count < 30) {
-			console.log('Вы классический зритель!');
-			alert('Вы классический зритель!');
+			console.log(`Вы классический зритель, так как просмотрели ${personalMovieDB.count} фильм(ов)а!`);
+			alert(`Вы классический зритель, так как просмотрели ${personalMovieDB.count} фильм(ов)а!`);
 		}	else if (personalMovieDB.count >= 30) {
-			console.log('Вы настоящий киноман!');
-			alert('Вы настоящий киноман!');
+			console.log(`Вы настоящий киноман, так как просмотрели ${personalMovieDB.count} фильм(ов)а!`);
+			alert(`Вы настоящий киноман, так как просмотрели ${personalMovieDB.count} фильм(ов)а!`);
 		}	else {
 			console.log('ERROR');
 			alert('ERROR');
@@ -59,8 +62,8 @@ const personalMovieDB = {
 			console.log(personalMovieDB.count);
 			console.log(num);
 			console.log(i);
-			const a = prompt('Один из последних просмотренных фильмов?', '');
-			const b = +prompt('На сколько оцените его?', ''); // + превращает строку в числовой тип данных, а пустую строку в нуль!!!
+			const a = prompt('Один из последних просмотренных фильмов?', '').trim(); // удаляет пробелы в начале и в конце строки!!!
+			const b = +prompt('На сколько оцените его?', '').trim(); // + превращает строку в числовой тип данных, а пустую строку в нуль!!!
 			if (a != null && b != null && a != '' && b != '' && !isNaN(b)  && a.length > 3 && a.length < 50) { // null - это клик по кнопке "Отмена"
 				personalMovieDB.movies[a] = b;
 				console.log('DONE');
@@ -72,9 +75,10 @@ const personalMovieDB = {
 	},
 	writeYourGenres: function() {
 		for (let i = 1; i <= 3; i++) {
-			let genre = prompt(`Ваш любимый жанр под номером ${i}:`);
-			if (genre == '' || genre == null || !isNaN(genre)) {
+			let genre = prompt(`Ваш любимый жанр под номером ${i}:`).trim();
+			if (genre == '' || genre == null || !isNaN(genre) || genre.length < 3 || genre.length > 10) {
 				console.log('Вы не ввели данные о жанре!');
+				alert('Вы не ввели данные о жанре!');
 				i--;
 			} else {
 				personalMovieDB.genres[i - 1] = genre;
@@ -86,8 +90,6 @@ const personalMovieDB = {
 	},
 };
 personalMovieDB.checkPrivatStatus();
-personalMovieDB.numbOfFilms();
-personalMovieDB.detectPersonalLevel();
 
 
 // const result = document.querySelector('.calculating__result span'); // получили по селектору класс, в который будем записывать результат расчета
