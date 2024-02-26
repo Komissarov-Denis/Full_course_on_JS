@@ -7,6 +7,7 @@
 // пустую строку. В противном случае, отправлять его к этому же вопросу. После введения всех жанров,
 // с помощью метода forEach вывести в консоль сообщения в таком виде: "Любимый жанр №(номер по
 // порядку, начиная с 1-го) - это (название их массива)"*/
+
 const personalMovieDB = {
 	count: {},
 	movies: {},
@@ -40,15 +41,15 @@ const personalMovieDB = {
 	},
 	detectPersonalLevel: function() {
 		if (personalMovieDB.count >= 1 && personalMovieDB.count <= 3) {
-			console.log(`Просмотрено слишком мало фильмов для оценки! Всего ${personalMovieDB.count} фильм(а). Опрос завершен!`);
-			alert(`Просмотрено слишком мало фильмов для оценки! Всего ${personalMovieDB.count} фильм(а). Опрос завершен!`);
+			console.log(`Просмотрено слишком мало фильмов для оценки! Всего ${personalMovieDB.count} фильм(а)ов. Опрос завершен!`);
+			alert(`Просмотрено слишком мало фильмов для оценки! Всего ${personalMovieDB.count} фильм(а)ов. Опрос завершен!`);
 			return; 
 		}	else if (personalMovieDB.count > 3 && personalMovieDB.count < 30) {
-			console.log(`Вы классический зритель, так как просмотрели ${personalMovieDB.count} фильм(ов)а!`);
-			alert(`Вы классический зритель, так как просмотрели ${personalMovieDB.count} фильм(ов)а!`);
+			console.log(`Вы классический зритель, так как просмотрели ${personalMovieDB.count} фильм(а)ов!`);
+			alert(`Вы классический зритель, так как просмотрели ${personalMovieDB.count} фильм(а)ов!`);
 		}	else if (personalMovieDB.count >= 30) {
-			console.log(`Вы настоящий киноман, так как просмотрели ${personalMovieDB.count} фильм(ов)а!`);
-			alert(`Вы настоящий киноман, так как просмотрели ${personalMovieDB.count} фильм(ов)а!`);
+			console.log(`Вы настоящий киноман, так как просмотрели ${personalMovieDB.count} фильм(а)ов!`);
+			alert(`Вы настоящий киноман, так как просмотрели ${personalMovieDB.count} фильм(а)ов!`);
 		}	else {
 			console.log('ERROR');
 			alert('ERROR');
@@ -90,14 +91,3 @@ const personalMovieDB = {
 	},
 };
 personalMovieDB.checkPrivatStatus();
-
-
-// const result = document.querySelector('.calculating__result span'); // получили по селектору класс, в который будем записывать результат расчета
-// let sex, height, weight, age, ratio; // объявили несколко переменных (через let так как они будут меняться): пол, рост, вес, возраст и коэффициент активности
-// function calcTotal() { // подсчитываем конечный результат, но начинать подсчет будем с проверки наличия всех заполненных данных, запускаться будет при внесении изменений
-// 	if (!sex || !height || !weight || !age || !ratio) {
-// 		result.textContent = 'Нет данных!!!';
-// 		return; // прерываем досрочно функцию при отсутствии заполнения хотя бы одной переменной, все условия после return работать не будут!!!
-// 	}
-// 	if
-// }
