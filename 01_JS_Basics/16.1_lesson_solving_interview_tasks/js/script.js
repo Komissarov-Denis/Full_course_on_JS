@@ -55,5 +55,5 @@ alert(+'Infinity'); // Ответ: число Infinity
 console.log('Ёжик' > 'яблоко'); // Ответ: false, в Юникод можно посмотреть приоритет символов
 
 // 12) Чему равно 0 || "" || 2 || undefined || true || falsе ?
-console.log(0 || '' || 2 || undefined || true || falsе); // Ответ: 2
+console.log(0 || '' || 2 || undefined || true || 'falsе'); // Ответ: 2
 // ОТВ:   false false true - на этом остановка!!!
