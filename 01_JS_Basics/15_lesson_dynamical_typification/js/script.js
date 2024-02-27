@@ -1,8 +1,8 @@
 // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
-// 'use strict';
+'use strict';
 
-// to String - все что получаем от пользователя, всегда будет иметь тип STRING. Это и данные в PROMPT, и данные из INPUT / TEXTAREA, и прочее. ВСЕ ЭТО СТРОКИ!!!
+// to String - все что получаем от пользователя, всегда будет иметь тип STRING. Это и данные от PROMPT, и данные из INPUT / TEXTAREA, и прочее. ВСЕ ЭТО СТРОКИ!!!
 // 1)
 console.log(typeof(String(null))); // получил: string
 console.log(String(null)); // получил: null
