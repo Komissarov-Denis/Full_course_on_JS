@@ -30,6 +30,7 @@ button {
     width: 100px;
     height: 90px;
     margin-top: 10px;
+    
 }
 .heart:before,
 .heart:after {
