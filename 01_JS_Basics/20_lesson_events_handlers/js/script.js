@@ -24,16 +24,16 @@ btn.addEventListener('click', function() {
 	alert('Second click'); // события в JS выполняются по порядку поступления в очередь!!!
 });
 
-btn.addEventListener('mouseenter', function(event) { // событие mouseenter - наведение на елемент страницы
+btn.addEventListener('mouseenter', function(event) { // событие mouseenter - наведение на элемент страницы
 	console.log(event); // (event) или (е) - событие отрабатывает при наведении мыши!!!!
-	console.log(event.target); // по (event.target) получаем доступ к елементу страницы!!!
+	console.log(event.target); // по (event.target) получаем доступ к элементу страницы!!!
 	event.target.remove(); // удаляет элемент при наведении
 	// console.log('Hover');
 });
 
 btn.addEventListener('click', function(event) {
 	console.log(event); // (event) или (е) - событие отрабатывает при клике мыши!!!
-	console.log(event.target); // по (event.target) получаем доступ к елементу страницы!!!
+	console.log(event.target); // по (event.target) получаем доступ к элементу страницы!!!
 	event.target.remove(); // удаляет элемент при клике
 	// console.log('Hover');
 });
@@ -41,7 +41,7 @@ btn.addEventListener('click', function(event) {
 
 let i = 0;
 const deleteElement1 = function(e) {
-	console.log(e.target);
+	console.log(e.target); // обработка целевого события на конкретном элементе 
 	i++;
 	if (i == 1) {
 		btn.removeEventListener('click', deleteElement1); // нажал на кнопку, обработчик выполнился только раз и кнопка удалилась 
@@ -54,7 +54,7 @@ const btn2 = document.querySelector('button');
 const overlay = document.querySelector('.overlay');
 const deleteElement2 = function(e) {
 	console.log(e.currentTarget); // currentTarget указывает на всплытие событий на уровень выше
-	console.log(e.type);
+	console.log(e.type); // тип произошедшего события
 };
 btn2.addEventListener('click', deleteElement2);
 overlay.addEventListener('click', deleteElement2);
@@ -71,8 +71,8 @@ link.addEventListener('click', (e) => {
 
 // навесить функцию на множество элементов:
 const deleteElement3 = function(e) {
-	console.log(e.currentTarget);
-	console.log(e.type);
+	console.log(e.currentTarget); // currentTarget указывает на всплытие событий на уровень выше
+	console.log(e.type); // тип произошедшего события
 };
 const btns = document.querySelectorAll('button');
 btns.forEach(btn => {
