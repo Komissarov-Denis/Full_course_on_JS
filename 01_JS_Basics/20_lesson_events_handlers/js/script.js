@@ -41,7 +41,7 @@ btn.addEventListener('click', function(event) {
 
 let i = 0;
 const deleteElement1 = function(e) {
-	console.log(e.target); // обработка целевого события на конкретном элементе 
+	console.log(e.target); // обработка целевого события на конкретном элементе btn
 	i++;
 	if (i == 1) {
 		btn.removeEventListener('click', deleteElement1); // нажал на кнопку, обработчик выполнился только раз и кнопка удалилась 
@@ -66,7 +66,7 @@ const link = document.querySelector('a');
 link.addEventListener('click', (e) => {
 	e.preventDefault(); // для отмены стандартного поведения браузера preventDefault()!!! ОЧЕНЬ РАСПРОСТРАНЕННЫЙ ВАРИАНТ!!!
 	// ПОМЕЩАЕТСЯ В САМОЕ НАЧАЛО КОДА ОБРАБОТЧИКА СОБЫТИЙ!!! в данном случае не переходит по ссылке, а выводит в консоль!!!
-	console.log(e.target);
+	console.log(e.target); // целевым элментом является ссылка link
 });
 
 // навесить функцию на множество элементов:
@@ -74,7 +74,7 @@ const deleteElement3 = function(e) {
 	console.log(e.currentTarget); // currentTarget указывает на всплытие событий на уровень выше
 	console.log(e.type); // тип произошедшего события
 };
-const btns = document.querySelectorAll('button');
+const btns = document.querySelectorAll('button'); // чтобы на несколько элементов страницы btns навесить обработчики событий, применяем метод forEach()
 btns.forEach(btn => {
 	btn.addEventListener('click', deleteElement3, {once: true}); // третий аргумент {once: true} - опции выполнения события единожды!!!
 });
