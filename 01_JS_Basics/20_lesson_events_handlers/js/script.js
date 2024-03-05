@@ -76,5 +76,5 @@ const deleteElement3 = function(e) {
 };
 const btns = document.querySelectorAll('button');
 btns.forEach(btn => {
-	btn.addEventListener('click', deleteElement3, {once: true}); // {once: true} - опции события!!!
+	btn.addEventListener('click', deleteElement3, {once: true}); // третий аргумент {once: true} - опции выполнения события единожды!!!
 });
