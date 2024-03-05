@@ -70,19 +70,24 @@ divMod.style.cssText = `width: ${width + 300}px`;
 divMod.style.height = `${heigth + 30}px`;
 divMod.innerHTML = 'Hello World!'; // добавляем текст в блок
 divMod.innerHTML = '<p>Hello World!</p>'; // добавляем параграф в блок - только работа с HTML структурой!!!
-divMod.textContent = 'Hello'; // применяем, когда хотим получить от пользователя ТОЛЬКО ТЕКСТ!!! меняет текст в элементе!!!
+divMod.textContent = 'Hello'; // применяем, когда хотим получить от пользователя ТОЛЬКО ТЕКСТ!!! Если ввести теги, то они будут выводиться как текст!!!
 divMod.insertAdjacentHTML('beforebegin', '<h2>Hello!!!!</h2>'); // метод ставит код перед блоком
 divMod.insertAdjacentHTML('afterbegin', '<h2>Bye!</h2>'); // метод ставит код в начале блока
 divMod.insertAdjacentHTML('beforeend', '<h2>Hello!</h2>'); // метод ставит код в конце блока
 divMod.insertAdjacentHTML('afterend', '<h2>Bye!!!!</h2>'); // метод ставит код после блока
+
+// Если есть родительский блок в переменной, то обращаясь к нему можно получать все дочерние элементы блока
+const wrapper2 = document.querySelector('.wrapper');
+const hearts2 = wrapper2.querySelector('.hearts');
+const oneHeart2 = wrapper2.querySelector('.heart');
 
 
 const сarouselWrapper = document.createElement('div');
 сarouselWrapper.classList.add('wrapper_crsl');
 document.body.prepend(сarouselWrapper);
 сarouselWrapper.style.cssText = 'display: flex; justify-content: center; align-items: center; margin: 0 auto; width: 1200px; height: 200px';
-function inner() {	
-	сarouselWrapper.innerHTML = `
+function inner() {	// динамическая система формирования структуры сайта
+	сarouselWrapper.innerHTML = ` 
 		<div class='сarousel'>1</div>
 		<div class='сarousel'>2</div>
 		<div class='сarousel'>3</div>
