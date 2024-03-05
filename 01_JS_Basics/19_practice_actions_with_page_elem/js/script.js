@@ -33,8 +33,11 @@ movieList.innerHTML = ''; // записываем пустую строку в �
 movieDB.movies.sort(); // сортируем элементы по порядку
 movieDB.movies.forEach((film, i) => {
 	movieList.innerHTML += `
-		<li class="promo__interactive-item">${i + 1} ${film}
+		<li class="promo__interactive-item">${i + 1} ${film} 
 				<div class="delete"></div>
 		</li>
 	`;
 });
+// movieList.innerHTML += это тоже самое, что a = a + 1 => a += 1
+// ${i + 1} итератор прибавляет на проходе через 5 элементов массива movies = [0, 1, 2, ..., 5] каждый раз 1
+// ${film} каждый из 5 элементов массива movies = [film, film, film, ...]
