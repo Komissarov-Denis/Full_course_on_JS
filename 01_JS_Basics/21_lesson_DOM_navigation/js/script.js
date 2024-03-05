@@ -1,6 +1,6 @@
 // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
-// 'use strict';
+'use strict';
 
 // взять элемент и поменять класс у его родителя + метод обращения к внутреним узлам родителя
 console.log(document.documentElement);
@@ -24,9 +24,10 @@ console.log(document.querySelector('[data-current="3"]').previousSibling);
 console.log(document.querySelector('[data-current="3"]').nextElementSibling);
 console.log(document.querySelector('[data-current="3"]').previousElementSibling);
 
+// МЕТОД for(...of...)
 for (let node of document.body.childNodes) {
 	if (node.nodeName == '#text') {
-		continue; // остановит выполнение оператора и при обнаружении '#text' и продолжит искать другие!!!
+		continue; // остановит выполнение оператора при обнаружении '#text' и продолжит искать другие!!!
 	}
 	console.log(node);
 }
