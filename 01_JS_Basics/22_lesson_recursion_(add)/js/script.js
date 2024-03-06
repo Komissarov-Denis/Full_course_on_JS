@@ -88,16 +88,21 @@ function getTotalProgressByIteration(data) {
 	let totalProgress = 0; // общий прогресс
 	let students = 0; // общее количество студентов
 	for (let course of Object.values(data)) { // метод Object.values() возвращает массив значений перечисляемых свойств объекта, перебираем значения course в массиве js и объекте html
-		// console.log(Object.values(course)); // получил: [{ name: 'john', progress: 100 }, { name: 'Ivan', progress: 60 }]   [[{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 }], [{ name: 'Sam', progress: 10 }]]
+
+		// console.log(Object.values(course)); // получил массивы: [{ name: 'john', progress: 100 }, { name: 'Ivan', progress: 60 }] 
+		//                                                         [[{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 }], [{ name: 'Sam', progress: 10 }]]
 		
 		if(Array.isArray(course)) { // метод Array.isArray() возвращает true, если объект является массивом, false - наоборот
 
 			// console.log(Array.isArray(course)); // получил true
 			
 			students += course.length; // если объект оказался массивом, students = students + course.length => 0 + 2
+
 			// console.log(students); // получил: 2
+			
 			for (let i = 0; i < course.length; i++) { // запускаем цикл перебора массива для вычисления общего прогресса
 				totalProgress += course[i].progress; // totalProgress = totalProgress + course[i].progress
+				console.log(totalProgress); // получил: первый шаг 100, второй 160
 			}
 		} else {
 			for (let subCourse of Object.values(course)) {
