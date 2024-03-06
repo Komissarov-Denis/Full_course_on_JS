@@ -57,7 +57,7 @@ console.log(pow3(2, 4)); // return 2 * pow3(2, 3) => функция pow3(2, 4) �
 // ГУБИНА РЕКУРСИИ - ЭТО ОБЩЕЕ КОЛИЧЕСТВО ВЛОЖЕННЫХ ВЫЗОВОВ ВМЕСТЕ С САМЫМ ПЕРВЫМ
 //-------------------------------------------------------------
 
-// Задача: вычислить общий % прогресса студентов по всем курсам, т.е. средний прогресс со всех студентов по всем курсам (общий % делим на число студентов) + МЕТОД Object.values()
+// Задача: вычислить общий % прогресса студентов по всем курсам, т.е. средний прогресс со всех студентов по всем курсам (общий % делим на число студентов) + МЕТОДЫ Object.values() + Array.isArray()
 let students = {
 	js: [{
 		name: 'john',
@@ -85,15 +85,31 @@ let students = {
 
 // Используем цикл for()
 function getTotalProgressByIteration(data) {
-	let total = 0;
-	let students = 0;
+	let totalProgress = 0; // общий прогресс
+	let students = 0; // общее количество студентов
+	for (let course of Object.values(data)) { // метод Object.values() возвращает массив значений перечисляемых свойств объекта, перебираем значения course в массиве js и объекте html
+		// console.log(Object.values(course)); // получил: [{ name: 'john', progress: 100 }, { name: 'Ivan', progress: 60 }]   [[{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 }], [{ name: 'Sam', progress: 10 }]]
+		
+		if(Array.isArray(course)) { // метод Array.isArray() возвращает true, если объект является массивом, false - наоборот
 
-	for (let course of Object.values(data)) { // перебираем значения course в массиве js и объекте html
-
+			// console.log(Array.isArray(course)); // получил true
+			
+			students += course.length; // если объект оказался массивом, students = students + course.length => 0 + 2
+			// console.log(students); // получил: 2
+			for (let i = 0; i < course.length; i++) { // запускаем цикл перебора массива для вычисления общего прогресса
+				totalProgress += course[i].progress; // totalProgress = totalProgress + course[i].progress
+			}
+		} else {
+			for (let subCourse of Object.values(course)) {
+				students += subCourse.length;
+				for (let i = 0; i < course.length; i++) {
+					totalProgress += subCourse[i].progress;
+				}
+			}
+		}
 	}
-
-	return total / students;
+	return totalProgress / students;
 }
-console.log(getTotalProgressByIteration(students));
+console.log(getTotalProgressByIteration(students)); // получил: 32
 
 // ПРИМЕНИМ РЕКУРСИВНЫЙ СПОСОБ!!!
