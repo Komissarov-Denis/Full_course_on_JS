@@ -84,11 +84,11 @@ let students = {
 	}
 };
 
-// Используем цикл for()
+// Используем цикл for(...of...)
 function getTotalProgressByIteration(data) {
 	let totalProgress = 0; // общий прогресс
 	let students = 0; // общее количество студентов
-	for (let course of Object.values(data)) { // метод Object.values(students) возвращает в переменную course массивы значений перечисляемых свойств объекта students{}, перебираем значения course в массиве js[] и объекте html{}
+	for (let course of Object.values(data)) { // метод Object.values(data) возвращает в переменную course массивы значений перечисляемых свойств объекта students{}, перебираем значения course в массиве js[] и объекте html{}
 
 		// console.log(Object.values(data)); // получил массивы: [[{ name: 'john', progress: 100 }, { name: 'Ivan', progress: 60 } ], { basic: [ [Object], [Object] ], pro: [ [Object] ]}]
 		//                                                       [[{ name: 'john', progress: 100 }, { name: 'Ivan', progress: 60 } ], { basic: [ [Object], [Object] ], pro: [ [Object] ]}]
@@ -114,8 +114,8 @@ function getTotalProgressByIteration(data) {
 		} else { // далее условие идет на уровень глубже, внутрь объекта html{}, в котором есть два массива basic[] и pro[]
 			for (let subCourse of Object.values(course)) { // метод Object.values(course) возвращает в переменную subCourse массивы значений перечисляемых свойств объекта html{}, перебираем значения course в массивах basic[] и pro[]
 
-				// console.log(Object.values(course)); // получил массивы: [[{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 } ], [ { name: 'Sam', progress: 10 }]]
-				//                                                         [[{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 } ], [ { name: 'Sam', progress: 10 }]]
+				// console.log(Object.values(course)); // получил массивы: [[{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 }], [{ name: 'Sam', progress: 10 }]]
+				//                                                         [[{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 }], [{ name: 'Sam', progress: 10 }]]
 
 				// console.log(Object.values(subCourse)); // получил массивы: [{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 }]  [{ name: 'Sam', progress: 10 }]
 
@@ -138,6 +138,6 @@ function getTotalProgressByIteration(data) {
 	}
 	return totalProgress / students; // 208 разделить на 5 = 41.6
 }
-console.log(getTotalProgressByIteration(students)); // получил: 41.6
+console.log(getTotalProgressByIteration(students)); // получил: 41.6 Но, если в объекте students{} появится еще какой-либо курс с подкурсами и подкурсами второго уровня, то данный вариант не сработает!!! Лучший вариант - РЕКУРСИЯ
 
 // ПРИМЕНИМ РЕКУРСИВНЫЙ СПОСОБ!!!
