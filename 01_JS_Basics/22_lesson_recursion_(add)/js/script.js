@@ -59,6 +59,7 @@ console.log(pow3(2, 4)); // return 2 * pow3(2, 3) => функция pow3(2, 4) �
 
 // Задача: вычислить общий % прогресса студентов по всем курсам, т.е. средний прогресс со всех студентов по всем курсам (общий % делим на число студентов) + МЕТОДЫ Object.values() + Array.isArray()
 let students = {
+
 	js: [{
 		name: 'john',
 		progress: 100,
@@ -87,34 +88,56 @@ let students = {
 function getTotalProgressByIteration(data) {
 	let totalProgress = 0; // общий прогресс
 	let students = 0; // общее количество студентов
-	for (let course of Object.values(data)) { // метод Object.values() возвращает массив значений перечисляемых свойств объекта, перебираем значения course в массиве js и объекте html
+	for (let course of Object.values(data)) { // метод Object.values(students) возвращает в переменную course массивы значений перечисляемых свойств объекта students{}, перебираем значения course в массиве js[] и объекте html{}
+
+		// console.log(Object.values(data)); // получил массивы: [[{ name: 'john', progress: 100 }, { name: 'Ivan', progress: 60 } ], { basic: [ [Object], [Object] ], pro: [ [Object] ]}]
+		//                                                       [[{ name: 'john', progress: 100 }, { name: 'Ivan', progress: 60 } ], { basic: [ [Object], [Object] ], pro: [ [Object] ]}]
 
 		// console.log(Object.values(course)); // получил массивы: [{ name: 'john', progress: 100 }, { name: 'Ivan', progress: 60 }] 
 		//                                                         [[{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 }], [{ name: 'Sam', progress: 10 }]]
 		
-		if(Array.isArray(course)) { // метод Array.isArray() возвращает true, если объект является массивом, false - наоборот
+		if(Array.isArray(course)) { // метод Array.isArray(course) возвращает true, если объект course{} является массивом, false - наоборот
 
-			// console.log(Array.isArray(course)); // получил true
+			// console.log(Array.isArray(course)); // так как только js[] явился массивом с двумя объектами, а html{} - это объект с массивами, то получил: js => true, html => false
 			
-			students += course.length; // если объект оказался массивом, students = students + course.length => 0 + 2
+			students += course.length; // так как только js[] явился массивом с двумя объектами, то в расчет берется значения его свойств: students = students + course.length => 0 + 2, получил: 2
 
+			// console.log(course.length); // получил: 2
 			// console.log(students); // получил: 2
 			
-			for (let i = 0; i < course.length; i++) { // запускаем цикл перебора массива для вычисления общего прогресса
-				totalProgress += course[i].progress; // totalProgress = totalProgress + course[i].progress
-				console.log(totalProgress); // получил: первый шаг 100, второй 160
+			for (let i = 0; i < course.length; i++) { // запускаем цикл перебора массива для вычисления общего прогресса студентов, шагов цикла 2
+				totalProgress += course[i].progress; // totalProgress = totalProgress + course[i].progress, первый шаг: totalProgress = 0 + 100, второй шаг: totalProgress = 100 + 60
+
+				// console.log(totalProgress); // получил: первый шаг 100, второй 160
+
 			}
-		} else {
-			for (let subCourse of Object.values(course)) {
-				students += subCourse.length;
-				for (let i = 0; i < course.length; i++) {
-					totalProgress += subCourse[i].progress;
+		} else { // далее условие идет на уровень глубже, внутрь объекта html{}, в котором есть два массива basic[] и pro[]
+			for (let subCourse of Object.values(course)) { // метод Object.values(course) возвращает в переменную subCourse массивы значений перечисляемых свойств объекта html{}, перебираем значения course в массивах basic[] и pro[]
+
+				// console.log(Object.values(course)); // получил массивы: [[{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 } ], [ { name: 'Sam', progress: 10 }]]
+				//                                                         [[{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 } ], [ { name: 'Sam', progress: 10 }]]
+
+				// console.log(Object.values(subCourse)); // получил массивы: [{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 }]  [{ name: 'Sam', progress: 10 }]
+
+				students += subCourse.length; // так как basic[] и pro[] являются массивами с объектами, то в расчет берется значения их свойств:
+				// students = students + course.length => 2 + 2, получил: 4
+				// students = students + course.length => 4 + 1, получил: 5
+
+				// console.log(subCourse.length); // получил: 2 и 1 всего 3
+				// console.log(students); // получил: 5
+
+				for (let i = 0; i < subCourse.length; i++) { // запускаем цикл перебора массивов для вычисления общего прогресса студентов, шагов цикла 3
+					// console.log(subCourse.length);
+					totalProgress += subCourse[i].progress;// totalProgress = totalProgress + subCourse[i].progress, первый шаг: totalProgress = 160 + 20, второй шаг: totalProgress = 180 + 18, второй шаг: totalProgress = 198 + 10
+
+					// console.log(totalProgress); // получил: на первом шаге 180, на втором шаге 198, на третьем шаге 208
+
 				}
 			}
 		}
 	}
-	return totalProgress / students;
+	return totalProgress / students; // 208 разделить на 5 = 41.6
 }
-console.log(getTotalProgressByIteration(students)); // получил: 32
+console.log(getTotalProgressByIteration(students)); // получил: 41.6
 
 // ПРИМЕНИМ РЕКУРСИВНЫЙ СПОСОБ!!!
