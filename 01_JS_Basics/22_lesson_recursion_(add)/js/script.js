@@ -105,7 +105,7 @@ function getTotalProgressByIteration(data) {
 			// console.log(course.length); // получил: 2
 			// console.log(students); // получил: 2
 			
-			for (let i = 0; i < course.length; i++) { // запускаем цикл перебора массива для вычисления общего прогресса студентов, шагов цикла 2
+			for (let i = 0; i < course.length; i++) { // запускаем цикл перебора массива js[] для вычисления общего прогресса студентов, шагов цикла 2
 				totalProgress += course[i].progress; // totalProgress = totalProgress + course[i].progress, первый шаг: totalProgress = 0 + 100, второй шаг: totalProgress = 100 + 60
 
 				// console.log(totalProgress); // получил: первый шаг 100, второй 160
@@ -170,8 +170,10 @@ let students2 = {
 function getTotalProgressByRecursion(data) {
 	if (Array.isArray(data)) { // метод Array.isArray(data) возвращает true, если объект data{} является массивом, false - наоборот
 		let totalProgress = 0;		
-		for (let i = 0; i < data.length; i++) { // запускаем цикл перебора массива для вычисления общего прогресса студентов, шагов цикла 2
-			totalProgress += data[i].progress; // totalProgress = totalProgress + course[i].progress, первый шаг: totalProgress = 0 + 100, второй шаг: totalProgress = 100 + 60
+		for (let i = 0; i < data.length; i++) { // запускаем цикл перебора массива js[] для вычисления общего прогресса студентов, шагов цикла 2
+			totalProgress += data[i].progress; // totalProgress = totalProgress + data[i].progress, первый шаг: totalProgress = 0 + 100, второй шаг: totalProgress = 100 + 60
+			console.log(totalProgress); // получил: 10
+			console.log(data.length);
 		}
 		return [totalProgress, data.length]; // с помощью return можно выернуть и массив с данными!!! ЭТО БАЗА РУКУРСИИ!!! КОГДА МЫ СРАЗУ НАТЫКАЕМСЯ НА МАССИВ!!!
 	} else {
