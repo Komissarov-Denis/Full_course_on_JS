@@ -96,7 +96,7 @@ function getTotalProgressByIteration(data) {
 		// console.log(Object.values(course)); // получил массивы: [{ name: 'john', progress: 100 }, { name: 'Ivan', progress: 60 }] 
 		//                                                         [[{ name: 'Peter', progress: 20 }, { name: 'Ann', progress: 18 }], [{ name: 'Sam', progress: 10 }]]
 		
-		if(Array.isArray(course)) { // метод Array.isArray(course) возвращает true, если объект course{} является массивом, false - наоборот
+		if (Array.isArray(course)) { // метод Array.isArray(course) возвращает true, если объект course{} является массивом, false - наоборот
 
 			// console.log(Array.isArray(course)); // так как только js[] явился массивом с двумя объектами, а html{} - это объект с массивами, то получил: js => true, html => false
 			
@@ -141,3 +141,48 @@ function getTotalProgressByIteration(data) {
 console.log(getTotalProgressByIteration(students)); // получил: 41.6 Но, если в объекте students{} появится еще какой-либо курс с подкурсами и подкурсами второго уровня, то данный вариант не сработает!!! Лучший вариант - РЕКУРСИЯ
 
 // ПРИМЕНИМ РЕКУРСИВНЫЙ СПОСОБ!!!
+let students2 = {
+
+	js: [{
+		name: 'john',
+		progress: 100,
+	}, {
+		name: 'Ivan',
+		progress: 60,
+	}],
+
+	html: {
+		basic: [{
+			name: 'Peter',
+			progress: 20,
+		}, {
+			name: 'Ann',
+			progress: 18,
+		}],
+
+		pro: [{
+			name: 'Sam',
+			progress: 10,
+		}],
+	}
+};
+
+function getTotalProgressByRecursion(data) {
+	if (Array.isArray(data)) { // метод Array.isArray(data) возвращает true, если объект data{} является массивом, false - наоборот
+		let totalProgress = 0;		
+		for (let i = 0; i < data.length; i++) { // запускаем цикл перебора массива для вычисления общего прогресса студентов, шагов цикла 2
+			totalProgress += data[i].progress; // totalProgress = totalProgress + course[i].progress, первый шаг: totalProgress = 0 + 100, второй шаг: totalProgress = 100 + 60
+		}
+		return [totalProgress, data.length]; // с помощью return можно выернуть и массив с данными!!! ЭТО БАЗА РУКУРСИИ!!! КОГДА МЫ СРАЗУ НАТЫКАЕМСЯ НА МАССИВ!!!
+	} else {
+		let totalProgress = [0, 0]; // поместим в переменную общего прогресса массив с числами
+		for (let subData of Object.values(data)) {
+			const subDataArray = getTotalProgressByRecursion(subData); // ЭТО РЕКУРСИЯ!!!
+			totalProgress[0] += subDataArray[0];
+			totalProgress[1] += subDataArray[1]; 
+		}
+		return totalProgress;
+	}
+}
+const result = getTotalProgressByRecursion(students2);
+console.log(result[0] / result [1]); // получил: 41.6
