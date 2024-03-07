@@ -169,17 +169,19 @@ let students2 = {
 };
 
 function getTotalProgressByRecursion(data) {
-	if (Array.isArray(data)) { // метод Array.isArray(data) возвращает true, если объект data{} является массивом, false - наоборот
-		let totalProgress = 0;		
-		for (let i = 0; i < data.length; i++) { // запускаем цикл перебора массива js[] для вычисления общего прогресса студентов, шагов цикла ....2
-			totalProgress += data[i].progress; // totalProgress = totalProgress + data[i].progress, первый шаг: totalProgress = 0 + 100, второй шаг: totalProgress = 100 + 60
-			// console.log(totalProgress); // получил: 10
-			console.log(data.length);
+	if (Array.isArray(data)) { // метод Array.isArray(data) возвращает true, если объект data{} является массивом, функция данные берет из объекта students2{}, false - наоборот
+		let totalProgress = 0;	// присваиваем переменной totalProgress значение нуля
+		for (let i = 0; i < data.length; i++) { // запускаем цикл перебора массива js[] для вычисления общего прогресса студентов, в зависимости от количества значений массива, они определяют количество шагов цикла
+			totalProgress += data[i].progress; // totalProgress = totalProgress + data[i].progress, каждый шаг: totalProgress => 0 + 100, => 100 + 60, => 160 + 20, => 180 + 18, => 198 + 10
+			// console.log(totalProgress); // получил: 100  160  20  38 10
+			// console.log(data.length); // получил: 2  2  2  2  1
 		}
-		return [totalProgress, data.length]; // с помощью return можно выернуть и массив с данными!!! ЭТО БАЗА РЕКУРСИИ!!! КОГДА МЫ НАТЫКАЕМСЯ НА МАССИВ - ФУНКЦИЯ ЗАВЕРШАЕТСЯ!!!
+		// console.log(totalProgress); // получил: 160  38  10
+		// console.log(data.length); // получил: 2 2 1
+		return [totalProgress, data.length]; // с помощью return можно выернуть и массив с данными!!! ЭТО БАЗА РЕКУРСИИ!!! КОГДА МЫ НАТЫКАЕМСЯ НА МАССИВ - ФУНКЦИЯ ЗАВЕРШАЕТСЯ!!! 
 	} else {
-		let totalProgress = [0, 0]; // поместим в переменную общего прогресса массив с числами
-		for (let subData of Object.values(data)) {
+		let totalProgress = [0, 0]; // если {} не массив, то вручную объявляем массив с числами и помещаем в переменную общего прогресса массив с числами
+		for (let subData of Object.values(data)) { // перебираем каждое отдельное значение свойств, обращаясь к subData
 			const subDataArray = getTotalProgressByRecursion(subData); // ЭТО РЕКУРСИЯ!!!
 			totalProgress[0] += subDataArray[0];
 			totalProgress[1] += subDataArray[1]; 
@@ -188,5 +190,5 @@ function getTotalProgressByRecursion(data) {
 	}
 }
 const result = getTotalProgressByRecursion(students2);
-console.log(result[0] / result [1]); // получил: 41.6
+console.log(result[0] / result [1]); // получил: 41.6 [208, 5]
 //---------------------------------------------------------------------------------
