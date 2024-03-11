@@ -193,7 +193,8 @@ function getTotalProgressByRecursion(data) {
 			// console.log(subDataArray); // получил:   [ 160, 2 ]  [ 38, 2 ]  [ 10, 1 ]  [ 48, 3 ]  =  [total, data.length]
 			// console.log(total[0]); // получил:         160         38         48         208
 			// console.log(total[1]); // получил:              2          2          3          5
-		}
+		} 
+		// console.log(total); // получил: [ 48, 3 ]   [ 208, 5 ]
 		return total; // возвращаем массив с данными total, далее функция продолжает поиск массива... total = [total[0], total[1]] = [total, data.length]
 	}
 }
