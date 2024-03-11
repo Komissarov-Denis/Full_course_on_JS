@@ -176,8 +176,8 @@ function getTotalProgressByRecursion(data) {
 			// console.log(total); // получил:         100  160  20  38 10
 			// console.log(data.length); // получил:   2    2    2   2  1
 		}
-		// console.log(total); // получил:         160  38  10
-		// console.log(data.length); // получил:   2    2   1
+		// console.log(total); // получил:         160         38         10
+		// console.log(data.length); // получил:        2          2          1
 		// console.log([total, data.length]); // [ 160, 2 ]  [ 38, 2 ]  [ 10, 1 ]
 		return [total, data.length]; // с помощью return можно вернуть и массив с данными!!! ЭТО БАЗА РЕКУРСИИ - КОГДА МЫ НАТЫКАЕМСЯ НА МАССИВ - ФУНКЦИЯ ЗАВЕРШАЕТСЯ (внутри массива будут объекты со студентами, доступными к подсчету)!!!
 	} else { // метод Array.isArray(data) вернет false, если сущность data{} является объектом => students2{} или подобъектом html{} - как в данном случае; потому перебираем все, что внутри...
