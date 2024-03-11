@@ -169,27 +169,32 @@ let students2 = {
 };
 
 function getTotalProgressByRecursion(data) {
-	if (Array.isArray(data)) { // метод Array.isArray(data) возвращает true, если объект data{} является массивом, функция данные берет из объекта students2{}, false - наоборот
-		let totalProgress = 0;	// присваиваем переменной totalProgress значение нуля
-		for (let i = 0; i < data.length; i++) { // запускаем цикл перебора массива js[] и подмассивов в объекте html{} для вычисления общего прогресса студентов; количество значений массива определяет количество шагов цикла
-			totalProgress += data[i].progress; // totalProgress = totalProgress + data[i].progress, каждый шаг: totalProgress => 0 + 100, => 100 + 60; => 0 + 20, => 20 + 18; => 0 + 10;
+	if (Array.isArray(data)) { // метод Array.isArray(data) вернет true, если сущность data{} является массивом и false - наоборот, при этом функция берет данные из объекта students2{},
+		let totalProgress = 0;	// первоначально, присваиваем переменной totalProgress значение нуля
+		for (let i = 0; i < data.length; i++) { // запускаем цикл перебора первого уровня, если обнаружен массив: js[] в объекте students2{} и подмассивы в объекте html{} для вычисления общего прогресса студентов
+			totalProgress += data[i].progress; // totalProgress = totalProgress + data[i].progress, каждый шаг: totalProgress => 0 + 100, => 100 + 60; => 0 + 20, => 20 + 18; => 0 + 10; количество значений массива определяет количество шагов цикла
 			// console.log(totalProgress); // получил: 100  160  20  38 10
 			// console.log(data.length); // получил:   2    2    2   2  1
 		}
 		// console.log(totalProgress); // получил: 160  38  10
 		// console.log(data.length); // получил:   2    2   1
-		console.log([totalProgress, data.length]); // [ 160, 2 ]  [ 38, 2 ]  [ 10, 1 ]
-		return [totalProgress, data.length]; // с помощью return можно выернуть и массив с данными!!! ЭТО БАЗА РЕКУРСИИ - КОГДА МЫ НАТЫКАЕМСЯ НА МАССИВ - ФУНКЦИЯ ЗАВЕРШАЕТСЯ (внутри массива будут объекты со студентами, доступными к подсчету)!!!
-	} else {
-		let totalProgress = [0, 0]; // если {} не массив, то вручную объявляем массив с числами и помещаем в переменную общего прогресса массив с числами
-		for (let subData of Object.values(data)) { // перебираем каждое отдельное значение свойств, обращаясь к subData
+		// console.log([totalProgress, data.length]); // [ 160, 2 ]  [ 38, 2 ]  [ 10, 1 ]
+		return [totalProgress, data.length]; // с помощью return можно вернуть и массив с данными!!! ЭТО БАЗА РЕКУРСИИ - КОГДА МЫ НАТЫКАЕМСЯ НА МАССИВ - ФУНКЦИЯ ЗАВЕРШАЕТСЯ (внутри массива будут объекты со студентами, доступными к подсчету)!!!
+	} else { // метод Array.isArray(data) вернет false, если сущность data{} является объектом => students2{} или подобъектом html{} - как в данном случае; потому перебираем все, что внутри...
+		let totalProgress = [0, 0]; // объявляем две переменные в виде массива и в качестве промежуточного результата; закономерность присвоения данных totalProgress = [0, 0] => [totalProgress, data.length]
+		for (let subData of Object.values(data)) { // запускаем цикл перебора второго уровня, если обнаружен объект: students2{} или html{}, потому перебираем каждую сущность в поиске массива, обращаясь к subData
 			const subDataArray = getTotalProgressByRecursion(subData); // ЭТО РЕКУРСИЯ!!!
 			totalProgress[0] += subDataArray[0];
-			totalProgress[1] += subDataArray[1]; 
+			totalProgress[1] += subDataArray[1];
+			// console.log(subDataArray); // получил:   [ 160, 2 ]  [ 38, 2 ]  [ 10, 1 ]  [ 48, 3 ]
+			// console.log(totalProgress[0]); // получил: 160         38         48         208
+			// console.log(totalProgress[1]); // получил:      2          2          3          5
 		}
 		return totalProgress;
 	}
 }
 const result = getTotalProgressByRecursion(students2);
-console.log(result[0] / result [1]); // получил: 41.6 [208, 5]
+// console.log(result[0]); // получил: 208
+// console.log(result [1]); // получил:  5
+console.log(result[0] / result [1]); // получил: 41.6 => (208 / 5)
 //---------------------------------------------------------------------------------
