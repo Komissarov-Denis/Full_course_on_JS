@@ -170,27 +170,28 @@ let students2 = {
 
 function getTotalProgressByRecursion(data) {
 	if (Array.isArray(data)) { // метод Array.isArray(data) вернет true, если сущность data{} является массивом и false - наоборот, при этом функция берет данные из объекта students2{},
-		let totalProgress = 0;	// первоначально, присваиваем переменной totalProgress значение нуля
+		let total = 0;	// первоначально, присваиваем переменной total значение нуля; далее в переменную total будет передаваться массив!!!
 		for (let i = 0; i < data.length; i++) { // запускаем цикл перебора первого уровня, если обнаружен массив: js[] в объекте students2{} и подмассивы в объекте html{} для вычисления общего прогресса студентов
-			totalProgress += data[i].progress; // totalProgress = totalProgress + data[i].progress, каждый шаг: totalProgress => 0 + 100, => 100 + 60; => 0 + 20, => 20 + 18; => 0 + 10; количество значений массива определяет количество шагов цикла
-			// console.log(totalProgress); // получил: 100  160  20  38 10
+			total += data[i].progress; // total = total + data[i].progress, каждый шаг: total => 0 + 100, => 100 + 60; => 0 + 20, => 20 + 18; => 0 + 10; количество значений массива определяет количество шагов цикла
+			// console.log(total); // получил: 100  160  20  38 10
 			// console.log(data.length); // получил:   2    2    2   2  1
 		}
-		// console.log(totalProgress); // получил: 160  38  10
+		// console.log(total); // получил: 160  38  10
 		// console.log(data.length); // получил:   2    2   1
-		// console.log([totalProgress, data.length]); // [ 160, 2 ]  [ 38, 2 ]  [ 10, 1 ]
-		return [totalProgress, data.length]; // с помощью return можно вернуть и массив с данными!!! ЭТО БАЗА РЕКУРСИИ - КОГДА МЫ НАТЫКАЕМСЯ НА МАССИВ - ФУНКЦИЯ ЗАВЕРШАЕТСЯ (внутри массива будут объекты со студентами, доступными к подсчету)!!!
+		// console.log([total, data.length]); // [ 160, 2 ]  [ 38, 2 ]  [ 10, 1 ]
+		return [total, data.length]; // с помощью return можно вернуть и массив с данными!!! ЭТО БАЗА РЕКУРСИИ - КОГДА МЫ НАТЫКАЕМСЯ НА МАССИВ - ФУНКЦИЯ ЗАВЕРШАЕТСЯ (внутри массива будут объекты со студентами, доступными к подсчету)!!!
 	} else { // метод Array.isArray(data) вернет false, если сущность data{} является объектом => students2{} или подобъектом html{} - как в данном случае; потому перебираем все, что внутри...
-		let totalProgress = [0, 0]; // объявляем две переменные в виде массива и в качестве промежуточного результата; закономерность присвоения данных totalProgress = [0, 0] => [totalProgress, data.length]
-		for (let subData of Object.values(data)) { // запускаем цикл перебора второго уровня, если обнаружен объект: students2{} или html{}, потому перебираем каждую сущность в поиске массива, обращаясь к subData
-			const subDataArray = getTotalProgressByRecursion(subData); // ЭТО РЕКУРСИЯ!!!
-			totalProgress[0] += subDataArray[0];
-			totalProgress[1] += subDataArray[1];
-			// console.log(subDataArray); // получил:   [ 160, 2 ]  [ 38, 2 ]  [ 10, 1 ]  [ 48, 3 ]
-			// console.log(totalProgress[0]); // получил: 160         38         48         208
-			// console.log(totalProgress[1]); // получил:      2          2          3          5
+		let total = [0, 0]; // объявляем две переменные в виде массива total[} и в качестве промежуточного результата; закономерность присвоения данных total = [0, 0] => [total, data.length]
+		for (let subData of Object.values(data)) { // запускаем цикл перебора второго уровня, если обнаружен объект: students2{} или html{}, потому перебираем каждую сущность в ПОИСКЕ МАССИВА, обращаясь к subData!!!
+			const subDataArray = getTotalProgressByRecursion(subData); // ЭТО РЕКУРСИЯ!!! Так как у нас есть вложенные данные, то мы должны запустить саму же функцию на этих вложенных данных, в subDataArray вернется массив [total, data.length]
+			// getTotalProgressByRecursion(subData) - тут каждый раз будет запускаться рекурсия до тех пор, пока не дойдет до БАЗЫ РЕКУРСИИ => пока не наткнется на конечный массив со всеми зарегистрированными студентами
+			total[0] += subDataArray[0];
+			total[1] += subDataArray[1];
+			// console.log(subDataArray); // получил:   [ 160, 2 ]  [ 38, 2 ]  [ 10, 1 ]  [ 48, 3 ]  =  [total, data.length]
+			// console.log(total[0]); // получил: 160         38         48         208
+			// console.log(total[1]); // получил:      2          2          3          5
 		}
-		return totalProgress;
+		return total;
 	}
 }
 const result = getTotalProgressByRecursion(students2);
