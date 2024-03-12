@@ -1,6 +1,6 @@
 // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
-// 'use strict';
+'use strict';
 
 const btn = document.querySelectorAll('button'), // выбираем через селектор тега и делегируем свойства его классам:
 	wrapper = document.querySelector('.btn-block');
