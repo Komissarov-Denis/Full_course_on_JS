@@ -2,7 +2,8 @@
 
 // 'use strict';
 
-document.addEventListener('DOMContentLoaded', () => { // коллбэк функция запустится когда DOM структура загрузится!!!
+document.addEventListener('DOMContentLoaded', () => { // коллбэк функция запустится, когда DOM структура загрузится!!!
+
 	const movieDB = { // оптимизация выполнения JS на странице после загрузки всей верстки!!!
 		movies: [
 			'Логан',
@@ -51,24 +52,24 @@ document.addEventListener('DOMContentLoaded', () => { // коллбэк функ
 
 	const addForm = document.querySelector('form.add');
 	const addInput = addForm.querySelector('.adding__input');
-	const checkbox = addForm.querySelector('[type="checkbox"]');
+	const checkbox = addForm.querySelector('[type="checkbox"]'); // получение элемента по атрибутам!!!
 
 	addForm.addEventListener('submit', (event) => {
-		event.preventDefault();
+		event.preventDefault(); // отменяем стандартное поведение браузера!!!
 		let newFilm = addInput.value; // addInput.value - проверяем значение введенное пользователем, сначала это пустая строка
-		const favorite = checkbox.checked; // данный атрибут имеет булиновое значение
-		if (newFilm) { // выполняется тогда, когда Input.value заполнен => newFilm = true!!!! newFilm = false => не выполнится при пустой строке!
-			if (newFilm.length > 21) {
-				newFilm = `${newFilm.substring(0, 22)}...`; // проверяем длину нашего фильма, если длиннее 21 - ставим три точки!!!
+		const favorite = checkbox.checked; // данный атрибут имеет булиновое значение, галочка на true / false
+		if (newFilm) { // выполняется тогда, когда Input.value заполнен => newFilm = true!!! newFilm = false => не выполнится при пустой строке!
+			if (newFilm.length > 21) { // условие true выполнится, пустая строка false - не выполнится
+				newFilm = `${newFilm.substring(0, 22)}...`; // проверяем длину нашего фильма, если длиннее 21, обрезаем символы до 22 и ставим три точки взамен!!!
 			}
 			if (favorite) {
-				alert('"Добавляем любимый фильм!"'); // выполняется тогда, когда favorite = true!!!!
+				alert('Добавляем любимый фильм?'); // выполняется тогда, когда favorite = true!!!!
 			}
-			movieDB.movies.push(newFilm); // помещаем в массив фильм
-			sortArray(movieDB.movies); // movieDB.movies.sort() - заменил, сортировку по фильмам
+			movieDB.movies.push(newFilm); // помещаем в массив фильм методом push()
+			sortArray(movieDB.movies); // movieDB.movies.sort() - выполняем сортировку по фильмам в массиве movieDB.movies[]
 			createMovieList(movieDB.movies, movieList);
 		}
-		event.target.reset();
+		event.target.reset(); // очищаем форму, чтобы заполните ее заново, обращаясь к самому элементу, на котором происходит событие
 	});
 
 	// *) задача: Список фильмов на странице сформировать на основании данных из этого JS файла.
@@ -90,11 +91,12 @@ document.addEventListener('DOMContentLoaded', () => { // коллбэк функ
 		});
 		document.querySelectorAll('.delete').forEach((btn, i) => {
 			btn.addEventListener('click', () => {
-				btn.parentElement.remove();
+				btn.parentElement.remove(); // обращаемся к родительсткому элементу
 				movieDB.movies.splice(i, 1); // метод, вырезающий определенный элемент из массива под номером - i, 1 - это количество удаляемых элементов!!!
-				createMovieList(film, parent); // рекурсия - функция вызывает саму себя внутри функции при удалении элемента, вызывается рекурсия и перестраивается заново нумерация списка!!!
+				createMovieList(movieDB.movies, movieList); // рекурсия - функция вызывает саму себя внутри функции при удалении элемента, вызывается рекурсия и перестраивается заново нумерация списка!!!
 			});
 		}); // метод forEach для повторяющихся событий!!!
 	}
 	createMovieList(movieDB.movies, movieList);
+
 });
