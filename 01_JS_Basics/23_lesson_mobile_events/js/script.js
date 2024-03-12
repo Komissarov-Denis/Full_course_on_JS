@@ -1,6 +1,6 @@
 // ПЕРВОЕ ПРИЛОЖЕНИЕ!!!
 
-// 'use strict';
+'use strict';
 
 // События на мобильном браузере срабатывают:
 // touchstart - при клике/табе по элементу на экране
@@ -13,7 +13,8 @@
 // targetTouches - список всех пальцев, взаимодействующих с данным элементом на экране
 // changedTouches - список всех пальцев, участвующих в событии
 
-window.addEventListener('DOMContentLoaded', () => { // запуск скриптов JS после загрузки станицы!!! РУКОМЕНДУЕТСЯ УКАЗЫВАТЬ!!!
+window.addEventListener('DOMContentLoaded', () => { // запуск скриптов JS после загрузки станицы!!! РЕКОМЕНДУЕТСЯ УКАЗЫВАТЬ!!!
+
 	const box = document.querySelector('.box');
 	box.addEventListener('touchstart', (e) => {
 		e.preventDefault(); // при назначении мобильного события - обязательно ставим, для отмены стандартного поведения браузера!!!
@@ -30,4 +31,5 @@ window.addEventListener('DOMContentLoaded', () => { // запуск скрипт
 		e.preventDefault(); // при назначении мобильного события - обязательно ставим, для отмены стандартного поведения браузера!!!
 		console.log('End!');
 	});
+	
 });
