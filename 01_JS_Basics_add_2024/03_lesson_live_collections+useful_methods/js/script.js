@@ -2,7 +2,7 @@
 
 // УСТАРЕВШИЕ МЕТОДЫ ПОЛУЧЕНИЯ ДАНННЫХ СТРАНИЦЫ getElementsByClassName
 
-const boxesQuery = document.querySelectorAll('.box');
+const boxesQuery = document.querySelectorAll('.box'); // оптимальный современный метод!!!
 const boxesGet = document.getElementsByClassName('box');
 
 console.log(boxesQuery); // получил: NodeList(3) [div.box, div.box, div.box] - тут методов гораздо больше как в узловом элементе
@@ -33,3 +33,9 @@ console.log(Array.from(boxesGet)); // метод Array.from() позволяет
 // 0: div.box
 // length: 1
 // [[Prototype]]: Array(0)
+
+for (let i = 0; i < 5; i++) { // удобно добавлять новые блоки на страницу
+	const newDiv = document.createElement('div');
+	newDiv.classList.add('box');
+	document.body.append(newDiv);
+}
