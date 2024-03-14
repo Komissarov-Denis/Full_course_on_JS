@@ -3,10 +3,19 @@
     margin: 0;
     padding: 0;
 }
-
+body {
+    display: flex;
+    justify-content: center;
+}
+.wrapper {    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1600px;
+}
 .box {
     width: 150px;
     height: 150px;
-    margin-bottom: 10px;
-    background-color: black;
+    justify-content: space-between;
+    background-color: rgb(16, 195, 201);
 }

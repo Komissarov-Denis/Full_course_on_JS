@@ -2,8 +2,8 @@
 
 // УСТАРЕВШИЕ МЕТОДЫ ПОЛУЧЕНИЯ ДАНННЫХ СТРАНИЦЫ getElementsByClassName
 
-const boxesQuery = document.querySelectorAll('.box'); // оптимальный современный метод!!!
-const boxesGet = document.getElementsByClassName('box');
+const boxesQuery = document.querySelectorAll('.box'); // получает статичные коллекции - оптимальный современный метод!!!
+const boxesGet = document.getElementsByClassName('box'); // получает живые коллекции - устаревший способ!!!
 
 console.log(boxesQuery); // получил: NodeList(3) [div.box, div.box, div.box] - тут методов гораздо больше как в узловом элементе
 console.log(boxesGet); // получил: HTMLCollection(3) [div.box, div.box, div.box]
@@ -35,7 +35,17 @@ console.log(Array.from(boxesGet)); // метод Array.from() позволяет
 // [[Prototype]]: Array(0)
 
 for (let i = 0; i < 5; i++) { // удобно добавлять новые блоки на страницу
+	const wrapper = document.querySelector('.wrapper');
 	const newDiv = document.createElement('div');
 	newDiv.classList.add('box');
-	document.body.append(newDiv);
+	wrapper.append(newDiv);
 }
+
+// МЕТОД matches() - ищет совпадения
+boxesQuery.forEach(box => {
+	if (box.matches('.this')) // метод matches() ищет совпадения по классу
+		console.log(box); // получил: <div class="box this"></div>
+});
+
+// МЕТОД closest() - поиск ближайшего элемента по всей цепочке родителей "наверх" 
+console.log(boxesQuery[0].closest('.wrapper')); // получил: div.wrapper
