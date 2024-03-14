@@ -35,3 +35,12 @@ console.log(Object.getOwnPropertyDescriptor(user, 'gender'));
 // value: "male"
 // writable: false
 // [[Prototype]]: Object
+
+
+Object.defineProperty(user, 'birthday', {writable: false}); // в подобном случае, при первичном заполнении пользователем анкеты, дата рождения должна сохраняться неизменной
+console.log(Object.getOwnPropertyDescriptor(user, 'birthday'));
+// user.birthday = '74164591'; // получил: script.js:42  Uncaught TypeError: Cannot assign to read only property 'birthday' of object '#<Object>' at script.js:42:15
+
+
+Object.defineProperty(user, 'middleName', {value: prompt('Фамилия?'), enumerable: true, configurable: true});
+console.log(Object.getOwnPropertyDescriptor(user, 'middleName'));
