@@ -98,3 +98,34 @@ for ( let result of salaries) {
 // 4000
 // 4500
 // 5000
+
+
+const salaries2 = {
+	john: 500,
+	ivan: 1000,
+	ann: 5000,
+	sayHello: function() {
+		console.log('Hello');
+	}
+};
+salaries2[Symbol.iterator] = function() { //  чтобы объект salaries сделать перебираемым с помощью метода for (...of...) применяем метод [Symbol.iterator] и вешаем на него функцию
+	return { // метод [Symbol.iterator] на объекте salaries должен отработать раз и вернуть объект с методом next() для того, чтобы отработал for (...of...)
+		current: this.john,
+		last: this.ann,
+		next() {
+			if (this.current < this.last) {
+				this.current = this.current + 500;
+				return {done: false, value: this.current};
+			} else {
+				return {done: true};
+			}
+		}
+	};
+};
+const iterator = salaries2[Symbol.iterator]();
+console.log(iterator.next());
+// получил:
+// {done: false, value: 1000}
+// done: false
+// value: 1000
+// [[Prototype]]: Object
