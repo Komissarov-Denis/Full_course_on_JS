@@ -42,5 +42,38 @@ console.log(Object.getOwnPropertyDescriptor(user, 'birthday'));
 // user.birthday = '74164591'; // получил: script.js:42  Uncaught TypeError: Cannot assign to read only property 'birthday' of object '#<Object>' at script.js:42:15
 
 
-Object.defineProperty(user, 'middleName', {value: prompt('Фамилия?'), enumerable: true, configurable: true});
-console.log(Object.getOwnPropertyDescriptor(user, 'middleName'));
+// Object.defineProperty(user, 'middleName', {value: prompt('Фамилия?'), enumerable: true, configurable: true});
+// console.log(Object.getOwnPropertyDescriptor(user, 'middleName')); // получили неперезаписываемое свойство, что очень удобно!!! 
+// получил:
+// {value: 'Кириллов', writable: false, enumerable: true, configurable: true}
+// configurable: true
+// enumerable: true
+// value: "Кириллов"
+// writable: false
+// [[Prototype]]: Object
+
+
+Object.defineProperty(user, 'showMyPublicData', {enumerable: false});
+for (let key in user) console.log(key); // чтобы в переборе не выводился метод showMyPublicData(), необходимо установить флаг: (user, 'showMyPublicData', {enumerable: false})
+
+
+// Свойство Math(PI) - свойство, которое устанавливается раз и менять его нельзя!!!
+console.log(Object.getOwnPropertyDescriptor(Math, 'PI')); 
+// получил:
+// {value: 3.141592653589793, writable: false, enumerable: false, configurable: false}
+// configurable: false
+// enumerable: false
+// value: 3.141592653589793
+// writable: false
+// [[Prototype]]: Object
+
+// ОПТИМИЗАЦИЯ - Object.defineProperty для нескольких свойств
+Object.defineProperties(user, {
+	name: {writable: false},
+	surname: {writable: false},
+});
+
+//----------------------------------------------------------------------------------------------------------------
+
+// МЕТОДЫ
+
