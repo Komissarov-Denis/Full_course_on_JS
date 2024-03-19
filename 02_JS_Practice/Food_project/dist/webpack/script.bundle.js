@@ -1854,21 +1854,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ tabs; }
 /* harmony export */ });
-/* eslint-disable linebreak-style */
 // TABS-----------------------------------------------------------
 function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass) {
-  const tabs = document.querySelectorAll(tabsSelector);
-  const tabsContent = document.querySelectorAll(tabsContentSelector);
-  const tabsParent = document.querySelector(tabsParentSelector);
+  const tabs = document.querySelectorAll(tabsSelector); // '.tabheader__item'
+  const tabsContent = document.querySelectorAll(tabsContentSelector); // '.tabcontent'
+  const tabsParent = document.querySelector(tabsParentSelector); // '.tabheader__items'
   function hideTabContent() {
     // функция скрывает часть табов
     tabsContent.forEach(item => {
+      // перебираем каждый элемент псевдомассива методом forEach()
       // item.style.display = 'none';
       item.classList.add('hide');
-      item.classList.remove('show', 'fade');
+      item.classList.remove('show', 'fade'); // toggle() не подходит, так как это наведет кашу в классах, можно добавить список классов
     });
     tabs.forEach(item => {
-      item.classList.remove(activeClass);
+      item.classList.remove(activeClass); // 'tabheader__item_active' - точку не ставим, так как уже метод classList() на это указывает
     });
   }
   function showTabContent(i = 0) {
@@ -1876,21 +1876,22 @@ function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass
     // tabsContent[i].style.display = 'block';
     tabsContent[i].classList.add('show', 'fade');
     tabsContent[i].classList.remove('hide');
-    tabs[i].classList.add(activeClass);
+    tabs[i].classList.add(activeClass); // 'tabheader__item_active' - точку не ставим, так как уже метод classList() на это указывает
   }
   hideTabContent();
   showTabContent();
   tabsParent.addEventListener('click', event => {
+    // применим делегирование событий для tabsParent или '.tabheader__items' по клику
     const target = event.target; // ЧАСТОЕ ИСПОЛЬЗОВАНИЕ event.target УДОБНО ПЕРЕОПРЕДЕЛИТЬ В ПЕРЕМЕННУЮ!!!
     if (target && target.classList.contains(tabsSelector.slice(1))) {
-      // убираем точку у селектора '.tabheader__item'
+      // проверяем на ниличие целевого события и что точно кликнули в tabs, а не в родителя; убираем точку у селектора '.tabheader__item'
       tabs.forEach((item, i) => {
-        // для каждого элемента item (tab) с номером i в массиве
+        // перебираем каждый элемент псевдомассива методом forEach(), т.е. каждый элемент/таб - item с номером i по порядку в псевдомассиве tabs
         if (target == item) {
-          // если целевое событие соответствует этому элементу по клику
-          hideTabContent();
-          showTabContent(i); // при переключении tab скрываем остальные
-        }
+          // если целевое событие соответствует этому элементу по клику, т.е. если элемент/таб псевдомассива совпадает с элементом/табом, в который кликнул пользователь:
+          hideTabContent(); // => тогда все лишние элементы скрываем со страницы
+          showTabContent(i); // => тогда берем его номер и показываем на странице
+        } // если кликнули в 3-й таб, то метод forEach() перебирает все табы, когда доходит до третьего, первые два и последний четвертый скрыты, а третьему назначаются классы 'show', 'fade'
       });
     }
   });
@@ -2087,7 +2088,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_forms_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/forms.js */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_carousel_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/carousel.js */ "./src/js/modules/carousel.js");
 /* harmony import */ var _modules_calculator_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/calculator.js */ "./src/js/modules/calculator.js");
-/* eslint-disable linebreak-style */
  // добавил полифилы из node_modules после установки в package.json
  // добавил полифилы из node_modules после установки в package.json
 
@@ -2103,7 +2103,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const modalTimerId = setTimeout(() => (0,_modules_modal_js__WEBPACK_IMPORTED_MODULE_5__.openModalWindow)('.modal', modalTimerId), 60000); // функция автооткрытия модального окна
 
   // TABS-----------------------------------------------------------
-  (0,_modules_tabs_js__WEBPACK_IMPORTED_MODULE_2__["default"])('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
+  (0,_modules_tabs_js__WEBPACK_IMPORTED_MODULE_2__["default"])('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active'); // передаем в вызов функции tabs() соответствующие аргументы из модуля: =>
+  // tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass)
 
   // TAIMER-(обратного отсчета)-------------------------------------
   (0,_modules_timer_js__WEBPACK_IMPORTED_MODULE_4__["default"])('.timer', '2024-01-25');

@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import 'es6-promise'; // добавил полифилы из node_modules после установки в package.json
 import 'nodelist-foreach-polyfill'; // добавил полифилы из node_modules после установки в package.json
 
@@ -12,10 +11,12 @@ import calculator from './modules/calculator.js';
 import {openModalWindow} from './modules/modal.js';
 
 window.addEventListener('DOMContentLoaded', () => {
+
 	const modalTimerId = setTimeout(() => openModalWindow('.modal', modalTimerId), 60000); // функция автооткрытия модального окна
 
 	// TABS-----------------------------------------------------------
-	tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
+	tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active'); // передаем в вызов функции tabs() соответствующие аргументы из модуля: =>
+	// tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass)
 
 	// TAIMER-(обратного отсчета)-------------------------------------
 	timer('.timer', '2024-01-25');
