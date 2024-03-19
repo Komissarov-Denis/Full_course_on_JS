@@ -21,6 +21,7 @@ function logger2() {
 	console.log('text2');
 }
 
+
 const btn = document.querySelector('.btn');
 let timerId5;
 let i = 0;
@@ -42,6 +43,7 @@ let id = setTimeout(function log() {
 	id = setTimeout(log, 500); // тут каждый setTimeout будет ждать 500мс до выполнения внутреннего setTimeout
 }, 500);
 
+
 const btn2 = document.querySelector('.btn');
 function myAnimation() {
 	const elem = document.querySelector('.box');
@@ -49,7 +51,7 @@ function myAnimation() {
 	const id = setInterval(frame, 10); // 10 мс задержки для плавного движения кубика
 	function frame() {
 		if (position == 300) { // конечная отметка движения синего кубика
-			clearInterval(id);
+			clearInterval(id); // останавливаем и очищаем анимацию
 		} else {
 			position++; // меняем координаты кубика на каждом шаге
 			elem.style.top = position + 'px'; // записываем новые координаты кубика на каждом шаге
