@@ -1,37 +1,79 @@
 'use strict';
 
-// console.log(Number.MAX_SAFE_INTEGER);
-// VM89:1 9007199254740991 это число 2 в 53 степени минус 1 - максимально доступное число для корректной работы!!!
-
-// BigInt - особое число, сверх максимального доступного числа для корректной работы; доступны операторы: сложения, умножения, вычитания, деления с остатком, возведения в степень, побитовые, сравнения!!!
-
-const bigint = 123218645494635168797435132198749n;
-
-const sameBigint = BigInt(123218645494635168797435132198749);
-
-console.log(typeof(bigint));
-console.log(typeof(sameBigint));
-console.log(1n + 3n); // получил: 4n
-console.log(5n / 2n); // получил: 2n, возвращается округленный результат без дробной части !!!
-console.log(5n > 2n); // получил: true
-console.log(2n > 5); // получил: false => так как 2 никак не больше 5
-console.log(2n == 2); // получил: true
-console.log(2n === 2); // получил: false => так как разный тип данных
+let user = {
+	name: 'Ivan',
+};
+const arr = [user];
+user = null; // производим удаление
+console.log(user); // получил: null
+console.log(arr[0]); // получил: {name: 'Ivan'} - вывод: пока массив [user] существует, то объект user{} также будет существовать в памяти, хотя других ссыло уже нет!!!
 
 
-// BigInt нельзя смешивать в операциях с обычными числами!!!
-// console.log(5n + 1); // получил: script.js:17  Uncaught TypeError: Cannot mix BigInt and other types, use explicit conversions at script.js:17:16
+// Пока существует карта Map, объект будет находиться в памяти!!!
+let user2 = {
+	name: 'Ivan',
+};
+const map = new Map();
+map.set(user2, 'data');
+user2 = null; // производим удаление
+console.log(map.keys());
+// получил: 
+// MapIterator {{…}}
+// [[Entries]]
+// 	0: 
+// 		value: {name: 'Ivan'}
+// 		constructor: ƒ Iterator()
+// 		[[Prototype]]: Map Iterator
+// 		[[IteratorHasMore]]: true
+// 		[[IteratorIndex]]: 0
+// 		[[IteratorKind]]: "keys"
 
 
-// BigInt нельзя использовать с методами со встроенным объектом Math{}!!!
-// console.log(Math.round(5n)); 
+// WeakMap() - слабая карта: в ней ключами могут быть только объекты; если нет ссылки на этот объект и он существует только в Weakmap, то он будет удален из это слабой карты!!!
+// Поддерживает только: set(), get(), delete(), has()
+let user3 = {
+	name: 'Ivan',
+};
+const map2 = new WeakMap();
+map2.set(user3, 'data');
+user3 = null; // производим удаление
+console.log(map2.has(user3)); // получил: false, так как объект удален автоматически!!!
+console.log(map2);
 // получил:
-// script.js:18  Uncaught TypeError: Cannot convert a BigInt value to a number
-// at Math.round (<anonymous>)
-// at script.js:18:18
+// WeakMap {{…} => 'data'}
+// 	[[Entries]]
+// 		Нет свойств
+// 			[[Prototype]]: WeakMap
 
-let bigint2 = 1n;
-let number = 2;
-console.log(bigint2 + BigInt(number)); // получил: 3n, конвертация позволяет выполнять подобные операции!!!
-console.log(Number(bigint2) + number); // получил: 3, конвертация через Number() в простое число!!! Конвертор Number() отрезает от BigInt не входящие в стандарт числа, потому результат может быть неожиданным!!!
-// console.log(+bigint2 + number); // получил: унарный плюс не подходит, script.js:37  Uncaught TypeError: Cannot convert a BigInt value to a number at script.js:37:13!!!
+
+//Задача - если пользователь начинает заходить в чат, то он кэшируется и запоминается в пользовательских данных
+const cache = new WeakMap();
+function cacheUser(user) {
+	if (!cache.has(user)) { // если нет user внутри WeakMap()
+		cache.set(user, Date.now()); // то user добавляется, метод Date.now() показывает текущую дату и время, когда пользователь зашел в чат
+	}
+	return cache.get(user); // иначе возвращаем того закешированного user из WeakMap()
+}
+let lena = {name: 'Elena'};
+let alex = {name: 'Alex'};
+cacheUser(lena);
+cacheUser(alex);
+lena = null; // Лена вышла из чата, переводим в null
+console.log(cache.has(lena)); // получил: false - пользователь удален из памяти и не перегружает структуру
+console.log(cache.has(alex)); // получил: true
+
+
+// WeakSet() - аналогична обычному Set, но в него можем добавлять только объекты, без примитивов и назначений; объект присутствует в множестве, только до тех пор, пока он где-то доступен ещё!!!
+// Поддерживает только: add(), has(), delete()
+let messages = [
+	{text: 'Hello', name: 'John'},
+	{text: 'World', name: 'Alex'},
+	{text: '.....', name: 'Max'},
+];
+let readMessages = new WeakSet(); // прочитанные сообщения
+readMessages.add(messages[0]); // читаем сообщения и помечаем их
+
+readMessages.add(messages[0]);
+console.log(readMessages.has(messages[0])); // получил: true, первое сообщение находится в структуре данных
+messages.shift(); // метод удаления первого элемента массива
+console.log(readMessages.has(messages[0])); // получил: false
