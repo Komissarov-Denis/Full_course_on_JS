@@ -19,7 +19,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	// tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass)
 
 	// TAIMER-(обратного отсчета)-------------------------------------
-	timer('.timer', '2024-01-25');
+	timer('.timer', '2024-03-21T15:58:00.000Z');
+	// timer(id, deadLine)
 
 	// MODAL----------------------------------------------------------	
 	modal('[data-modal]', '.modal', modalTimerId);
