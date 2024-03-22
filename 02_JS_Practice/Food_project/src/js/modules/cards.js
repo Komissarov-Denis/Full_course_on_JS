@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import {getResources} from '../services/services.js';
 
 // CLASSES-for-CARDS--------------------------------------------------

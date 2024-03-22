@@ -26,6 +26,15 @@
             font-size: 26px;
         }
     }
+    &__end-date {
+        display: flex;
+        flex-direction: row;
+    }
+    &__data {
+        display: block;
+        margin: 0 6px 0 6px;
+        font-weight: bold;
+    }
     &__timer {
         width: 50%;
         .title {

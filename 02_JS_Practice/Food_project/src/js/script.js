@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	// tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass)
 
 	// TAIMER-(обратного отсчета)-------------------------------------
-	timer('.timer', '2024-03-21T15:58:00.000Z');
+	timer('.timer', '2024-03-22T19:03:00.000+03:00'); // где YYYY-MM-DDTHH:mm:ss.sss GMT+3, Т - разделитель TIME!!!
 	// timer(id, deadLine)
 
 	// MODAL----------------------------------------------------------	
