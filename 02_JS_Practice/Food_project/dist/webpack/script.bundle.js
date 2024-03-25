@@ -1785,8 +1785,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   closeModalWindow: function() { return /* binding */ closeModalWindow; },
 /* harmony export */   openModalWindow: function() { return /* binding */ openModalWindow; }
 /* harmony export */ });
-/* eslint-disable linebreak-style */
-
+// MODAL----------------------------------------------------------
 function openModalWindow(modalSelector, modalTimerId) {
   const modalWindow = document.querySelector(modalSelector);
   modalWindow.classList.add('show');
@@ -1804,10 +1803,8 @@ function closeModalWindow(modalSelector) {
   modalWindow.classList.remove('show');
   document.body.style.overflow = ''; // при закрытии модального окна, включаем скролл страницы
 }
-
-// MODAL----------------------------------------------------------
 function modal(triggerSelector, modalSelector, modalTimerId) {
-  // добавим длва аргумента triggerSelector, modalSelector для инкапсуляции 
+  // => modal('[data-modal]', '.modal', modalTimerId); добавим два аргумента triggerSelector, modalSelector для инкапсуляции 
   const modalTrigger = document.querySelectorAll(triggerSelector);
   const modalWindow = document.querySelector(modalSelector);
   // const modalCloseBtn = document.querySelector('[data-close]'); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную переменную
@@ -1921,6 +1918,7 @@ function timer(id, deadLine) {
     // console.log(Date.parse(new Date())); // получил: 1711099417000 миллисекунд, метод Date.parse() - переводит строку в миллисекунды
     // console.log(new Date()); // Fri Mar 22 2024 12:21:51 GMT+0300 (Москва, стандартное время)
     if (t <= 0) {
+      // если t меньше нуля, не выполняем расчетов и назначаем нуль кадому элементу
       days = 0;
       hours = 0;
       minutes = 0;
@@ -1944,11 +1942,9 @@ function timer(id, deadLine) {
     // функция подставления 0 до двузначного числа и вывода информации 0 при остановке таймера!!!
     if (num >= 0 && num < 10) {
       return `0${num}`; // возвращаем измененное значение в виде строки с нулем вначале - при выводе однозначного числа
-    }
-    // else if (num < 0) {
-    // 	return '00'; // при отрицательном значении -  возвращаем нуль
-    // }
-    else {
+    } else if (num < 0) {
+      return '00'; // при отрицательном значении -  возвращаем нуль, во избежание мигания
+    } else {
       return num; // в остальных случаях выводим двузначное число
     }
   }
@@ -2137,11 +2133,12 @@ window.addEventListener('DOMContentLoaded', () => {
   // tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass)
 
   // TAIMER-(обратного отсчета)-------------------------------------
-  (0,_modules_timer_js__WEBPACK_IMPORTED_MODULE_4__["default"])('.timer', '2024-03-22T19:03:00.000+03:00'); // где YYYY-MM-DDTHH:mm:ss.sss GMT+3, Т - разделитель TIME!!!
+  (0,_modules_timer_js__WEBPACK_IMPORTED_MODULE_4__["default"])('.timer', '2025-01-01T00:00:00.000+03:00'); // где YYYY-MM-DDTHH:mm:ss.sss GMT+3, Т - разделитель TIME!!!
   // timer(id, deadLine)
 
   // MODAL----------------------------------------------------------	
   (0,_modules_modal_js__WEBPACK_IMPORTED_MODULE_5__["default"])('[data-modal]', '.modal', modalTimerId);
+  // modal(triggerSelector, modalSelector, modalTimerId)
 
   // CLASSES-for-CARDS----------------------------------------------
   (0,_modules_cards_js__WEBPACK_IMPORTED_MODULE_3__["default"])();

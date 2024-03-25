@@ -1,5 +1,4 @@
-/* eslint-disable linebreak-style */
-
+// MODAL----------------------------------------------------------
 function openModalWindow(modalSelector, modalTimerId) {
 	const modalWindow = document.querySelector(modalSelector);
 	modalWindow.classList.add('show');
@@ -16,9 +15,7 @@ function closeModalWindow(modalSelector) {
 	modalWindow.classList.remove('show');
 	document.body.style.overflow = ''; // при закрытии модального окна, включаем скролл страницы
 }
-
-// MODAL----------------------------------------------------------
-function modal(triggerSelector, modalSelector, modalTimerId) { // добавим длва аргумента triggerSelector, modalSelector для инкапсуляции 
+function modal(triggerSelector, modalSelector, modalTimerId) { // => modal('[data-modal]', '.modal', modalTimerId); добавим два аргумента triggerSelector, modalSelector для инкапсуляции 
 	const modalTrigger = document.querySelectorAll(triggerSelector);
 	const modalWindow = document.querySelector(modalSelector);
 	// const modalCloseBtn = document.querySelector('[data-close]'); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную переменную

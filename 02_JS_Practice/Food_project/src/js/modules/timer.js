@@ -7,7 +7,7 @@ export default function timer(id, deadLine) { // timer('.timer', '2024-03-25T11:
 		const t = Date.parse(endTime) - Date.parse(new Date()); // определяем разницу между deadLine (endTime) и текущим временем (new Date()) в миллисекундах
 		// console.log(Date.parse(new Date())); // получил: 1711099417000 миллисекунд, метод Date.parse() - переводит строку в миллисекунды
 		// console.log(new Date()); // Fri Mar 22 2024 12:21:51 GMT+0300 (Москва, стандартное время)
-		if (t <= 0) {
+		if (t <= 0) { // если t меньше нуля, не выполняем расчетов и назначаем нуль кадому элементу
 			days = 0;
 			hours = 0;
 			minutes = 0;
@@ -29,11 +29,9 @@ export default function timer(id, deadLine) { // timer('.timer', '2024-03-25T11:
 	function getZero(num) { // функция подставления 0 до двузначного числа и вывода информации 0 при остановке таймера!!!
 		if (num >= 0 && num < 10) {
 			return `0${num}`; // возвращаем измененное значение в виде строки с нулем вначале - при выводе однозначного числа
-		}  
-		// else if (num < 0) {
-		// 	return '00'; // при отрицательном значении -  возвращаем нуль
-		// }
-		else {
+		}	else if (num < 0) {
+			return '00'; // при отрицательном значении -  возвращаем нуль, во избежание мигания
+		}	else {
 			return num; // в остальных случаях выводим двузначное число
 		}
 	}

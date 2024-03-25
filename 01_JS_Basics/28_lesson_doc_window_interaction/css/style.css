@@ -1,6 +1,6 @@
 .box {
 	display: block;
-	box-sizing: border-box; /*данное свойство меняет поведение внутренних и внешних границ*/
+	box-sizing: border-box; /* данное свойство меняет поведение внутренних и внешних границ */
 	width: 400px;
 	height: 350px;	
 	overflow: scroll;
