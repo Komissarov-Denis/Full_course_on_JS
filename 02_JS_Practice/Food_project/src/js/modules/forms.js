@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import {openModalWindow, closeModalWindow} from './modal.js';
 import {postData} from '../services/services.js';
 
