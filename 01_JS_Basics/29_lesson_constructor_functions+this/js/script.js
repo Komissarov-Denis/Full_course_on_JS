@@ -2,7 +2,9 @@
 
 'use strict';
 
-// функция является ОБЪЕКТОМ, в неё можно записать МЕТОДЫ и СВОЙСТВА
+// ФУНКЦИИ КОНСТРУКТОРЫ удобны для создания однотипных объектов и свойств в ES5, для создания множества копий на основе шаблона или прототипа!!!
+
+// Функция является ОБЪЕКТОМ, потому в неё можно записать МЕТОДЫ и СВОЙСТВА, при этом return не применяется, так как ничего не возвращаем из функции
 const num = new Number(3); // устаревший способ
 console.log(num);
 
@@ -23,10 +25,10 @@ User.prototype.exit = function() {
 };
 const denis = new User('Denis', 1, 43); // в переменную мы передали уже объект на основе конструктора с помощью ключевого слова new!!!
 const alex = new User('Alex', 2, 32);
-denis.hello(); // вызываем метод и получаем Hello Denis!
-alex.hello(); // вызываем метод и получаем Hello Alex!
-denis.exit(); // вызываем метод и получаем Пользователь Denis ушел...
-alex.exit(); // вызываем метод и получаем Пользователь Alex ушел...
-console.log(denis); // получил User {name: 'Denis', id: 1, age: 43, human: true, hello: ƒ}
-console.log(alex);  // получил User {name: 'Alex', id: 2, age: 32, human: true, hello: ƒ}
-// КОНСТРУКТОРЫ удобны для создания однотипных объектов и свойств в ES5!!!
+denis.hello(); // вызываем метод и получаем: Hello Denis!
+alex.hello(); // вызываем метод и получаем: Hello Alex!
+denis.exit(); // вызываем метод и получаем: Пользователь Denis ушел...
+alex.exit(); // вызываем метод и получаем: Пользователь Alex ушел...
+console.log(denis); // получил: User {name: 'Denis', id: 1, age: 43, human: true, hello: ƒ}
+console.log(alex); // получил: User {name: 'Alex', id: 2, age: 32, human: true, hello: ƒ}
+console.log(denis.id);  // получил: 1
