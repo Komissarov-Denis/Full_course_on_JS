@@ -7,7 +7,7 @@
 // Но, если мы его поместим в спецучреждение, в котором он сможет чем-то заниматься, то он получит так называемый "контекст вызова", так как у него будет свое место функционирования!!!
 
 function showThis() {
-	console.log(this); // получаем: глобальный контекст WINDOW и работает правило без строгого режима // 'use strict';
+	console.log(this); // получаем: глобальный контекст WINDOW и работает правило без строгого режима 'use strict';
 } // в сторогом режиме получаем: undefined
 showThis(); // если функция запускается без строгого режима, когда мы используем в ней контекст вызова, то этот контекст будет ссылаться на глобальный объект WINDOW{}
 
@@ -17,7 +17,7 @@ function showThis2(a, b) {
 	console.log(this); // получаем: undefined
 	function sum() {
 		console.log(this); // получаем: undefined
-		// return this.a + this.b; // получаем: Window и NaN некорректное поведение
+		// return this.a + this.b; // получаем: Window и NaN некорректное поведение, ДАННЫЙ ПРИЕМ НЕ РАБОТАЕ, данная функция не видит значение THIS!!!
 		return a + b; // в связи с замыканием функции, функция sum() ищет переменные внутри себя, не найдя, обращается к родительской функции showThis2 и выполняет сложение
 	}
 	console.log(sum());
@@ -34,7 +34,7 @@ const obj = {
 		function shout() { // функция внутри метода - просто функция!!!
 			console.log(this); // получил: undefined - в данном случае, это простой вызов функции и он не относится к методу!!!
 		}
-		shout(); // функция внутри метода, поэтому КОНТЕКСТ вызова THIS она потеряла, причину СМ. пункт 1)!!!
+		shout(); // функция внутри метода, поэтому КОНТЕКСТ вызова THIS - его значение функция не видит и не связывает THIS с объектом, причину СМ. пункт 1)!!!
 	}
 };
 obj.sum();
@@ -76,6 +76,7 @@ sayName.apply(user); // получил: { name: 'John' } John John undefined, и
 sayName.call(user, ' Smith'); // получил: { name: 'John' } John John  Smith, (call - вызывать)
 sayName.apply(user, [' Smith']);  // получил: { name: 'John' } John John  Smith, разница в синтаксисе (apply - применить)
 
+
 // 4) Ручное присвоение THIS любой функции методом bind() - создает новую функцию, связанную с новым контекстом (bind - связывать)
 function count(num) {
 	return this * num; // return() возвращает вычисления за рамки функции
@@ -86,14 +87,14 @@ console.log(double(13)); // получаем: 26
 
 const btn = document.querySelector('button');
 btn.addEventListener('click', function() { // когда обработчик события назначен в классическом варианте function() {}, контекстом вызова будет сам элемент события:
-	console.log(this); // получаем <button type="button">Click</button>, т.е. this == <button type="button">Click</button>
+	console.log(this); // получаем <button type="button">Click</button>, т.е. this == <button type="button">Click</button> или this == event.target()
 	this.style.backgroundColor = 'red';
 });
 
 const btn2 = document.querySelector('button');
 btn2.addEventListener('click', () => {
 	console.log(this); // получаем: window - как некорректного поведения, так как у стрелочной функции нет своего контекста вызова, она будет брать его у своего родителя!!!
-}); // чтобы стрелочная функция отработала также как классическая, прописываем целевое событие (event.target)!!! =>
+}); // чтобы стрелочная функция отработала также как классическая, прописываем целевое событие event.target()!!! =>
 
 const btn3 = document.querySelector('button');
 btn3.addEventListener('click', (e) => {
@@ -104,7 +105,7 @@ const obj2 = {
 	num: 5,
 	sayNumber: function() {
 		const say = () => {
-			console.log(this); // так как у стрелочной функции нет своего контекста вызова и она будет брать его у своего родителя, то this ссылается на obj2!!!
+			console.log(this); // так как у стрелочной функции нет своего контекста вызова и она будет брать его у своего родителя, т.е. this ссылается на obj2!!!
 		};
 		say();
 	}
