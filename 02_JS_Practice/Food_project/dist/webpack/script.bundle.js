@@ -1364,7 +1364,7 @@ __webpack_require__.r(__webpack_exports__);
 function cards() {
   class MenuCards {
     constructor(srcImg, altText, title, descr, price, parentSelector, ...classes) {
-      // добавил REST оператор, так как не известно - будут ли еще изменения в карточках меню
+      // добавил REST оператор (...classes), так как не известно - будут ли еще изменения в карточках меню
       this.srcImg = srcImg;
       this.altText = altText;
       this.title = title;
@@ -1372,22 +1372,22 @@ function cards() {
       this.price = price;
       this.transfer = 100; // курс доллара к рублю
       this.classes = classes;
-      this.parentSelector = document.querySelector(parentSelector); // тут теперь лежит DOM  элемент!!!			
-      this.changeToRub(); // вызываем метод после построения всех свойств объекта
+      this.parentSelector = document.querySelector(parentSelector); // тут теперь лежит DOM  элемент от родителького селектора '.menu .container'!!!	
+      this.changeToRub(); // создаем changeToRub() - метод конвертирования цены из долларов в рубли после построения всех свойств объекта
     }
     changeToRub() {
       this.price = +this.price * this.transfer;
     }
     render() {
-      // классическое название для формирование верстки
+      // классическое название для формирование верстки - метод render()
       const element = document.createElement('div');
       if (this.classes.length === 0) {
-        // если у массива this.classes нет классов, то присваиваем класс menu__item всем div элементам
+        // если у массива this.classes нет классов, то присваиваем класс 'menu__item' всем div элементам
         this.element = 'menu__item';
         element.classList.add(this.element);
       } else {
         // если у массива this.classes хоть один класс присутствует, то добавляем класс
-        this.classes.forEach(className => element.classList.add(className)); // для каждого элемента массива обращаемся к classList созданного в element div и добавляю каждый класс, который находится в массиве className				
+        this.classes.forEach(className => element.classList.add(className)); // для каждого элемента массива обращаемся к classList созданного в element div и добавляем каждый класс, который находится в массиве className				
       }
       element.innerHTML = `					
 				<img src=${this.srcImg} alt=${this.altText}>
@@ -1399,8 +1399,11 @@ function cards() {
 					<div class="menu__item-total"><span>${this.price}</span> руб./день</div>
 				</div>				
 			`;
-      this.parentSelector.append(element); // метод append() добавляет в container новый element				
-      // console.log(this.classes);
+      this.parentSelector.append(element); // метод append() добавляет в container новый element
+
+      const replacerCard = element.parentElement;
+      console.log(replacerCard);
+      // console.log(Array.from(replacerCard)); 
     }
   }
   // getResources('http://localhost:3000/menu') => еще вариант формирования MenuCards
@@ -1435,6 +1438,7 @@ function cards() {
       new MenuCards(img, altimg, title, descr, price, '.menu .container').render(); // запускаем конструктор - MenuCards() для заполнения - render() карточек меню столько раз, сколько объектов в массиве db.json
     });
   });
+
   // new MenuCards(    => заменили верстку динамическим формированием MenuCards с помощью запросов к серверу
   // 	'img/tabs/vegy.jpg',
   // 	'vegy',
@@ -1445,7 +1449,7 @@ function cards() {
   // 	'menu__item',  // классы успешно добавляются
   // 	// 'first', // классы успешно добавляются
   // 	// 'first__green', // классы успешно добавляются
-  // ).render(); // заполняем новый класс MenuCards с помощью метода render()
+  // ).render(); // заполняем новый класс MenuCards с помощью метода render(), карточка создастся, заполнится и метод удалится, так как на него не будет больше ссылок
   // new MenuCards(
   // 	'img/tabs/elite.jpg',
   // 	'elite',
@@ -1456,7 +1460,7 @@ function cards() {
   // 	'menu__item',  // классы успешно добавляются
   // 	// 'second', // классы успешно добавляются
   // 	// 'second__blue', // классы успешно добавляются
-  // ).render(); // заполняем новый класс MenuCards с помощью метода render()
+  // ).render(); // заполняем новый класс MenuCards с помощью метода render(), карточка создастся, заполнится и метод удалится, так как на него не будет больше ссылок
   // new MenuCards(
   // 	'img/tabs/post.jpg',
   // 	'post',
@@ -1467,7 +1471,10 @@ function cards() {
   // 	'menu__item',  // классы успешно добавляются
   // 	// 'third', // классы успешно добавляются
   // 	// 'third__red',  // классы успешно добавляются
-  // ).render(); // заполняем новый класс MenuCards с помощью метода render()
+  // ).render(); // заполняем новый класс MenuCards с помощью метода render(), карточка создастся, заполнится и метод удалится, так как на него не будет больше ссылок
+
+  // const replacedCard = document.querySelectorAll('.menu__item');
+  // console.log(replacedCard);
 }
 
 /***/ }),
@@ -1793,7 +1800,7 @@ function openModalWindow(modalSelector, modalTimerId) {
   // console.log(modalTimerId);
   if (modalTimerId) {
     // если modalTimerId был передан, то только тогда будет запускаться clearInterval()
-    clearInterval(modalTimerId); // если пользователь сам зарыл модальное окно, сбрасываем интервал его автооткрытия
+    clearInterval(modalTimerId); // если пользователь сам закрыл модальное окно, сбрасываем интервал его автооткрытия
   }
 }
 function closeModalWindow(modalSelector) {
@@ -2001,7 +2008,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getResources: function() { return /* binding */ getResources; },
 /* harmony export */   postData: function() { return /* binding */ postData; }
 /* harmony export */ });
-/* eslint-disable linebreak-style */
 const postData = async (url, data) => {
   // function expression -  без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + async в связи с асинхронностью выполнения
   const result = await fetch(url, {
