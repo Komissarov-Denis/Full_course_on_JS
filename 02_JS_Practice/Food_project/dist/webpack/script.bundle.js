@@ -1213,7 +1213,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ calculator; }
 /* harmony export */ });
-/* eslint-disable linebreak-style */
 // CALCULATOR-----------------------------------------------------
 function calculator() {
   const result = document.querySelector('.calculating__result span'); // получили по селектору класс, в который будем записывать результат расчета
@@ -1258,8 +1257,8 @@ function calculator() {
     // подсчитываем конечный результат, но начинать подсчет будем с проверки наличия всех заполненных данных, запускаться будет при внесении изменений
     if (!sex || !height || !weight || !age || !ratio) {
       // строка (+'fbgdfj') при преобразовании в числовой формат дает NaN, а NaN == false; при проверке значения: true, т.е. на наличие =>
-      result.textContent = '?...'; // => всех заполненых переменных, они преобразуются в конструкции switch к числу (+input.value;); но если хотя бы одно значение будет NaN == false, то =>
-      return; // => прерываем досрочно функцию с сообщением '?...' и все условия после return работать не будут!!!
+      result.textContent = ''; // => всех заполненых переменных, они преобразуются в конструкции switch к числу (+input.value;); но если хотя бы одно значение будет NaN == false, то =>
+      return; // => прерываем досрочно функцию с сообщением '...' и все условия после return работать не будут!!!
     }
     if (sex === 'female') {
       result.textContent = Math.round((447.6 + 9.2 * weight + 3.1 * height - 4.3 * age) * ratio); // метод Math.round() - округляет до целого числа 
