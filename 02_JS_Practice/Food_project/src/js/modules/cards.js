@@ -19,9 +19,9 @@ export default function cards() {
 		}
 		render() { // классическое название для формирование верстки - метод render()
 			const element = document.createElement('div');
-			if (this.classes.length === 0 ) { // если у массива this.classes нет классов, то присваиваем класс 'menu__item' всем div элементам
-				this.element = 'menu__item';
-				element.classList.add(this.element);
+			if (this.classes.length === 0 ) { // если у массива this.classes нет классов =>
+				this.element = 'menu__item'; // то присваиваем класс 'menu__item' всем создаваемым div элементам
+				element.classList.add(this.element); // далее на каждом шаге из трех, добавляется класс 'menu__item' в класс лист (псевдомассив)
 			} else { // если у массива this.classes хоть один класс присутствует, то добавляем класс
 				this.classes.forEach(className => element.classList.add(className)); // для каждого элемента массива обращаемся к classList созданного в element div и добавляем каждый класс, который находится в массиве className				
 			}
@@ -36,37 +36,16 @@ export default function cards() {
 				</div>				
 			`;
 			this.parentSelector.append(element); // метод append() добавляет в container новый element
-
-			this.element = 'new-card';
-			element.classList.add(this.element);
-			// console.log(element);
+			this.element = 'new-card'; // на каждом шаге из трех, добавил на каждый новый элемент класс 'new-card'
+			element.classList.add(this.element); // на каждом шаге из трех, добавился класс 'new-card' в класс лист (псевдомассив)
 			const newCards = document.querySelectorAll('.new-card');
-			// const cards = document.querySelectorAll('.menu__item');
 			const prototypeCards = document.querySelectorAll('.prototype-card');
-			// console.log(cards); // NodeList(6) [div.menu__item.prototype, div.menu__item.prototype, div.menu__item.prototype, div.menu__item, div.menu__item, div.menu__item]
-			// console.log(cards.length); // 6 
-			// console.log(prototypeCards); // NodeList(3) [div.menu__item.prototype, div.menu__item.prototype, div.menu__item.prototype]
-			// console.log(newCards);
-			// console.log(cards.length >= 3); // true
-			// console.log(newCards[0]);
-			prototypeCards[0].replaceWith(newCards[0]);
-			// if (cards.length >= 3) {
-				// cards.forEach(function(item, i, cards) {
-				// cards.forEach(function() {	
-					
-				// 	console.log(`${i}: ${item} внутри массива ${cards}`);
-				// 	// item.remove(prototypeDiv);
-				// 	prototypeDiv[item].replaceWith(element[item]);
-				// for (let i = 0; i < 2; i++) {
-				// 	// prototypeCards[i].replaceWith(newCards[i]);
-				// 	// console.log(prototypeCards[i]);
-				// 	// prototypeCards[i].remove();
-
-				// }			
-					
-			// }
+			// console.log(prototypeCards); // NodeList(3) [div.menu__item.prototype-card, div.menu__item.prototype-card, div.menu__item.prototype-card]
+			// console.log(newCards); // NodeList(3) [div.menu__item.new-card, div.menu__item.new-card, div.menu__item.new-card]
+			prototypeCards[0].replaceWith(newCards[0]); // на каждом шаге из трех, каждый вновь созданный элемент с классом 'new-card' замещает заглушечный элемент с классом 'prototype-card'
 		}
 	}
+
 	// getResources('http://localhost:3000/menu') => еще вариант формирования MenuCards
 	// 	.then(data => createMenuCards(data));
 	// function createMenuCards(data) {
@@ -86,12 +65,14 @@ export default function cards() {
 	// 		document.querySelector('.menu .container').append(element);
 	// 	});
 	// }
+
 	getResources('http://localhost:5000/menu') // оптимизируем работу с карточками МЕНЮ
 		.then(data => {
 			data.forEach(({img, altimg, title, descr, price}) => { // перебираем весь массив db.json состоящий из объектов деструктурировав его методом ({img, altimg, title, descr, price})
 				new MenuCards(img, altimg, title, descr, price, '.menu .container').render(); // запускаем конструктор - MenuCards() для заполнения - render() карточек меню столько раз, сколько объектов в массиве db.json
 			});
 		});
+
 
 	// new MenuCards(    => заменили верстку динамическим формированием MenuCards с помощью запросов к серверу
 	// 	'img/tabs/vegy.jpg',
