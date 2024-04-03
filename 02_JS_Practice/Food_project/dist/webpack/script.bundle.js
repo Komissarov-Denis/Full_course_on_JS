@@ -1401,9 +1401,34 @@ function cards() {
 			`;
       this.parentSelector.append(element); // метод append() добавляет в container новый element
 
-      const replacerCard = element.parentElement;
-      console.log(replacerCard);
-      // console.log(Array.from(replacerCard)); 
+      this.element = 'new-card';
+      element.classList.add(this.element);
+      // console.log(element);
+      const newCards = document.querySelectorAll('.new-card');
+      // const cards = document.querySelectorAll('.menu__item');
+      const prototypeCards = document.querySelectorAll('.prototype-card');
+      // console.log(cards); // NodeList(6) [div.menu__item.prototype, div.menu__item.prototype, div.menu__item.prototype, div.menu__item, div.menu__item, div.menu__item]
+      // console.log(cards.length); // 6 
+      // console.log(prototypeCards); // NodeList(3) [div.menu__item.prototype, div.menu__item.prototype, div.menu__item.prototype]
+      // console.log(newCards);
+      // console.log(cards.length >= 3); // true
+      // console.log(newCards[0]);
+      prototypeCards[0].replaceWith(newCards[0]);
+      // if (cards.length >= 3) {
+      // cards.forEach(function(item, i, cards) {
+      // cards.forEach(function() {	
+
+      // 	console.log(`${i}: ${item} внутри массива ${cards}`);
+      // 	// item.remove(prototypeDiv);
+      // 	prototypeDiv[item].replaceWith(element[item]);
+      // for (let i = 0; i < 2; i++) {
+      // 	// prototypeCards[i].replaceWith(newCards[i]);
+      // 	// console.log(prototypeCards[i]);
+      // 	// prototypeCards[i].remove();
+
+      // }			
+
+      // }
     }
   }
   // getResources('http://localhost:3000/menu') => еще вариант формирования MenuCards
@@ -1472,9 +1497,6 @@ function cards() {
   // 	// 'third', // классы успешно добавляются
   // 	// 'third__red',  // классы успешно добавляются
   // ).render(); // заполняем новый класс MenuCards с помощью метода render(), карточка создастся, заполнится и метод удалится, так как на него не будет больше ссылок
-
-  // const replacedCard = document.querySelectorAll('.menu__item');
-  // console.log(replacedCard);
 }
 
 /***/ }),
