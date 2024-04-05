@@ -2,14 +2,19 @@
 
 'use strict';
 
-// JSON - JavaScript Object Notation  — текстовый формат обмена данными с сервером, основанный на JavaScript. 
+// JSON - JavaScript Object Notation  — текстовый формат обмена данными с сервером, основанный на JavaScript.
+
+// Методы:
+// JSON.stringify() для преобразования объектов в JSON
+// JSON.parse() для преобразования JSON обратно в объект
 
 const person = {
 	name: 'Alex',
 	tel: '+7444444444',
-};
-console.log(JSON.stringify(person)); // подготовка для передачи данных на сервер, все значения в двойных кавычках "" - {"name":"Alex","tel":"+7444444444"}!!!
+}; // напрямую нет возможности передавать данные объекта на сервер, для этого применяется => 
+console.log(JSON.stringify(person)); // подготовка для передачи данных на сервер, все значения переводятся в двойные кавычки "" - {"name":"Alex","tel":"+7444444444"}!!!
 console.log(JSON.parse(JSON.stringify(person))); // получаем обратно самый обычный объект - {name: 'Alex', tel: '+7444444444'}!!!
+
 
 const person2 = {
 	name: 'Alex',
