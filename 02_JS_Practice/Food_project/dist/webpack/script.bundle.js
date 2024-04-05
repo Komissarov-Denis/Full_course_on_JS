@@ -1370,24 +1370,24 @@ function cards() {
       this.descr = descr;
       this.price = price;
       this.transfer = 100; // курс доллара к рублю
-      this.classes = classes;
-      this.parentSelector = document.querySelector(parentSelector); // тут теперь лежит DOM  элемент от родителького селектора '.menu .container'!!!	
+      this.classes = classes; // создаем рест оператор с поименованием его ...classes, будем работать с ним как с массивом, новых классов может быть множество
+      this.parentSelector = document.querySelector(parentSelector); // тут теперь лежит DOM element от родителького селектора '.menu .container', который передается в настройку нашего класса!!!	
       this.changeToRub(); // создаем changeToRub() - метод конвертирования цены из долларов в рубли после построения всех свойств объекта
     }
     changeToRub() {
-      this.price = +this.price * this.transfer;
+      this.price = +this.price * +this.transfer; // унарный "+" переводит в числовое счисление
     }
     render() {
       // классическое название для формирование верстки - метод render()
-      const element = document.createElement('div');
+      const element = document.createElement('div'); // создаем элемент div, помещаем его в переменную, к которой можно обращаться 
       if (this.classes.length === 0) {
-        // если у массива this.classes нет классов =>
-        this.element = 'menu__item'; // то присваиваем класс 'menu__item' всем создаваемым div элементам
-        element.classList.add(this.element); // далее на каждом шаге из трех, добавляется класс 'menu__item' в класс лист (псевдомассив)
+        // если в массив this.classes ничего не передается, ни один элемент и он пуст (rest оператор формирует массивы на каждом шаге из 3), то проходим по всем элементам, по каждому =>
+        this.element = 'menu__item'; // и присваиваем дефолтный класс '.menu__item' всем создаваемым element/div элементам поочередно
+        element.classList.add(this.element); // далее на каждом шаге из трех (три карточки), добавляется класс '.menu__item' в класс лист (псевдомассив) => element.classList.add('menu__item') - тоже самое в одну строку!!!
       } else {
-        // если у массива this.classes хоть один класс присутствует, то добавляем класс
-        this.classes.forEach(className => element.classList.add(className)); // для каждого элемента массива обращаемся к classList созданного в element div и добавляем каждый класс, который находится в массиве className				
-      }
+        // если в массив this.classes хоть один класс передан, то каждому добавляем класс => назовем каждый элемент внутрии массива classes как className, так как стрелочная функция будет принимать этот аргумент className
+        this.classes.forEach(className => element.classList.add(className)); // для каждого элемента массива обращаемся к classList созданного в массиве element/div и добавляем каждый класс, который находится в массиве className				
+      } // атрибуту "class" соответствует свойство className в JS, т.е. class="menu__item" соответствует className = 'menu__item'
       element.innerHTML = `					
 				<img src=${this.srcImg} alt=${this.altText}>
 				<h3 class="menu__item-subtitle">${this.title}</h3>
@@ -1397,15 +1397,15 @@ function cards() {
 					<div class="menu__item-cost">Цена:</div>
 					<div class="menu__item-total"><span>${this.price}</span> руб./день</div>
 				</div>				
-			`;
-      this.parentSelector.append(element); // метод append() добавляет в container новый element
-      this.element = 'new-card'; // на каждом шаге из трех, добавил на каждый новый элемент класс 'new-card'
-      element.classList.add(this.element); // на каждом шаге из трех, добавился класс 'new-card' в класс лист (псевдомассив)
-      const newCards = document.querySelectorAll('.new-card');
-      const prototypeCards = document.querySelectorAll('.prototype-card');
+			`; // динамически создаем вложенную структуру каждого элемента div
+      this.parentSelector.append(element); // метод append() добавляет на каждом шаге в конец родительского '.menu .container' новый DOM element/div
+      this.element = 'new-card'; // на каждом шаге из трех (три карточки), добавляется к каждому новому элементу класс '.new-card'
+      element.classList.add(this.element); // на каждом шаге из трех (три карточки), добавился класс '.new-card' в класс лист (псевдомассив)
+      const newCards = document.querySelectorAll('.new-card'); // создаем новые элементы newCards с классом '.new-card', для дальнейшего использования
+      const prototypeCards = document.querySelectorAll('.prototype-card'); // создаем новые элементы prototypeCards с классом '.prototype-card', для дальнейшего использования
       // console.log(prototypeCards); // NodeList(3) [div.menu__item.prototype-card, div.menu__item.prototype-card, div.menu__item.prototype-card]
       // console.log(newCards); // NodeList(3) [div.menu__item.new-card, div.menu__item.new-card, div.menu__item.new-card]
-      prototypeCards[0].replaceWith(newCards[0]); // на каждом шаге из трех, каждый вновь созданный элемент с классом 'new-card' замещает заглушечный элемент с классом 'prototype-card'
+      prototypeCards[0].replaceWith(newCards[0]); // на каждом шаге из трех (три карточки), каждый вновь созданный элемент с классом '.new-card' замещает заглушечный элемент с классом '.prototype-card'
     }
   }
 
@@ -1443,7 +1443,7 @@ function cards() {
     });
   });
 
-  // new MenuCards(    => заменили верстку динамическим формированием MenuCards с помощью запросов к серверу
+  // new MenuCards( // эта запись позволяет создавать объект без переменой => заменили верстку динамическим формированием MenuCards с помощью запросов к серверу 
   // 	'img/tabs/vegy.jpg',
   // 	'vegy',
   // 	'Меню "Фитнес"',
@@ -1454,6 +1454,7 @@ function cards() {
   // 	// 'first', // классы успешно добавляются
   // 	// 'first__green', // классы успешно добавляются
   // ).render(); // заполняем новый класс MenuCards с помощью метода render(), карточка создастся, заполнится и метод удалится, так как на него не будет больше ссылок
+
   // new MenuCards(
   // 	'img/tabs/elite.jpg',
   // 	'elite',
@@ -1465,6 +1466,7 @@ function cards() {
   // 	// 'second', // классы успешно добавляются
   // 	// 'second__blue', // классы успешно добавляются
   // ).render(); // заполняем новый класс MenuCards с помощью метода render(), карточка создастся, заполнится и метод удалится, так как на него не будет больше ссылок
+
   // new MenuCards(
   // 	'img/tabs/post.jpg',
   // 	'post',
