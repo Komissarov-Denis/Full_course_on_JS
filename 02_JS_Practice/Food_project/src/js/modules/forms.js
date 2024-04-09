@@ -10,8 +10,8 @@ export default function forms(formSelector, modalTimerId) { // forms('form', mod
 		success: 'Спасибо! Скоро с Вами свяжемся!',
 		failure: 'Что-то пошло не так...',
 	};
-	forms.forEach(item => { // берем все созданные формы и подвязываем функцию bindpostData()
-		bindPostData(item);
+	forms.forEach(item => { // переберем все созданные 'form' и подвяжем под каждую из них функцию postData()
+		bindPostData(item); // в атрибут item передаем form == 'form'
 	});
 	function bindPostData(form) { // к функции будем (bind) привязывать какую-то форму, очень удобно навесить на нее обработчик события submit, =>
 		form.addEventListener('submit', (e) => { // которое будет срабатывать каждый раз при отправке форм
@@ -19,7 +19,7 @@ export default function forms(formSelector, modalTimerId) { // forms('form', mod
 			// const statusMessage = document.createElement('div'); // создаем блок для сообщений
 			const statusMessage = document.createElement('img'); // вместо блока 'div' теперь будем использовать картинку спиннера
 			// statusMessage.classList.add('status'); // добавляем класс блоку сообщений
-			statusMessage.src = message.loading; // используем путь к спиннеру
+			statusMessage.src = message.loading; // указываем путь к спиннеру
 			// statusMessage.textContent = message.loading; // заполняем блок главным сообщением 'Загрузка...'
 			statusMessage.style.cssText = `
 				display: block;
@@ -34,6 +34,7 @@ export default function forms(formSelector, modalTimerId) { // forms('form', mod
 			// formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
 			// 	objectJson[key] = value;
 			// });
+
 			// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем json в строку JSON с двойными ковычками =>
 			// это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
 			
