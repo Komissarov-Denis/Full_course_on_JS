@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 export default function carousel({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) { // принцип деструктуризации, создаем объект аргументов
 	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
 	// const slides = document.querySelectorAll('.offer__slide'); // получаем все слайды на странице

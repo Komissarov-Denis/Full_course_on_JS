@@ -1493,7 +1493,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ carousel; }
 /* harmony export */ });
-/* eslint-disable linebreak-style */
 function carousel({
   container,
   slide,
@@ -1705,8 +1704,10 @@ __webpack_require__.r(__webpack_exports__);
 
 // SEND-FORMS---------fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ 
 function forms(formSelector, modalTimerId) {
-  const forms = document.querySelectorAll(formSelector);
+  // forms('form', modalTimerId)
+  const forms = document.querySelectorAll(formSelector); // получаем все 'form'
   const message = {
+    // добавляем список сообщений, выводимых по факту проверки статуса запроса
     // loading: 'Загрузка...', // текст комментируем, так как будем использовать спиннер картинку
     loading: 'img/form/spinner.svg',
     // добавляем картинку спиннера вместо надписи в блоке div Загрузка...
@@ -1714,31 +1715,35 @@ function forms(formSelector, modalTimerId) {
     failure: 'Что-то пошло не так...'
   };
   forms.forEach(item => {
-    // берем все созданные формы и подвязываем функцию bindpostData
+    // берем все созданные формы и подвязываем функцию bindpostData()
     bindPostData(item);
   });
   function bindPostData(form) {
-    // будем (bind) привязывать какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
+    // к функции будем (bind) привязывать какую-то форму, очень удобно навесить на нее обработчик события submit, =>
     form.addEventListener('submit', e => {
-      e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера
+      // которое будет срабатывать каждый раз при отправке форм
+      e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера при отправке формы
       // const statusMessage = document.createElement('div'); // создаем блок для сообщений
-      const statusMessage = document.createElement('img'); // вместо блока теперь будем использовать картинку спиннера
+      const statusMessage = document.createElement('img'); // вместо блока 'div' теперь будем использовать картинку спиннера
       // statusMessage.classList.add('status'); // добавляем класс блоку сообщений
       statusMessage.src = message.loading; // используем путь к спиннеру
-      statusMessage.textContent = message.loading; // заполняем блок главным сообщением 'Загрузка...'
+      // statusMessage.textContent = message.loading; // заполняем блок главным сообщением 'Загрузка...'
       statusMessage.style.cssText = `
 				display: block;
 				margin: 0 auto;
 			`; // добавляем стили спиннеру
       // form.append(statusMessage); // к форме добавляем это сообщение 'Загрузка...'
-      form.insertAdjacentElement('afterend', statusMessage); // чтобы спиннер не сбивал верстку используем insertAdjacentElement() - вставить соседний элемент ()!!!
-      const formData = new FormData(form); // FormData(form) отыскивает в html атрибут name в тегах input всех форм, без него работать не будет!!!
+      form.insertAdjacentElement('afterend', statusMessage); // чтобы спиннер не сбивал верстку используем insertAdjacentElement(), первый аргумент - afterend (куда вставляем), второй - что вставляем!!!
+      const formData = new FormData(form); // new FormData(form) - это специальный объект с набором ключей и их значений, который позволяет с определенной формы быстро сформировать данные, заполняемые пользователем!!!
+      // FormData(form) отыскивает в html АТРИБУТ name В ТЕГАХ input всех форм, без него работать не будет!!!
+
       // const objectJson = {}; // создал новый объект для отправки данных в формате json
       // formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
       // 	objectJson[key] = value;
       // });
       // postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем json в строку JSON с двойными ковычками =>
       // это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
+
       const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
       (0,_services_services_js__WEBPACK_IMPORTED_MODULE_1__.postData)('http://localhost:5000/requests', json)
       // .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
@@ -1757,23 +1762,23 @@ function forms(formSelector, modalTimerId) {
     });
   }
   function showThanksModal(message) {
-    // создаем функцию динамической замены элементов мадального окна с отправкой сообщения message
-    const prevModalDialog = document.querySelector('.modal__dialog'); // получаем элемент modal__dialog
-    prevModalDialog.classList.add('hide'); // добавляем класс hide элементу modal__dialog
-    (0,_modal_js__WEBPACK_IMPORTED_MODULE_0__.openModalWindow)('.modal', modalTimerId); // команда открытия модальных окон
-    const thanksModal = document.createElement('div'); // создаем новый контент обертку
-    thanksModal.classList.add('modal__dialog'); // будем заменять один modal__dialog другим с новым контентом
+    // создаем функцию showThanksModal() динамической замены элементов мадального окна с отправкой сообщения message
+    const prevModalDialog = document.querySelector('.modal__dialog'); // получаем элемент 'modal__dialog', который будем модифицировать
+    prevModalDialog.classList.add('hide'); // добавляем класс hide элементу 'modal__dialog'
+    (0,_modal_js__WEBPACK_IMPORTED_MODULE_0__.openModalWindow)('.modal', modalTimerId); // функция открытия модальных окон
+    const thanksModal = document.createElement('div'); // создаем новый 'div' - контент обертку
+    thanksModal.classList.add('modal__dialog'); // будем заменять один 'modal__dialog' другим с новым контентом
     thanksModal.innerHTML = ` 
 			<div class="modal__content">
 				<div class="modal__close" data-close>&times;</div>
 				<div class="modal__title">${message}</div>
 			</div>
-		`; // создаем новый контент и в первоначальном скрипте (MODAL----) настраиваем ДЕЛЕГИРОВАНИЕ СОБЫТИЙ!!!
-    document.querySelector('.modal').append(thanksModal); // помещаем новое модальное окно на страницу
+		`; // создаем новый контент и в первоначальном скрипте (MODAL---- modalWindow.addEventListener('click', (e) => {}) настраиваем ДЕЛЕГИРОВАНИЕ СОБЫТИЙ!!!
+    document.querySelector('.modal').append(thanksModal); // в блок '.modal' помещаем новое модальное окно thanksModal
     setTimeout(() => {
-      // чтобы новый динамический блок исчезал через 4 сек. и появлялся предыдущий сверстанный блок modal__dialog, применим асинхронную операцию setTimeout()
+      // чтобы новый динамический блок исчезал через 4 сек. и появлялся предыдущий сверстанный блок 'modal__dialog', применим асинхронную операцию setTimeout()
       thanksModal.remove(); // thanksModal будем удалять, чтобы вновь созданные блоки не накапливались
-      prevModalDialog.classList.add('show'); // заменяем классы отображения сверстанного модального окна modal__dialog
+      prevModalDialog.classList.add('show'); // заменяем классы отображения сверстанного модального окна 'modal__dialog'
       prevModalDialog.classList.remove('hide');
       (0,_modal_js__WEBPACK_IMPORTED_MODULE_0__.closeModalWindow)('.modal'); // закрываем модальное окно, чтобы не мешать пользователю
     }, 4000);
@@ -1823,8 +1828,8 @@ function modal(triggerSelector, modalSelector, modalTimerId) {
   // modalCloseBtn.addEventListener('click', closeModalWindow); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную часть
   modalWindow.addEventListener('click', e => {
     if (e.target === modalWindow || e.target.getAttribute('data-close') == '') {
-      // если куда кликнул пользователь (целевое событие) совпадает с модальным окном, то модальное окно закрывается
-      closeModalWindow(modalSelector); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ добавляем условие  || e.target.getAttribute('data-close') == '' т.е. когда в елементе есть data-close со значением пустой строки, кликаем на подложку или крестик - окно закрывается		
+      // если куда кликнул пользователь (целевое событие) совпадает с модальным окном или имеет дата-аттрибут 'data-close' (ничего в него не помещаем), то модальное окно закрывается!!!
+      closeModalWindow(modalSelector); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ добавляем условие - (e.target === modalWindow || e.target.getAttribute('data-close') == '')
     }
   });
   document.addEventListener('keydown', e => {
@@ -1846,6 +1851,41 @@ function modal(triggerSelector, modalSelector, modalTimerId) {
 /* harmony default export */ __webpack_exports__["default"] = (modal);
 
 
+
+/***/ }),
+
+/***/ "./src/js/modules/spinner.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/spinner.js ***!
+  \***********************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ spinner; }
+/* harmony export */ });
+// SPINNER--------------------------------------------------------
+function spinner() {
+  const loadingClass = document.querySelectorAll('.loading');
+  loadingClass.forEach(item => {
+    showSpinner(item);
+  });
+  function showSpinner(loadingClass) {
+    // console.log(loadingClass);
+    const spinnerMessage = {
+      loading: 'img/form/spinner.svg'
+    };
+    // console.log(spinnerMessage);
+    const spinnerImg = document.createElement('img');
+    // console.log(spinnerImg);
+    spinnerImg.src = spinnerMessage.loading;
+    // console.log();
+    // spinnerImg.textContent = spinnerMessage.loading;
+    // loadingClass.append(spinnerImg);
+    loadingClass.insertAdjacentElement('beforeEnd', spinnerImg);
+  }
+}
 
 /***/ }),
 
@@ -2121,10 +2161,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_timer_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/timer.js */ "./src/js/modules/timer.js");
 /* harmony import */ var _modules_modal_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/modal.js */ "./src/js/modules/modal.js");
 /* harmony import */ var _modules_forms_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/forms.js */ "./src/js/modules/forms.js");
-/* harmony import */ var _modules_carousel_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/carousel.js */ "./src/js/modules/carousel.js");
-/* harmony import */ var _modules_calculator_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/calculator.js */ "./src/js/modules/calculator.js");
+/* harmony import */ var _modules_spinner_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/spinner.js */ "./src/js/modules/spinner.js");
+/* harmony import */ var _modules_carousel_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/carousel.js */ "./src/js/modules/carousel.js");
+/* harmony import */ var _modules_calculator_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/calculator.js */ "./src/js/modules/calculator.js");
  // добавил полифилы из node_modules после установки в package.json
  // добавил полифилы из node_modules после установки в package.json
+
 
 
 
@@ -2154,9 +2196,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // SEND-FORMS----fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ
   (0,_modules_forms_js__WEBPACK_IMPORTED_MODULE_6__["default"])('form', modalTimerId);
+  //forms(formSelector, modalTimerId)
 
   // SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
-  (0,_modules_carousel_js__WEBPACK_IMPORTED_MODULE_7__["default"])({
+  (0,_modules_carousel_js__WEBPACK_IMPORTED_MODULE_8__["default"])({
     // принцип деструктуризации, создаем объект аргументов
     container: '.offer__slider',
     slide: '.offer__slide',
@@ -2169,7 +2212,10 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   // CALCULATOR-----------------------------------------------------
-  (0,_modules_calculator_js__WEBPACK_IMPORTED_MODULE_8__["default"])();
+  (0,_modules_calculator_js__WEBPACK_IMPORTED_MODULE_9__["default"])();
+
+  // SPINNER--------------------------------------------------------
+  (0,_modules_spinner_js__WEBPACK_IMPORTED_MODULE_7__["default"])();
 });
 }();
 /******/ })()

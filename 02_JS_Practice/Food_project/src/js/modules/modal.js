@@ -24,8 +24,8 @@ function modal(triggerSelector, modalSelector, modalTimerId) { // => modal('[dat
 	});
 	// modalCloseBtn.addEventListener('click', closeModalWindow); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ убираем данную часть
 	modalWindow.addEventListener('click', (e) => {
-		if (e.target === modalWindow || e.target.getAttribute('data-close') == '') { // если куда кликнул пользователь (целевое событие) совпадает с модальным окном, то модальное окно закрывается
-			closeModalWindow(modalSelector); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ добавляем условие  || e.target.getAttribute('data-close') == '' т.е. когда в елементе есть data-close со значением пустой строки, кликаем на подложку или крестик - окно закрывается		
+		if (e.target === modalWindow || e.target.getAttribute('data-close') == '') { // если куда кликнул пользователь (целевое событие) совпадает с модальным окном или имеет дата-аттрибут 'data-close' (ничего в него не помещаем), то модальное окно закрывается!!!
+			closeModalWindow(modalSelector); // для ДЕЛЕГИРОВАНИЯ СОБЫТИЙ добавляем условие - (e.target === modalWindow || e.target.getAttribute('data-close') == '')
 		}
 	});
 	document.addEventListener('keydown', (e) => { // событие по нажатию клавиши 

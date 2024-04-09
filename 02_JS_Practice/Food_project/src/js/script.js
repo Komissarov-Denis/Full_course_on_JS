@@ -6,6 +6,7 @@ import cards from './modules/cards.js';
 import timer from './modules/timer.js';
 import modal from './modules/modal.js';
 import forms from './modules/forms.js';
+import spinner from './modules/spinner.js';
 import carousel from './modules/carousel.js';
 import calculator from './modules/calculator.js';
 import {openModalWindow} from './modules/modal.js';
@@ -31,6 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// SEND-FORMS----fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ
 	forms('form', modalTimerId);
+	//forms(formSelector, modalTimerId)
 
 	// SLIDER----------------------ПРОСТОЙ ВАРИАНТ--------------------
 	carousel({ // принцип деструктуризации, создаем объект аргументов
@@ -46,5 +48,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// CALCULATOR-----------------------------------------------------
 	calculator();
+
+	// SPINNER--------------------------------------------------------
+	spinner();
 
 });
