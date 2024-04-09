@@ -9,6 +9,12 @@ export default function spinner() {
 		const spinnerMessage = {loading: 'img/form/spinner.svg'}; // переменной spinnerMessage присваиваем картинку спиннера с указанием пути к ней
 		const spinnerImg = document.createElement('img'); // на странице html создаем элемент img внутри span.loading{}
 		spinnerImg.src = spinnerMessage.loading; // указываем путь к спиннеру
+		spinnerImg.style.cssText = `
+		display: block;
+		margin: 0 auto;
+		height: 38px;
+		width: 38px;
+	`;
 		loadingClass.insertAdjacentElement('beforeEnd', spinnerImg); // чтобы спиннер не сбивал верстку используем insertAdjacentElement(), первый аргумент - beforeEnd (куда вставляем), второй - что вставляем!!!
 	}
 }

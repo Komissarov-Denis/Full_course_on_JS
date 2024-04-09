@@ -23,12 +23,12 @@
 	animation-name: fade;
 	animation-duration: 1.5s;    
 }
-.loading {
-	display: block;
-	margin: 0 auto;
-	height: 38px;
-	width: 38px;
-}
+// .loading {
+// 	display: block;
+// 	margin: 0 auto;
+// 	height: 38px;
+// 	width: 38px;
+// }
 @keyframes fade {
 	from {opacity: 0.1;}
 	to {opacity: 1;}

@@ -1395,7 +1395,8 @@ function cards() {
 				<div class="menu__item-divider"></div>
 				<div class="menu__item-price">
 					<div class="menu__item-cost">Цена:</div>
-					<div class="menu__item-total"><span>${this.price}</span> руб./день</div>
+					<div class="menu__item-total"><span>${this.price}</span></div>
+					<div>руб./день</div>
 				</div>				
 			`; // динамически создаем вложенную структуру каждого элемента div
       this.parentSelector.append(element); // метод append() добавляет на каждом шаге в конец родительского '.menu .container' новый DOM element/div
@@ -1880,6 +1881,12 @@ function spinner() {
     }; // переменной spinnerMessage присваиваем картинку спиннера с указанием пути к ней
     const spinnerImg = document.createElement('img'); // на странице html создаем элемент img внутри span.loading{}
     spinnerImg.src = spinnerMessage.loading; // указываем путь к спиннеру
+    spinnerImg.style.cssText = `
+		display: block;
+		margin: 0 auto;
+		height: 38px;
+		width: 38px;
+	`;
     loadingClass.insertAdjacentElement('beforeEnd', spinnerImg); // чтобы спиннер не сбивал верстку используем insertAdjacentElement(), первый аргумент - beforeEnd (куда вставляем), второй - что вставляем!!!
   }
 }
