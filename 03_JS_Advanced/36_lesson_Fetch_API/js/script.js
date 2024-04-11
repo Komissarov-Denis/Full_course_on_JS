@@ -2,19 +2,25 @@
 
 'use strict';
 
-//  https://jsonplaceholder.typicode.com/  - это виртуальная база данных в виде сервера для тестирования наших запросов на основе PROMISE!!!
-fetch('https://jsonplaceholder.typicode.com/posts', {
-	method: 'POST',
-	body: JSON.stringify({name: 'Alex'}),
-	headers: {
+// API -  Application Programming Interface - программный интерфейс приложения!!!
+// fetch API - технология не поддерживается старыми (можно использовать полифил), но поддерживается всеми современными браузерами.
+// https://jsonplaceholder.typicode.com/ - это виртуальная база данных в виде сервера для тестирования наших запросов на основе PROMISE!!!
+
+
+fetch('https://jsonplaceholder.typicode.com/posts', { // по fetch запросу возвращается промис в виде объекта с ключами и их свойствами, далее он обрабатывается цепочкой .then()
+	method: 'POST', // method - это обязательное ключевое свойство
+	body: JSON.stringify({name: 'Alex'}), // body - это обязательное ключевое свойство
+	headers: { // headers - это тоже обязательное ключевое свойство
 		'Content-type': 'application/json'
 	}
-}) 
-	.then(response => response.json()) // тут мы получаем ответ от сервера в формате json (JS объект, который можно дальше использовать), т.е. вернется PROMISE, если он успешен =>
-	.then(json => console.log(json)); // то дальше мы его используем в консоли
+})
+	.then(response => response.json()) // тут мы получаем response ответ от сервера в формате json (метод response.json() в fetch соответствует методу parse() в AJAX), т.е. из response.json() вернется PROMISE в виде объекта
+	.then(json => console.log(json)); // если PROMISE успешен =>то дальше в json находится объект и мы его используем в консоли
 // Получил:
-// {name: 'Alex', id: 101}id: 101name: "Alex"[[Prototype]]: Object
+// {name: 'Alex', id: 101}
 // соответственно: нам вернулась 101 запись, так как на фетче уже 100 постов, это корректное поведение для проверки, с ним работа проще чем с XMLHttpRequest
+
+
 
 // ОБРАЗЕЦ fetch() запроса для проекта FOOD:
 // SEND-FORMS--------------------------------------fetch() НОВЫЙ ТИП ЗАПРОСОВ гораздо ПРОЩЕ и КОРОЧЕ 
