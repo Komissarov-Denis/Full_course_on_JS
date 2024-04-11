@@ -105,7 +105,7 @@ function postData(form) { // функция postData() будет получат
 		const json = JSON.stringify(objectJson); // конвертируем objectJson{} в строку JSON с двойными ковычками
 		request.send(json); // отправляем запрос в формате json
 		// request.send(formData); // отправляем вновь созданный объект formData КОММЕНТИРУЕМ/РАЗКОММЕНТИРУЕМ НУЖНЫЙ ФОРМАТ ОТПРАВКИ php/json
-		request.addEventListener('load', () => { // другим обработчиком событий будем отслеживать событие 'load', т.е. результат конечной загрузки
+		request.addEventListener('load', () => { // другим обработчиком событий будем отслеживать событие 'load', т.е. запрос полностью завершится
 			if (request.status === 200) { // проверяем соответствие выполнению запроса
 				console.log(request.response);
 				// statusMessage.textContent = message.success; // и так как statusMessage теперь стал DOM узлом на странице html, помещаем соощение 'Спасибо! Скоро с Вами свяжемся!'
