@@ -35,7 +35,7 @@ forms.forEach(item => { // берем все созданные формы и п
 	bindPostData(item);
 });
 const postData = async (url, data) => { // function expression - без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + async в связи с асинхронностью 
-	const result = await fetch(url, { // в fetch(), url - указываем первым аргументом адрес сервера, data - данные, которые будут поститься - т.е. отправляем сформированный запрос + await для ожидания ответа от сервера
+	const result = await fetch(url, { // в fetch(), url - указываем первым аргументом адрес сервера, data - данные, которые будут поститься на сервер, отправляем сформированный запрос + await для ожидания ответа от сервера
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json' 
@@ -43,7 +43,7 @@ const postData = async (url, data) => { // function expression - без объя
 		body: data,	// создаем новый объект для формирования документа запроса fetch(), метод и заголовки указывать обязательно!!!	
 	}); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные
 	return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
-}; 
+}; // async + await - это операторы, работающие только в паре!!!
 function bindPostData(form) { // будем (bind) привязывать какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
 	form.addEventListener('submit', (e) => {
 		e.preventDefault(); // отменяем дефолтную перезагрузку и поведение браузера
@@ -59,10 +59,7 @@ function bindPostData(form) { // будем (bind) привязывать как
 		// form.append(statusMessage); // к форме добавляем это сообщение 'Загрузка...'
 		form.insertAdjacentElement('afterend', statusMessage); // чтобы спиннер не сбивал верстку используем insertAdjacentElement() - вставить соседний элемент ()!!!
 		const formData = new FormData(form); // FormData(form) отыскивает в html атрибут name в тегах input всех форм, без него работать не будет!!!
-		// const objectJson = {}; // создал новый объект для отправки данных в формате json
-		// formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
-		// 	objectJson[key] = value;
-		// });
+		
 		// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем json в строку JSON с двойными ковычками =>
 		// это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
 		const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			

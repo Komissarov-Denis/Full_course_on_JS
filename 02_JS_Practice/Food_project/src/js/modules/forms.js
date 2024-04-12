@@ -10,7 +10,7 @@ export default function forms(formSelector, modalTimerId) { // forms('form', mod
 		success: 'Спасибо! Скоро с Вами свяжемся!',
 		failure: 'Что-то пошло не так...',
 	};
-	forms.forEach(item => { // переберем все созданные 'form' и подвяжем под каждую из них функцию postData()
+	forms.forEach(item => { // переберем все созданные 'form' и подвяжем под каждую из них функцию bindpostData()
 		bindPostData(item); // в атрибут item передаем form == 'form'
 	});
 	function bindPostData(form) { // к функции будем (bind) привязывать какую-то форму, очень удобно навесить на нее обработчик события submit, =>
@@ -30,14 +30,8 @@ export default function forms(formSelector, modalTimerId) { // forms('form', mod
 			const formData = new FormData(form); // new FormData(form) - это специальный объект с набором ключей и их значений, который позволяет с определенной формы быстро сформировать данные, заполняемые пользователем!!!
 			// FormData(form) отыскивает в html АТРИБУТ name В ТЕГАХ input всех форм, без него работать не будет!!!
 
-			// const objectJson = {}; // создал новый объект для отправки данных в формате json
-			// formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
-			// 	objectJson[key] = value;
-			// });
-
 			// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем json в строку JSON с двойными ковычками =>
 			// это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
-			
 			const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
 			postData('http://localhost:5000/requests', json)
 			// .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
