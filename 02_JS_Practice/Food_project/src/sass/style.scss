@@ -23,12 +23,15 @@
 	animation-name: fade;
 	animation-duration: 1.5s;    
 }
-// .loading {
-// 	display: block;
-// 	margin: 0 auto;
-// 	height: 38px;
-// 	width: 38px;
-// }
+.quotes {
+    quotes: """ """; /* Устанавливаем вид кавычек */
+}
+.quotes:before {
+    content: open-quote; /* Добавляем перед текстом открывающую кавычку */
+}
+.quotes:after {
+    content: close-quote; /* Добавляем после текста закрывающую кавычку */
+} 
 @keyframes fade {
 	from {opacity: 0.1;}
 	to {opacity: 1;}
