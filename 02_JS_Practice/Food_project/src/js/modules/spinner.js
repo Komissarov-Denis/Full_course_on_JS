@@ -1,4 +1,3 @@
-
 // SPINNER--------------------------------------------------------
 export default function spinner() {
 	const loadingClass = document.querySelectorAll('.loading');  // получаем все '.loading'

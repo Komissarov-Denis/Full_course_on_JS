@@ -10,6 +10,7 @@ import spinner from './modules/spinner.js';
 import carousel from './modules/carousel.js';
 import calculator from './modules/calculator.js';
 import {openModalWindow} from './modules/modal.js';
+import responsiveFont from './modules/responsive_font.js';
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -51,5 +52,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// SPINNER--------------------------------------------------------
 	spinner();
+
+	// RESPONSIVE-FONT------------------------------------------------ 
+	responsiveFont();
 
 });

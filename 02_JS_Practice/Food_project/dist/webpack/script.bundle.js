@@ -1439,7 +1439,7 @@ function cards() {
       descr,
       price
     }) => {
-      // перебираем весь массив db.json состоящий из объектов деструктурировав его методом ({img, altimg, title, descr, price})
+      // перебираем весь массив db.json состоящий из объектов, деструктурировав его методом forEach({img, altimg, title, descr, price})
       new MenuCards(img, altimg, title, descr, price, '.menu .container').render(); // запускаем конструктор - MenuCards() для заполнения - render() карточек меню столько раз, сколько объектов в массиве db.json
     });
   });
@@ -1716,7 +1716,7 @@ function forms(formSelector, modalTimerId) {
     failure: 'Что-то пошло не так...'
   };
   forms.forEach(item => {
-    // переберем все созданные 'form' и подвяжем под каждую из них функцию postData()
+    // переберем все созданные 'form' и подвяжем под каждую из них функцию bindpostData()
     bindPostData(item); // в атрибут item передаем form == 'form'
   });
   function bindPostData(form) {
@@ -1738,16 +1738,10 @@ function forms(formSelector, modalTimerId) {
       const formData = new FormData(form); // new FormData(form) - это специальный объект с набором ключей и их значений, который позволяет с определенной формы быстро сформировать данные, заполняемые пользователем!!!
       // FormData(form) отыскивает в html АТРИБУТ name В ТЕГАХ input всех форм, без него работать не будет!!!
 
-      // const objectJson = {}; // создал новый объект для отправки данных в формате json
-      // formData.forEach(function(value, key) { // forEach переберет все, что есть внутри formData и заполнит objectJson
-      // 	objectJson[key] = value;
-      // });
-
       // postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем json в строку JSON с двойными ковычками =>
-      // это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), 
-
-      const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
-      (0,_services_services_js__WEBPACK_IMPORTED_MODULE_1__.postData)('http://localhost:5000/requests', json)
+      // это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), =>
+      const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее - в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
+      (0,_services_services_js__WEBPACK_IMPORTED_MODULE_1__.postData)('http://localhost:5000/requests', json) // метод entries() возвращает массив массивов перечисляемых свойств указанного объекта formData{}, метод fromEntries() возвращает объект их массива
       // .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
       .then(data => {
         // сервер вернет данные data, пока это не JSON
@@ -1853,6 +1847,115 @@ function modal(triggerSelector, modalSelector, modalTimerId) {
 /* harmony default export */ __webpack_exports__["default"] = (modal);
 
 
+
+/***/ }),
+
+/***/ "./src/js/modules/responsive_font.js":
+/*!*******************************************!*\
+  !*** ./src/js/modules/responsive_font.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ responsiveFont; }
+/* harmony export */ });
+// для работы скрипта необходимы два класса: fz_modifed - как показатель адаптивности текста, min-fz_16 - минимальное значение шрифта, максимальное скрипт берет из CSS свойств
+// Таблица заголовков:
+// <h1>A</h1> 32px max 100% min 30px - vw320px
+// <h2>A</h2> 24px max 75%  min 22px - vw320px
+// <h3>A</h3> 18px max 75%  min 16px - vw320px
+// <h4>A</h4> 14px max 78%  min 12px - vw320px
+// <h5>A</h5> 13px max 92%  min 11px - vw320px
+// <h6>A</h6> 11px max 84%  min 10px - vw320px
+// Если текст находится в блоке, то margin: 100% или его отсутствие для блока влияет на расчет величины шрифта!!!
+
+function responsiveFont() {
+  const fontSizeModifed = document.querySelectorAll('.fz_modifed'); // есть доступ к массиву по классу
+  fontSizeModifed.forEach(function (item, i) {
+    let computedFontSize = [];
+    let maxFontSize = [];
+    let minFontSize = [];
+    computedFontSize[i] = window.getComputedStyle(fontSizeModifed[i]).getPropertyValue('font-size'); // есть доступ к текущему массиву свойств CSS 'font-size: 48px и 36px' 
+    maxFontSize[i] = parseFloat(computedFontSize[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с плавающей точкой, получил: 48 36
+    // console.log(maxFontSize[i]);
+    // console.log(item.classList.contains('min-fz_16'));
+    function condition() {
+      // сравниваем соответствующий класс 'min-fz_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину шрифта
+      if (item.classList.contains('min-fz_30')) {
+        minFontSize[i] = 30;
+      } else if (item.classList.contains('min-fz_29')) {
+        minFontSize[i] = 29;
+      } else if (item.classList.contains('min-fz_28')) {
+        minFontSize[i] = 28;
+      } else if (item.classList.contains('min-fz_27')) {
+        minFontSize[i] = 27;
+      } else if (item.classList.contains('min-fz_26')) {
+        minFontSize[i] = 26;
+      } else if (item.classList.contains('min-fz_25')) {
+        minFontSize[i] = 25;
+      } else if (item.classList.contains('min-fz_24')) {
+        minFontSize[i] = 24;
+      } else if (item.classList.contains('min-fz_23')) {
+        minFontSize[i] = 23;
+      } else if (item.classList.contains('min-fz_22')) {
+        minFontSize[i] = 22;
+      } else if (item.classList.contains('min-fz_21')) {
+        minFontSize[i] = 21;
+      } else if (item.classList.contains('min-fz_20')) {
+        minFontSize[i] = 20;
+      } else if (item.classList.contains('min-fz_19')) {
+        minFontSize[i] = 19;
+      } else if (item.classList.contains('min-fz_18')) {
+        minFontSize[i] = 18;
+      } else if (item.classList.contains('min-fz_17')) {
+        minFontSize[i] = 17;
+      } else if (item.classList.contains('min-fz_16')) {
+        minFontSize[i] = 16;
+      } else if (item.classList.contains('min-fz_15')) {
+        minFontSize[i] = 15;
+      } else if (item.classList.contains('min-fz_14')) {
+        minFontSize[i] = 14;
+      } else if (item.classList.contains('min-fz_13')) {
+        minFontSize[i] = 13;
+      } else if (item.classList.contains('min-fz_12')) {
+        minFontSize[i] = 12;
+      } else if (item.classList.contains('min-fz_11')) {
+        minFontSize[i] = 11;
+      } else if (item.classList.contains('min-fz_10')) {
+        minFontSize[i] = 10;
+      }
+    }
+    condition();
+    calcResponsiveFontSize(minFontSize[i], maxFontSize[i], 320, 1920);
+    function calcResponsiveFontSize(fontMin, fontMax, viewportMin, viewportMax) {
+      window.addEventListener('resize', event => {
+        // window.addEventListener('resize', event => {} данный слушатель событий работает только на элементе window!!!
+        let pageWidth = document.documentElement.scrollWidth; // есть общая динамическая ширина окна браузера
+        event.pageWidth = pageWidth;
+        // console.log(pageWidth);			
+        let pageHeight = document.documentElement.scrollHeight; // есть общая динамическая высота окна браузера
+        event.pageHeight = pageHeight;
+        // console.log(pageHeight);
+        if (pageWidth >= 1920) {
+          fontSizeModifed[i].style.cssText = `font-size: ${fontMax}px`;
+          // console.log(textFontSize2);
+        } else if (pageWidth < 1920 && pageWidth > 320) {
+          let a = (fontMax - fontMin) / (viewportMax - viewportMin);
+          let b = fontMin - a * viewportMin;
+          let result = +(a * pageWidth + b).toFixed(2);
+          console.log(result);
+          fontSizeModifed[i].style.cssText = `font-size: ${result}px`;
+          // console.log(textFontSize2);
+        } else if (pageWidth <= 320) {
+          fontSizeModifed[i].style.cssText = `font-size: ${fontMin}px`;
+          // console.log(textFontSize2);
+        }
+      }, false);
+    }
+  });
+}
 
 /***/ }),
 
@@ -2056,26 +2159,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   postData: function() { return /* binding */ postData; }
 /* harmony export */ });
 const postData = async (url, data) => {
-  // function expression -  без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + async в связи с асинхронностью выполнения
+  // function expression - без объявления присваивается в переменную, postData отвечает за постинг данных при отправке на сервер + оператор async() в связи с асинхронностью выполнения
   const result = await fetch(url, {
-    // в fetch(), url - указываем первым аргументом адрес сервера, data - данные, которые будут поститься - т.е. отправляем сформированный запрос + await для ожидания ответа от сервера
+    // в fetch(), url - указываем первым аргументом адрес сервера, data - данные, которые будут поститься на сервер, т.е. отправляем сформированный запрос + оператор await() для ожидания ответа от сервера
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
     },
     body: data // создаем новый объект для формирования документа запроса fetch(), метод и заголовки указывать обязательно!!!	
   }); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные
-  return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
-};
+  return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await() дожидается обработки данных в result.json()!!!
+}; // async() + await() - это операторы, работающие только в паре!!!
+
 const getResources = async url => {
-  // function expression - без объявления присваивается в переменную, getResources отвечает за получение данных с сервера + async в связи с асинхронностью выполнения
-  const result = await fetch(url); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные, но fetch сигналы 404, 403, 401 не распознает как ОШИБКИ!!! 
+  // function expression - без объявления присваивается в переменную, getResources отвечает за получение данных с сервера + async() в связи с асинхронностью выполнения
+  const result = await fetch(url); // фетч запрос вернет промис, в переменной result нет ничего - пока промис не вернет от сервера данные, но fetch() сигналы 404, 403, 401 не распознает как ОШИБКИ!!! 
   // ошибками для него являются отсутствие Интернета или критические неполадки в запросе!!! Поэтому создаем условие на сравнение:
   if (!result.ok) {
-    // если с result что-то не то.... то
-    throw new Error(`Could not fetch ${url}, status: ${result.status}`); // то выбрасываем новыю ошибку
+    // если с result.ok что-то не то..., то необходимо вернуть ошибку
+    throw new Error(`Could not fetch ${url}, status: ${result.status}`); // throw new Error() - это конструктор объекта ошибки, оператор throw() выбрасывает ошибку: url - это адрес самого запроса, result.status - это статус выполнения промиса
   }
-  return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - но это АСИНХРОННЫЙ КОД + await дожидается обработки данных в result.json()!!!
+  return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - так как это АСИНХРОННЫЙ КОД + await() дожидается обработки данных в result.json()!!!
 };
 
 
@@ -2168,8 +2272,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_spinner_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/spinner.js */ "./src/js/modules/spinner.js");
 /* harmony import */ var _modules_carousel_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/carousel.js */ "./src/js/modules/carousel.js");
 /* harmony import */ var _modules_calculator_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/calculator.js */ "./src/js/modules/calculator.js");
+/* harmony import */ var _modules_responsive_font_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/responsive_font.js */ "./src/js/modules/responsive_font.js");
  // добавил полифилы из node_modules после установки в package.json
  // добавил полифилы из node_modules после установки в package.json
+
 
 
 
@@ -2220,6 +2326,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // SPINNER--------------------------------------------------------
   (0,_modules_spinner_js__WEBPACK_IMPORTED_MODULE_7__["default"])();
+
+  // RESPONSIVE-FONT------------------------------------------------ 
+  (0,_modules_responsive_font_js__WEBPACK_IMPORTED_MODULE_10__["default"])();
 });
 }();
 /******/ })()
