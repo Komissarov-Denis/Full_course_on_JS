@@ -1,11 +1,20 @@
-// для работы скрипта необходимы два класса: font-size_modifed - как показатель адаптивности текста, min-fz_16 - минимальное значение шрифта, максимальное скрипт берет из CSS свойств
+// для работы скрипта необходимы два класса: fz_modifed - как показатель адаптивности текста, min-fz_16 - минимальное значение шрифта, максимальное скрипт берет из CSS свойств
+// Таблица заголовков:
+// <h1>A</h1> 32px max 100% min 30px - vw320px
+// <h2>A</h2> 24px max 75%  min 22px - vw320px
+// <h3>A</h3> 18px max 75%  min 16px - vw320px
+// <h4>A</h4> 14px max 78%  min 12px - vw320px
+// <h5>A</h5> 13px max 92%  min 11px - vw320px
+// <h6>A</h6> 11px max 84%  min 10px - vw320px
+// Если текст находится в блоке, то margin: 100% или его отсутствие для блока влияет на расчет величины шрифта!!!
 
-const textFontSizeModifed = document.querySelectorAll('.font-size_modifed'); // есть доступ к массиву по классу
-textFontSizeModifed.forEach(function(item, i) {
+
+const fontSizeModifed = document.querySelectorAll('.fz_modifed'); // есть доступ к массиву по классу
+fontSizeModifed.forEach(function(item, i) {
 	let computedFontSize = [];
 	let maxFontSize = [];
 	let minFontSize = [];
-	computedFontSize[i] = window.getComputedStyle(textFontSizeModifed[i]).getPropertyValue('font-size'); // есть доступ к текущему массиву свойств CSS 'font-size: 48px и 36px' 
+	computedFontSize[i] = window.getComputedStyle(fontSizeModifed[i]).getPropertyValue('font-size'); // есть доступ к текущему массиву свойств CSS 'font-size: 48px и 36px' 
 	maxFontSize[i] = parseFloat(computedFontSize[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с плавающей точкой, получил: 48 36
 	// console.log(maxFontSize[i]);
 	// console.log(item.classList.contains('min-fz_16'));
@@ -54,8 +63,8 @@ textFontSizeModifed.forEach(function(item, i) {
 			minFontSize[i] = 10;
 		}
 	} condition();
-	calcFluidFontSize(minFontSize[i], maxFontSize[i], 320, 1920);
-	function calcFluidFontSize(fontMin, fontMax, viewportMin, viewportMax) {
+	calcResponsiveFontSize(minFontSize[i], maxFontSize[i], 320, 1920);
+	function calcResponsiveFontSize(fontMin, fontMax, viewportMin, viewportMax) {
 		window.addEventListener('resize', event => { // window.addEventListener('resize', event => {} данный слушатель событий работает только на элементе window!!!
 			let pageWidth = document.documentElement.scrollWidth; // есть общая динамическая ширина окна браузера
 			event.pageWidth = pageWidth;
@@ -64,16 +73,17 @@ textFontSizeModifed.forEach(function(item, i) {
 			event.pageHeight = pageHeight;
 			// console.log(pageHeight);
 			if (pageWidth >= 1920) {
-				textFontSizeModifed[i].style.cssText = `font-size: ${fontMax}px`;		
+				fontSizeModifed[i].style.cssText = `font-size: ${fontMax}px`;		
 				// console.log(textFontSize2);
 			} else if(pageWidth < 1920 && pageWidth > 320) {
 				let a = (fontMax - fontMin)/(viewportMax - viewportMin);
 				let b = (fontMin - a * viewportMin);
-				let result = (a * pageWidth + b);
-				textFontSizeModifed[i].style.cssText = `font-size: ${result}px`; 
+				let result = +(a * pageWidth + b).toFixed(2);
+				console.log(result);
+				fontSizeModifed[i].style.cssText = `font-size: ${result}px`; 
 				// console.log(textFontSize2);
 			} else if(pageWidth <= 320) {
-				textFontSizeModifed[i].style.cssText = `font-size: ${fontMin}px`;
+				fontSizeModifed[i].style.cssText = `font-size: ${fontMin}px`;
 				// console.log(textFontSize2);
 			}
 		}, false);	
