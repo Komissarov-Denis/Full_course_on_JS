@@ -4,3 +4,8 @@ $primary: #54ED39;
 $secondary: #FBFE5D;
 $bg1: #92F2FF;
 $bg2: #F9FE7E;
+
+$font-size_24-20: calc(18px + (22 - 18) * (100vw - 320px) / (1920 - 320));
+$font-size_22-18: calc(18px + (22 - 18) * (100vw - 320px) / (1920 - 320));
+$font-size_18-14: calc(14px + (18 - 14) * (100vw - 320px) / (1920 - 320));
+$font-size_16-12: calc(12px + (16 - 12) * (100vw - 320px) / (1920 - 320));

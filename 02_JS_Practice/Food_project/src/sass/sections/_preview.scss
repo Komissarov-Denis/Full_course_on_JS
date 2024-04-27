@@ -54,22 +54,25 @@
         font-size: 16px;
     }
     &__items {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         margin-top: 35px;
         padding-left: 26px;
+        height: 130px;
         border-left: 1px solid black;
     }
     &__item {
         font-weight: bold;
-        font-size: 18px;
+        font-size: $font-size_18-14;
         font-weight: 300;
-        margin-top: 10px;
         color: rgba(0, 0, 0, 0.6);
         cursor: pointer;
-        transition: 1s all;
+        transition: .5s all;
         &_active {
             color: #000;
-            // font-size: 22px;
-            font-weight: 1000;
+            font-size: $font-size_22-18;
+            font-weight: 700;
         }
     }
 }
