@@ -11,6 +11,7 @@ import carousel from './modules/carousel.js';
 import calculator from './modules/calculator.js';
 import {openModalWindow} from './modules/modal.js';
 import responsiveFont from './modules/responsive_font.js';
+import responsiveBlock from './modules/responsive_block.js';
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -55,5 +56,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// RESPONSIVE-FONT------------------------------------------------ 
 	responsiveFont();
+
+	// RESPONSIVE-BLOCK-----------------------------------------------
+	responsiveBlock();
 
 });

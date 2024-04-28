@@ -69,21 +69,24 @@ export default function responsiveFont() {
 				let pageWidth = document.documentElement.scrollWidth; // есть общая динамическая ширина окна браузера
 				event.pageWidth = pageWidth;
 				// console.log(pageWidth);			
-				let pageHeight = document.documentElement.scrollHeight; // есть общая динамическая высота окна браузера
-				event.pageHeight = pageHeight;
+				// let pageHeight = document.documentElement.scrollHeight; // есть общая динамическая высота окна браузера
+				// event.pageHeight = pageHeight;
 				// console.log(pageHeight);
 				if (pageWidth >= 1920) {
-					fontSizeModifed[i].style.cssText = `font-size: ${fontMax}px`;		
+					// fontSizeModifed[i].style.cssText = `font-size: ${fontMax}px`;
+					fontSizeModifed[i].style.fontSize = `${fontMax}px`;	
 					// console.log(textFontSize2);
 				} else if(pageWidth < 1920 && pageWidth > 320) {
 					let a = (fontMax - fontMin)/(viewportMax - viewportMin);
-					let b = (fontMin - a * viewportMin);
-					let result = +(a * pageWidth + b).toFixed(2);
-					console.log(result);
-					fontSizeModifed[i].style.cssText = `font-size: ${result}px`; 
+					let b = (fontMin - (a * viewportMin));
+					let result = +((a * pageWidth) + b).toFixed(2);
+					// console.log(result);
+					// fontSizeModifed[i].style.cssText = `font-size: ${result}px`; 
+					fontSizeModifed[i].style.fontSize  = `${result}px`;
 					// console.log(textFontSize2);
 				} else if(pageWidth <= 320) {
-					fontSizeModifed[i].style.cssText = `font-size: ${fontMin}px`;
+					// fontSizeModifed[i].style.cssText = `font-size: ${fontMin}px`;
+					fontSizeModifed[i].style.fontSize = `${fontMin}px`;
 					// console.log(textFontSize2);
 				}
 			}, false);	
