@@ -50,6 +50,10 @@ const arr2 = ['b', 'a', 'c'];
 for (let key of arr2) {
 	console.log(key);
 }
+// получил:
+// b
+// a
+// c
 
 const arr3 = ['b', 'a', 'c'];
 console.dir(arr); // выводит сущность в виде объекта!!!
