@@ -1850,112 +1850,10 @@ function modal(triggerSelector, modalSelector, modalTimerId) {
 
 /***/ }),
 
-/***/ "./src/js/modules/responsive_block.js":
-/*!********************************************!*\
-  !*** ./src/js/modules/responsive_block.js ***!
-  \********************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ responsiveblock; }
-/* harmony export */ });
-// для работы скрипта необходимы два класса: block_modifed - как показатель адаптивности блока, min-width_160 - минимальное значение ширины блока, максимальное скрипт берет из CSS свойств
-
-function responsiveblock() {
-  const blockSizeModifed = document.querySelectorAll('.block_modifed'); // есть доступ к массиву по классу
-  // console.log(blockSizeModifed);
-  blockSizeModifed.forEach(function (item, i) {
-    let computedBlockSize = [];
-    let maxBlockSize = [];
-    let minBlockSize = [];
-    computedBlockSize[i] = window.getComputedStyle(blockSizeModifed[i]).width; // есть доступ к текущему массиву свойств CSS 'font-size: 48px и 36px' 
-    maxBlockSize[i] = parseFloat(computedBlockSize[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с плавающей точкой, получил: 48 36
-    // console.log(maxBlockSize[i]);
-    // console.log(item.classList.contains('min-width_16'));
-    function condition() {
-      // сравниваем соответствующий класс 'min-width_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину шрифта
-      if (item.classList.contains('min-width_300')) {
-        minBlockSize[i] = 300;
-      } else if (item.classList.contains('min-width_290')) {
-        minBlockSize[i] = 290;
-      } else if (item.classList.contains('min-width_280')) {
-        minBlockSize[i] = 280;
-      } else if (item.classList.contains('min-width_270')) {
-        minBlockSize[i] = 270;
-      } else if (item.classList.contains('min-width_260')) {
-        minBlockSize[i] = 260;
-      } else if (item.classList.contains('min-width_250')) {
-        minBlockSize[i] = 250;
-      } else if (item.classList.contains('min-width_240')) {
-        minBlockSize[i] = 240;
-      } else if (item.classList.contains('min-width_230')) {
-        minBlockSize[i] = 230;
-      } else if (item.classList.contains('min-width_220')) {
-        minBlockSize[i] = 220;
-      } else if (item.classList.contains('min-width_210')) {
-        minBlockSize[i] = 210;
-      } else if (item.classList.contains('min-width_200')) {
-        minBlockSize[i] = 200;
-      } else if (item.classList.contains('min-width_190')) {
-        minBlockSize[i] = 190;
-      } else if (item.classList.contains('min-width_180')) {
-        minBlockSize[i] = 180;
-      } else if (item.classList.contains('min-width_170')) {
-        minBlockSize[i] = 170;
-      } else if (item.classList.contains('min-width_160')) {
-        minBlockSize[i] = 160;
-      } else if (item.classList.contains('min-width_150')) {
-        minBlockSize[i] = 150;
-      } else if (item.classList.contains('min-width_140')) {
-        minBlockSize[i] = 140;
-      } else if (item.classList.contains('min-width_130')) {
-        minBlockSize[i] = 130;
-      } else if (item.classList.contains('min-width_120')) {
-        minBlockSize[i] = 120;
-      } else if (item.classList.contains('min-width_110')) {
-        minBlockSize[i] = 110;
-      } else if (item.classList.contains('min-width_100')) {
-        minBlockSize[i] = 100;
-      }
-    }
-    condition();
-    calcResponsiveBlockSize(minBlockSize[i], maxBlockSize[i], 320, 1920);
-    function calcResponsiveBlockSize(blockMin, blockMax, viewportMin, viewportMax) {
-      window.addEventListener('resize', event => {
-        // window.addEventListener('resize', event => {} данный слушатель событий работает только на элементе window!!!
-        let pageWidth = document.documentElement.scrollWidth; // есть общая динамическая ширина окна браузера
-        event.pageWidth = pageWidth;
-        // console.log(pageWidth);			
-        // let pageHeight = document.documentElement.scrollHeight; // есть общая динамическая высота окна браузера
-        // event.pageHeight = pageHeight;
-        // console.log(pageHeight);
-        if (pageWidth >= 1920) {
-          blockSizeModifed[i].style.width = `${blockMax}px`;
-          // console.log(blockSizeModifed[i]);
-        } else if (pageWidth < 1920 && pageWidth > 320) {
-          let a = (blockMax - blockMin) / (viewportMax - viewportMin);
-          let b = blockMin - a * viewportMin;
-          let result = +(a * pageWidth + b).toFixed(2);
-          // console.log(result);
-          blockSizeModifed[i].style.width = `${result}px`;
-          // console.log(blockSizeModifed[i]);
-        } else if (pageWidth <= 320) {
-          blockSizeModifed[i].style.width = `${blockMin}px`;
-          // console.log(blockSizeModifed[i]);
-        }
-      }, false);
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./src/js/modules/responsive_font.js":
-/*!*******************************************!*\
-  !*** ./src/js/modules/responsive_font.js ***!
-  \*******************************************/
+/***/ "./src/js/modules/responsive_fz.js":
+/*!*****************************************!*\
+  !*** ./src/js/modules/responsive_fz.js ***!
+  \*****************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1963,7 +1861,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ responsiveFont; }
 /* harmony export */ });
-// для работы скрипта необходимы два класса: fz_modifed - как показатель адаптивности текста, min-fz_16 - минимальное значение шрифта, максимальное скрипт берет из CSS свойств
+// для работы скрипта необходимы два класса: fz_mod - как показатель адаптивности текста, min-fz_16 - минимальное значение шрифта, максимальное скрипт берет из CSS свойств
 // Таблица заголовков:
 // <h1>A</h1> 32px max 100% min 30px - vw320px
 // <h2>A</h2> 24px max 75%  min 22px - vw320px
@@ -1974,7 +1872,7 @@ __webpack_require__.r(__webpack_exports__);
 // Если текст находится в блоке, то margin: 100% или его отсутствие для блока влияет на расчет величины шрифта!!!
 
 function responsiveFont() {
-  const fontSizeModifed = document.querySelectorAll('.fz_modifed'); // есть доступ к массиву по классу
+  const fontSizeModifed = document.querySelectorAll('.fz_mod'); // есть доступ к массиву по классу
   fontSizeModifed.forEach(function (item, i) {
     let computedFontSize = [];
     let maxFontSize = [];
@@ -1983,55 +1881,128 @@ function responsiveFont() {
     maxFontSize[i] = parseFloat(computedFontSize[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с плавающей точкой, получил: 48 36
     // console.log(maxFontSize[i]);
     // console.log(item.classList.contains('min-fz_16'));
-    function condition() {
-      // сравниваем соответствующий класс 'min-fz_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину шрифта
-      if (item.classList.contains('min-fz_30')) {
-        minFontSize[i] = 30;
-      } else if (item.classList.contains('min-fz_29')) {
-        minFontSize[i] = 29;
-      } else if (item.classList.contains('min-fz_28')) {
-        minFontSize[i] = 28;
-      } else if (item.classList.contains('min-fz_27')) {
-        minFontSize[i] = 27;
-      } else if (item.classList.contains('min-fz_26')) {
-        minFontSize[i] = 26;
-      } else if (item.classList.contains('min-fz_25')) {
-        minFontSize[i] = 25;
-      } else if (item.classList.contains('min-fz_24')) {
-        minFontSize[i] = 24;
-      } else if (item.classList.contains('min-fz_23')) {
-        minFontSize[i] = 23;
-      } else if (item.classList.contains('min-fz_22')) {
-        minFontSize[i] = 22;
-      } else if (item.classList.contains('min-fz_21')) {
-        minFontSize[i] = 21;
-      } else if (item.classList.contains('min-fz_20')) {
-        minFontSize[i] = 20;
-      } else if (item.classList.contains('min-fz_19')) {
-        minFontSize[i] = 19;
-      } else if (item.classList.contains('min-fz_18')) {
-        minFontSize[i] = 18;
-      } else if (item.classList.contains('min-fz_17')) {
-        minFontSize[i] = 17;
-      } else if (item.classList.contains('min-fz_16')) {
-        minFontSize[i] = 16;
-      } else if (item.classList.contains('min-fz_15')) {
-        minFontSize[i] = 15;
-      } else if (item.classList.contains('min-fz_14')) {
-        minFontSize[i] = 14;
-      } else if (item.classList.contains('min-fz_13')) {
-        minFontSize[i] = 13;
-      } else if (item.classList.contains('min-fz_12')) {
-        minFontSize[i] = 12;
-      } else if (item.classList.contains('min-fz_11')) {
-        minFontSize[i] = 11;
-      } else if (item.classList.contains('min-fz_10')) {
-        minFontSize[i] = 10;
+    function fzValue() {
+      let value = 5;
+      for (let j = 0; j < 55; j++) {
+        value++;
+        // value = value + 10;
+        // console.log(value);
+        let classValue = 'min-fz_' + `${value}`;
+        // console.log(classValue);
+        // console.log(typeof(classValue));
+        let fzValue = value;
+        // console.log(fzValue);
+        if (item.classList.contains(classValue)) {
+          // сравниваем соответствующий класс 'min-fz_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину шрифта
+          minFontSize[i] = fzValue;
+        }
       }
     }
-    condition();
+    fzValue();
     calcResponsiveFontSize(minFontSize[i], maxFontSize[i], 320, 1920);
     function calcResponsiveFontSize(fontMin, fontMax, viewportMin, viewportMax) {
+      window.addEventListener('resize', event => {
+        // window.addEventListener('resize', event => {} данный слушатель событий работает только на элементе window!!!
+        let pageWidth = document.documentElement.scrollWidth; // есть общая динамическая ширина окна браузера
+        event.pageWidth = pageWidth;
+        // console.log(pageWidth);			
+        let pageHeight = document.documentElement.scrollHeight; // есть общая динамическая высота окна браузера
+        event.pageHeight = pageHeight;
+        // console.log(pageHeight);
+        if (pageWidth >= 1920) {
+          fontSizeModifed[i].style.fontSize = `${fontMax}px`;
+          // console.log(textFontSize2);
+        } else if (pageWidth < 1920 && pageWidth > 320) {
+          let a = (fontMax - fontMin) / (viewportMax - viewportMin);
+          let b = fontMin - a * viewportMin;
+          let result = +(a * pageWidth + b).toFixed(2);
+          // console.log(result);
+          fontSizeModifed[i].style.fontSize = `${result}px`;
+          // console.log(textFontSize2);
+        } else if (pageWidth <= 320) {
+          fontSizeModifed[i].style.fontSize = `${fontMin}px`;
+          // console.log(textFontSize2);
+        }
+      }, false);
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/modules/responsive_img-bl.js":
+/*!*********************************************!*\
+  !*** ./src/js/modules/responsive_img-bl.js ***!
+  \*********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ responsiveImgBlock; }
+/* harmony export */ });
+// для работы скрипта необходимы три класса: img-bl_mod - как показатель адаптивности блока, min-w_160 / min-h_160 - минимальное значение ширины / высоты блока, максимальное скрипт берет из CSS свойств
+
+function responsiveImgBlock() {
+  const imgBlockSizeModifed = document.querySelectorAll('.img-bl_mod'); // есть доступ к массиву по классу
+  // console.log(imgBlockSizeModifed);
+  imgBlockSizeModifed.forEach(function (item, i) {
+    let computedBlockWidth = [];
+    let computedBlockHeight = [];
+    let maxBlockWidth = [];
+    let maxBlockHeight = [];
+    let minBlockWidth = [];
+    let minBlockHeight = [];
+    // console.log(imgBlockSizeModifed);
+    // console.log(minBlockWidth);
+    // console.log(minBlockHeight);
+    computedBlockWidth[i] = window.getComputedStyle(imgBlockSizeModifed[i]).width; // есть доступ к текущему массиву свойств CSS width
+    computedBlockHeight[i] = window.getComputedStyle(imgBlockSizeModifed[i]).height;
+    maxBlockWidth[i] = parseFloat(computedBlockWidth[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с аeightющей точкой
+    maxBlockHeight[i] = parseFloat(computedBlockHeight[i]);
+    // console.log(maxBlockWidth[i]);
+    // console.log(maxBlockHeight[i]);
+    // console.log(item.classList.contains('min-width_300'));
+    function widthValue() {
+      let value = 0;
+      for (let j = 0; j < 192; j++) {
+        // value++;
+        value = value + 10;
+        // console.log(value);
+        let classValue = 'min-w_' + `${value}`;
+        // console.log(classValue);
+        // console.log(typeof(classValue));
+        let widthValue = value;
+        // console.log(widthValue);
+        if (item.classList.contains(classValue)) {
+          // сравниваем соответствующий класс 'min-width_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину блока
+          minBlockWidth[i] = widthValue;
+        }
+      }
+    }
+    widthValue();
+    function heightValue() {
+      let value = 0;
+      for (let j = 0; j < 50; j++) {
+        // value++;
+        value = value + 10;
+        // console.log(value);
+        let classValue = 'min-h_' + `${value}`;
+        // console.log(classValue);
+        // console.log(typeof(classValue));
+        let heightValue = value;
+        // console.log(heightValue);
+        if (item.classList.contains(classValue)) {
+          // сравниваем соответствующий класс 'min-height_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину блока
+          minBlockHeight[i] = heightValue;
+        }
+      }
+    }
+    heightValue();
+    calcResponsiveBlockSize(minBlockWidth[i], maxBlockWidth[i], minBlockHeight[i], maxBlockHeight[i], 320, 1920);
+    // console.log(minBlockHeight[i]);
+    // console.log(maxBlockHeight[i]);
+    function calcResponsiveBlockSize(blockMinWidth, blockMaxWidth, blockMinHeight, blockMaxHeight, viewportMin, viewportMax) {
       window.addEventListener('resize', event => {
         // window.addEventListener('resize', event => {} данный слушатель событий работает только на элементе window!!!
         let pageWidth = document.documentElement.scrollWidth; // есть общая динамическая ширина окна браузера
@@ -2041,21 +2012,99 @@ function responsiveFont() {
         // event.pageHeight = pageHeight;
         // console.log(pageHeight);
         if (pageWidth >= 1920) {
-          // fontSizeModifed[i].style.cssText = `font-size: ${fontMax}px`;
-          fontSizeModifed[i].style.fontSize = `${fontMax}px`;
-          // console.log(textFontSize2);
+          imgBlockSizeModifed[i].style.width = `${blockMaxWidth}px`;
+          imgBlockSizeModifed[i].style.height = `${blockMaxHeight}px`;
+          // console.log(imgBlockSizeModifed[i]);
         } else if (pageWidth < 1920 && pageWidth > 320) {
-          let a = (fontMax - fontMin) / (viewportMax - viewportMin);
-          let b = fontMin - a * viewportMin;
+          let aW = (blockMaxWidth - blockMinWidth) / (viewportMax - viewportMin);
+          let bW = blockMinWidth - aW * viewportMin;
+          let resultW = +(aW * pageWidth + bW).toFixed(2);
+          imgBlockSizeModifed[i].style.width = `${resultW}px`;
+          // console.log(resultW);
+          // console.log(imgBlockSizeModifed[i]);
+          let aH = (blockMaxHeight - blockMinHeight) / (viewportMax - viewportMin);
+          let bH = blockMinHeight - aH * viewportMin;
+          let resultH = +(aH * pageWidth + bH).toFixed(2);
+          imgBlockSizeModifed[i].style.height = `${resultH}px`;
+          // console.log(resultH);
+          // console.log(imgBlockSizeModifed[i]);
+        } else if (pageWidth <= 320) {
+          imgBlockSizeModifed[i].style.width = `${blockMinWidth}px`;
+          imgBlockSizeModifed[i].style.height = `${blockMinHeight}px`;
+          // console.log(imgBlockSizeModifed[i]);
+        }
+      }, false);
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/modules/responsive_tt-bl.js":
+/*!********************************************!*\
+  !*** ./src/js/modules/responsive_tt-bl.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ responsiveTextBlock; }
+/* harmony export */ });
+// для работы скрипта необходимы два класса: tt-bl_mod - как показатель адаптивности блока, min-w_160 - минимальное значение ширины блока, максимальное скрипт берет из CSS свойств
+
+function responsiveTextBlock() {
+  const textBlockSizeModifed = document.querySelectorAll('.tt-bl_mod'); // есть доступ к массиву по классу
+  // console.log(textBlockSizeModifed);
+  textBlockSizeModifed.forEach(function (item, i) {
+    let computedBlockWidth = [];
+    let maxBlockWidth = [];
+    let minBlockWidth = [];
+    computedBlockWidth[i] = window.getComputedStyle(textBlockSizeModifed[i]).width; // есть доступ к текущему массиву свойств CSS width
+    maxBlockWidth[i] = parseFloat(computedBlockWidth[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с плавающей точкой
+    // console.log(maxBlockSize[i]);
+    // console.log(item.classList.contains('min-width_16'));
+    function widthValue() {
+      let value = 0;
+      for (let j = 0; j < 192; j++) {
+        // value++;
+        value = value + 10;
+        // console.log(value);
+        let classValue = 'min-w_' + `${value}`;
+        // console.log(classValue);
+        // console.log(typeof(classValue));
+        let widthValue = value;
+        // console.log(widthValue);
+        if (item.classList.contains(classValue)) {
+          // сравниваем соответствующий класс 'min-width_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину блока
+          minBlockWidth[i] = widthValue;
+        }
+      }
+    }
+    widthValue();
+    calcResponsiveBlockSize(minBlockWidth[i], maxBlockWidth[i], 320, 1920);
+    function calcResponsiveBlockSize(blockMinWidth, blockMaxWidth, viewportMin, viewportMax) {
+      window.addEventListener('resize', event => {
+        // window.addEventListener('resize', event => {} данный слушатель событий работает только на элементе window!!!
+        let pageWidth = document.documentElement.scrollWidth; // есть общая динамическая ширина окна браузера
+        event.pageWidth = pageWidth;
+        // console.log(pageWidth);			
+        // let pageHeight = document.documentElement.scrollHeight; // есть общая динамическая высота окна браузера
+        // event.pageHeight = pageHeight;
+        // console.log(pageHeight);
+        if (pageWidth >= 1920) {
+          textBlockSizeModifed[i].style.width = `${blockMaxWidth}px`;
+          // console.log(textBlockSizeModifed[i]);
+        } else if (pageWidth < 1920 && pageWidth > 320) {
+          let a = (blockMaxWidth - blockMinWidth) / (viewportMax - viewportMin);
+          let b = blockMinWidth - a * viewportMin;
           let result = +(a * pageWidth + b).toFixed(2);
           // console.log(result);
-          // fontSizeModifed[i].style.cssText = `font-size: ${result}px`; 
-          fontSizeModifed[i].style.fontSize = `${result}px`;
-          // console.log(textFontSize2);
+          textBlockSizeModifed[i].style.width = `${result}px`;
+          // console.log(textBlockSizeModifed[i]);
         } else if (pageWidth <= 320) {
-          // fontSizeModifed[i].style.cssText = `font-size: ${fontMin}px`;
-          fontSizeModifed[i].style.fontSize = `${fontMin}px`;
-          // console.log(textFontSize2);
+          textBlockSizeModifed[i].style.width = `${blockMinWidth}px`;
+          // console.log(textBlockSizeModifed[i]);
         }
       }, false);
     }
@@ -2377,10 +2426,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_spinner_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/spinner.js */ "./src/js/modules/spinner.js");
 /* harmony import */ var _modules_carousel_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/carousel.js */ "./src/js/modules/carousel.js");
 /* harmony import */ var _modules_calculator_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/calculator.js */ "./src/js/modules/calculator.js");
-/* harmony import */ var _modules_responsive_font_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/responsive_font.js */ "./src/js/modules/responsive_font.js");
-/* harmony import */ var _modules_responsive_block_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/responsive_block.js */ "./src/js/modules/responsive_block.js");
+/* harmony import */ var _modules_responsive_fz_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/responsive_fz.js */ "./src/js/modules/responsive_fz.js");
+/* harmony import */ var _modules_responsive_tt_bl_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/responsive_tt-bl.js */ "./src/js/modules/responsive_tt-bl.js");
+/* harmony import */ var _modules_responsive_img_bl_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/responsive_img-bl.js */ "./src/js/modules/responsive_img-bl.js");
  // добавил полифилы из node_modules после установки в package.json
  // добавил полифилы из node_modules после установки в package.json
+
 
 
 
@@ -2435,10 +2486,13 @@ window.addEventListener('DOMContentLoaded', () => {
   (0,_modules_spinner_js__WEBPACK_IMPORTED_MODULE_7__["default"])();
 
   // RESPONSIVE-FONT------------------------------------------------ 
-  (0,_modules_responsive_font_js__WEBPACK_IMPORTED_MODULE_10__["default"])();
+  (0,_modules_responsive_fz_js__WEBPACK_IMPORTED_MODULE_10__["default"])();
 
-  // RESPONSIVE-BLOCK-----------------------------------------------
-  (0,_modules_responsive_block_js__WEBPACK_IMPORTED_MODULE_11__["default"])();
+  // RESPONSIVE-TEXT-BLOCK------------------------------------------
+  (0,_modules_responsive_tt_bl_js__WEBPACK_IMPORTED_MODULE_11__["default"])();
+
+  // RESPONSIVE-IMG-BLOCK-------------------------------------------
+  (0,_modules_responsive_img_bl_js__WEBPACK_IMPORTED_MODULE_12__["default"])();
 });
 }();
 /******/ })()
