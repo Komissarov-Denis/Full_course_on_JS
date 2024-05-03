@@ -10,8 +10,9 @@ import spinner from './modules/spinner.js';
 import carousel from './modules/carousel.js';
 import calculator from './modules/calculator.js';
 import {openModalWindow} from './modules/modal.js';
-import responsiveFont from './modules/responsive_font.js';
-import responsiveBlock from './modules/responsive_block.js';
+import responsiveFont from './modules/responsive_fz.js';
+import responsiveTextBlock from './modules/responsive_tt-bl.js';
+import responsiveImgBlock from './modules/responsive_img-bl.js';
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -57,7 +58,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	// RESPONSIVE-FONT------------------------------------------------ 
 	responsiveFont();
 
-	// RESPONSIVE-BLOCK-----------------------------------------------
-	responsiveBlock();
+	// RESPONSIVE-TEXT-BLOCK------------------------------------------
+	responsiveTextBlock();
+
+	// RESPONSIVE-IMG-BLOCK-------------------------------------------
+	responsiveImgBlock();
 
 });
