@@ -1,20 +1,20 @@
-// для работы скрипта необходимы три класса: img-bl_mod - как показатель адаптивности блока, min-w_160 / min-h_160 - минимальное значение ширины / высоты блока, максимальное скрипт берет из CSS свойств
+// для работы скрипта необходимы три класса: img-btn_mod - как показатель адаптивности блока, min-w_160 min-h_160 - минимальное значение ширины / высоты блока, максимальное скрипт берет из CSS свойств
 
-export default function responsiveImgBlock() {
-	const imgBlockSizeModifed = document.querySelectorAll('.img-bl_mod'); // есть доступ к массиву по классу
-	// console.log(imgBlockSizeModifed);
-	imgBlockSizeModifed.forEach(function(item, i) {
+export default function responsiveImgBtnBlock() {
+	const imgBtnSizeModifed = document.querySelectorAll('.img-btn_mod'); // есть доступ к массиву по классу
+	// console.log(imgBtnSizeModifed);
+	imgBtnSizeModifed.forEach(function(item, i) {
 		let computedBlockWidth = [];
 		let computedBlockHeight = [];
 		let maxBlockWidth = [];
 		let maxBlockHeight = [];
 		let minBlockWidth = [];
 		let minBlockHeight = [];
-		// console.log(imgBlockSizeModifed);
+		// console.log(imgBtnSizeModifed);
 		// console.log(minBlockWidth);
 		// console.log(minBlockHeight);
-		computedBlockWidth[i] = window.getComputedStyle(imgBlockSizeModifed[i]).width; // есть доступ к текущему массиву свойств CSS width
-		computedBlockHeight[i] = window.getComputedStyle(imgBlockSizeModifed[i]).height;
+		computedBlockWidth[i] = window.getComputedStyle(imgBtnSizeModifed[i]).width; // есть доступ к текущему массиву свойств CSS width
+		computedBlockHeight[i] = window.getComputedStyle(imgBtnSizeModifed[i]).height;
 		maxBlockWidth[i] = parseFloat(computedBlockWidth[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с аeightющей точкой
 		maxBlockHeight[i] = parseFloat(computedBlockHeight[i]);
 		// console.log(maxBlockWidth[i]);
@@ -70,26 +70,26 @@ export default function responsiveImgBlock() {
 				// event.pageHeight = pageHeight;
 				// console.log(pageHeight);
 				if (pageWidth >= 1920) {
-					imgBlockSizeModifed[i].style.width = `${blockMaxWidth}px`;	
-					imgBlockSizeModifed[i].style.height = `${blockMaxHeight}px`;		
-					// console.log(imgBlockSizeModifed[i]);
+					imgBtnSizeModifed[i].style.width = `${blockMaxWidth}px`;	
+					imgBtnSizeModifed[i].style.height = `${blockMaxHeight}px`;		
+					// console.log(imgBtnSizeModifed[i]);
 				} else if(pageWidth < 1920 && pageWidth > 320) {
 					let aW = (blockMaxWidth - blockMinWidth)/(viewportMax - viewportMin);
 					let bW = (blockMinWidth - (aW * viewportMin));
 					let resultW = +((aW * pageWidth + bW)).toFixed(2);
-					imgBlockSizeModifed[i].style.width = `${resultW}px`;
+					imgBtnSizeModifed[i].style.width = `${resultW}px`;
 					// console.log(resultW);
-					// console.log(imgBlockSizeModifed[i]);
+					// console.log(imgBtnSizeModifed[i]);
 					let aH = (blockMaxHeight - blockMinHeight)/(viewportMax - viewportMin);
 					let bH = (blockMinHeight - (aH * viewportMin));
 					let resultH = +((aH * pageWidth + bH)).toFixed(2);
-					imgBlockSizeModifed[i].style.height = `${resultH}px`;
+					imgBtnSizeModifed[i].style.height = `${resultH}px`;
 					// console.log(resultH);
-					// console.log(imgBlockSizeModifed[i]);
+					// console.log(imgBtnSizeModifed[i]);
 				} else if(pageWidth <= 320) {
-					imgBlockSizeModifed[i].style.width = `${blockMinWidth}px`;
-					imgBlockSizeModifed[i].style.height = `${blockMinHeight}px`;
-					// console.log(imgBlockSizeModifed[i]);
+					imgBtnSizeModifed[i].style.width = `${blockMinWidth}px`;
+					imgBtnSizeModifed[i].style.height = `${blockMinHeight}px`;
+					// console.log(imgBtnSizeModifed[i]);
 				}
 			}, false);	
 		}		

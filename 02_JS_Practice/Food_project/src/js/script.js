@@ -12,7 +12,7 @@ import calculator from './modules/calculator.js';
 import {openModalWindow} from './modules/modal.js';
 import responsiveFont from './modules/responsive_fz.js';
 import responsiveTextBlock from './modules/responsive_tt-bl.js';
-import responsiveImgBlock from './modules/responsive_img-bl.js';
+import responsiveImgBtnBlock from './modules/responsive_img-btn.js';
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -61,7 +61,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	// RESPONSIVE-TEXT-BLOCK------------------------------------------
 	responsiveTextBlock();
 
-	// RESPONSIVE-IMG-BLOCK-------------------------------------------
-	responsiveImgBlock();
+	// RESPONSIVE-IMG/BTN-BLOCK---------------------------------------
+	responsiveImgBtnBlock();
 
 });

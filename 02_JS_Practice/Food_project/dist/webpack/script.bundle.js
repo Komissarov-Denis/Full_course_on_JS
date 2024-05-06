@@ -1931,34 +1931,34 @@ function responsiveFont() {
 
 /***/ }),
 
-/***/ "./src/js/modules/responsive_img-bl.js":
-/*!*********************************************!*\
-  !*** ./src/js/modules/responsive_img-bl.js ***!
-  \*********************************************/
+/***/ "./src/js/modules/responsive_img-btn.js":
+/*!**********************************************!*\
+  !*** ./src/js/modules/responsive_img-btn.js ***!
+  \**********************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ responsiveImgBlock; }
+/* harmony export */   "default": function() { return /* binding */ responsiveImgBtnBlock; }
 /* harmony export */ });
-// для работы скрипта необходимы три класса: img-bl_mod - как показатель адаптивности блока, min-w_160 / min-h_160 - минимальное значение ширины / высоты блока, максимальное скрипт берет из CSS свойств
+// для работы скрипта необходимы три класса: img-btn_mod - как показатель адаптивности блока, min-w_160 min-h_160 - минимальное значение ширины / высоты блока, максимальное скрипт берет из CSS свойств
 
-function responsiveImgBlock() {
-  const imgBlockSizeModifed = document.querySelectorAll('.img-bl_mod'); // есть доступ к массиву по классу
-  // console.log(imgBlockSizeModifed);
-  imgBlockSizeModifed.forEach(function (item, i) {
+function responsiveImgBtnBlock() {
+  const imgBtnSizeModifed = document.querySelectorAll('.img-btn_mod'); // есть доступ к массиву по классу
+  // console.log(imgBtnSizeModifed);
+  imgBtnSizeModifed.forEach(function (item, i) {
     let computedBlockWidth = [];
     let computedBlockHeight = [];
     let maxBlockWidth = [];
     let maxBlockHeight = [];
     let minBlockWidth = [];
     let minBlockHeight = [];
-    // console.log(imgBlockSizeModifed);
+    // console.log(imgBtnSizeModifed);
     // console.log(minBlockWidth);
     // console.log(minBlockHeight);
-    computedBlockWidth[i] = window.getComputedStyle(imgBlockSizeModifed[i]).width; // есть доступ к текущему массиву свойств CSS width
-    computedBlockHeight[i] = window.getComputedStyle(imgBlockSizeModifed[i]).height;
+    computedBlockWidth[i] = window.getComputedStyle(imgBtnSizeModifed[i]).width; // есть доступ к текущему массиву свойств CSS width
+    computedBlockHeight[i] = window.getComputedStyle(imgBtnSizeModifed[i]).height;
     maxBlockWidth[i] = parseFloat(computedBlockWidth[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с аeightющей точкой
     maxBlockHeight[i] = parseFloat(computedBlockHeight[i]);
     // console.log(maxBlockWidth[i]);
@@ -2015,26 +2015,26 @@ function responsiveImgBlock() {
         // event.pageHeight = pageHeight;
         // console.log(pageHeight);
         if (pageWidth >= 1920) {
-          imgBlockSizeModifed[i].style.width = `${blockMaxWidth}px`;
-          imgBlockSizeModifed[i].style.height = `${blockMaxHeight}px`;
-          // console.log(imgBlockSizeModifed[i]);
+          imgBtnSizeModifed[i].style.width = `${blockMaxWidth}px`;
+          imgBtnSizeModifed[i].style.height = `${blockMaxHeight}px`;
+          // console.log(imgBtnSizeModifed[i]);
         } else if (pageWidth < 1920 && pageWidth > 320) {
           let aW = (blockMaxWidth - blockMinWidth) / (viewportMax - viewportMin);
           let bW = blockMinWidth - aW * viewportMin;
           let resultW = +(aW * pageWidth + bW).toFixed(2);
-          imgBlockSizeModifed[i].style.width = `${resultW}px`;
+          imgBtnSizeModifed[i].style.width = `${resultW}px`;
           // console.log(resultW);
-          // console.log(imgBlockSizeModifed[i]);
+          // console.log(imgBtnSizeModifed[i]);
           let aH = (blockMaxHeight - blockMinHeight) / (viewportMax - viewportMin);
           let bH = blockMinHeight - aH * viewportMin;
           let resultH = +(aH * pageWidth + bH).toFixed(2);
-          imgBlockSizeModifed[i].style.height = `${resultH}px`;
+          imgBtnSizeModifed[i].style.height = `${resultH}px`;
           // console.log(resultH);
-          // console.log(imgBlockSizeModifed[i]);
+          // console.log(imgBtnSizeModifed[i]);
         } else if (pageWidth <= 320) {
-          imgBlockSizeModifed[i].style.width = `${blockMinWidth}px`;
-          imgBlockSizeModifed[i].style.height = `${blockMinHeight}px`;
-          // console.log(imgBlockSizeModifed[i]);
+          imgBtnSizeModifed[i].style.width = `${blockMinWidth}px`;
+          imgBtnSizeModifed[i].style.height = `${blockMinHeight}px`;
+          // console.log(imgBtnSizeModifed[i]);
         }
       }, false);
     }
@@ -2431,7 +2431,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_calculator_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/calculator.js */ "./src/js/modules/calculator.js");
 /* harmony import */ var _modules_responsive_fz_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/responsive_fz.js */ "./src/js/modules/responsive_fz.js");
 /* harmony import */ var _modules_responsive_tt_bl_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/responsive_tt-bl.js */ "./src/js/modules/responsive_tt-bl.js");
-/* harmony import */ var _modules_responsive_img_bl_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/responsive_img-bl.js */ "./src/js/modules/responsive_img-bl.js");
+/* harmony import */ var _modules_responsive_img_btn_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/responsive_img-btn.js */ "./src/js/modules/responsive_img-btn.js");
  // добавил полифилы из node_modules после установки в package.json
  // добавил полифилы из node_modules после установки в package.json
 
@@ -2494,8 +2494,8 @@ window.addEventListener('DOMContentLoaded', () => {
   // RESPONSIVE-TEXT-BLOCK------------------------------------------
   (0,_modules_responsive_tt_bl_js__WEBPACK_IMPORTED_MODULE_11__["default"])();
 
-  // RESPONSIVE-IMG-BLOCK-------------------------------------------
-  (0,_modules_responsive_img_bl_js__WEBPACK_IMPORTED_MODULE_12__["default"])();
+  // RESPONSIVE-IMG/BTN-BLOCK---------------------------------------
+  (0,_modules_responsive_img_btn_js__WEBPACK_IMPORTED_MODULE_12__["default"])();
 });
 }();
 /******/ })()
