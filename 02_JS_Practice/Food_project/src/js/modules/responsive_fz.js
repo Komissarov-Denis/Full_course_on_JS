@@ -10,30 +10,33 @@
 
 export default function responsiveFont() {
 	const fontSizeModifed = document.querySelectorAll('.fz_mod'); // есть доступ к массиву по классу
+	// console.log(fontSizeModifed);
 	fontSizeModifed.forEach(function(item, i) {
 		let computedFontSize = [];
 		let maxFontSize = [];
 		let minFontSize = [];
 		computedFontSize[i] = window.getComputedStyle(fontSizeModifed[i]).getPropertyValue('font-size'); // есть доступ к текущему массиву свойств CSS 'font-size: 48px и 36px' 
 		maxFontSize[i] = parseFloat(computedFontSize[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с плавающей точкой, получил: 48 36
-		// console.log(maxFontSize[i]);
-		// console.log(item.classList.contains('min-fz_16'));
-		function fzValue() {
-			let value = 5;
-			for ( let j = 0; j < 55; j++) {
-				value++;
-				// value = value + 10;
-				// console.log(value);
-				let classValue = 'min-fz_'+`${value}`;
-				// console.log(classValue);
-				// console.log(typeof(classValue));
-				let fzValue = value;
+		// console.log(maxFontSize[i]);		
+		const fzClassValue = item.classList;
+		// console.log(fzClassValue);
+		fzClassValue.forEach(function(elem, e) {
+			// console.log(item.classList[e]);
+			// console.log(item.classList[e].slice(0, 6));
+			const slicedFzClass = 'min-fz_';
+			// console.log(slicedFzClass);
+			if (item.classList[e].slice(0, 7) === slicedFzClass) {
+				// console.log('true');
+				// console.log(item.classList[e]);
+				const fzValue = item.classList[e].slice(7, 15); 
 				// console.log(fzValue);
-				if (item.classList.contains(classValue)) { // сравниваем соответствующий класс 'min-fz_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину шрифта
-					minFontSize[i] = fzValue;
-				}
-			}
-		} fzValue();
+				minFontSize[i] = +fzValue;
+				// console.log(typeof(minFontSize[i]));
+				// console.log(minFontSize[i]);
+			} //  else (
+			// console.log('false')
+			// );
+		});
 		calcResponsiveFontSize(minFontSize[i], maxFontSize[i], 320, 1920);
 		function calcResponsiveFontSize(fontMin, fontMax, viewportMin, viewportMax) {
 			window.addEventListener('resize', event => { // window.addEventListener('resize', event => {} данный слушатель событий работает только на элементе window!!!

@@ -1873,32 +1873,33 @@ __webpack_require__.r(__webpack_exports__);
 
 function responsiveFont() {
   const fontSizeModifed = document.querySelectorAll('.fz_mod'); // есть доступ к массиву по классу
+  // console.log(fontSizeModifed);
   fontSizeModifed.forEach(function (item, i) {
     let computedFontSize = [];
     let maxFontSize = [];
     let minFontSize = [];
     computedFontSize[i] = window.getComputedStyle(fontSizeModifed[i]).getPropertyValue('font-size'); // есть доступ к текущему массиву свойств CSS 'font-size: 48px и 36px' 
     maxFontSize[i] = parseFloat(computedFontSize[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с плавающей точкой, получил: 48 36
-    // console.log(maxFontSize[i]);
-    // console.log(item.classList.contains('min-fz_16'));
-    function fzValue() {
-      let value = 5;
-      for (let j = 0; j < 55; j++) {
-        value++;
-        // value = value + 10;
-        // console.log(value);
-        let classValue = 'min-fz_' + `${value}`;
-        // console.log(classValue);
-        // console.log(typeof(classValue));
-        let fzValue = value;
+    // console.log(maxFontSize[i]);		
+    const fzClassValue = item.classList;
+    // console.log(fzClassValue);
+    fzClassValue.forEach(function (elem, e) {
+      // console.log(item.classList[e]);
+      // console.log(item.classList[e].slice(0, 6));
+      const slicedFzClass = 'min-fz_';
+      // console.log(slicedFzClass);
+      if (item.classList[e].slice(0, 7) === slicedFzClass) {
+        // console.log('true');
+        // console.log(item.classList[e]);
+        const fzValue = item.classList[e].slice(7, 15);
         // console.log(fzValue);
-        if (item.classList.contains(classValue)) {
-          // сравниваем соответствующий класс 'min-fz_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину шрифта
-          minFontSize[i] = fzValue;
-        }
-      }
-    }
-    fzValue();
+        minFontSize[i] = +fzValue;
+        // console.log(typeof(minFontSize[i]));
+        // console.log(minFontSize[i]);
+      } //  else (
+      // console.log('false')
+      // );
+    });
     calcResponsiveFontSize(minFontSize[i], maxFontSize[i], 320, 1920);
     function calcResponsiveFontSize(fontMin, fontMax, viewportMin, viewportMax) {
       window.addEventListener('resize', event => {
@@ -1962,43 +1963,45 @@ function responsiveImgBlock() {
     maxBlockHeight[i] = parseFloat(computedBlockHeight[i]);
     // console.log(maxBlockWidth[i]);
     // console.log(maxBlockHeight[i]);
-    // console.log(item.classList.contains('min-width_300'));
-    function widthValue() {
-      let value = 0;
-      for (let j = 0; j < 192; j++) {
-        // value++;
-        value = value + 10;
-        // console.log(value);
-        let classValue = 'min-w_' + `${value}`;
-        // console.log(classValue);
-        // console.log(typeof(classValue));
-        let widthValue = value;
+    const widthСlassValue = item.classList;
+    // console.log(widthСlassValue);
+    widthСlassValue.forEach(function (elem, e) {
+      // console.log(item.classList[e]);
+      // console.log(item.classList[e].slice(0, 6));
+      const slicedWidthClass = 'min-w_';
+      // console.log(slicedWidthClass);
+      if (item.classList[e].slice(0, 6) === slicedWidthClass) {
+        // console.log('true');
+        // console.log(item.classList[e]);
+        const widthValue = item.classList[e].slice(6, 15);
         // console.log(widthValue);
-        if (item.classList.contains(classValue)) {
-          // сравниваем соответствующий класс 'min-width_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину блока
-          minBlockWidth[i] = widthValue;
-        }
-      }
-    }
-    widthValue();
-    function heightValue() {
-      let value = 0;
-      for (let j = 0; j < 50; j++) {
-        // value++;
-        value = value + 10;
-        // console.log(value);
-        let classValue = 'min-h_' + `${value}`;
-        // console.log(classValue);
-        // console.log(typeof(classValue));
-        let heightValue = value;
+        minBlockWidth[i] = +widthValue;
+        // console.log(typeof(minBlockWidth[i]));
+        // console.log(minBlockWidth[i]);
+      } //  else (
+      // console.log('false')
+      // );
+    });
+    // console.log(maxBlockHeight[i]);
+    const heightСlassValue = item.classList;
+    // console.log(heightСlassValue);
+    heightСlassValue.forEach(function (elem, e) {
+      // console.log(item.classList[e]);
+      // console.log(item.classList[e].slice(0, 6));
+      const slicedHeightClass = 'min-h_';
+      // console.log(slicedWidthClass);
+      if (item.classList[e].slice(0, 6) === slicedHeightClass) {
+        // console.log('true');
+        // console.log(item.classList[e]);
+        const heightValue = item.classList[e].slice(6, 15);
         // console.log(heightValue);
-        if (item.classList.contains(classValue)) {
-          // сравниваем соответствующий класс 'min-height_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину блока
-          minBlockHeight[i] = heightValue;
-        }
-      }
-    }
-    heightValue();
+        minBlockHeight[i] = +heightValue;
+        // console.log(typeof(minBlockHeight[i]));
+        // console.log(minBlockHeight[i]);
+      } //  else (
+      // console.log('false')
+      // );
+    });
     calcResponsiveBlockSize(minBlockWidth[i], maxBlockWidth[i], minBlockHeight[i], maxBlockHeight[i], 320, 1920);
     // console.log(minBlockHeight[i]);
     // console.log(maxBlockHeight[i]);
@@ -2062,26 +2065,26 @@ function responsiveTextBlock() {
     let minBlockWidth = [];
     computedBlockWidth[i] = window.getComputedStyle(textBlockSizeModifed[i]).width; // есть доступ к текущему массиву свойств CSS width
     maxBlockWidth[i] = parseFloat(computedBlockWidth[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с плавающей точкой
-    // console.log(maxBlockSize[i]);
-    // console.log(item.classList.contains('min-width_16'));
-    function widthValue() {
-      let value = 0;
-      for (let j = 0; j < 192; j++) {
-        // value++;
-        value = value + 10;
-        // console.log(value);
-        let classValue = 'min-w_' + `${value}`;
-        // console.log(classValue);
-        // console.log(typeof(classValue));
-        let widthValue = value;
+    // console.log(maxBlockWidth[i]);
+    const classValue = item.classList;
+    // console.log(classValue);
+    classValue.forEach(function (elem, e) {
+      // console.log(item.classList[e]);
+      // console.log(item.classList[e].slice(0, 6));
+      const slicedWidthClass = 'min-w_';
+      // console.log(slicedWidthClass);
+      if (item.classList[e].slice(0, 6) === slicedWidthClass) {
+        // console.log('true');
+        // console.log(item.classList[e]);
+        const widthValue = item.classList[e].slice(6, 15);
         // console.log(widthValue);
-        if (item.classList.contains(classValue)) {
-          // сравниваем соответствующий класс 'min-width_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину блока
-          minBlockWidth[i] = widthValue;
-        }
-      }
-    }
-    widthValue();
+        minBlockWidth[i] = +widthValue;
+        // console.log(typeof(minBlockWidth[i]));
+        // console.log(minBlockWidth[i]);
+      } //  else (
+      // console.log('false')
+      // );
+    });
     calcResponsiveBlockSize(minBlockWidth[i], maxBlockWidth[i], 320, 1920);
     function calcResponsiveBlockSize(blockMinWidth, blockMaxWidth, viewportMin, viewportMax) {
       window.addEventListener('resize', event => {

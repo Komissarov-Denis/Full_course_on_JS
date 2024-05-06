@@ -19,40 +19,45 @@ export default function responsiveImgBlock() {
 		maxBlockHeight[i] = parseFloat(computedBlockHeight[i]);
 		// console.log(maxBlockWidth[i]);
 		// console.log(maxBlockHeight[i]);
-		// console.log(item.classList.contains('min-width_300'));
-		function widthValue() {
-			let value = 0;
-			for ( let j = 0; j < 192; j++) {
-				// value++;
-				value = value + 10;
-				// console.log(value);
-				let classValue = 'min-w_'+`${value}`;
-				// console.log(classValue);
-				// console.log(typeof(classValue));
-				let widthValue = value;
+		const widthСlassValue = item.classList;
+		// console.log(widthСlassValue);
+		widthСlassValue.forEach(function(elem, e) {
+			// console.log(item.classList[e]);
+			// console.log(item.classList[e].slice(0, 6));
+			const slicedWidthClass = 'min-w_';
+			// console.log(slicedWidthClass);
+			if (item.classList[e].slice(0, 6) === slicedWidthClass) {
+				// console.log('true');
+				// console.log(item.classList[e]);
+				const widthValue = item.classList[e].slice(6, 15); 
 				// console.log(widthValue);
-				if (item.classList.contains(classValue)) { // сравниваем соответствующий класс 'min-width_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину блока
-					minBlockWidth[i] = widthValue;
-				}
-			}
-		} widthValue();
-		function heightValue() {
-			let value = 0;
-			for ( let j = 0; j < 50; j++) {
-				// value++;
-				value = value + 10;
-				// console.log(value);
-				let classValue = 'min-h_'+`${value}`;
-				// console.log(classValue);
-				// console.log(typeof(classValue));
-				let heightValue = value;
+				minBlockWidth[i] = +widthValue;
+				// console.log(typeof(minBlockWidth[i]));
+				// console.log(minBlockWidth[i]);
+			} //  else (
+			// console.log('false')
+			// );
+		});
+		// console.log(maxBlockHeight[i]);
+		const heightСlassValue = item.classList;
+		// console.log(heightСlassValue);
+		heightСlassValue.forEach(function(elem, e) {
+			// console.log(item.classList[e]);
+			// console.log(item.classList[e].slice(0, 6));
+			const slicedHeightClass = 'min-h_';
+			// console.log(slicedWidthClass);
+			if (item.classList[e].slice(0, 6) === slicedHeightClass) {
+				// console.log('true');
+				// console.log(item.classList[e]);
+				const heightValue = item.classList[e].slice(6, 15); 
 				// console.log(heightValue);
-				if (item.classList.contains(classValue)) { // сравниваем соответствующий класс 'min-height_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину блока
-					minBlockHeight[i] = heightValue;
-				}
-			}
-		}
-		heightValue();
+				minBlockHeight[i] = +heightValue;
+				// console.log(typeof(minBlockHeight[i]));
+				// console.log(minBlockHeight[i]);
+			} //  else (
+			// console.log('false')
+			// );
+		});
 		calcResponsiveBlockSize(minBlockWidth[i], maxBlockWidth[i], minBlockHeight[i], maxBlockHeight[i], 320, 1920);
 		// console.log(minBlockHeight[i]);
 		// console.log(maxBlockHeight[i]);

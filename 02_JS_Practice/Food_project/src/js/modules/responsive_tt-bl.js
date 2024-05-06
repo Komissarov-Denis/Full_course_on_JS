@@ -9,24 +9,26 @@ export default function responsiveTextBlock() {
 		let minBlockWidth = [];
 		computedBlockWidth[i] = window.getComputedStyle(textBlockSizeModifed[i]).width; // есть доступ к текущему массиву свойств CSS width
 		maxBlockWidth[i] = parseFloat(computedBlockWidth[i]); // метод parseFloat() возвращает число или строку в десятичном варианте с плавающей точкой
-		// console.log(maxBlockSize[i]);
-		// console.log(item.classList.contains('min-width_16'));
-		function widthValue() {
-			let value = 0;
-			for ( let j = 0; j < 192; j++) {
-				// value++;
-				value = value + 10;
-				// console.log(value);
-				let classValue = 'min-w_'+`${value}`;
-				// console.log(classValue);
-				// console.log(typeof(classValue));
-				let widthValue = value;
+		// console.log(maxBlockWidth[i]);
+		const classValue = item.classList;
+		// console.log(classValue);
+		classValue.forEach(function(elem, e) {
+			// console.log(item.classList[e]);
+			// console.log(item.classList[e].slice(0, 6));
+			const slicedWidthClass = 'min-w_';
+			// console.log(slicedWidthClass);
+			if (item.classList[e].slice(0, 6) === slicedWidthClass) {
+				// console.log('true');
+				// console.log(item.classList[e]);
+				const widthValue = item.classList[e].slice(6, 15); 
 				// console.log(widthValue);
-				if (item.classList.contains(classValue)) { // сравниваем соответствующий класс 'min-width_20' в текстовом блоке на true/false, при соответствии назначаем минимальную величину блока
-					minBlockWidth[i] = widthValue;
-				}
-			}
-		} widthValue();
+				minBlockWidth[i] = +widthValue;
+				// console.log(typeof(minBlockWidth[i]));
+				// console.log(minBlockWidth[i]);
+			} //  else (
+			// console.log('false')
+			// );
+		});
 		calcResponsiveBlockSize(minBlockWidth[i], maxBlockWidth[i], 320, 1920);
 		function calcResponsiveBlockSize(blockMinWidth, blockMaxWidth, viewportMin, viewportMax) {
 			window.addEventListener('resize', event => { // window.addEventListener('resize', event => {} данный слушатель событий работает только на элементе window!!!
