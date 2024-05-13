@@ -56,7 +56,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	spinner();
 
 	// RESPONSIVE-FONT------------------------------------------------ 
-	responsiveFont();
+	responsiveFont('tabheader__item_active');
+	// responsiveFont(activeClass);
 
 	// RESPONSIVE-TEXT-BLOCK------------------------------------------
 	responsiveTextBlock();
