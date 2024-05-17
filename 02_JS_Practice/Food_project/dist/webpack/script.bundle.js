@@ -1871,8 +1871,9 @@ __webpack_require__.r(__webpack_exports__);
 // <h6>A</h6> 11px max 84%  min 10px - vw320px
 // Если текст находится в блоке, то margin: 100% или его отсутствие для блока влияет на расчет величины шрифта!!!
 
-function responsiveFont() {
-  const fontSizeModifed = document.querySelectorAll('.fz_mod'); // есть доступ к массиву по классу
+function responsiveFont(modifyClass) {
+  // console.log(modifyClass);
+  const fontSizeModifed = document.querySelectorAll(modifyClass); // есть доступ к массиву по классу
   // console.log(fontSizeModifed);
   fontSizeModifed.forEach(function (item, i) {
     let computedFontSize = [];
@@ -1896,9 +1897,9 @@ function responsiveFont() {
         minFontSize[i] = +fzValue;
         // console.log(typeof(minFontSize[i]));
         // console.log(minFontSize[i]);
-      } //  else (
-      // console.log('false')
-      // );
+      } else {
+        // console.log('false');
+      }
     });
     calcResponsiveFontSize(minFontSize[i], maxFontSize[i], 320, 1920);
     function calcResponsiveFontSize(fontMin, fontMax, viewportMin, viewportMax) {
@@ -1916,7 +1917,7 @@ function responsiveFont() {
         } else if (pageWidth < 1920 && pageWidth > 320) {
           let a = (fontMax - fontMin) / (viewportMax - viewportMin);
           let b = fontMin - a * viewportMin;
-          let result = +(a * pageWidth + b).toFixed(2);
+          let result = +(a * pageWidth + b).toFixed(4);
           // console.log(result);
           fontSizeModifed[i].style.fontSize = `${result}px`;
           // console.log(textFontSize2);
@@ -2489,7 +2490,8 @@ window.addEventListener('DOMContentLoaded', () => {
   (0,_modules_spinner_js__WEBPACK_IMPORTED_MODULE_7__["default"])();
 
   // RESPONSIVE-FONT------------------------------------------------ 
-  (0,_modules_responsive_fz_js__WEBPACK_IMPORTED_MODULE_10__["default"])();
+  (0,_modules_responsive_fz_js__WEBPACK_IMPORTED_MODULE_10__["default"])('.fz_mod');
+  // responsiveFont(modifyClass);
 
   // RESPONSIVE-TEXT-BLOCK------------------------------------------
   (0,_modules_responsive_tt_bl_js__WEBPACK_IMPORTED_MODULE_11__["default"])();

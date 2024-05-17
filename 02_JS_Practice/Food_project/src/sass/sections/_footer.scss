@@ -22,3 +22,11 @@
         text-align: right;
     }
 }
+@media (max-width: 1399.98px) {
+    .footer {
+        .container {
+            max-width: 1000px;
+        }
+    }
+}
+// @media (max-width: 1199.98px) {}
