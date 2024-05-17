@@ -71,10 +71,35 @@
             max-width: 1000px;
         }
         &__timer {
+            .title {
+                padding-left: 26px;
+            }
             .timer {
-                padding-left: 36px;
+                padding-left: 26px;
             }
         }
     }
 }
-// @media (max-width: 1199.98px) {}
+@media (max-width: 1199.98px) {
+    .promotion {
+        .container {
+            max-width: 800px;
+        }
+        &__timer {
+            .timer {
+                padding-left: 26px;
+                &__block {
+                    width: 88px;
+                }
+            }
+        }
+    }}
+// @media (max-width: 991.98px) {}
+// @media (max-width: 767.98px) {}
+// @media (max-width: 575.98px) {}
+// @media (max-width: 319.98px) {
+
+// 	. { 	
+//  		display: none;
+// 	}
+// }
