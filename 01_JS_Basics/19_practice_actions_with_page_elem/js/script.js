@@ -23,8 +23,8 @@ adv.forEach(item => { // adv.forEach(function (item) {}
 // Реализовать только при помощи JS
 const poster = document.querySelector('.promo__bg'); // выбираем родителя .promo__bg
 const genre = poster.querySelector('.promo__genre'); // выбираем в родительском блоке .promo__bg дочерний элемент .promo__genre
-genre.textContent = 'ДРАМА'; // у дочергнего элемента меняем текст жанра на 'ДРАМА'
-poster.style.backgroundImage = 'url("img/bg.jpg")'; // у дочергнего элемента меняем задний фон через CSS (учитывается комбинирование кавычек)
+genre.textContent = 'ДРАМА'; // у дочернего элемента меняем текст жанра на 'ДРАМА'
+poster.style.backgroundImage = 'url("img/bg.jpg")'; // у дочернего элемента меняем задний фон через CSS (учитывается комбинирование кавычек)
 
 // 4) задача: Список фильмов на странице сформировать на основании данных из этого JS файла. Отсортировать их по алфавиту
 // 5) задача: Добавить нумерацию выведенных фильмов

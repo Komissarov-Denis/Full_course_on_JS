@@ -11,8 +11,8 @@ console.log(document.body); // предоставляет доступ к тег
 console.log(document.body.childNodes); // предоставляет доступ к наследуемым узлам родительского тега <body> и их содержимому: (NodeList(6) [text, div.wrapper, text, comment, text, script])
 console.log(document.body.firstChild); // предоставляет доступ к первому наследуемому узлу родительского тега <body> и его содержимому: (#text) - это перенос строки, текстовая нода
 console.log(document.body.lastChild); // предоставляет доступ к последнему наследуемому узлу родительского тега <body> и его содержимому: (<script src="js/script.js"></script>)
-console.log(document.body.firstElementChild); // предоставляет доступ к первому наследуемому елементу родительского тега <body> и его содержимому: (<div class="wrapper"></div>)
-console.log(document.body.lastElementChild); // предоставляет доступ к последнему наследуемому елементу родительского тега <body> и его содержимому: (<script src="js/script.js"></script>)
+console.log(document.body.firstElementChild); // предоставляет доступ к первому наследуемому элементу родительского тега <body> и его содержимому: (<div class="wrapper"></div>)
+console.log(document.body.lastElementChild); // предоставляет доступ к последнему наследуемому элементу родительского тега <body> и его содержимому: (<script src="js/script.js"></script>)
 
 // МЕТОД ОБРАЩЕНИЯ К ВНУТРЕННИМ УЗЛАМ ЛЮБОГО ЭЛЕМЕНТА!!!
 console.log(document.querySelector('#current').parentNode); // предоставляет доступ к родительскому узлу дочернего #current и его содержимому: (div.first)
