@@ -2,7 +2,7 @@
 
 'use strict';
 
-// УСЛОВИЯ превращают люой тип данных в булиновый для проверки
+// УСЛОВИЯ превращают любой тип данных в булиновый для проверки
 if (4 == 4) {
 	console.log('OK!');
 } else {
@@ -43,7 +43,7 @@ case 100: // case '100':
 	console.log('Wrong!');
 	break;
 case 50: // case '50':
-	console.log('Wriht!');
+	console.log('Wright!');
 	break;
 default:
 	console.log('Next time!'); // получил: Next time!

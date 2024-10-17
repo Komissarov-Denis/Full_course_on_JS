@@ -13,14 +13,14 @@ const personalMovieDB = {
 	movies: {},
 	actors: {},
 	genres: [],
-	privat: {},
-	checkPrivatStatus: function() {
-		personalMovieDB.privat = confirm('Это частная информация?');
-		console.log(personalMovieDB.privat);
+	private: {},
+	checkPrivateStatus: function() {
+		personalMovieDB.private = confirm('Это частная информация?');
+		console.log(personalMovieDB.private);
 		personalMovieDB.showMyDB();
 	},
 	showMyDB: function() {
-		if (personalMovieDB.privat == false) {
+		if (personalMovieDB.private == false) {
 			console.log(personalMovieDB);
 			console.log('Доступ открыт! Ответьте пожалуйста на вопросы!');
 			alert('Доступ открыт! Ответьте пожалуйста на вопросы!');
@@ -90,4 +90,4 @@ const personalMovieDB = {
 		});
 	},
 };
-personalMovieDB.checkPrivatStatus();
+personalMovieDB.checkPrivateStatus();

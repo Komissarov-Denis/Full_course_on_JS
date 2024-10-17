@@ -3,19 +3,19 @@
 // 'use strict';
 
 // 1.задача переписать код, чтобы разрозненные функции стали методами объекта personalMovieDB:
-// 2.задача создать метод toggleVisibleMyDB, который проверяет св-во privat. Если false,
+// 2.задача создать метод toggleVisibleMyDB, который проверяет св-во private. Если false,
 // он переключает его в true и наоборот!
 const personalMovieDB = {
 	count: {},
 	movies: {},
 	actors: {},
 	genres: [],
-	// privat: {},
-	// checkPrivatStatus: () => {
-	//   personalMovieDB.privat = confirm('Это частная информация?');
-	//   console.log(personalMovieDB.privat);
+	// private: {},
+	// checkPrivateStatus: () => {
+	//   personalMovieDB.private = confirm('Это частная информация?');
+	//   console.log(personalMovieDB.private);
 	// },
-	privat: false,
+	private: false,
 	numbOfFilms: () => {
 		personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '');
 		while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count)) {
@@ -50,7 +50,7 @@ const personalMovieDB = {
 	},
 	showMyDB: () => {
 		for (let i = 0; i < 1; i++) {
-			if (personalMovieDB.privat == false) {
+			if (personalMovieDB.private == false) {
 				console.log(personalMovieDB);
 			} else {
 				console.log('Это частная информация!');
@@ -58,12 +58,12 @@ const personalMovieDB = {
 		}
 	},
 	toggleVisibleMyDB: () => { // 2-я задача!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		if (personalMovieDB.privat) {
-			personalMovieDB.privat = false;
+		if (personalMovieDB.private) {
+			personalMovieDB.private = false;
 		} else {
-			personalMovieDB.privat = true;
+			personalMovieDB.private = true;
 		}
-		console.log(personalMovieDB.privat);
+		console.log(personalMovieDB.private);
 	},
 	writeYourGenres: () => {
 		for (let i = 1; i <= 3; i++) {
@@ -71,7 +71,7 @@ const personalMovieDB = {
 		}
 	},
 };// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// personalMovieDB.checkPrivatStatus();
+// personalMovieDB.checkPrivateStatus();
 personalMovieDB.numbOfFilms();
 personalMovieDB.rememberMyFilms();
 personalMovieDB.detectPersonalLevel();

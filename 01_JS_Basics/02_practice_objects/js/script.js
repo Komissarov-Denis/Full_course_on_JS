@@ -8,7 +8,7 @@ const personalMovieDB = {
 	movies: {},
 	actors: {},
 	genres: [],
-	privat: false,
+	private: false,
 };
 const a = prompt('Один из последних просмотренных фильмов?', '');
 const b = +prompt('На сколько оцените его?', '');

@@ -7,14 +7,14 @@ const personalMovieDB = {
 	movies: {},
 	actors: {},
 	genres: [],
-	privat: {},
+	private: {},
 };
 
-function checkPrivatStatus() {
-	personalMovieDB.privat = confirm('Это частная информация?');
-	console.log(personalMovieDB.privat);
+function checkPrivateStatus() {
+	personalMovieDB.private = confirm('Это частная информация?');
+	console.log(personalMovieDB.private);
 }
-checkPrivatStatus();
+checkPrivateStatus();
 
 function numbOfFilms() {
 	personalMovieDB.count = +prompt('Сколько фильмов Вы уже посмотрели?', '');
@@ -37,7 +37,7 @@ numbOfFilms();
 // Если ЮЗЕР оставляет пустую строку, отменяет ответ или вводит название кино длиннее 50 символов,
 // возвращаем его снова проходить вопросы
 // при нажатии отмена в модальном окне в "А" попадает "null"
-// длинну строки можно проверисть с помощью "string.length"
+// длину строки можно проверить с помощью "string.length"
 // '' - пустая строка
 function rememberMyFilms() {
 	for (let i = 0; i < 2; i++) {
@@ -57,7 +57,7 @@ rememberMyFilms();
 
 // при помощи условий проверить  personalMovieDB.count, если он  меньше 10 -
 // "Просмотрено мало фильмов для оценки!", если от 10 до 30 - "Вы классический зритель!",
-// если больше 30 - "Вы настоящий киноман!", в противном счлучае - "ERROR"
+// если больше 30 - "Вы настоящий киноман!", в противном случае - "ERROR"
 function detectPersonalLevel() {
 	if (personalMovieDB.count <= 1) {
 		console.log('Вы не можете оценивать, результаты некорректны!'); // нужна команда прерывания цикла!!!!!!!!!!!!!!!!!!!!!
@@ -73,11 +73,11 @@ function detectPersonalLevel() {
 }
 detectPersonalLevel();
 
-// Функция showMyDB проверяет свойство значение в privat объекта personalMovieDB,
+// Функция showMyDB проверяет свойство значение в private объекта personalMovieDB,
 // если false - выводит объект personalMovieDB, иначе сообщение 'Это частная информация!'
 function showMyDB() {
 	for (let i = 0; i < 1; i++) {
-		if (personalMovieDB.privat == false) {
+		if (personalMovieDB.private == false) {
 			console.log(personalMovieDB);
 		} else {
 			console.log('Это частная информация!');
@@ -101,7 +101,7 @@ showMyDB();
 function writeYourGenres() {
 	for (let i = 1; i <= 3; i++) {
 		// const genres = prompt(`Ваш любимый жанр под номером ${i}`);
-		// наклонные ковычки ` позволяют в вопрос добавлять переменные!!!
+		// наклонные кавычки ` позволяют в вопрос добавлять переменные!!!
 		personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
 	}
 }
