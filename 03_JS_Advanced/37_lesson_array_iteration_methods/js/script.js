@@ -9,7 +9,7 @@
 // FILTER() - фильтрует элемент внутри массива
 const names = ['Ivan', 'Ann', 'Ksenia', 'Voldemart'];
 const shortNames = names.filter(function(name) { // как коллбэк функция, стрелочная функция работает также, name - каждое отфильтрованное имя массива, каждый элемент, можно было назвать element или item
-	return name.length < 5; // возвращаем имена длинной менее 5 символов в новый массив shortNames[]можно воспользоваться условиес if(){}, но эта сокращенная запись также работает
+	return name.length < 5; // возвращаем имена длинной менее 5 символов в новый массив shortNames[]можно воспользоваться условие if(){}, но эта сокращенная запись также работает
 });
 console.log(shortNames); // получил: [ 'Ivan', 'Ann' ]
 
@@ -28,7 +28,7 @@ answers2 = answers2.map(item => {
 console.log(answers2); // получил: [ 'ivan', 'anna', 'hello' ], т.е. произвели замену массива обновленными данными, но лучше применять отдельную переменную!!!
 
 
-// EVERY() / SOME() - возвращают при переборе массива булиновые значаения TRUE / FALSE, каждый() / хоть одно()
+// EVERY() / SOME() - возвращают при переборе массива булиновые значения TRUE / FALSE, каждый() / хоть одно()
 const someArr = [4, 'gfgfgfg', 'sasasas'];
 console.log(someArr.some(item => typeof(item) === 'number')); // получил: true - хоть один элемент число; обращаемся к массиву someArr[], перебираем элементы item в коллбэк функции, сравнивая тип данных с числом
 console.log(someArr.every(item => typeof(item) === 'number')); // получил: false - не каждый элемент число; обращаемся к массиву someArr[], перебираем элементы item в коллбэк функции, сравнивая тип данных с числом
@@ -77,21 +77,21 @@ console.log(resultFruits22); // получил: cherry, apple, pear, plum
 
 // МЕТОД Object.entries():
 const obj = { // при получении данных с сервера, мы не имеет представления об индексах ключей, поэтому прямой способ obj[1] не подходит!!!
-	ivan: 'persone',
-	ann: 'persone',
+	ivan: 'person',
+	ann: 'person',
 	dog: 'animal',
 	cat: 'animal',
 };
 const newArray = Object.entries(obj); // Object.entries() - переводит объект в массив, где свойства и значения записаны через запятую, т.е. в матрицу!!!
 console.log(newArray); // получил:
 // [
-// 	[ 'ivan', 'persone' ],
-// 	[ 'ann', 'persone' ],
+// 	[ 'ivan', 'person' ],
+// 	[ 'ann', 'person' ],
 // 	[ 'dog', 'animal' ],
 // 	[ 'cat', 'animal' ]
 // ]
 // применим цепочку методов:
-const newArray2 = Object.entries(obj).filter(item => item[1] ==='persone'); 
-console.log(newArray2); // получил: [ [ 'ivan', 'persone' ], [ 'ann', 'persone' ] ]
-const newArray3 = Object.entries(obj).filter(item => item[1] ==='persone').map(item => item[0]); 
+const newArray2 = Object.entries(obj).filter(item => item[1] ==='person'); 
+console.log(newArray2); // получил: [ [ 'ivan', 'person' ], [ 'ann', 'person' ] ]
+const newArray3 = Object.entries(obj).filter(item => item[1] ==='person').map(item => item[0]); 
 console.log(newArray3); // получил: [ 'ivan', 'ann' ]

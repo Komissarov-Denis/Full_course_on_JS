@@ -45,7 +45,7 @@ function User3(name, age) {
 	this.say = function () {
 		console.log(`Имя пользователя: ${this.name}, возраст ${userAge}`);
 	};
-	this.getAge = function() { // для доступа к userAge создали специльный метод getAge(), который возвращает userAge
+	this.getAge = function() { // для доступа к userAge создали специальный метод getAge(), который возвращает userAge
 		return userAge;
 	};
 	this.setAge = function(age) { // для замены данных возраста применим функцию this.setAge
@@ -72,9 +72,9 @@ class User4 {
 		this.name = name;
 		this._age = age; // _age - это специальный синтаксис для классов!!!
 	}
-	#surname = 'Petrychenko'; // при использовании #, свойство становится приватным!!!
+	#surname = 'Petrichenko'; // при использовании #, свойство становится приватным!!!
 	say = () => { // способ использования приватных свойств в классах
-		console.log(`Имя пользователя: ${this.name} ${this.#surname}, возраст ${this._age}`); // выведет в консоль браузера => Имя пользователя: Ivan Petrychenko, возраст 27
+		console.log(`Имя пользователя: ${this.name} ${this.#surname}, возраст ${this._age}`); // выведет в консоль браузера => Имя пользователя: Ivan Petrichenko, возраст 27
 	};
 	get age() {
 		return this._age;
@@ -91,5 +91,5 @@ const ivan4 = new User4('Ivan', 27);
 console.log(ivan4.age); // получил: 27
 ivan4.age = 99;
 console.log(ivan4.age); // получил: 99
-ivan4.say(); // получил: Имя пользователя: Ivan Petrychenko, возраст 99
+ivan4.say(); // получил: Имя пользователя: Ivan Petrichenko, возраст 99
 console.log(ivan4.surname);  // получил: undefined в приватном свойстве

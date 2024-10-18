@@ -6,7 +6,7 @@ let user = {
 const arr = [user];
 user = null; // производим удаление
 console.log(user); // получил: null
-console.log(arr[0]); // получил: {name: 'Ivan'} - вывод: пока массив [user] существует, то объект user{} также будет существовать в памяти, хотя других ссыло уже нет!!!
+console.log(arr[0]); // получил: {name: 'Ivan'} - вывод: пока массив [user] существует, то объект user{} также будет существовать в памяти, хотя других ссылок уже нет!!!
 
 
 // Пока существует карта Map, объект будет находиться в памяти!!!
@@ -52,7 +52,7 @@ function cacheUser(user) {
 	if (!cache.has(user)) { // если нет user внутри WeakMap()
 		cache.set(user, Date.now()); // то user добавляется, метод Date.now() показывает текущую дату и время, когда пользователь зашел в чат
 	}
-	return cache.get(user); // иначе возвращаем того закешированного user из WeakMap()
+	return cache.get(user); // иначе возвращаем того закэшированного user из WeakMap()
 }
 let lena = {name: 'Elena'};
 let alex = {name: 'Alex'};

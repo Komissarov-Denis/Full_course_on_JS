@@ -27,7 +27,7 @@ let timerId5;
 let i = 0;
 btn.addEventListener('click', () => {
 	// const timerId5 = setTimeout(logger3, 4000);
-	timerId5 = setInterval(logger3, 500); // setInterval не ждет окончания logger3 (вызываемой функции), и следущий шаг выполнится по истечсении 500мс!
+	timerId5 = setInterval(logger3, 500); // setInterval не ждет окончания logger3 (вызываемой функции), и следующий шаг выполнится по истечении 500мс!
 });
 function logger3() {
 	if (i === 3) {

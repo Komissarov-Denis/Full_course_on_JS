@@ -42,7 +42,7 @@ const postData = async (url, data) => { // function expression - без объя
 		},
 		body: data,	// создаем новый объект для формирования документа запроса fetch(), метод и заголовки указывать обязательно!!!	
 	}); // фетч запрос вернет промис, в переменной result нет ничего, пока промис не вернет от сервера данные
-	return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - так как это АСИНХРОННЫЙ КОД + оператор await() дожидается обработки данных в result.json()!!!
+	return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через цепочку .then() - так как это АСИНХРОННЫЙ КОД + оператор await() дожидается обработки данных в result.json()!!!
 }; // async() + await() - это операторы, работающие только в паре!!!
 function bindPostData(form) { // будем (bind) привязывать какую-то форму, очень удобно навесить на нее обработчик события submit, которое будет срабатывать каждый раз при отправке форм
 	form.addEventListener('submit', (e) => {
@@ -60,23 +60,23 @@ function bindPostData(form) { // будем (bind) привязывать как
 		form.insertAdjacentElement('afterend', statusMessage); // чтобы спиннер не сбивал верстку используем insertAdjacentElement() - вставить соседний элемент ()!!!
 		const formData = new FormData(form); // FormData(form) отыскивает в html атрибут name в тегах input всех форм, без него работать не будет!!!
 		
-		// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем json в строку JSON с двойными ковычками =>
-		// это упрощеная форма создания объекта objectJson, есть более элегантый способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), =>
+		// postData('http://localhost:3000/requests', JSON.stringify(objectJson)) // конвертируем json в строку JSON с двойными кавычками =>
+		// это упрощенная форма создания объекта objectJson, есть более элегантный способ  с помощью методов Json => берем formData и превращаем ее в массив массивов с помощью formData.entries(), =>
 		const json = JSON.stringify(Object.fromEntries(formData.entries())); // далее - в классический объект Object.fromEntries(formData.entries(), а затем, переводим в формат JSON данные запроса через JSON.stringify(Object.fromEntries(formData.entries()))			
 		postData('http://localhost:3000/requests', json) // метод entries() возвращает массив массивов перечисляемых свойств указанного объекта formData{}, метод fromEntries() возвращает объект их массива
 		// .then(data => data.text()) // данная строка уже не нужна, она создается в postData асинхронной функции и уже там прописана внутри
 			.then(data => { // сервер вернет данные data, пока это не JSON
 				console.log(data); // берем data данные, которые вернул сервер из PROMISE (успешный исход)
 				showThanksModal(message.success); // вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
-				statusMessage.remove(); // удаляем наш спинер по выполнению PROMISE
-			}).catch(() => { // catch метод обязательно нужно прописывать для обратоток ошибок!!!
+				statusMessage.remove(); // удаляем наш спиннер по выполнению PROMISE
+			}).catch(() => { // catch метод обязательно нужно прописывать для обработок ошибок!!!
 				showThanksModal(message.failure);// вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!				
-			}).finally(() => { // finally метод обязательно нужно прописывать для обратоток оконечных действий
+			}).finally(() => { // finally метод обязательно нужно прописывать для обработок оконечных действий
 				form.reset(); // очищаем форму после выведением сообщения				
 			});
 	}); 
 }
-function showThanksModal(message) { // создаем функцию динамической замены элементов мадального окна с отправкой сообщения message
+function showThanksModal(message) { // создаем функцию динамической замены элементов модального окна с отправкой сообщения message
 	const prevModalDialog = document.querySelector('.modal__dialog'); // получаем элемент modal__dialog
 	prevModalDialog.classList.add('hide'); // добавляем класс hide элементу modal__dialog
 	openModalWindow(); // команда открытия модальных окон
@@ -103,7 +103,7 @@ const getResources = async (url) => { // function expression - без объяв
 	if (!result.ok) { // если с result.ok что-то не то...., то необходимо вернуть ошибку
 		throw new Error(`Could not fetch ${url}, status: ${result.status}`); // throw new Error() - это конструктор объекта ошибки, оператор throw() выбрасывает ошибку: url - это адрес самого запроса, result.status - это статус выполнения промиса
 	}
-	return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через чепочку .then() - так как это АСИНХРОННЫЙ КОД + await() дожидается обработки данных в result.json()!!!
+	return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через цепочку .then() - так как это АСИНХРОННЫЙ КОД + await() дожидается обработки данных в result.json()!!!
 };
 
 getResources('http://localhost:3000/menu') // оптимизируем работу с карточками МЕНЮ проекта FOOD

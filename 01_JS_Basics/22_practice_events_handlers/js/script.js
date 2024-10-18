@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => { // коллбэк функ
 
 	// 1) задача: Удалить все рекламные блоки со страницы (правая часть сайта)
 	const adv = document.querySelectorAll('.promo__adv img');
-	const deleteAdv = (array) => { // array - аргумент, позволяющий уйти от привязки к элемтам страницы
+	const deleteAdv = (array) => { // array - аргумент, позволяющий уйти от привязки к элементам страницы
 		array.forEach(item => { // adv.forEach(function (item) {
 			item.remove();
 		});
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => { // коллбэк функ
 		});
 		document.querySelectorAll('.delete').forEach((btn, i) => {
 			btn.addEventListener('click', () => {
-				btn.parentElement.remove(); // обращаемся к родительсткому элементу
+				btn.parentElement.remove(); // обращаемся к родительскому элементу
 				movieDB.movies.splice(i, 1); // метод, вырезающий определенный элемент из массива под номером - i, 1 - это количество удаляемых элементов!!!
 				createMovieList(movieDB.movies, movieList); // рекурсия - функция вызывает саму себя внутри функции при удалении элемента, вызывается рекурсия и перестраивается заново нумерация списка!!!
 			});

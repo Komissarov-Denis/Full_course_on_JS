@@ -1,6 +1,6 @@
 'use strict';
 
-// УСТАРЕВШИЕ МЕТОДЫ ПОЛУЧЕНИЯ ДАНННЫХ СТРАНИЦЫ getElementsByClassName
+// УСТАРЕВШИЕ МЕТОДЫ ПОЛУЧЕНИЯ ДАННЫХ СТРАНИЦЫ getElementsByClassName
 
 const boxesQuery = document.querySelectorAll('.box'); // получает статичные коллекции - оптимальный современный метод!!!
 const boxesGet = document.getElementsByClassName('box'); // получает живые коллекции - устаревший способ!!!

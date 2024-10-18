@@ -5,7 +5,7 @@
 
 const box = document.querySelector('.this');
 console.log(box);
-let observer = new MutationObserver(mutationRecords => { // в новый конструктор new MutationObserver() передаем колбэк функцию mutationRecords для отслеживания изменений и выводим в консоль
+let observer = new MutationObserver(mutationRecords => { // в новый конструктор new MutationObserver() передаем коллбэк функцию mutationRecords для отслеживания изменений и выводим в консоль
 	console.log(mutationRecords);
 });
 observer.observe(box, {

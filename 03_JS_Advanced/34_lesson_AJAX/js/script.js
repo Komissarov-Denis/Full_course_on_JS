@@ -26,7 +26,7 @@
 
 // события объекта:
 // readystatechange - событие, отслеживающее статус готовности запроса в данный текущий момент
-// load - собитие по загрузке запроса
+// load - событие по загрузке запроса
 
 const inputRub = document.querySelector('#rub');
 const inputUsd = document.querySelector('#usd');
@@ -95,20 +95,20 @@ function postData(form) { // функция postData() будет получат
 		const request = new XMLHttpRequest(); // создаем новый объект для формирования документа через конструктор запросов new XMLHttpRequest()
 		request.open('POST', 'server.php'); // применим Метод Технологии AJAX open() с двумя аргументами - первый аргумент: запрос к серверу 'POST', второй - путь к файлу server.php
 		// request.setRequestHeader('Content-type', 'multipart/form-data'); // заголовок контента для php...НО, В СВЯЗКЕ XMLHttpRequest() И FormData() - ЗАГОЛОВОК УСТАНАВЛИВАТЬ НЕ НУЖНО - ТАК НЕ РАБОТАЕТ!!!
-		request.setRequestHeader('Content-type', 'application/json'); // задаем заголовок контента для отправки в формате json, если этого затребует бэкэндер
+		request.setRequestHeader('Content-type', 'application/json'); // задаем заголовок контента для отправки в формате json, если этого затребует бэкендер
 		const formData = new FormData(form); // new FormData() - это специальный объект с набором ключей и их значений, который позволяет с определенной формы быстро сформировать данные, заполняемые пользователем!!!
 		// FormData(form) отыскивает в html АТРИБУТ name В ТЕГАХ input всех форм (name/phone/email), без него работать не будет!!!
 		const objectJson = {}; // создаем новый объект для отправки данных в формате JSON, так как напрямую FormData() мы не можем преобразовать в формат JSON!!!
 		formData.forEach(function(value, key) { // forEach() с коллбэк функцией переберет все, что есть внутри formData() =>
 			objectJson[key] = value; //  и заполнит objectJson{} ключевыми свойствами и их значениями 
 		});
-		const json = JSON.stringify(objectJson); // конвертируем objectJson{} в строку JSON с двойными ковычками
+		const json = JSON.stringify(objectJson); // конвертируем objectJson{} в строку JSON с двойными кавычками
 		request.send(json); // отправляем запрос в формате json
-		// request.send(formData); // отправляем вновь созданный объект formData КОММЕНТИРУЕМ/РАЗКОММЕНТИРУЕМ НУЖНЫЙ ФОРМАТ ОТПРАВКИ php/json
+		// request.send(formData); // отправляем вновь созданный объект formData КОММЕНТИРУЕМ/РАСКОММЕНТИРУЕМ НУЖНЫЙ ФОРМАТ ОТПРАВКИ php/json
 		request.addEventListener('load', () => { // другим обработчиком событий будем отслеживать событие 'load', т.е. запрос полностью завершится
 			if (request.status === 200) { // проверяем соответствие выполнению запроса
 				console.log(request.response);
-				// statusMessage.textContent = message.success; // и так как statusMessage теперь стал DOM узлом на странице html, помещаем соощение 'Спасибо! Скоро с Вами свяжемся!'
+				// statusMessage.textContent = message.success; // и так как statusMessage теперь стал DOM узлом на странице html, помещаем сообщение 'Спасибо! Скоро с Вами свяжемся!'
 				showThanksModal(message.success); // вместо statusMessage.textContent будет показываться модальное окно функции showThanksModal()!!!
 				form.reset(); // очищаем форму после выведения сообщения
 				// setTimeout(() => { // после делегирования событий функции showThanksModal убираем setTimeout(),
@@ -121,7 +121,7 @@ function postData(form) { // функция postData() будет получат
 		});
 	}); 
 }
-function showThanksModal(message) { // создаем функцию showThanksModal() динамической замены элементов мадального окна с отправкой сообщения message
+function showThanksModal(message) { // создаем функцию showThanksModal() динамической замены элементов модального окна с отправкой сообщения message
 	const prevModalDialog = document.querySelector('.modal__dialog'); // получаем элемент 'modal__dialog', который будем модифицировать
 	prevModalDialog.classList.add('hide'); // добавляем класс hide элементу 'modal__dialog'
 	openModalWindow(); // функция открытия модальных окон

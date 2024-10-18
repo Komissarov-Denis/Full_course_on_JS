@@ -7,8 +7,8 @@ const newHeight = 100;
 const newWidth = 400;
 
 function changeParams(elem, h, w) {
-	elem.style.height = `${h ?? 200}px`; // оператор ИЛИ дает возможность станавливать параметры опционально, если основной аргумент newHeight не задан!!!
-	elem.style.width = `${w ?? 200}px`; // если закоментировать основные аргументы newHeight и newWidth, то в консоли браузера получим ошибку: "script.js:13  Uncaught ReferenceError: newHeight is not defined at script.js:13:19"
+	elem.style.height = `${h ?? 200}px`; // оператор ИЛИ дает возможность устанавливать параметры опционально, если основной аргумент newHeight не задан!!!
+	elem.style.width = `${w ?? 200}px`; // если закомментировать основные аргументы newHeight и newWidth, то в консоли браузера получим ошибку: "script.js:13  Uncaught ReferenceError: newHeight is not defined at script.js:13:19"
 	// чтобы избавиться от нее, в аргументах вызова changeParams(box, newHeight, newWidth) удалим основные newHeight и newWidth, тогда ошибка исчезает!!! Но, это не решение задачи, при введении "0" в newHeight, значение false,
 	// высота будет выставлена в 200px, так как оператор ИЛИ споткнется на первом true!!! Применим ОПЕРАТОР НУЛЕВОГО СЛИЯНИЯ и const newHeight = 0, наш прямоугольник получит высоту 0!!!	
 	elem.innerHTML = (h ?? 200) * (w ?? 200); // если у нас существует какая-то высота, то при умножении на какую-то ширину, а если какого-то значения или обоих не существует, то выражение выберет 200 * 200!!!

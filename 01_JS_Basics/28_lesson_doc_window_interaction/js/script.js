@@ -8,41 +8,41 @@ console.log(box);
 console.log(btn);
 
 const width = box.clientWidth; // внутренняя ширина окна 
-const heigth = box.clientHeight; // внутренняя высота окна
-console.log(width, heigth); // получил: 385 335 с вычетом полосы прокрутки
+const height = box.clientHeight; // внутренняя высота окна
+console.log(width, height); // получил: 385 335 с вычетом полосы прокрутки
 
 const width2 = box.offsetWidth ; // внешняя ширина окна 
-const heigth2 = box.offsetHeight; // внешняя высота окна
-console.log(width2, heigth2); // получил: 400 350 без вычета полосы прокрутки
+const height2 = box.offsetHeight; // внешняя высота окна
+console.log(width2, height2); // получил: 400 350 без вычета полосы прокрутки
 
 const width3 = box.scrollWidth ; // полная ширина окна c прокруткой
-const heigth3 = box.scrollHeight; // полная высота окна c прокруткой
-console.log(width3, heigth3); // получил: 385 524 с вычетом полосы прокрутки
+const height3 = box.scrollHeight; // полная высота окна c прокруткой
+console.log(width3, height3); // получил: 385 524 с вычетом полосы прокрутки
 
 console.log(box);
 console.log(btn);
-console.log(heigth);
-console.log(heigth3);
-console.log(box.heigth3); // undefined
+console.log(height);
+console.log(height3);
+console.log(box.height3); // undefined
 console.log(box.scrollHeight);
-console.log(box.style.heigth); // undefined
+console.log(box.style.height); // undefined
 
 btn.addEventListener('click', () => {
-	box.style.heigth = box.scrollHeight + 'px';
-	console.log(box.style.heigth); // получил: 668px, но в CSS данное значение напрямую в heigth не передается!!!
-}); // нет смысла передавать измененные патаметры в CSS (box.style.heigth), видимо перестала работать данная функция, все делаем через дополнительную переменную!!!
+	box.style.height = box.scrollHeight + 'px';
+	console.log(box.style.height); // получил: 668px, но в CSS данное значение напрямую в height не передается!!!
+}); // нет смысла передавать измененные параметры в CSS (box.style.height), видимо перестала работать данная функция, все делаем через дополнительную переменную!!!
 
 btn.addEventListener('click', () => {
-	const divHeigth = box.scrollHeight + 'px'; // первый вариант записи высоты
-	// const divHeigth = `${heigth3}px`; // второй вариант записи высоты
-	// const divHeigth = `${box.scrollHeight}px`; // второй вариант записи высоты
-	box.style.cssText = `background-color: green; height: ${divHeigth}`;	
-	console.log(divHeigth);
+	const divHeight = box.scrollHeight + 'px'; // первый вариант записи высоты
+	// const divHeight = `${height3}px`; // второй вариант записи высоты
+	// const divHeight = `${box.scrollHeight}px`; // второй вариант записи высоты
+	box.style.cssText = `background-color: green; height: ${divHeight}`;	
+	console.log(divHeight);
 }); // можно также сделать через переменную и box.style.cssText!!!
 
 btn.addEventListener('click', () => {
 	console.log(box.scrollTop); // возвращает количество пролистанных пикселей на странице!!!
-}); // удобно вводить интерактив в виде стрелок перемещения вверж или вниз на странице
+}); // удобно вводить интерактив в виде стрелок перемещения вверх или вниз на странице
 
 console.log(box.getBoundingClientRect()); // метод получение координат на странице с расчетом от верхнего левого угла!
 console.log(box.getBoundingClientRect().top); // до конкретной стороны элемента на странице

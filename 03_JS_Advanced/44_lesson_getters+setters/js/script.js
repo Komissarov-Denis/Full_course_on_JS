@@ -6,7 +6,7 @@
 // ГЕТТЕРЫ - позволяют получать значение свойства
 // СЕТТЕРЫ - позволяют устанавливать значение свойства
 
-const persone = {
+const person = {
 	name: 'Alex',
 	age: 25,
 	get userAge() { // метод get() сопровождается возвращением данных => return
@@ -16,6 +16,6 @@ const persone = {
 		this.age = num;
 	}
 };
-console.log(persone.userAge); // получил: 25, при использовании ГЕТТЕРа не нужно ставить (), в виде userAge(), так как это свойство акцессор
-console.log(persone.userAge = 30); // получил: 30 внес изменения и вывел далее =>
-console.log(persone.userAge); // получил: 30, методовы get() и set() работают впаре!!!
+console.log(person.userAge); // получил: 25, при использовании ГЕТТЕРа не нужно ставить (), в виде userAge(), так как это свойство акцессор
+console.log(person.userAge = 30); // получил: 30 внес изменения и вывел далее =>
+console.log(person.userAge); // получил: 30, методы get() и set() работают в паре!!!
