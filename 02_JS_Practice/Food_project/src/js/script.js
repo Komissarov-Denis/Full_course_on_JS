@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active'); // передаем в вызов функции tabs() соответствующие аргументы из модуля: =>
 	// tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass)
 
-	// TAIMER-(обратного отсчета)-------------------------------------
+	// TIMER-(обратного отсчета)-------------------------------------
 	timer('.timer', '2024-12-31T24:00:00.000+03:00'); // где YYYY-MM-DDTHH:mm:ss.sss GMT+3, Т - разделитель TIME!!!
 	// timer(id, deadLine)
 
