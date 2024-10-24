@@ -1,3 +1,4 @@
+@use '../base/variables';
 .preview {
 	padding: 28px 0 100px 0;
 	position: relative;
@@ -64,14 +65,14 @@
 	&__item {
 		font-weight: bold;
 		font-size: 18px;
-		font-size: $font-size_18-14;
+		font-size: variables.$font-size_18-14;
 		font-weight: 300;
 		color: rgba(0, 0, 0, 0.6);
 		cursor: pointer;
 		transition: .5s all;
 		&_active {
 			color: #000;
-			font-size: $font-size_22-18;
+			font-size: variables.$font-size_22-18;
 			font-weight: 700;
 		}
 	}

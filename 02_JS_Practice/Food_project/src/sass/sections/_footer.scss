@@ -1,6 +1,7 @@
+@use '../base/variables';
 .footer {
     min-height: 180px;
-    background-color: $dark;
+    background-color: variables.$dark;
     padding: 45px 0 50px 0;
     color: #fff;
     .container {

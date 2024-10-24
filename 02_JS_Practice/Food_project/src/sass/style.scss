@@ -1,17 +1,29 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap&subset=cyrillic-ext');
-@import 'base/variables';
-@import 'base/base';
+@use 'base/variables';
+@use 'base/base';
+@use 'sections/header';
+@use 'sections/sidepanel';
+@use 'sections/preview';
+@use 'sections/offer';
+@use 'sections/calculating';
+@use 'sections/menu';
+@use 'sections/order';
+@use 'sections/promotion';
+@use 'sections/footer';
+@use 'sections/modal';
 
-@import 'sections/header';
-@import 'sections/sidepanel';
-@import 'sections/preview';
-@import 'sections/offer';
-@import 'sections/calculating';
-@import 'sections/menu';
-@import 'sections/order';
-@import 'sections/promotion';
-@import 'sections/footer';
-@import 'sections/modal';
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap&subset=cyrillic-ext');
+// @import 'base/variables';
+// @import 'base/base';
+// @import 'sections/header';
+// @import 'sections/sidepanel';
+// @import 'sections/preview';
+// @import 'sections/offer';
+// @import 'sections/calculating';
+// @import 'sections/menu';
+// @import 'sections/order';
+// @import 'sections/promotion';
+// @import 'sections/footer';
+// @import 'sections/modal';
 
 .show {
 	display: block;

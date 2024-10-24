@@ -2455,7 +2455,7 @@ window.addEventListener('DOMContentLoaded', () => {
   (0,_modules_tabs_js__WEBPACK_IMPORTED_MODULE_2__["default"])('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active'); // передаем в вызов функции tabs() соответствующие аргументы из модуля: =>
   // tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass)
 
-  // TAIMER-(обратного отсчета)-------------------------------------
+  // TIMER-(обратного отсчета)-------------------------------------
   (0,_modules_timer_js__WEBPACK_IMPORTED_MODULE_4__["default"])('.timer', '2024-12-31T24:00:00.000+03:00'); // где YYYY-MM-DDTHH:mm:ss.sss GMT+3, Т - разделитель TIME!!!
   // timer(id, deadLine)
 

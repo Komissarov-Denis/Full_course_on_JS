@@ -1,3 +1,4 @@
+@use '../base/variables';
 .calculating {
     padding: 50px 0;
     .title {
@@ -53,7 +54,7 @@
             transition: 0.3s all;
             &_active {
                 color: #fff;
-                background-color: $primary;
+                background-color: variables.$primary;
             }
         }
         &_medium {
