@@ -1,5 +1,5 @@
-@use 'base/variables';
 @use 'base/base';
+@use 'base/variables';
 @use 'sections/header';
 @use 'sections/sidepanel';
 @use 'sections/preview';
@@ -11,19 +11,7 @@
 @use 'sections/footer';
 @use 'sections/modal';
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap&subset=cyrillic-ext');
-// @import 'base/variables';
-// @import 'base/base';
-// @import 'sections/header';
-// @import 'sections/sidepanel';
-// @import 'sections/preview';
-// @import 'sections/offer';
-// @import 'sections/calculating';
-// @import 'sections/menu';
-// @import 'sections/order';
-// @import 'sections/promotion';
-// @import 'sections/footer';
-// @import 'sections/modal';
+// @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap&subset=cyrillic-ext');
 
 .show {
 	display: block;
@@ -36,13 +24,13 @@
 	animation-duration: 1.5s;    
 }
 .quotes {
-    quotes: """ """; /* Устанавливаем вид кавычек */
+	quotes: """ """; /* Устанавливаем вид кавычек */
 }
 .quotes:before {
-    content: open-quote; /* Добавляем перед текстом открывающую кавычку */
+	content: open-quote; /* Добавляем перед текстом открывающую кавычку */
 }
 .quotes:after {
-    content: close-quote; /* Добавляем после текста закрывающую кавычку */
+	content: close-quote; /* Добавляем после текста закрывающую кавычку */
 } 
 @keyframes fade {
 	from {opacity: 0.1;}
