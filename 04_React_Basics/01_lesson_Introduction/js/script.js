@@ -7,48 +7,72 @@
 
 // Для создания элемента на странице в REACT с препроцессором JSX (удобнее), прописываем:
 
-// const elem = <h2>Hello World!</h2>; это реакт элемент интерфейса
+const elem = <h2>Hello World!</h2>; // это реакт элемент интерфейса
 
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(
-//   elem,
-// ); 
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+		elem,
+); 
 
 //-------------------------------------------------------------------------------------------------------
 
 // Для создания элемента на странице в REACT без препроцессора JSX (вручную сложнее), прописываем:
-//                                  ТЕГ      если нет класса      содержимое
-// const elem = React.createElement('h2',         null,         'Hello World!');
+//                               ТЕГ      если нет класса      содержимое
+const elem = React.createElement('h2',         null,         'Hello World!');
 
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(
-//   elem,
-// );
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+		elem,
+);
 
 //-------------------------------------------------------------------------------------------------------
 
 // Для создания элемента на странице в REACT без препроцессора JSX, прописываем:
-//                                  ТЕГ         имя класса            содержимое
-// const elem = React.createElement('h2', {className: 'greetings'}, 'Hello World!');
+//                               ТЕГ         имя класса            содержимое
+const elem = React.createElement('h2', {className: 'greetings'}, 'Hello World!');
 
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(
-//   elem,
-// );
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+		elem,
+);
 
 //-------------------------------------------------------------------------------------------------------
+// 1. многострочный реакт элемент интерфейса заключается в круглые скобки!!!
+// 2. при многостраничном реакт элементе - должен быть только один родитель!!!
+// 3. кнопки button могут оформляться в двух вариантах <button>Click</button> = <button/>, т.е. с контекстом или без!!!
 
-// const elem = ( // многострочный реакт элемент интерфейса заключается в круглые скобки!!!
-//     <div>
-//       <h2>Hello World!</h2>
-//       <input>'Text'</input>
-//       <button></button>    
-//     </div>
-// );
+const elem = (						
+	<div>						
+		<h2>Hello World!</h2>	
+		<input type='Text' />
+		<button>Click</button>
+		<button/>
+	</div>
+);
   
-//   const root = ReactDOM.createRoot(document.getElementById('root'));
-//   root.render(
-//     elem,
-// );
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+	elem,
+);
+
+//-------------------------------------------------------------------------------------------------------
+// 1. можем применить переменную!!!
+// 2. ЗАПРЕЩЕНО В ПЕРЕМЕННУЮ ВСТАВЛЯТЬ ОБЪЕКТЫ, например {new Date()} - так как идет трансформация с строку и получается объект в объекте, это защита от взлома!!!
+
+const text = 'Hello World!';
+
+const elem = (                   
+	<div> 						
+		<h2>Текст: {text}</h2> 	 
+		<input type='Text' />
+		<button>Click</button>
+		<button/>
+	</div>
+);
+  
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+		elem,
+);
 
 //-------------------------------------------------------------------------------------------------------
