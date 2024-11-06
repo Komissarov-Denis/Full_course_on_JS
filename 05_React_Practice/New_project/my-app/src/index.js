@@ -7,10 +7,11 @@ const text = 'Hello World!';
 
 const elem = (
 	<div>
-		<h2>Текст: {text}</h2>
+		<h2 className='text'>Текст: {text}</h2>
 		<input type='Text' />
-		<button>Click</button>
+		<button tabIndex='0' >Click</button>
 		<button/>    
+		<label htmlFor="label"></label>
 	</div>
 );
 
