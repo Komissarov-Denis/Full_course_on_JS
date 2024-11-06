@@ -1371,7 +1371,7 @@ function cards() {
       this.price = price;
       this.transfer = 100; // курс доллара к рублю
       this.classes = classes; // создаем рест оператор с поименованием его ...classes, будем работать с ним как с массивом, новых классов может быть множество
-      this.parentSelector = document.querySelector(parentSelector); // тут теперь лежит DOM element от родителького селектора '.menu .container', который передается в настройку нашего класса!!!	
+      this.parentSelector = document.querySelector(parentSelector); // тут теперь лежит DOM element от родительского селектора '.menu .container', который передается в настройку нашего класса!!!	
       this.changeToRub(); // создаем changeToRub() - метод конвертирования цены из долларов в рубли после построения всех свойств объекта
     }
     changeToRub() {
@@ -1385,7 +1385,7 @@ function cards() {
         this.element = 'menu__item'; // и присваиваем дефолтный класс '.menu__item' всем создаваемым element/div элементам поочередно
         element.classList.add(this.element); // далее на каждом шаге из трех (три карточки), добавляется класс '.menu__item' в класс лист (псевдомассив) => element.classList.add('menu__item') - тоже самое в одну строку!!!
       } else {
-        // если в массив this.classes хоть один класс передан, то каждому добавляем класс => назовем каждый элемент внутрии массива classes как className, так как стрелочная функция будет принимать этот аргумент className
+        // если в массив this.classes хоть один класс передан, то каждому добавляем класс => назовем каждый элемент внутри массива classes как className, так как стрелочная функция будет принимать этот аргумент className
         this.classes.forEach(className => element.classList.add(className)); // для каждого элемента массива обращаемся к classList созданного в массиве element/div и добавляем каждый класс, который находится в массиве className				
       } // атрибуту "class" соответствует свойство className в JS, т.е. class="menu__item" соответствует className = 'menu__item'
       element.innerHTML = `					
