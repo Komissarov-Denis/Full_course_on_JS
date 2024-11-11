@@ -6,15 +6,31 @@ const Header = () => {
 	return <h2>Hello World!</h2>
 }
  
-const Field = () => {
-	const holder = 'Enter text here';
-	const styledField = {
-		width: '600px'
-	};
-	return <input placeholder={holder} type='text' style={styledField}/>
-}
+// const Field = () => {
+// 	const holder = 'Enter text here';
+// 	const styledField = {
+// 		width: '300px'
+// 	};
+// 	return <input 
+// 			placeholder={holder} 
+// 			type='text' 
+// 			style={styledField}
+// 			/>
+// }
 
-class Field extends React.Component{};
+class Field extends React.Component {
+	render() {	
+		const holder = 'Enter text here';
+		const styledField = {
+			width: '300px'
+		};
+		return <input 
+				placeholder={holder} 
+				type='text' 
+				style={styledField}
+				/>
+	}	
+};
 
 function Btn () {
 	const text = 'Log In';
