@@ -1,3 +1,26 @@
+//-------------------------------Для-начала-работы-(шпаргалка-команд)------------------------------------
+
+// Success! Created my-app at H:\progr\HTML+CSS+JS\HTML_CSS_JS\Full_course_on_JS\05_React_Practice\CRUD_project\my-app
+// Inside that directory, you can run several commands:
+
+//   npm start
+//     Starts the development server.
+
+//   npm run build
+//     Bundles the app into static files for production.
+
+//   npm test
+//     Starts the test runner.
+
+//   npm run eject
+//     Removes this tool and copies build dependencies, configuration files
+//     and scripts into the app directory. If you do this, you can’t go back!
+
+// We suggest that you begin by typing:
+
+//   cd my-app
+//   npm start
+
 // REACT в работе использует:
 // 1. препроцессор JSX - это некая помесь html и javaScript, позволяет создавать разметку и логику в одном документе;
 // 2. алгоритм, позволяющий отслеживать какие части приложения изменились и обновить только их, а не все приложение целиком - это Reconciliation Algorithm;
