@@ -4,8 +4,8 @@
 
 import React, {StrictMode} from 'react'; // вытягиваем "Строгий режим" из Реакта
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import App from './App'; // при подключении компонента в импорте указываем имя с заглавной буквы, двойные имена через camelCase, при подключении элемента - имя указывается с прописной буквы, двойные имена также
+import './index.css'; // при подключении в импорте файлов CSS, расширение указываем обязательно => .css
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
