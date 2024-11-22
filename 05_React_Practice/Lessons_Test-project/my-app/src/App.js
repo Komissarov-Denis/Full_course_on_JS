@@ -11,10 +11,9 @@ class WhoAmI extends Component {
 			text: '+++',
 			position: '', // первоначально, передаем пустую строку в обработчик события commitInputChanges
 		}
-		this.nextYear = this.nextYear.bind(this);
 	}
 
-	nextYear = () => { // метод, который мы передаем во внутрь класса, в данном случае работает только стрелочная функция в связи с контекстом вызова внутри реакт компонента
+	nextYear() { // метод, который мы передаем во внутрь класса, в данном случае работает только стрелочная функция в связи с контекстом вызова внутри реакт компонента
 		console.log('+++');
 		this.setState(state => ({  
 			years: state.years + 1 // данная запись стрелочной коллбэк функции с аргументом state сообщает: верни пожалуйста измененный объект
@@ -34,7 +33,7 @@ class WhoAmI extends Component {
 		console.log(this); // тут наглядно можно увидеть свойства ОПРЕДЕЛЕННОГО ЭКЗЕМПЛЯРА КЛАССА
 		return ( // при запуске изменения setState() мы меняем только годы при нажатии на кнопку, поэтому в {this.state.text} ничего не поменяется
 			<div> 
-				<button onClick={this.nextYear}>{this.state.text}</button>  
+				<button onClick={() => this.nextYear()}>{this.state.text}</button>  
 				<h1>My name is {name}, surname - {surname}, age - {years}, position - {position}</h1>
 				<a href={link}>My profile</a>
 				<form>
