@@ -3,10 +3,10 @@ import './employees-list.css';
 
 const EmployeesList = ({data}) => {
 
-	const elements = data.map(item => {
-		const {id, ...itemProps} = item;
+	const elements = data.map(item => { // прописываем коллбэк внутри метода перебора data массива map() - возвращает новые измененные данные после перебора массива
+		const {id, ...itemProps} = item; // принцип частичной деструктуризации, так как item - это все тот же объект, вытаскиваем одну переменную id, все остальные элементы объединяются в (...itemProps), при введении новых элементов в список, весь список не будет рендериться - это оптимизирует работу ПО
 		return (
-			// <EmployeesListItem name={item.name} salary={item.salary}/> далее рест оператор - это тоже самое!!!
+			// <EmployeesListItem name={item.name} salary={item.salary}/> далее SPREAD оператор - это тоже самое!!!
 			<EmployeesListItem key={id} {...itemProps}/>
 		)
 	})
