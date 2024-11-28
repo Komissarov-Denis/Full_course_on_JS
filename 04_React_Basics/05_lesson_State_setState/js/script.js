@@ -199,7 +199,7 @@ class WhoAmI extends Component {
 
 	nextYear = () => { // метод, который мы передаем во внутрь класса, в данном случае работает только стрелочная функция в связи с контекстом вызова внутри реакт компонента
 		console.log('+++');
-		this.setState(state => ({  
+		this.setState(state => ({  // в setState передается аргумент state, текущее состояние объекта /this.state = {years: 27}/, при этом запись ({}) заменяет ключевое слово return()
 			years: state.years + 1 // данная запись стрелочной коллбэк функции с аргументом state сообщает: верни пожалуйста измененный объект
 		})) 
 	}
@@ -235,6 +235,7 @@ function App () {
 export default App;
 
 //-------------------------------------------------------------------------------------------------------
+// this.state = {} может содержать несколько свойств
 
 import { Component } from 'react';
 import './App.css';
@@ -244,7 +245,7 @@ class WhoAmI extends Component {
 		super(props);
 		this.state = {
 			years: 27, // теперь мы можем хранить состояние объекта в этом компоненте, свойств может быть несколько
-			text: '+++'
+			text: '+++' // передаем текст в <button onClick={this.nextYear}>{this.state.text}</button>
 		}
 	}
 
