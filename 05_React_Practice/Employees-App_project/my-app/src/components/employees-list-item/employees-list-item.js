@@ -2,12 +2,13 @@ import { Component } from 'react'; // импортируем Component из Reac
 import './employees-list-item.css';
 // import { render } from '@testing-library/react';
 
-class EmployeesListItem extends Component { //  = ({name, salary, increase}), class EmployeesListItem наследуем из Component React
-
+class EmployeesListItem extends Component { //  = ({name, salary, increase, like}), class EmployeesListItem наследуем из Component React
+	
 	constructor(props) {
 		super(props);
 		this.state = { // создаем состояние объекта state
 			increase: false, // передаем текущее значение false (не получает премию), это значение формирует предыдущее состояние, влияющее на будущее (если работник стал получать премию)
+			like: false,
 		}
 	}
 
@@ -17,18 +18,33 @@ class EmployeesListItem extends Component { //  = ({name, salary, increase}), cl
 		}))
 	}
 
+	onLike = () => {
+		this.setState(({like}) => ({
+			like: !like
+		}))
+	}
+
 	render() {  
 		const {name, salary} = this.props; // не зависят от предыдущего состояния класса EmployeesListItem
-		const {increase} = this.state; // зависят от предыдущего состояния класса EmployeesListItem
+		const {increase, like} = this.state; // зависят от предыдущего состояния класса EmployeesListItem
 
 		let classNames = "list-group-item d-flex justify-content-between";
+
 		if (increase) { // условие сравнивает наличие значения increase: true => 1
-			classNames += " increase"; // соответственно добавляет с пробелом класс "increase" в группу классов "list-group-item d-flex justify-content-between"
+			classNames += " increase"; // соответственно добавляет с пробелом класс " increase" в группу классов "list-group-item d-flex justify-content-between"
+		};
+
+		if (like) {
+			classNames += " like";
 		};
 
 		return ( // на кнопку button назначаем обработчик onClick={this.onIncrease} с вызовом метода {this.onIncrease}
 			<li className={classNames}>
-				<span className="list-group-item-label">{name}</span>
+				<span 
+					className="list-group-item-label"
+					onClick={this.onLike}>
+					{name}
+				</span>
 
 				<input
 					type="text" 

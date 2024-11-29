@@ -1,3 +1,5 @@
+import { Component } from 'react';
+
 import './employees-add-form.css';
 
 const EmployeesAddForm = () => {
