@@ -1,4 +1,5 @@
 import { Component } from 'react'; // импортируем Component из React
+
 import './employees-list-item.css';
 // import { render } from '@testing-library/react';
 
@@ -25,7 +26,7 @@ class EmployeesListItem extends Component { //  = ({name, salary, increase, like
 	}
 
 	render() {  
-		const {name, salary} = this.props; // не зависят от предыдущего состояния класса EmployeesListItem
+		const {name, salary, onDelete} = this.props; // не зависят от предыдущего состояния класса EmployeesListItem, onDelete - функция, переданная по иерархии из list в List-item
 		const {increase, like} = this.state; // зависят от предыдущего состояния класса EmployeesListItem
 
 		let classNames = "list-group-item d-flex justify-content-between";
@@ -38,7 +39,7 @@ class EmployeesListItem extends Component { //  = ({name, salary, increase, like
 			classNames += " like";
 		};
 
-		return ( // на кнопку button назначаем обработчик onClick={this.onIncrease} с вызовом метода {this.onIncrease}
+		return ( // на кнопку button/btn-cookie btn-sm/ назначаем обработчик onClick={this.onIncrease} с вызовом метода {this.onIncrease}, на /btn-trash btn-sm / назначаем onClick={onDelete}
 			<li className={classNames}>
 				<span 
 					className="list-group-item-label"
@@ -62,7 +63,8 @@ class EmployeesListItem extends Component { //  = ({name, salary, increase, like
 
 					<button
 						type="button"
-						className="btn-trash btn-sm ">
+						className="btn-trash btn-sm "
+						onClick={onDelete}>
 						<i className="fas fa-trash"></i>
 					</button>
 					<i className="fas fa-star"></i>
