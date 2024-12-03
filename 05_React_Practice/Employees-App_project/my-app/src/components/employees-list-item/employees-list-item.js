@@ -57,15 +57,15 @@ class EmployeesListItem extends Component { //  = ({name, salary, increase, like
 					<button
 						type="button"
 						className="btn-cookie btn-sm "
-						onClick={this.onIncrease}>
-						<i className="fas fa-cookie"></i>
+						onClick={this.onIncrease}
+						><i className="fas fa-cookie"></i>
 					</button>
 
 					<button
 						type="button"
 						className="btn-trash btn-sm "
-						onClick={onDelete}>
-						<i className="fas fa-trash"></i>
+						onClick={onDelete}
+						><i className="fas fa-trash"></i>
 					</button>
 					<i className="fas fa-star"></i>
 				</div>

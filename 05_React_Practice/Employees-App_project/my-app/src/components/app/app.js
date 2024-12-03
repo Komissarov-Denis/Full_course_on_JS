@@ -18,25 +18,23 @@ class App extends Component {
 					name: 'John C.', 
 					salary: 800,
 					increase: false,
-					// like: like,
 					id: 1,
 				},
 				{
 					name: 'Alex M.', 
 					salary: 3000,
 					increase: false,
-					// like: like,
 					id: 2,
 				},
 				{
 					name: 'Carl W.', 
 					salary: 5000,
 					increase: false,
-					// like: like,
 					id: 3,
 				}
 			]
 		}
+        this.maxId = 4;
 	}
 
 	deleteItem = (id) => { // таким образом через изменение состояния setState по иерархии можно передавать функцию по удалению
@@ -62,6 +60,21 @@ class App extends Component {
 			
 		}) // как итог: вернется новый массив
 	}
+	
+    addItem = (name, salary) => {
+        const newItem = {
+            name, 
+            salary,
+            increase: false,
+            id: this.maxId++
+        }
+        this.setState(({data}) => {
+            const newArr = [...data, newItem];
+            return {
+                data: newArr
+            }
+        });
+    }
 
 	render() {
 		
@@ -77,9 +90,12 @@ class App extends Component {
 				<EmployeesList 
 					data={this.state.data}
 					onDelete = {this.deleteItem} // проверяем действие по удалению конкретного ID при нажатии на корзинку
+					onAdd = {id => console.log(id)}
 				/>
 
-				<EmployeesAddForm/>
+				<EmployeesAddForm
+					onAdd = {() => console.log('Addited')}
+				/>
 			</div>
 		);
 

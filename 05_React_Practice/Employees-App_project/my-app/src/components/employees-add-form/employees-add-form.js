@@ -24,22 +24,32 @@ class EmployeesAddForm extends Component{
 		})
 	}
 
-	render () {
+	onSubmit = (e) => { // метод onSubmit выполняется по событию отправки формы 
+		e.preventDefault(); // при отправке формы не перезагружаем страницу, отменяя стандартное поведение браузера
+		this.props.onAdd(this.name, this.salary); // добавляем в свойства props (name, salary) методом onAdd() в новый объект
+		this.setState({ // так как предыдущее состояние не влияет на текущее, применим обычный объект в setState()!!! (но можно и коллбэк применить)
+			name: '',
+			salary: '',
+		})
+	}
 
+	render () {
 		const {name, salary} = this.state;
 
 		return (
 			<div className="app-add-form">
 				<h3>Добавьте нового сотрудника</h3>
 				<form
-					className="add-form d-flex">
+					className="add-form d-flex"
+                    onSubmit = {this.onSubmit} // назначаем обработчик события отправки формы onSubmit с вызовом метода onSubmit
+					>
 	
 					<input type="text"
 						className="form-control new-post-label"
 						placeholder="Как его зовут?"
 						name="name" // name совпадает с ключевым свойством в конструкторе this.state{name: ''}
 						value={name} // запись указывает на управляемый элемент => если в value указан тот же ключ, что и в state, то в value записывается актуальное значение компонента/элемента, т.е. значение value формы input будет контролироваться React, а элемент называться управляемым
-						onChange={this.onValueChangeName} // создаем событие с вызовом метода
+						onChange={this.onValueChangeName} // создаем событие с вызовом метода onValueChangeName
 					/>
 	
 					<input type="number"
@@ -47,12 +57,12 @@ class EmployeesAddForm extends Component{
 						placeholder="З/П в $?"
 						salary="salary" // salary совпадает с ключевым свойством в конструкторе this.state{salary: 0}
 						value={salary} // запись указывает на управляемый элемент => если в value указан тот же ключ, что и в state, то в value записывается актуальное значение компонента/элемента, т.е. значение value формы input будет контролироваться React, а элемент называться управляемым
-						onChange={this.onValueChangeSalary} // создаем событие с вызовом метода
+						onChange={this.onValueChangeSalary} // создаем событие с вызовом метода onValueChangeSalary
 					/>
 	
 					<button type="submit"
-						className="btn btn-outline-light">
-							Добавить
+						className="btn btn-outline-light"
+						>Добавить
 					</button>
 				</form>
 			</div>
