@@ -18,18 +18,21 @@ class App extends Component {
 					name: 'John C.', 
 					salary: 800,
 					increase: false,
+					rise: true,
 					id: 1,
 				},
 				{
 					name: 'Alex M.', 
 					salary: 3000,
 					increase: false,
+					rise: false,
 					id: 2,
 				},
 				{
 					name: 'Carl W.', 
 					salary: 5000,
 					increase: false,
+					rise: false,
 					id: 3,
 				}
 			]
@@ -61,20 +64,28 @@ class App extends Component {
 		}) // как итог: вернется новый массив
 	}
 	
-    addItem = (name, salary) => {
+    addItem = (name, salary) => { // создаем новый объект с передачей ему аргументов /name, salary/
         const newItem = {
             name, 
             salary,
             increase: false,
-            id: this.maxId++
+            id: this.maxId++ // оператор инкремента, увеличения на 1 аргумента maxId компонента - постфиксный способ записи
         }
-        this.setState(({data}) => {
-            const newArr = [...data, newItem];
+        this.setState(({data}) => { // передаем коллбэком данные через состояние нового объекта компонента 
+            const newArr = [...data, newItem]; // создаем новый массив с передачей ему через спред оператор данных компонента, а также данные нового элемента при отправке формы нового сотрудника
             return {
                 data: newArr
             }
         });
     }
+
+	onToggleIncrease = (id) => { // данный метод будет изменять значение increase на противоположный у определенного элемента по id
+		console.log(`Increase this ${id}`);
+	}
+
+	onToggleRise = (id) => { // данный метод будет изменять значение Rise на противоположный у определенного элемента по id
+		console.log(`Rise this ${id}`);
+	}
 
 	render() {
 		
@@ -88,13 +99,14 @@ class App extends Component {
 				</div>
 
 				<EmployeesList 
-					data={this.state.data}
+					data = {this.state.data}
 					onDelete = {this.deleteItem} // проверяем действие по удалению конкретного ID при нажатии на корзинку
-					onAdd = {id => console.log(id)}
+					onToggleIncrease = {this.onToggleIncrease} // передаем глубже данные методы через контекст вызова в текущий компонент EmployeesList
+					onToggleRise = {this.onToggleRise} // передаем глубже данные методы через контекст вызова в текущий компонент EmployeesList
 				/>
 
 				<EmployeesAddForm
-					onAdd = {() => console.log('Addited')}
+					onAdd = {this.addItem} // проверяем действие по добавлению конкретного элемента при нажатии на кнопку добавить
 				/>
 			</div>
 		);
