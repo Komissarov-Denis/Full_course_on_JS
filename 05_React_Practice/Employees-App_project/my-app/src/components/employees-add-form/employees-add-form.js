@@ -14,7 +14,7 @@ class EmployeesAddForm extends Component{
 
 	onValueChangeName = (e) => { // создаем метод onValueChange с передачей ему в качестве аргумента события (е) изменения состояний name
 		this.setState({ // так как предыдущее состояние не влияет на текущее, применим обычный объект в setState()!!! (но можно и коллбэк применить)
-			name: e.target.value // e.target.value - это значение input, которое было передано в данное поле при вводе, передается в this.state{name: ''}
+			[e.target.name]: e.target.value // e.target.value - это значение input, которое было передано в данное поле при вводе, передается в this.state{name: ''}
 		})
 	}
 
@@ -26,7 +26,8 @@ class EmployeesAddForm extends Component{
 
 	onSubmit = (e) => { // метод onSubmit выполняется по событию отправки формы 
 		e.preventDefault(); // при отправке формы не перезагружаем страницу, отменяя стандартное поведение браузера
-		this.props.onAdd(this.name, this.salary); // добавляем в свойства props (name, salary) методом onAdd() в новый объект
+		if (this.state.name.length < 3 || !this.state.salary) return;
+		this.props.onAdd(this.state.name, this.state.salary); // добавляем в свойства props (name, salary) методом onAdd() в новый объект
 		this.setState({ // так как предыдущее состояние не влияет на текущее, применим обычный объект в setState()!!! (но можно и коллбэк применить)
 			name: '',
 			salary: '',

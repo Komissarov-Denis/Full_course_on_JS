@@ -8,7 +8,7 @@ import EmployeesAddForm from '../employees-add-form/employees-add-form';
 
 import './app.css';
 
-class App extends Component {
+class App extends Component { // APP.js - данный компонент является источником истины, так как обязан контролировать все остальные компоненты и их данные 
 
 	constructor(props) {
 		super(props); 
@@ -69,6 +69,7 @@ class App extends Component {
             name, 
             salary,
             increase: false,
+			rise: false,
             id: this.maxId++ // оператор инкремента, увеличения на 1 аргумента maxId компонента - постфиксный способ записи
         }
         this.setState(({data}) => { // передаем коллбэком данные через состояние нового объекта компонента 
@@ -80,7 +81,30 @@ class App extends Component {
     }
 
 	onToggleIncrease = (id) => { // данный метод будет изменять значение increase на противоположный у определенного элемента по id
-		console.log(`Increase this ${id}`);
+			
+		//-первый самый сложный способ вытаскивать рандомный объект их рандомного места-----------------------------------------------------------
+		// this.setState(({data}) => { // обращаемся к setState и вытаскиваем данные data
+			// const index = data.findIndex(elem => elem.id === id); // получаем индекс нашего объекта в данных data через метод findIndex() с применением коллбэк функции по ID элемента
+			// const oldItem = data[index]; // oldObj - это старый объект /промежуточная переменная/ и получаем данные по индексу
+			// const newItem = {...oldItem, increase: !oldItem.increase}; // методом разворота spread() разворачиваем в новом объекте старый объект, что не нарушает принципов иммутабельности и мы можем добавлять новые свойства в него, при этом все что будет после запятой /{...oldItem, increase: !oldItem.increase}/ - будет заменять предыдущие данные на противоположные increase: false => на true!!!
+			// const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)]; // для переработки всего data, создаем новый массив данных с помощью метода разворота spread() от части before/...data.slice(0, index)/ до части after /...data.slice(index + 1)/ совместно с newItem
+			// return {
+			// 	data: newArr // возвращаем объект, содержащий новые свойства data, в котором помещен новый массив newArr
+			// }
+		// })
+		//----------------------------------------------------------------------------------------------------------------------------------------
+
+		//-второй менее понятный способ вытаскивать рандомный объект их рандомного места----------------------------------------------------------
+		this.setState(({data}) => ({ // возвращаем сразу объект данных со свойством data с помощью метода перебора массива map(), так как менять напрямую менять объект не можем
+			data: data.map(item => {  // item - это каждый объект внутри нашего нового массива data, соответственно: к перебору всех объектов массива /data/ коллбэк функцией, мы можем применить условие: 
+				if (item.id === id) { // если каждый ID объекта массива совпадает с тем ID, который к нам пришел внутри метода /ID найденного объекта, который мы хотим изменить прямо сейчас/
+					return {...item, increase: !item.increase} // то возвращаем новый объект из коллбэк функции, при этом все что будет после запятой /{...item, increase: !item.increase}/ - будет заменять предыдущие данные на противоположные increase: false => на true!!!
+				}
+				return item; // далее возвращаем объект, если условие не совпало
+			})
+		})) // как итог получаем массив объектов с одним новым измененным значением
+		//----------------------------------------------------------------------------------------------------------------------------------------
+
 	}
 
 	onToggleRise = (id) => { // данный метод будет изменять значение Rise на противоположный у определенного элемента по id
@@ -88,10 +112,16 @@ class App extends Component {
 	}
 
 	render() {
-		
+
+		const employees = this.state.data.length; // length - даст общее количество сотрудников объекта state подсчитав все данные массива data
+		const increased = this.state.data.filter(item => item.increase).length; // фильтруем массив методом filter(), который вернет новый массив, который после фильтрации коллбэком вернет сотрудников, которые получат премию /перебираем item и возвращаем только те, у которых increase = true/, length - даст количество
+		console.log(employees);
 		return (
 			<div className="app">
-				<AppInfo/>
+				<AppInfo
+					employees={employees}
+					increased={increased}
+				/>
 
 				<div className="search-panel">
 					<SearchPanel/>
@@ -101,8 +131,8 @@ class App extends Component {
 				<EmployeesList 
 					data = {this.state.data}
 					onDelete = {this.deleteItem} // проверяем действие по удалению конкретного ID при нажатии на корзинку
-					onToggleIncrease = {this.onToggleIncrease} // передаем глубже данные методы через контекст вызова в текущий компонент EmployeesList
-					onToggleRise = {this.onToggleRise} // передаем глубже данные методы через контекст вызова в текущий компонент EmployeesList
+					onToggleIncrease = {this.onToggleIncrease} // передаем глубже данные методы через контекст вызова в текущий компонент EmployeesList (погружение дынных или событий)
+					onToggleRise = {this.onToggleRise} // передаем глубже данные методы через контекст вызова в текущий компонент EmployeesList (погружение дынных или событий)
 				/>
 
 				<EmployeesAddForm

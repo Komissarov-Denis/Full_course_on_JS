@@ -2,7 +2,7 @@ import EmployeesListItem from "../employees-list-item/employees-list-item";
 
 import './employees-list.css';
 
-const EmployeesList = ({data, onDelete, onAdd, onToggleIncrease, onToggleRise}) => { // прописываем пропсы в данный взаимосвязанный передаем глубжекомпонент
+const EmployeesList = ({data, onDelete, onAdd, onToggleIncrease, onToggleRise}) => { // прописываем пропсы в данный взаимосвязанный компонент, т.е. передаем глубже 
 
 	const elements = data.map(item => { // прописываем коллбэк внутри метода перебора data массива map() - возвращает новые измененные данные после перебора массива
 		const {id, ...itemProps} = item; // принцип частичной деструктуризации, так как item - это все тот же объект, вытаскиваем одну переменную id, все остальные элементы объединяются в (...itemProps), при введении новых элементов в список, весь список не будет рендериться - это оптимизирует работу ПО
