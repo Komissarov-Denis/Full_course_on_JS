@@ -33,7 +33,8 @@ class WhoAmI extends Component {
 		const {position, years} = this.state;
 		console.log(this); // тут наглядно можно увидеть свойства ОПРЕДЕЛЕННОГО ЭКЗЕМПЛЯРА КЛАССА
 		return ( // при запуске изменения setState() мы меняем только годы при нажатии на кнопку, поэтому в {this.state.text} ничего не поменяется !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			<div> 
+			// ПРИМЕР применения ФРАГМЕНТА!!! скрывает не нужный <DIV> ПУСТОЙ ТЕГ ЯВЛЯЕТСЯ СОКРАЩЕННОЙ ВЕРСИЙ ФРАГМЕНТА БЕЗ ИМПОРТА
+			<>
 				<button onClick={this.nextYear}>{this.state.text}</button>  
 				<h1>My name is {name}, surname - {surname}, age - {years}, position - {position}</h1>
 				<a href={link}>My profile</a>
@@ -41,7 +42,7 @@ class WhoAmI extends Component {
 					<span>Введите должность</span>
 					<input type="text" onChange={(e) => this.commitInputChanges(e, 'some color')}/> 
 				</form>
-			</div>
+			</>
 		);
 	}
 }
