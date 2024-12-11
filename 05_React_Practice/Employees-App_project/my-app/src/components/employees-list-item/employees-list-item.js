@@ -76,7 +76,7 @@ import './employees-list-item.css';
 	// }// данный render() уже не нужен, так как ранее предполагалось отслеживать их выполнение на локальном уровне, но теперь есть глобальные onToggleRise и onToggleIncrease, меняем компонент
 
 const EmployeesListItem = (props) => {  
-	const {name, salary, onDelete, onToggleIncrease, onToggleRise, increase, rise} = props; // не зависят от предыдущего состояния класса EmployeesListItem, onDelete - функции, переданные по иерархии из list в List-item
+	const {name, salary, onDelete, onToggleProp, increase, rise} = props; // не зависят от предыдущего состояния класса EmployeesListItem, onDelete - функции, переданные по иерархии из list в List-item, / заменил {name, salary, onDelete, onToggleIncrease, onToggleRise, increase, rise} на {name, salary, onDelete, onToggleProp, increase, rise} для оптимизации/
 	
 	let classNames = "list-group-item d-flex justify-content-between";
 
@@ -93,7 +93,10 @@ const EmployeesListItem = (props) => {
 			<span 
 				className="list-group-item-label"
 				// onClick={this.onRise} // так как мы вытащили из пропсов новые методы, то меняем текущие на onToggleRise соответственно
-				onClick={onToggleRise}
+				// onClick={onToggleRise}
+				//=>=>=>=>=>=>
+				onClick={onToggleProp} // во время клика или другого любого события когда оно передается как ссылка onToggleProp на этот метод, то как первый аргумент подставляется объект (е) события, который можно в дальнейшем использовать в / onToggleProp = {(e) => onToggleProp(id, e.currentTarget.getAttribute('date-toggle'))} /
+				data-toggle="rise" // чтобы оптимизация выполнилась - применим дата-аттрибуты 'date-toggle'
 				>{name}
 			</span>
 
@@ -108,7 +111,10 @@ const EmployeesListItem = (props) => {
 					type="button"
 					className="btn-cookie btn-sm "
 					// onClick={this.onIncrease} // так как мы вытащили из пропсов новые методы, то меняем текущие на onToggleIncrease соответственно
-					onClick={onToggleIncrease}
+					// onClick={onToggleIncrease}
+					//=>=>=>=>=>=>
+					onClick={onToggleProp} // во время клика или другого любого события когда оно передается как ссылка onToggleProp на этот метод, то как первый аргумент подставляется объект (е) события, который можно в дальнейшем использовать в / onToggleProp = {(e) => onToggleProp(id, e.currentTarget.getAttribute('date-toggle'))} /
+					data-toggle="increase" // чтобы оптимизация выполнилась - применим дата-аттрибуты 'date-toggle'
 					><i className="fas fa-cookie"></i>
 				</button>
 
