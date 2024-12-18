@@ -159,6 +159,10 @@ class App extends Component { // APP.js - данный компонент явл
 		}
 	}
 
+	onFilterSelect = (filter) => { // метод, активирующий класс активности
+		this.setState({filter}); // изменяем в состоянии объект с фильтром и передаем вниз по иерархии
+	}
+
 	render() {
 
 		const {data, term, filter} = this.state; // для обработки поля ввода, вытаскиваем при помощи принципа деструктуризации data и term из объекта компонента this.state
@@ -179,7 +183,7 @@ class App extends Component { // APP.js - данный компонент явл
 					<SearchPanel
 						onUpdateSearch = {this.onUpdateSearch} // передаем созданный метод onUpdateSearch() в компонент SearchPanel, что формирует поднятие события и дает возможность использовать этот метод в SearchPanel
 					/>
-					<AppFilter filter={filter} // передаем текущий state как prop в AppFilter
+					<AppFilter filter={filter} onFilterSelect={this.onFilterSelect} // передаем текущий state как prop в AppFilter
 					/> 
 				</div> 
 

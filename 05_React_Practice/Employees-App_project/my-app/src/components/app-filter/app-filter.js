@@ -49,6 +49,7 @@ const AppFilter = (props) => {
 			<button
 				className={`btn ${clazz}`}
 				type="button"
+				onClick={() => props.onFilterSelect(name)} // делаем через стрелочную функцию, так как передаем аргумент name
 				key={name}>
 					{label}
 			</button>
