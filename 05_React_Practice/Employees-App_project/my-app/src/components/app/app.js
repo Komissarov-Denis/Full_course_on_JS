@@ -37,6 +37,7 @@ class App extends Component { // APP.js - данный компонент явл
 				}
 			],
 			term: '', // для обработки поля ввода как state (зависит от предыдущего состояния), необходимо создать дополнительные ключевое свойство, в которое будем помещать вводимые данные в строку поиска input, далее в render() фильтруем введенные данные
+			filter: 'all', // для обработки фильтров как state (зависит от предыдущего состояния), в filter: '' прописываем filter: 'all', чтобы подсвечивалась первая кнопка и все были отфильтрованы первоначально
 		}
         this.maxId = 4;
 	}
@@ -147,12 +148,25 @@ class App extends Component { // APP.js - данный компонент явл
 		this.setState({term}) // не зависим от предыдущего состояния объекта, поэтому можно записать this.setState({term: term}) или сокращенно this.setState({term})
 	}
 
+	filterPost = (items, filter) => { // метод filterPost будут обрабатывать данные компонента AppFilter, для этого принимает два аргумента items и filter
+		switch (filter) {
+			case 'rise': // идут на повышение
+				return items.filter(item => item.rise) // возвращаем из фильтра массив работников, идущих на повышение /(item => item.rise) - берем каждый элемент в массиве, возвращаем те элементы, которые в rise в логическом контексте true/
+			case 'moreThen1000':
+				return items.filter(item => item.salary > 1000) // возвращаем из фильтра массив работников, у которых зарплата выше 1000$
+			default:
+				return items // если нет фильтров, возвращаем массив как есть
+		}
+	}
+
 	render() {
 
-		const {data, term} = this.state; // для обработки поля ввода, вытаскиваем при помощи принципа деструктуризации data и term из объекта компонента this.state
+		const {data, term, filter} = this.state; // для обработки поля ввода, вытаскиваем при помощи принципа деструктуризации data и term из объекта компонента this.state
 		const employees = this.state.data.length; // length - даст общее количество сотрудников объекта state подсчитав все данные массива data
 		const increased = this.state.data.filter(item => item.increase).length; // фильтруем массив методом filter(), который вернет новый массив, который после фильтрации коллбэком вернет сотрудников, которые получат премию /перебираем item и возвращаем только те, у которых increase = true/, length - даст количество
-		const visibleData = this.searchEmp(data, term); // данные, которые будут отображаться в виде массива данных items, которые либо выводятся как есть при пустой строке input, либо измененные новые данные
+		// const visibleData = this.searchEmp(data, term); // данные, которые будут отображаться в виде массива данных items, которые либо выводятся как есть при пустой строке input, либо измененные новые данные
+		//=>=>=>=>=>=> с применением фильтра, заменяем const visibleData = this.searchEmp(data, term)
+		const visibleData = this.filterPost(this.searchEmp(data, term), filter); // комбинируем фильтрацию с поиском, а затем фильтруем отфильтрованный массив по ЗП и повышению, а также передаем сюда вторым аргументом state > filter
 
 		return (
 			<div className="app">
@@ -165,8 +179,9 @@ class App extends Component { // APP.js - данный компонент явл
 					<SearchPanel
 						onUpdateSearch = {this.onUpdateSearch} // передаем созданный метод onUpdateSearch() в компонент SearchPanel, что формирует поднятие события и дает возможность использовать этот метод в SearchPanel
 					/>
-					<AppFilter/>
-				</div>
+					<AppFilter filter={filter} // передаем текущий state как prop в AppFilter
+					/> 
+				</div> 
 
 				<EmployeesList 
 					// data = {this.state.data} // для обработки поля ввода, заменяем
