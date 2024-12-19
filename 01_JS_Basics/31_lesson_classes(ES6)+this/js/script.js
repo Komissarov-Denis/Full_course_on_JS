@@ -19,13 +19,13 @@ console.log(square.calcArea()); // получил: 120
 console.log(long.calcArea()); // получил: 220	
 
 
-class ColoredRectangleWithText extends Rectangle { // принцип наследования от Rectangle за счет extends
+class ColoredRectangleWithText extends Rectangle { // принцип наследования от Rectangle за счет extends /означает "наследует от"/
 	constructor(height, width, text, bgColor) {
-		super(height, width); // метод super() вызывает суперконструктор у родителя, наследует от Rectangle и всегда идет первой строчкой в конструкторе!!!
-		this.text = text;
+		super(height, width); // метод super() вызывает суперконструктор у родителя, наследует от Rectangle и всегда идет первой строчкой в конструкторе для того, чтобы из class Rectangle{} не перекопировать this.height = height и this.width = width !!!
+		this.text = text; // super(height, width) === this.height = height и this.width = width
 		this.bgColor = bgColor;
 	}
-	showMyProps() { // покажи свойства
+	showMyProps() { // showMyProps() - метод покажи свойства
 		console.log(`Текст: ${this.text}, цвет: ${this.bgColor}`); // получил Текст: Hello World!, цвет: red
 	}
 }
