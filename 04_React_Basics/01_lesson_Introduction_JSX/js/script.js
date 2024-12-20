@@ -1,5 +1,7 @@
 //-------------------------------Для-начала-работы-(шпаргалка-команд)------------------------------------
 
+// npx create-react-app my-app     - для установки нового проекта
+
 // Success! Created my-app at H:\progr\HTML+CSS+JS\HTML_CSS_JS\Full_course_on_JS\05_React_Practice\CRUD_project\my-app
 // Inside that directory, you can run several commands:
 
