@@ -54,7 +54,15 @@ root.render(
 
 // Для создания элемента на странице в REACT без препроцессора JSX, прописываем:
 //                               ТЕГ         имя класса            содержимое
-const elem = React.createElement('h2', {className: 'greetings'}, 'Hello World!');
+const elem = React.createElement('h2', {className: 'greetings'}, 'Hello World!'); // так как React.createElement() - это метод, то вернется следующее //=>=>=>=>=>=>
+//=>=>=>=>=>=>
+const element = { // получаем объект
+	type = 'h2',  // с типом 'h2'
+	props: { // со свойствами:
+		className: 'greetings', // класс greetings'
+		children: 'Hello World!', // текстовая дочерняя нода 'Hello World!'
+	} // формируется объект через VirtualDOM
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
