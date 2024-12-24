@@ -75,12 +75,13 @@ import './employees-list-item.css';
 	// 	);
 	// }// данный render() уже не нужен, так как ранее предполагалось отслеживать их выполнение на локальном уровне, но теперь есть глобальные onToggleRise и onToggleIncrease, меняем компонент
 
-const EmployeesListItem = (props) => {  
+const EmployeesListItem = (props) => { 
+
 	const {name, salary, onDelete, onToggleProp, increase, rise} = props; // не зависят от предыдущего состояния класса EmployeesListItem, onDelete - функции, переданные по иерархии из list в List-item, / заменил {name, salary, onDelete, onToggleIncrease, onToggleRise, increase, rise} на {name, salary, onDelete, onToggleProp, increase, rise} для оптимизации/
 	
 	let classNames = "list-group-item d-flex justify-content-between";
 
-	if (increase) { // условие сравнивает наличие значения increase: true => 1
+	if (increase) { // условие сравнивает наличие значения increase: true => 1 в списке classNames /элегантное решение/ !!!!!!!!!!!!!!
 		classNames += " increase"; // соответственно добавляет с пробелом класс " increase" в группу классов "list-group-item d-flex justify-content-between"
 	};
 
@@ -96,14 +97,14 @@ const EmployeesListItem = (props) => {
 				// onClick={onToggleRise}
 				//=>=>=>=>=>=>
 				onClick={onToggleProp} // во время клика или другого любого события когда оно передается как ссылка onToggleProp на этот метод, то как первый аргумент подставляется объект (е) события, который можно в дальнейшем использовать в / onToggleProp = {(e) => onToggleProp(id, e.currentTarget.getAttribute('date-toggle'))} /
-				data-toggle="rise" // чтобы оптимизация выполнилась - применим дата-аттрибуты 'date-toggle'
+				data-toggle="rise" // чтобы оптимизация выполнилась - применим дата-аттрибуты 'date-toggle', передаем имя в поле span
 				>{name}
 			</span>
 
 			<input
 				type="text" 
 				className="list-group-item-input"
-				defaultValue={salary + '$'}
+				defaultValue={salary + '$'} // передаем величину зарплаты как значение по умолчанию
 			/>
 
 			<div className='d-flex justify-content-center align-items-center'>
@@ -128,5 +129,6 @@ const EmployeesListItem = (props) => {
 			</div>
 		</li>
 	);
+
 }
 export default EmployeesListItem;

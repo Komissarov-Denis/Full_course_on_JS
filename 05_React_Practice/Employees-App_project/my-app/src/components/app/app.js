@@ -13,7 +13,7 @@ class App extends Component { // APP.js - данный компонент явл
 	constructor(props) {
 		super(props); 
 		this.state = {
-			data: [
+			data: [ // массив с данными, в реальных проектах он приходит из базы данных от сервера
 				{
 					name: 'John C.', 
 					salary: 800,
@@ -188,6 +188,8 @@ class App extends Component { // APP.js - данный компонент явл
 				</div> 
 
 				<EmployeesList 
+					// data = {data} // для передачи данных в EmployeesList вниз по иерархии
+					//=>=>=>=>=>=>
 					// data = {this.state.data} // для обработки поля ввода, заменяем
 					//=>=>=>=>=>=>
 					data = {visibleData} // заменил и передал visibleData
