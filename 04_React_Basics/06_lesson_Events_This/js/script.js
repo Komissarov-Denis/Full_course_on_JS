@@ -223,7 +223,7 @@ class WhoAmI extends Component {
 		this.state = {
 			years: 27, // теперь мы можем хранить состояние объекта в этом компоненте, свойств может быть несколько
 			text: '+++',
-			position: '', // первоначально, передаем пустую строку в обработчик события commitInputChanges
+			position: '', // position (должность), передаем пустую строку в обработчик события commitInputChanges
 		}
 	}
 
