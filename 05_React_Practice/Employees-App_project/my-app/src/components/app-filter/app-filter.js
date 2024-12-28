@@ -54,7 +54,8 @@ const AppFilter = (props) => {
 				className={`btn ${clazz}`} // передаем класс активности кнопке при ее активации
 				type="button"
 				onClick={() => props.onFilterSelect(name)} // делаем через стрелочную функцию, так как передаем аргумент name /в key={name} - передаем уникальный ключ сравнения/
-				key={name}>
+				key={name}
+			>
 					{label}
 			</button>
 		)
