@@ -170,7 +170,7 @@ class App extends Component { // APP.js - данный компонент явл
 		const increased = this.state.data.filter(item => item.increase).length; // фильтруем массив методом filter(), который вернет новый массив, который после фильтрации коллбэком вернет сотрудников, которые получат премию /перебираем item и возвращаем только те, у которых increase = true/, length - даст количество
 		// const visibleData = this.searchEmp(data, term); // данные, которые будут отображаться в виде массива данных items, которые либо выводятся как есть при пустой строке input, либо измененные новые данные
 		//=>=>=>=>=>=> с применением фильтра, заменяем const visibleData = this.searchEmp(data, term)
-		const visibleData = this.filterPost(this.searchEmp(data, term), filter); // комбинируем фильтрацию с поиском, а затем фильтруем отфильтрованный массив по ЗП и повышению, а также передаем сюда вторым аргументом state > filter
+		const visibleData = this.filterPost(this.searchEmp(data, term), filter); // комбинируем фильтрацию с поиском по строке ввода term, а затем фильтруем отфильтрованный массив по ЗП и повышению, а также передаем сюда вторым аргументом state > filter
 
 		return (
 			<div className="app">
