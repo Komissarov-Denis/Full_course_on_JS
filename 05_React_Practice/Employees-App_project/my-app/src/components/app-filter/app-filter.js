@@ -37,6 +37,10 @@ const AppFilter = (props) => {
 			label: 'На повышение',
 		},
 		{
+			name: 'increase',
+			label: 'Премию получат',
+		},
+		{
 			name: 'moreThen1000',
 			label: 'З/П превышающая 1000$',
 		}
@@ -47,9 +51,9 @@ const AppFilter = (props) => {
 		const clazz = active ? 'btn-light' : 'btn-outline-light'; // clazz - переменная содержащая строчку с классом /пришел вариант из JAVA/, тернарным оператором производит сравнение /если active = true, то передаем 'btn-light', если active = false, то передаем 'btn-outline-light'/
 		return (
 			<button
-				className={`btn ${clazz}`}
+				className={`btn ${clazz}`} // передаем класс активности кнопке при ее активации
 				type="button"
-				onClick={() => props.onFilterSelect(name)} // делаем через стрелочную функцию, так как передаем аргумент name
+				onClick={() => props.onFilterSelect(name)} // делаем через стрелочную функцию, так как передаем аргумент name /в key={name} - передаем уникальный ключ сравнения/
 				key={name}>
 					{label}
 			</button>

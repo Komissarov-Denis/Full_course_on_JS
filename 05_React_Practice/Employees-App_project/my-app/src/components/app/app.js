@@ -151,12 +151,14 @@ class App extends Component { // APP.js - данный компонент явл
 	filterPost = (items, filter) => { // метод filterPost будут обрабатывать данные компонента AppFilter, для этого принимает два аргумента items и filter
 		switch (filter) {
 			case 'rise': // идут на повышение
-				return items.filter(item => item.rise) // возвращаем из фильтра массив работников, идущих на повышение /(item => item.rise) - берем каждый элемент в массиве, возвращаем те элементы, которые в rise в логическом контексте true/
+				return items.filter(item => item.rise) // возвращаем из фильтра массив работников, идущих на повышение /(item => item.rise) - берем каждый элемент в массиве, возвращаем те элементы, которые в rise в логическом контексте true/ сокращенная запись items.filter(item => item.rise) <===> items.filter(item => if (item.rise) return)
+			case 'increase':
+				return items.filter(item => item.increase)  // возвращаем из фильтра массив работников, которые получат премию
 			case 'moreThen1000':
 				return items.filter(item => item.salary > 1000) // возвращаем из фильтра массив работников, у которых зарплата выше 1000$
 			default:
 				return items // если нет фильтров, возвращаем массив как есть
-		}
+		} // прерывание цикла break не ставится, так как React автоматически его проставляет при компиляции, но при желании ставить можно
 	}
 
 	onFilterSelect = (filter) => { // метод, активирующий класс активности
@@ -170,7 +172,7 @@ class App extends Component { // APP.js - данный компонент явл
 		const increased = this.state.data.filter(item => item.increase).length; // фильтруем массив методом filter(), который вернет новый массив, который после фильтрации коллбэком вернет сотрудников, которые получат премию /перебираем item и возвращаем только те, у которых increase = true/, length - даст количество
 		// const visibleData = this.searchEmp(data, term); // данные, которые будут отображаться в виде массива данных items, которые либо выводятся как есть при пустой строке input, либо измененные новые данные
 		//=>=>=>=>=>=> с применением фильтра, заменяем const visibleData = this.searchEmp(data, term)
-		const visibleData = this.filterPost(this.searchEmp(data, term), filter); // комбинируем фильтрацию с поиском по строке ввода term, а затем фильтруем отфильтрованный массив по ЗП и повышению, а также передаем сюда вторым аргументом state > filter
+		const visibleData = this.filterPost(this.searchEmp(data, term), filter); // отображаемые данные массива, комбинируем фильтрацию с поиском по строке ввода term, а затем фильтруем отфильтрованный массив по ЗП и повышению, а также передаем сюда вторым аргументом state > filter
 
 		return (
 			<div className="app">
