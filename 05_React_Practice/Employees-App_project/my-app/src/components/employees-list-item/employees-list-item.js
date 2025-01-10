@@ -98,13 +98,17 @@ const EmployeesListItem = (props) => {
 				//=>=>=>=>=>=>
 				onClick={onToggleProp} // во время клика или другого любого события когда оно передается как ссылка onToggleProp на этот метод, то как первый аргумент подставляется объект (е) события, который можно в дальнейшем использовать в / onToggleProp = {(e) => onToggleProp(id, e.currentTarget.getAttribute('date-toggle'))} /
 				data-toggle="rise" // чтобы оптимизация выполнилась - применим дата-аттрибуты 'date-toggle', передаем имя в поле span
+				// style={{fontSize: '25px', fontWeight: 700, color: 'rgb(19, 54, 118)', transition: 'all', WebkitTransition: 'all', msTransition: 'all', MozTransition: 'all'}} // transition - для различных браузеров требует вендорные префиксы
 				>{name}
 			</span>
 
 			<input
-				type="text" 
+				type="number" 
 				className="list-group-item-input"
 				defaultValue={salary + '$'} // передаем величину зарплаты как значение по умолчанию
+				// salary="salary" // salary совпадает с ключевым свойством в конструкторе this.state{salary: 0} ??????????????????????????????????????
+				// value={salary} // запись указывает на управляемый элемент => если в value указан тот же ключ, что и в state, то в value записывается актуальное значение компонента/элемента, т.е. значение value формы input будет контролироваться React, а элемент называться управляемым
+				// onChange={this.onValueChangeSalary} // создаем событие с вызовом метода onValueChangeSalary ??????????????????????????????????????
 			/>
 
 			<div className='d-flex justify-content-center align-items-center'>

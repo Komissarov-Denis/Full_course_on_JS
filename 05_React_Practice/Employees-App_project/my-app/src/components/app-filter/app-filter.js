@@ -31,30 +31,36 @@ const AppFilter = (props) => {
 		{
 			name: 'all', // название фильтра совпадает с AppFilter filter={filter}
 			label: 'Все сотрудники',
+			colored: false,
 		},
 		{
 			name: 'rise',
 			label: 'На повышение',
+			colored: false,
 		},
 		{
 			name: 'increase',
 			label: 'Премию получат',
+			colored: true,
 		},
 		{
 			name: 'moreThen1000',
 			label: 'З/П превышающая 1000$',
+			colored: false,
 		}
 	];
 
-	const buttons = buttonsData.map(({name, label}) => { // на базе buttonsData формируем массив элементов, перебирая методом map() каждый отдельный элемент/объект из buttonsData, из которого будем вытаскивать нужные нам данные name и label
+	const buttons = buttonsData.map(({name, label, colored}) => { // на базе buttonsData формируем массив элементов, перебирая методом map() каждый отдельный элемент/объект из buttonsData, из которого будем вытаскивать нужные нам данные name и label
 		const active = props.filter === name; // active - данная переменная определяет активный элемент или нет, при переборе методом map() в переменную возвращается true / false
 		const clazz = active ? 'btn-light' : 'btn-outline-light'; // clazz - переменная содержащая строчку с классом /пришел вариант из JAVA/, тернарным оператором производит сравнение /если active = true, то передаем 'btn-light', если active = false, то передаем 'btn-outline-light'/
+		const style = colored ? {color: 'red'} : null;
 		return (
 			<button
 				className={`btn ${clazz}`} // передаем класс активности кнопке при ее активации
 				type="button"
 				onClick={() => props.onFilterSelect(name)} // делаем через стрелочную функцию, так как передаем аргумент name /в key={name} - передаем уникальный ключ сравнения/
 				key={name}
+				style={style}
 			>
 					{label}
 			</button>
