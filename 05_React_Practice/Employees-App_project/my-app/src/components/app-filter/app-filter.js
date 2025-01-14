@@ -41,7 +41,7 @@ const AppFilter = (props) => {
 		{
 			name: 'increase',
 			label: 'Премию получат',
-			colored: true,
+			colored: false,
 		},
 		{
 			name: 'moreThen1000',

@@ -1,8 +1,11 @@
 import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
+import BootstrapTest from './BootstrapTest';
+
 import { Button } from './App';
+
+import './index.css';
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -17,5 +20,6 @@ root.render(
 	<StrictMode>
 		<App/>
 		<BigButton as="a">Отправить отчёт</BigButton>
+		<BootstrapTest/>
 	</StrictMode>	
 );
