@@ -12,9 +12,9 @@ class MarvelService { // в данном случае не нужен препр
     };
 
     getAllCharacters = () => {
-        return this.getResources('');
+        return this.getResources('http://gateway.marvel.com/v1/public/comics?titleStartsWith=s&apikey=863599558f7a3696fbf6a2b87f4f0d10');
     }
 
 }
-
+//https://gateway.marvel.com:443/v1/public/characters?apikey=863599558f7a3696fbf6a2b87f4f0d10
 export default MarvelService;
