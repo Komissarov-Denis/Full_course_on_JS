@@ -11,22 +11,23 @@ class MarvelService { // в данном случае не нужен препр
         return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через цепочку .then() - так как это АСИНХРОННЫЙ КОД + await() дожидается обработки данных в result.json()!!!
     };
 
-    getAllCharacters = () => { // метод получения целого объекта, содержащего все персонажи /v1/public/characters
-        return this.getResources(`${this._apiBase}characters?limit=9&offset=210&${this._apiPrivateKey}`);
+    getAllCharacters = async () => { // метод получения целого объекта, содержащего все персонажи /v1/public/characters из асинхронной функции
+        const result = await this.getResources(`${this._apiBase}characters?limit=9&offset=210&${this._apiPrivateKey}`); // сохраним промежуточный результат в переменную result как большой объект, в котором есть массив с полученными результатами
+        return result.data.results.map(this._transformCharacter) // он содержится в result.data.results и так как это массив, мы можем применить метод map() для формирования массива с новыми объектами полученными из метода _transformCharacter()
     }
 
     getCharacter = async (id) => { // метод получения только одного конкретного персонажа по ID /v1/public/characters/{characterid} из асинхронной функции
         const result = await this.getResources(`${this._apiBase}characters/${id}?${this._apiPrivateKey}`); // сохраним промежуточный результат в переменную result
-        return this._transformCharacter(result); // в _transformCharacter(result) передаем полученный большой объект для трансформации
+        return this._transformCharacter(result.data.results[0]); // в _transformCharacter(result) передаем полученный большой объект для трансформации
     }
 
-    _transformCharacter = (result) => { // не изменяемым методом _transformCharacter() будем трансформировать данные: получаем результат result в качестве аргумента и возвращаем трансформированный объект
+    _transformCharacter = (character) => { // не изменяемым методом _transformCharacter() будем трансформировать данные: получаем результат result в качестве аргумента и возвращаем трансформированный объект
         return { // это и есть трансформация данных!!!
-            name: result.data.results[0].name, // чтобы null заменил на реальные данные нужно: берем получаемый результат result как один большой объект, ссылаемся на свойство data /полученные данные от сервера/ и выбираем в data поле results /массив с данными/, и так как берем один персонаж - [0] и берем его name
-            description: result.data.results[0].description,
-            thumbnail: result.data.results[0].thumbnail.path + '.' + result.data.results[0].thumbnail.extension, // прописываем путь к картинке с соответствующими полями path и extension
-            homepage: result.data.results[0].urls[0].url,
-            wiki: result.data.results[0].urls[1].url,
+            name: character.name, // чтобы null заменил на реальные данные нужно: берем получаемый результат result как один большой объект, ссылаемся на свойство data /полученные данные от сервера/ и выбираем в data поле results /массив с данными/, и так как берем один персонаж - [0] и берем его name
+            description: character.description,
+            thumbnail: character.thumbnail.path + '.' + character.thumbnail.extension, // прописываем путь к картинке с соответствующими полями path и extension
+            homepage: character.urls[0].url,
+            wiki: character.urls[1].url,
         } 
     }
 

@@ -11,26 +11,33 @@ class RandomChar extends Component {
 	}
 
 	state = { // применим синтаксис полей классов, конструктора не будет
-		name: null,
-		description: null,
-		thumbnail: null,
-		homepage: null,
-		wiki: null,
+		character: {}, // это тоже самое, если бы все наши объекты записывались в null как тут =>
+																								// name: null,
+																								// description: null,
+																								// thumbnail: null,
+																								// homepage: null,
+																								// wiki: null,
 	}
 
 	marvelService = new MarvelService(); // применим синтаксис полей классов и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
 	// marvelService.getAllCharacters().then(result => result.data.results.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data.results, чтобы перебрать элементы массива по именам - применим метод forEach()
+	
+	onCharLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
+		this.setState({character}) // выполняется заполнение объекта character: character, лаконично записывать this.setState({character})
+	}
+	
 	updateChar = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова
 		const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); // для получения случайного id применим метод Math.floor() для округления результата, так как id только целые числа
 		this.marvelService
 			.getCharacter(id) // данные персонажа /объект/ будем получать по уникальному идентификатору и передавать в аргумент коллбэк функции .then(result => {})
-			.then(result => { // далее result /объект/ передаем в this.setState(result)
-				this.setState(result) // тут нет зависимости от предыдущего state потому, что каждый раз приходит какой-то другой персонаж, даже если это один и тот же..., поэтому раскрываем объект и формируем =>				
-			}) // весь result /объект/ передается из _transformCharacter  '../../services/MarvelService.js'
+			// .then(result => { // далее result /объект/ передаем в this.setState(result)
+				// this.setState(result) // тут нет зависимости от предыдущего state потому, что каждый раз приходит какой-то другой персонаж, даже если это один и тот же..., поэтому раскрываем объект и формируем =>				
+			// }) // весь result /объект/ передается из _transformCharacter  '../../services/MarvelService.js'
+			.then(this.onCharLoaded)
 	}
 
-	render() {
-		const {name, description, thumbnail, homepage, wiki} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
+	render() { // применим принцип деструктуризации объекта character{}
+		const {character: {name, description, thumbnail, homepage, wiki}} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
 		return (
 			<div className="randomchar">
 				<div className="randomchar__block">
