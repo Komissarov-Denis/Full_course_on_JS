@@ -1,9 +1,14 @@
 import { Component } from 'react';
+import MarvelService from '../../services/MarvelService.js';
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 
 class RandomChar extends Component {
+	constructor(props) { // используем конструктор для вызова метода updateChar()
+		super(props);
+		this.updateChar();
+	}
 
 	state = { // применим синтаксис полей классов, конструктора не будет
 		name: null,
@@ -16,17 +21,11 @@ class RandomChar extends Component {
 	marvelService = new MarvelService(); // применим синтаксис полей классов и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
 	// marvelService.getAllCharacters().then(result => result.data.results.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data.results, чтобы перебрать элементы массива по именам - применим метод forEach()
 	updateChar = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова
-		const id = 1011005;
+		const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); // для получения случайного id применим метод Math.floor() для округления результата, так как id только целые числа
 		this.marvelService
 			.getCharacter(id) // данные персонажа будем получать по уникальному идентификатору
 			.then(result => {
-				this.setState({ // тут нет зависимости от предыдущего state потому, что каждый раз приходит какой-то другой персонаж, даже если это один и тот же..., поэтому раскрываем объект и формируем =>
-					name: result.data.results[0].name, // чтобы null заменил на реальные данные нужно: берем получаемый результат result как один большой объект, ссылаемся на свойство data /полученные данные от сервера/ и выбираем в data поле results /массив с данными/, и так как берем один персонаж - [0] и берем его name
-					description: null,
-					thumbnail: null,
-					homepage: null,
-					wiki: null,
-				})
+				this.setState(result) // тут нет зависимости от предыдущего state потому, что каждый раз приходит какой-то другой персонаж, даже если это один и тот же..., поэтому раскрываем объект и формируем =>				
 			})
 	}
 
