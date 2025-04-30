@@ -1,6 +1,6 @@
-
-
 class MarvelService { // в данном случае не нужен препроцессор JSX и Props, не наследуем компонент и не прописываем данный класс как в React Component принято, а прописываем как отдельный класс на чистом JavaScript
+    _apiBase = 'http://gateway.marvel.com/v1/public/'; // нижнее подчеркивание указывает, что просто так программисты не меняют эти значения!!!
+    _apiPrivateKey = 'apikey=863599558f7a3696fbf6a2b87f4f0d10'
 
     getResources = async (url) => { // function expression - без объявления присваивается в переменную, getResources отвечает за получение данных с сервера + async() в связи с асинхронностью выполнения
         const result = await fetch(url); // фетч запрос вернет промис, в переменной result нет ничего - пока промис не вернет от сервера данные, но fetch() сигналы 404, 403, 401 не распознает как ОШИБКИ!!! 
@@ -11,10 +11,14 @@ class MarvelService { // в данном случае не нужен препр
         return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через цепочку .then() - так как это АСИНХРОННЫЙ КОД + await() дожидается обработки данных в result.json()!!!
     };
 
-    getAllCharacters = () => {
-        return this.getResources('http://gateway.marvel.com/v1/public/comics?titleStartsWith=s&apikey=863599558f7a3696fbf6a2b87f4f0d10');
+    getAllCharacters = () => { // метод получения целого объекта, содержащего все персонажи /v1/public/characters
+        return this.getResources(`${this._apiBase}characters?limit=9&offset=210&${this._apiPrivateKey}`);
+    }
+
+    getAllCharacter = (id) => { // метод получения только одного конкретного персонажа по ID /v1/public/characters/{characterid}
+        return this.getResources(`${this._apiBase}characters/${id}?${this._apiPrivateKey}`);
     }
 
 }
-//https://gateway.marvel.com:443/v1/public/characters?apikey=863599558f7a3696fbf6a2b87f4f0d10
+
 export default MarvelService;
