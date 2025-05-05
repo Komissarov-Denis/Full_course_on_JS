@@ -19,6 +19,8 @@ class RandomChar extends Component {
 																								// homepage: null,
 																								// wiki: null,
 		loading: true,	//	данный параметр будет отвечать за наличие или отсутствие загрузки компонента
+		error: false, // параметр при ошибке 404, обрабатываем как замена на другого персонажа при отсутствии данных по текущему персонажу
+		
 	}
 
 	marvelService = new MarvelService(); // применим синтаксис полей классов и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
@@ -27,7 +29,15 @@ class RandomChar extends Component {
 	onCharLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
 		this.setState({
 			character,
-			loading: false}) // выполняется заполнение объекта character: character, лаконично записывать this.setState({character}) и как только данные загружены - loading: false
+			loading: false,
+		}) // выполняется заполнение объекта character: character, лаконично записывать this.setState({character}) и как только данные загружены - loading: false
+	}
+
+	onError = () => {
+		this.setState({
+			loading: false, // при ошибке - загрузка отсутствует, то /error: true/ - и это корректная логика
+			error: true,
+		}) 
 	}
 	
 	updateChar = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова
@@ -38,6 +48,7 @@ class RandomChar extends Component {
 				// this.setState(result) // тут нет зависимости от предыдущего state потому, что каждый раз приходит какой-то другой персонаж, даже если это один и тот же..., поэтому раскрываем объект и формируем =>				
 			// }) // весь result /объект/ передается из _transformCharacter  '../../services/MarvelService.js'
 			.then(this.onCharLoaded)
+			.catch(this.onError);
 	}
 
 	render() { // применим принцип деструктуризации объекта character{}
