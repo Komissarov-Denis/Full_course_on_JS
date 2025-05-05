@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Spinner from '../spinner/Spinner.js';
 import MarvelService from '../../services/MarvelService.js';
 
 import './randomChar.scss';
@@ -17,13 +18,16 @@ class RandomChar extends Component {
 																								// thumbnail: null,
 																								// homepage: null,
 																								// wiki: null,
+		loading: true,	//	данный параметр будет отвечать за наличие или отсутствие загрузки компонента
 	}
 
 	marvelService = new MarvelService(); // применим синтаксис полей классов и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
 	// marvelService.getAllCharacters().then(result => result.data.results.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data.results, чтобы перебрать элементы массива по именам - применим метод forEach()
 	
 	onCharLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
-		this.setState({character}) // выполняется заполнение объекта character: character, лаконично записывать this.setState({character})
+		this.setState({
+			character,
+			loading: false}) // выполняется заполнение объекта character: character, лаконично записывать this.setState({character}) и как только данные загружены - loading: false
 	}
 	
 	updateChar = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова
@@ -37,24 +41,15 @@ class RandomChar extends Component {
 	}
 
 	render() { // применим принцип деструктуризации объекта character{}
-		const {character: {name, description, thumbnail, homepage, wiki}} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
-		return (
+		const {character, loading} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
+		
+		// if (loading) { // сокращенно: если loading = true, то возвращаем компонент Spinner и дальнейший код будет недостижим /начиная с 48 строки/
+			// return <Spinner/>
+		// } => в 50 строку преобразовано 
+		
+		return ( // если loading = true, то возвращаем компонент View с аргументом character - 50 строка /рендерим или спиннер, или компонент с данными/ 
 			<div className="randomchar">
-				<div className="randomchar__block">
-					<img src={thumbnail} alt="Random character" className="randomchar__img"/>
-					<div className="randomchar__info">
-						<p className="randomchar__name">{name}</p>
-						<p className="randomchar__descr">{description}</p>
-						<div className="randomchar__btns">
-							<a href={homepage} className="button button__main">
-								<div className="inner">homepage</div>
-							</a>
-							<a href={wiki} className="button button__secondary">
-								<div className="inner">Wiki</div>
-							</a>
-						</div>
-					</div>
-				</div>
+				{loading ? <Spinner/> : <View character={character}/>}
 				<div className="randomchar__static">
 					<p className="randomchar__title">
 						Random character for today!<br/>
@@ -71,6 +66,28 @@ class RandomChar extends Component {
 			</div>
 		)
 	}
+}
+
+const View = ({character}) => { // простой рендарящий компонент без логики, данный компонент будет отображать определенный кусочек верстки и он в качестве аргумента принимает /character/ объект с данными о персонаже
+	const {name, description, thumbnail, homepage, wiki} = character;
+
+	return ( // возвращаем кусочек верстки
+		<div className="randomchar__block">
+			<img src={thumbnail} alt="Random character" className="randomchar__img"/>
+			<div className="randomchar__info">
+				<p className="randomchar__name">{name}</p>
+				<p className="randomchar__descr">{description}</p>
+				<div className="randomchar__btns">
+					<a href={homepage} className="button button__main">
+						<div className="inner">homepage</div>
+					</a>
+					<a href={wiki} className="button button__secondary">
+						<div className="inner">Wiki</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	)
 }
 
 export default RandomChar;
