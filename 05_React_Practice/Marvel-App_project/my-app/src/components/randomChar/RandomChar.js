@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Spinner from '../spinner/Spinner.js';
 import MarvelService from '../../services/MarvelService.js';
+import ErrorMessage from '../errorMessage/ErrorMessage.js';
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
@@ -52,15 +53,20 @@ class RandomChar extends Component {
 	}
 
 	render() { // применим принцип деструктуризации объекта character{}
-		const {character, loading} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
-		
+		const {character, loading, error} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
+		const errorMessage = error ? <ErrorMessage/> : null; //  в переменной errorMessage будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - ничего
+		const spinner = loading ? <Spinner/> : null; // в переменной spinner будет содержаться: при загрузке - либо компонент Spinner, либо при её отсутствии - ничего
+		const content = !(loading || error) ? <View character={character}/> : null; // в переменной content будет содержаться: если сейчас у нас нет загрузки или нет ошибок при загрузке - компонент с данными персонажа, либо при их наличии - ничего
+
 		// if (loading) { // сокращенно: если loading = true, то возвращаем компонент Spinner и дальнейший код будет недостижим /начиная с 48 строки/
 			// return <Spinner/>
-		// } => в 50 строку преобразовано 
+		// } => преобразовано в {loading ? <Spinner/> : <View character={character}/>}
 		
 		return ( // если loading = true, то возвращаем компонент View с аргументом character - 50 строка /рендерим или спиннер, или компонент с данными/ 
 			<div className="randomchar">
-				{loading ? <Spinner/> : <View character={character}/>}
+				{errorMessage}
+				{spinner}
+				{content}
 				<div className="randomchar__static">
 					<p className="randomchar__title">
 						Random character for today!<br/>
