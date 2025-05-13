@@ -7,10 +7,9 @@ import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 
 class RandomChar extends Component {
-	constructor(props) { // используем конструктор для вызова метода updateChar()
-		super(props);
-		this.updateChar();
-	}
+	// constructor(props) { // используем конструктор для вызова метода updateChar()
+		// super(props);
+	// }
 
 	state = { // применим синтаксис полей классов, конструктора не будет
 		character: {}, // это тоже самое, если бы все наши объекты записывались в null как тут =>
@@ -26,6 +25,11 @@ class RandomChar extends Component {
 	marvelService = new MarvelService(); // применим синтаксис полей классов и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
 	// marvelService.getAllCharacters().then(result => result.data.results.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data.results, чтобы перебрать элементы массива по именам - применим метод forEach()
 	
+	componentDidMount() { // метод этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
+		this.updateChar();
+		this.timerId = setInterval(this.updateChar, 3000); // для автоматической смены отображаемой информации применим метод setInterval
+	}
+
 	onCharLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
 		this.setState({
 			character,
