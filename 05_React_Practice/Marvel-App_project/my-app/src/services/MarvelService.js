@@ -1,8 +1,11 @@
 class MarvelService { // в данном случае не нужен препроцессор JSX и Props, не наследуем компонент и не прописываем данный класс как в React Component принято, а прописываем как отдельный класс на чистом JavaScript
+	// образец запроса: https://gateway.marvel.com/v1/public/characters?ts=1&apikey=863599558f7a3696fbf6a2b87f4f0d10&hash=edc92231018e77ce4048ac2de6ce6c99
 	_apiBase = 'https://gateway.marvel.com:443/v1/public/'; // нижнее подчеркивание /lodash/ указывает, что просто так программисты не меняют эти значения!!!
 	_apiPrivateKey = 'apikey=863599558f7a3696fbf6a2b87f4f0d10';
+	_apiTs = 'ts=1';
+	_apiHash = 'hash=edc92231018e77ce4048ac2de6ce6c99';
 
-	//--------------------------------------------------------------------------------
+	
 	getResource = async (url) => {
 		const result = await fetch(url);
 		if (!result.ok) {
@@ -10,9 +13,14 @@ class MarvelService { // в данном случае не нужен препр
 		}
 		return await result.json();
 	};
-	getAllChars = () => {
-		return this.getResource('https://gateway.marvel.com/docs/public');
-	}//-------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------
+	getAllChars = () => { // тестовые запросы
+		return this.getResource('https://gateway.marvel.com/v1/public/characters?ts=1&apikey=863599558f7a3696fbf6a2b87f4f0d10&hash=edc92231018e77ce4048ac2de6ce6c99');
+	}
+	getChar = (id) => {
+		return this.getResource(`https://gateway.marvel.com/v1/public/characters/${id}?ts=1&apikey=863599558f7a3696fbf6a2b87f4f0d10&hash=edc92231018e77ce4048ac2de6ce6c99`);
+	}
+	//-------------------------------------------------------------------------------
 
 
 	getResources = async (url) => { // function expression - без объявления присваивается в переменную, getResources отвечает за получение данных с сервера + async() в связи с асинхронностью выполнения
