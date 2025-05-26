@@ -8,7 +8,7 @@ import mjolnir from '../../resources/img/mjolnir.png';
 
 class RandomChar extends Component {
 	// constructor(props) { // используем конструктор для вызова метода updateChar()
-		// super(props);
+		// super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
 	// }
 
 	state = { // применим синтаксис полей классов, конструктора не будет
@@ -25,9 +25,19 @@ class RandomChar extends Component {
 	marvelService = new MarvelService(); // применим синтаксис полей классов и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
 	// marvelService.getAllCharacters().then(result => result.data.results.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data.results, чтобы перебрать элементы массива по именам - применим метод forEach()
 	
-	componentDidMount() { // метод этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
+	componentDidMount() { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
 		this.updateChar();
-		this.timerId = setInterval(this.updateChar, 3000); // для автоматической смены отображаемой информации применим метод setInterval
+		this.timerId = setInterval(this.updateChar, 300000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
+		console.log('mount');
+	}
+
+	componentDidUpdate() { // ХУК этапа обновления компонента
+		console.log('component updated');
+	}
+
+	componentWillUnmount() { // ХУК этапа демонтажа компонента по прохождению определенного интервала времени
+		clearInterval(this.timerId);
+		console.log('unmount');
 	}
 
 	onCharLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
@@ -56,6 +66,7 @@ class RandomChar extends Component {
 	}
 
 	render() { // применим принцип деструктуризации объекта character{}
+		console.log('render'); // тест этапа рендеринга
 		const {character, loading, error} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
 		const errorMessage = error ? <ErrorMessage/> : null; // в переменной errorMessage будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - ничего
 		const spinner = loading ? <Spinner/> : null; // в переменной spinner будет содержаться: при загрузке - либо компонент Spinner, либо при её отсутствии - ничего
