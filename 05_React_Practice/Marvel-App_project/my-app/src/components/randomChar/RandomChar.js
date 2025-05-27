@@ -19,7 +19,7 @@ class RandomChar extends Component {
 																								// thumbnail: null,
 																								// homepage: null,
 																								// wiki: null,
-		loading: true,	//	данный параметр будет отвечать за наличие или отсутствие загрузки компонента
+		loading: true,	//	данный параметр будет отвечать за наличие или отсутствие загрузки компонента, это состояние компонента в целом
 		error: false, // параметр при ошибке 404, обрабатываем как замена на другого персонажа при отсутствии данных по текущему персонажу		
 	}
 
@@ -72,11 +72,11 @@ class RandomChar extends Component {
 		const {character, loading, error} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
 		const errorMessage = error ? <ErrorMessage/> : null; // в переменной errorMessage будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - ничего
 		const spinner = loading ? <Spinner/> : null; // в переменной spinner будет содержаться: при загрузке - либо компонент Spinner, либо при её отсутствии - ничего
-		const content = !(loading || error) ? <View character={character}/> : null; // в переменной content будет содержаться: если сейчас у нас нет загрузки или нет ошибок при загрузке, выводим компонент с данными персонажа, либо при их наличии - ничего
+		const content = !(loading || error) ? <View character={character}/> : null; // в переменной content будет содержаться: если сейчас у нас нет загрузки или нет ошибок при загрузке, выводим компонент <View character={character}/> с данными персонажа /character/, либо при их наличии - ничего
 
 		// if (loading) { // сокращенно: если loading = true, то возвращаем компонент Spinner и дальнейший код будет недостижим /начиная с 48 строки/
 			// return <Spinner/>
-		// } => преобразовано в {loading ? <Spinner/> : <View character={character}/>} - конструкция, когда мы загружаем компонент из условия, называется "условным рендерингом"
+		// } => преобразовано в {loading ? <Spinner/> : <View character={character}/>} - конструкция, когда мы загружаем компонент из условия, называется "УСЛОВНЫМ РЕНДЕРИНГОМ"
 		
 		return ( // если loading = true, то возвращаем компонент View с аргументом character - 50 строка /рендерим или спиннер, или компонент с данными/ и далее выводим переменные в errorMessage, spinner, content
 			<div className="randomchar">
@@ -101,7 +101,7 @@ class RandomChar extends Component {
 	}
 }
 
-const View = ({character}) => { // "простой рендарящий компонент" без логики, данный компонент будет отображать определенный кусочек верстки и он в качестве аргумента принимает /character/ объект с данными о персонаже
+const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМПОНЕНТ" без логики, данный компонент будет отображать определенный кусочек верстки и он в качестве аргумента принимает /character/ объект с данными о персонаже
 	const {name, description, thumbnail, homepage, wiki} = character;
 
 	return ( // возвращаем кусочек верстки
