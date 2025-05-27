@@ -7,7 +7,7 @@ import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 
 class RandomChar extends Component {
-	
+
 	// constructor(props) { // используем конструктор для вызова метода updateCharacter()
 		// super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
 	// }
@@ -28,7 +28,7 @@ class RandomChar extends Component {
 	
 	componentDidMount() { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
 		this.updateCharacter();
-		this.timerId = setInterval(this.updateCharacter, 300000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
+		this.timerId = setInterval(this.updateCharacter, 900000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
 		console.log('mount');
 	}
 
@@ -45,7 +45,7 @@ class RandomChar extends Component {
 		this.setState({
 			character,
 			loading: false,
-		}) // выполняется заполнение объекта character: character, лаконично записывать this.setState({character}) и как только данные загружены loading: true преобразуется в loading: false
+		}) // выполняется заполнение объекта state = {character: character}, лаконично записывать this.setState({character}) и как только данные загружены loading: true преобразуется в loading: false
 	}
 
 	onError = () => { // метод отображения ошибки
@@ -56,13 +56,14 @@ class RandomChar extends Component {
 	}
 	
 	updateCharacter = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова
-		const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); // для получения случайного id применим метод Math.floor() для округления результата, так как id только целые числа
+		const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); // для получения СЛУЧАЙНОГО id применим метод Math.floor() для округления результата, так как id только целые числа
 		this.marvelService
-			.getCharacter(id) // данные персонажа /объект/ будем получать по уникальному идентификатору и передавать в аргумент коллбэк функции .then(result => {})
+			.getCharacter(id) // данные персонажа /объект/ будем получать по уникальному идентификатору и передавать в аргумент коллбэк функции .then(character => {})
 			// .then(result => { // далее result /объект/ передаем в this.setState(result)
 				// this.setState(result) // тут нет зависимости от предыдущего state потому, что каждый раз приходит какой-то другой персонаж, даже если это один и тот же..., поэтому раскрываем объект и формируем =>				
 			// }) // весь result /объект/ передается из _transformCharacter  '../../services/MarvelService.js'
-			.then(this.onCharacterLoaded)
+			// .getAllCharacters().then(character => console.log(character)) // тестовый вариант для проверки получения всего массива персонажей для .getAllCharacters()
+			.then(this.onCharacterLoaded) // при использовании промисов в цепочке через /.then()/, если в данную функцию updateCharacter() приходит аргумент /character/ из onCharacterLoaded(), то в /this.onCharacterLoaded/ подставляется данный аргумент через /.then()/, т.е. character запишется внутрь state
 			.catch(this.onError);
 	}
 

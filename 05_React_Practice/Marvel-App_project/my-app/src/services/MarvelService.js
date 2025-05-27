@@ -5,7 +5,6 @@ class MarvelService { // в данном случае не нужен препр
 	_apiPrivateKey = 'apikey=863599558f7a3696fbf6a2b87f4f0d10';
 	_apiTs = 'ts=1';
 	_apiHash = 'hash=edc92231018e77ce4048ac2de6ce6c99';
-
 	
 	getResource = async (url) => {
 		const result = await fetch(url);
@@ -35,7 +34,7 @@ class MarvelService { // в данном случае не нужен препр
 
 	getAllCharacters = async () => { // метод получения целого объекта, содержащего все персонажи /v1/public/characters из асинхронной функции
 		const result = await this.getResources(`${this._apiBase}characters?limit=9&offset=210&${this._apiPrivateKey}`); // сохраним промежуточный результат в переменную result как большой объект, в котором есть массив с полученными результатами
-		return result.data.results.map(this._transformCharacter) // он содержится в result.data.results и так как это массив, мы можем применить метод map() для формирования массива с новыми объектами полученными из метода _transformCharacter()
+		return result.data.results.map(this._transformCharacter) // большой массив содержится в result.data.results и так как это массив, мы можем применить метод map() для формирования массива с новыми объектами по порядку, полученными из метода _transformCharacter()
 	}
 
 	getCharacter = async (id) => { // метод получения только одного конкретного персонажа по ID /v1/public/characters/{characterid} из асинхронной функции
@@ -43,14 +42,14 @@ class MarvelService { // в данном случае не нужен препр
 		return this._transformCharacter(result.data.results[0]); // в _transformCharacter(result) передаем полученный большой объект для трансформации
 	}
 
-	_transformCharacter = (character) => { // не изменяемым методом _transformCharacter() будем трансформировать данные: получаем результат result в качестве аргумента и возвращаем трансформированный объект
+	_transformCharacter = (character) => { // не изменяемым методом _transformCharacter() будем трансформировать данные: получаем результат character в качестве аргумента и возвращаем трансформированный объект		
 		return { // это и есть трансформация данных!!!
-			name: character.name, // чтобы null заменил на реальные данные нужно: берем получаемый результат result как один большой объект, ссылаемся на свойство data /полученные данные от сервера/ и выбираем в data поле results /массив с данными/, и так как берем один персонаж - [0] и берем его name
+			name: character.name, // чтобы null заменил на реальные данные нужно: берем получаемый результат character как один большой объект, ссылаемся на свойство data /полученные данные от сервера/ и выбираем в data поле results /массив с данными/, и так как берем один персонаж - [0] и берем его name
 			description: character.description,
 			thumbnail: character.thumbnail.path + '.' + character.thumbnail.extension, // прописываем путь к картинке с соответствующими полями path и extension
 			homepage: character.urls[0].url,
 			wiki: character.urls[1].url,
-		} 
+		}		
 	}
 
 }
