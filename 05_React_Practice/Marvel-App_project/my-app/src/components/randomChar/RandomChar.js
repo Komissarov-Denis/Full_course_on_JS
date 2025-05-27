@@ -7,7 +7,8 @@ import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 
 class RandomChar extends Component {
-	// constructor(props) { // используем конструктор для вызова метода updateChar()
+	
+	// constructor(props) { // используем конструктор для вызова метода updateCharacter()
 		// super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
 	// }
 
@@ -22,12 +23,12 @@ class RandomChar extends Component {
 		error: false, // параметр при ошибке 404, обрабатываем как замена на другого персонажа при отсутствии данных по текущему персонажу		
 	}
 
-	marvelService = new MarvelService(); // применим синтаксис полей классов и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
+	marvelService = new MarvelService(); // применим СИНТАКСИС ПОЛЕЙ КЛАССОВ и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
 	// marvelService.getAllCharacters().then(result => result.data.results.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data.results, чтобы перебрать элементы массива по именам - применим метод forEach()
 	
 	componentDidMount() { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
-		this.updateChar();
-		this.timerId = setInterval(this.updateChar, 300000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
+		this.updateCharacter();
+		this.timerId = setInterval(this.updateCharacter, 300000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
 		console.log('mount');
 	}
 
@@ -40,7 +41,7 @@ class RandomChar extends Component {
 		console.log('unmount');
 	}
 
-	onCharLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
+	onCharacterLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
 		this.setState({
 			character,
 			loading: false,
@@ -54,14 +55,14 @@ class RandomChar extends Component {
 		}) 
 	}
 	
-	updateChar = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова
+	updateCharacter = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова
 		const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); // для получения случайного id применим метод Math.floor() для округления результата, так как id только целые числа
 		this.marvelService
 			.getCharacter(id) // данные персонажа /объект/ будем получать по уникальному идентификатору и передавать в аргумент коллбэк функции .then(result => {})
 			// .then(result => { // далее result /объект/ передаем в this.setState(result)
 				// this.setState(result) // тут нет зависимости от предыдущего state потому, что каждый раз приходит какой-то другой персонаж, даже если это один и тот же..., поэтому раскрываем объект и формируем =>				
 			// }) // весь result /объект/ передается из _transformCharacter  '../../services/MarvelService.js'
-			.then(this.onCharLoaded)
+			.then(this.onCharacterLoaded)
 			.catch(this.onError);
 	}
 
