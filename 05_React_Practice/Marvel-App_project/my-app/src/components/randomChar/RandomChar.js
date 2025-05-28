@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import Spinner from '../spinner/Spinner.js';
 import MarvelService from '../../services/MarvelService.js';
-import ErrorMessage from '../errorMessage/ErrorMessage.js';
+import {  ErrorMessageImg, ErrorMessageText } from '../errorMessage/ErrorMessage.js';
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
@@ -52,7 +52,7 @@ class RandomChar extends Component {
 		this.setState({
 			loading: false, // при ошибке - загрузка отсутствует, то /error: true/ - и это корректная логика
 			error: true,
-		}) 
+		})
 	}
 	
 	updateCharacter = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова
@@ -64,13 +64,13 @@ class RandomChar extends Component {
 			// }) // весь result /объект/ передается из _transformCharacter  '../../services/MarvelService.js'
 			// .getAllCharacters().then(character => console.log(character)) // тестовый вариант для проверки получения всего массива персонажей для .getAllCharacters()
 			.then(this.onCharacterLoaded) // при использовании промисов в цепочке через /.then()/, если в данную функцию updateCharacter() приходит аргумент /character/ из onCharacterLoaded(), то в /this.onCharacterLoaded/ подставляется данный аргумент через /.then()/, т.е. character запишется внутрь state
-			.catch(this.onError);
+			.catch(this.onError); // данный метод отлавливает и отображает ошибку при возникновении её в загруженных данных
 	}
 
 	render() { // применим принцип деструктуризации объекта character{}
 		console.log('render'); // тест этапа рендеринга
 		const {character, loading, error} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
-		const errorMessage = error ? <ErrorMessage/> : null; // в переменной errorMessage будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - ничего
+		const errorMessageImg = error ? <ErrorMessageImg/> : null; // в переменной errorMessageImg будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - ничего
 		const spinner = loading ? <Spinner/> : null; // в переменной spinner будет содержаться: при загрузке - либо компонент Spinner, либо при её отсутствии - ничего
 		const content = !(loading || error) ? <View character={character}/> : null; // в переменной content будет содержаться: если сейчас у нас нет загрузки или нет ошибок при загрузке, выводим компонент <View character={character}/> с данными персонажа /character/, либо при их наличии - ничего
 
@@ -78,9 +78,9 @@ class RandomChar extends Component {
 			// return <Spinner/>
 		// } => преобразовано в {loading ? <Spinner/> : <View character={character}/>} - конструкция, когда мы загружаем компонент из условия, называется "УСЛОВНЫМ РЕНДЕРИНГОМ"
 		
-		return ( // если loading = true, то возвращаем компонент View с аргументом character - 50 строка /рендерим или спиннер, или компонент с данными/ и далее выводим переменные в errorMessage, spinner, content
+		return ( // если loading = true, то возвращаем компонент View с аргументом character - 50 строка /рендерим или спиннер, или компонент с данными/ и далее выводим переменные в errorMessageImg, spinner, content
 			<div className="randomchar">
-				{errorMessage}
+				{errorMessageImg}
 				{spinner}
 				{content}
 				<div className="randomchar__static">
@@ -103,13 +103,15 @@ class RandomChar extends Component {
 
 const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМПОНЕНТ" без логики, данный компонент будет отображать определенный кусочек верстки и он в качестве аргумента принимает /character/ объект с данными о персонаже
 	const {name, description, thumbnail, homepage, wiki} = character;
+	const descr = description ? `${character.description.slice(0, 210)}...` : <ErrorMessageText/>;
 
 	return ( // возвращаем кусочек верстки
 		<div className="randomchar__block">
 			<img src={thumbnail} alt="Random character" className="randomchar__img"/>
 			<div className="randomchar__info">
 				<p className="randomchar__name">{name}</p>
-				<p className="randomchar__descr">{description}</p>
+				{/* <p className="randomchar__descr">{description}</p> */}
+				<p className="randomchar__descr">{descr}</p>
 				<div className="randomchar__btns">
 					<a href={homepage} className="button button__main">
 						<div className="inner">homepage</div>
