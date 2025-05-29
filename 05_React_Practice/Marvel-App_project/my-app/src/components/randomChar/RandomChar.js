@@ -9,7 +9,8 @@ import mjolnir from '../../resources/img/mjolnir.png';
 class RandomChar extends Component {
 
 	// constructor(props) { // используем конструктор для вызова метода updateCharacter()
-		// super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
+	// 	super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
+	// 	console.log('constructor');
 	// }
 
 	state = { // применим синтаксис полей классов, конструктора не будет
@@ -28,17 +29,17 @@ class RandomChar extends Component {
 	
 	componentDidMount() { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
 		this.updateCharacter();
-		this.timerId = setInterval(this.updateCharacter, 900000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
-		console.log('mount');
+		this.timerId = setInterval(this.updateCharacter, 1800000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
+		// console.log('mount');
 	}
 
 	componentDidUpdate() { // ХУК этапа обновления компонента
-		console.log('component updated');
+		// console.log('component updated');
 	}
 
 	componentWillUnmount() { // ХУК этапа демонтажа компонента по прохождению определенного интервала времени
-		clearInterval(this.timerId);
-		console.log('unmount');
+		clearInterval(this.timerId); // размонтирование компонента и направляется новый запрос после демонтажа
+		// console.log('unmount');
 	}
 
 	onCharacterLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
@@ -68,7 +69,7 @@ class RandomChar extends Component {
 	}
 
 	render() { // применим принцип деструктуризации объекта character{}
-		console.log('render'); // тест этапа рендеринга
+		// console.log('render'); // тест этапа рендеринга
 		const {character, loading, error} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
 		const errorMessageImg = error ? <ErrorMessageImg/> : null; // в переменной errorMessageImg будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - ничего
 		const spinner = loading ? <Spinner/> : null; // в переменной spinner будет содержаться: при загрузке - либо компонент Spinner, либо при её отсутствии - ничего
@@ -91,13 +92,13 @@ class RandomChar extends Component {
 					<p className="randomchar__title">
 						Or choose another one
 					</p>
-					<button className="button button__main">
+					<button onClick={this.updateCharacter} className="button button__main">
 						<div className="inner">try it</div>
 					</button>
 					<img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
 				</div>
 			</div>
-		)
+		) // <button onClick={this.updateCharacter} className="button button__main"> - через контекст вызова /this./ вызываем по клику на кнопку /try it/ выполнение метода updateCharacter()
 	}
 }
 
