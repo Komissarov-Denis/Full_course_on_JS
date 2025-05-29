@@ -4,6 +4,7 @@ import MarvelService from '../../services/MarvelService.js';
 import { ErrorMessageImg } from '../errorMessage/ErrorMessage.js';
 
 import './randomChar.scss';
+
 import mjolnir from '../../resources/img/mjolnir.png';
 
 class RandomChar extends Component {
@@ -27,17 +28,17 @@ class RandomChar extends Component {
 	marvelService = new MarvelService(); // применим СИНТАКСИС ПОЛЕЙ КЛАССОВ и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
 	// marvelService.getAllCharacters().then(result => result.data.results.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data.results, чтобы перебрать элементы массива по именам - применим метод forEach()
 	
-	componentDidMount() { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
+	componentDidMount () { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
 		this.updateCharacter();
 		this.timerId = setInterval(this.updateCharacter, 1800000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
 		// console.log('mount');
 	}
 
-	componentDidUpdate() { // ХУК этапа обновления компонента
+	componentDidUpdate () { // ХУК этапа обновления компонента
 		// console.log('component updated');
 	}
 
-	componentWillUnmount() { // ХУК этапа демонтажа компонента по прохождению определенного интервала времени
+	componentWillUnmount () { // ХУК этапа демонтажа компонента по прохождению определенного интервала времени
 		clearInterval(this.timerId); // размонтирование компонента и направляется новый запрос после демонтажа
 		// console.log('unmount');
 	}
