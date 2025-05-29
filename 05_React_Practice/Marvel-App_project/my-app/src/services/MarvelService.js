@@ -1,7 +1,6 @@
-// import {ErrorMessageText} from '../errorMessage/ErrorMessage.js';
-// 	// errorMessageText = ErrorMessageText;
-// 	console.log(ErrorMessageText);
-
+import {ErrorMessageText} from '../components/errorMessage/ErrorMessage.js';
+	const errorMessageText = <ErrorMessageText/>;
+	
 class MarvelService { // в данном случае не нужен препроцессор JSX и Props, не наследуем компонент и не прописываем данный класс как в React Component принято, а прописываем как отдельный класс на чистом JavaScript
 	
 	// образец запроса: https://gateway.marvel.com/v1/public/characters?ts=1&apikey=863599558f7a3696fbf6a2b87f4f0d10&hash=edc92231018e77ce4048ac2de6ce6c99
@@ -51,7 +50,7 @@ class MarvelService { // в данном случае не нужен препр
 		return { // это и есть трансформация данных!!!
 			name: character.name, // чтобы null заменил на реальные данные нужно: берем получаемый результат character как один большой объект, ссылаемся на свойство data /полученные данные от сервера/ и выбираем в data поле results /массив с данными/, и так как берем один персонаж - [0] и берем его name
 			// description: character.description ? `${character.description.slice(0, 210)}...` : '!!! There is no description for this character !!!', // стандартное условие: если character.description в true, то обрезаем длину по 210 символ, если в false - выводим сообщение
-			description: character.description,
+			description: character.description ? `${character.description.slice(0, 210)}...` : errorMessageText,
 			thumbnail: character.thumbnail.path + '.' + character.thumbnail.extension, // прописываем путь к картинке с соответствующими полями path и extension
 			homepage: character.urls[0].url,
 			wiki: character.urls[1].url,

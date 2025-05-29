@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import Spinner from '../spinner/Spinner.js';
 import MarvelService from '../../services/MarvelService.js';
-import {  ErrorMessageImg, ErrorMessageText } from '../errorMessage/ErrorMessage.js';
+import { ErrorMessageImg } from '../errorMessage/ErrorMessage.js';
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
@@ -73,7 +73,7 @@ class RandomChar extends Component {
 		const errorMessageImg = error ? <ErrorMessageImg/> : null; // в переменной errorMessageImg будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - ничего
 		const spinner = loading ? <Spinner/> : null; // в переменной spinner будет содержаться: при загрузке - либо компонент Spinner, либо при её отсутствии - ничего
 		const content = !(loading || error) ? <View character={character}/> : null; // в переменной content будет содержаться: если сейчас у нас нет загрузки или нет ошибок при загрузке, выводим компонент <View character={character}/> с данными персонажа /character/, либо при их наличии - ничего
-
+		
 		// if (loading) { // сокращенно: если loading = true, то возвращаем компонент Spinner и дальнейший код будет недостижим /начиная с 48 строки/
 			// return <Spinner/>
 		// } => преобразовано в {loading ? <Spinner/> : <View character={character}/>} - конструкция, когда мы загружаем компонент из условия, называется "УСЛОВНЫМ РЕНДЕРИНГОМ"
@@ -103,15 +103,13 @@ class RandomChar extends Component {
 
 const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМПОНЕНТ" без логики, данный компонент будет отображать определенный кусочек верстки и он в качестве аргумента принимает /character/ объект с данными о персонаже
 	const {name, description, thumbnail, homepage, wiki} = character;
-	const descr = description ? `${character.description.slice(0, 210)}...` : <ErrorMessageText/>;
 
 	return ( // возвращаем кусочек верстки
 		<div className="randomchar__block">
 			<img src={thumbnail} alt="Random character" className="randomchar__img"/>
 			<div className="randomchar__info">
 				<p className="randomchar__name">{name}</p>
-				{/* <p className="randomchar__descr">{description}</p> */}
-				<p className="randomchar__descr">{descr}</p>
+				<p className="randomchar__descr">{description}</p>
 				<div className="randomchar__btns">
 					<a href={homepage} className="button button__main">
 						<div className="inner">homepage</div>

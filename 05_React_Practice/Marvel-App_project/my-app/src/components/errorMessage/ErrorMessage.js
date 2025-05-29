@@ -8,12 +8,7 @@ const ErrorMessageImg = () => {
 }
 
 const ErrorMessageText = () => {
-	return (
-		<p>
-			!!! SORRY !!!<br/>
-			!!! There is no description for this character !!!
-		</p>
-	)
+	return ('SORRY.	There is no description for this character')
 }
 
 export { ErrorMessageImg, ErrorMessageText };
