@@ -7,6 +7,7 @@ import './randomChar.scss';
 
 import mjolnir from '../../resources/img/mjolnir.png';
 
+
 class RandomChar extends Component {
 
 	// constructor(props) { // используем конструктор для вызова метода updateCharacter()
@@ -44,14 +45,20 @@ class RandomChar extends Component {
 	}
 
 	onCharacterLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
-		this.setState({
+		this.setState ({
 			character,
 			loading: false,
 		}) // выполняется заполнение объекта state = {character: character}, лаконично записывать this.setState({character}) и как только данные загружены loading: true преобразуется в loading: false
 	}
 
+	onCharacterLoading = () => {
+		this.setState ({
+			loading: true,
+		})
+	} // меняет состояние setState объекта на загружаемый = true при продолжающейся загрузке
+
 	onError = () => { // метод отображения ошибки
-		this.setState({
+		this.setState ({
 			loading: false, // при ошибке - загрузка отсутствует, то /error: true/ - и это корректная логика
 			error: true,
 		})
@@ -105,10 +112,14 @@ class RandomChar extends Component {
 
 const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМПОНЕНТ" без логики, данный компонент будет отображать определенный кусочек верстки и он в качестве аргумента принимает /character/ объект с данными о персонаже
 	const {name, description, thumbnail, homepage, wiki} = character;
+    let imgStyle = {'objectFit' : 'cover'};
+    if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
+        imgStyle = {'objectFit' : 'contain'};
+    }
 
 	return ( // возвращаем кусочек верстки
 		<div className="randomchar__block">
-			<img src={thumbnail} alt="Random character" className="randomchar__img"/>
+			<img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle}/>
 			<div className="randomchar__info">
 				<p className="randomchar__name">{name}</p>
 				<p className="randomchar__descr">{description}</p>
