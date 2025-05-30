@@ -8,6 +8,11 @@ import './charList.scss';
 
 class CharList extends Component {
 
+	// constructor(props) { // используем конструктор для вызова метода updateCharacter()
+	// 	super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
+	// 	console.log('constructor');
+	// }
+
 	state = {
 		characterList: [],
 		loading: true,
@@ -42,9 +47,10 @@ class CharList extends Component {
 			if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
 				imgStyle = {'objectFit' : 'unset'};
 			}		
-			return (
+			return ( // в приеме ПОДЪЕМА СОСТОЯНИЯ, из родительского компонента App, получаем /props/ метода /onCharacterSelected()/ по каждому элементу /item/ персонажа с персональным /ID/, т.е по клику получаем id
 				<li	className="char__item"
-					key = {item.id}>	
+					key = {item.id}
+					onClick={() => this.props.onCharacterSelected(item.id)}> 
 					<img src={item.thumbnail} alt={item.name} style={imgStyle}/>
 					<div className="char__name">{item.name}</div>
 				</li>
