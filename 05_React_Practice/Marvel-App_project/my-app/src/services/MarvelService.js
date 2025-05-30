@@ -47,6 +47,7 @@ class MarvelService { // в данном случае не нужен препр
 
 	_transformCharacter = (character) => { // не изменяемым методом _transformCharacter() будем трансформировать данные: получаем результат character в качестве аргумента и возвращаем трансформированный объект		
 		return { // это и есть трансформация данных!!!
+            id: character.id, // данный id приходит из данных каждого персонажа, по нему идет заполнение карточек в компоненте CharList
 			name: character.name, // чтобы null заменил на реальные данные нужно: берем получаемый результат character как один большой объект, ссылаемся на свойство data /полученные данные от сервера/ и выбираем в data поле results /массив с данными/, и так как берем один персонаж - [0] и берем его name
 			// description: character.description ? `${character.description.slice(0, 210)}...` : '!!! There is no description for this character !!!', // стандартное условие: если character.description в true, то обрезаем длину по 210 символ, если в false - выводим сообщение
 			description: character.description ? `${character.description.slice(0, 210)}...` : errorMessageText,
