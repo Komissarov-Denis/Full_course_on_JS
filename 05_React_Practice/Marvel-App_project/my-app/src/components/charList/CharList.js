@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import Spinner from '../spinner/Spinner.js';
-import MarvelService from '../../services/MarvelService.js';
-import { ErrorMessageImg } from '../errorMessage/ErrorMessage.js';
+import Spinner from '../spinner/Spinner';
+import MarvelService from '../../services/MarvelService';
+import { ErrorMessageImg } from '../errorMessage/ErrorMessage';
 
 import './charList.scss';
 // import abyss from '../../resources/img/abyss.jpg';
@@ -45,11 +45,11 @@ class CharList extends Component {
 		const items = array.map((item) => {
 			let imgStyle = { objectFit: 'cover'};
 			if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
-				imgStyle = {'objectFit' : 'unset'};
+				imgStyle = {'objectFit' : 'unset'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
 			}		
 			return ( // в приеме ПОДЪЕМА СОСТОЯНИЯ, из родительского компонента App, получаем /props/ метода /onCharacterSelected()/ по каждому элементу /item/ персонажа с персональным /ID/, т.е по клику получаем id
 				<li	className="char__item"
-					key = {item.id}
+					key = {item.id} // данный ID получаем из компонента MarvelService из метода _transformCharacter()
 					onClick={() => this.props.onCharacterSelected(item.id)}> 
 					<img src={item.thumbnail} alt={item.name} style={imgStyle}/>
 					<div className="char__name">{item.name}</div>

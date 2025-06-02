@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import Spinner from '../spinner/Spinner.js';
-import MarvelService from '../../services/MarvelService.js';
-import { ErrorMessageImg } from '../errorMessage/ErrorMessage.js';
+import Spinner from '../spinner/Spinner';
+import MarvelService from '../../services/MarvelService';
+import { ErrorMessageImg } from '../errorMessage/ErrorMessage';
 
 import './randomChar.scss';
 
@@ -31,7 +31,7 @@ class RandomChar extends Component {
 	
 	componentDidMount () { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
 		this.updateCharacter();
-		this.timerId = setInterval(this.updateCharacter, 1800000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
+		this.timerId = setInterval(this.updateCharacter, 3200000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
 		// console.log('mount');
 	}
 
@@ -115,7 +115,7 @@ const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМП
 	const {name, description, thumbnail, homepage, wiki} = character;
     let imgStyle = {'objectFit' : 'cover'};
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
-        imgStyle = {'objectFit' : 'contain'};
+        imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
     }
 
 	return ( // возвращаем кусочек верстки

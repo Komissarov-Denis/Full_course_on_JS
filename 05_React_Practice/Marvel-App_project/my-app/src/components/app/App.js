@@ -13,12 +13,12 @@ class App extends Component {
 	}
 
 	onCharacterSelected = (id) => { // данный метод будет изменять состояние выбранного персонажа в приеме ПОДЪЕМА СОСТОЯНИЯ
-		this.setState({
-			selectedCharacter: id, // передаем идентификатор выбранному персонажу
+		this.setState({ // передаем идентификатор выбранному персонажу и заполняем поле selectedCharacter в объекте state,
+			selectedCharacter: id, // т.е. формируем ШАБЛОН: создаем в state новое свойство selectedCharacter, для установления его значения - формируем метод onCharacterSelected() и передаем значение через аргумент id
 		})
-	} // и данный метод /onCharacterSelected()/ передадим в метод /render()/ в компонент /CharList/ как одноименную функцию по onCharacterSelected={this.onCharacterSelected} =>
+	} // и данный метод /onCharacterSelected()/ передадим в метод /render()/ в компонент /CharList/ как props = onCharacterSelected и его одноименную функцию {this.onCharacterSelected} =>
 
-    render () { // в приеме ПОДЪЕМА СОСТОЯНИЯ, в компонент /CharInfo/ будем передавать ID персонажа по characterId={this.state.selectedCharacter} => т.е. из /CharList/ приходит /ID/, устанавливается в state и передается /CharInfo/
+    render () { // в приеме ПОДЪЕМА СОСТОЯНИЯ, в компонент /CharInfo/ будем передавать ID персонажа по characterId={this.state.selectedCharacter} => т.е. из /CharList/ приходит /ID/, значения устанавливаются в state в поле selectedCharacter и передается /CharInfo/
 	    return (
 			<div className="app">
 				<AppHeader/>
