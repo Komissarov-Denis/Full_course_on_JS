@@ -138,10 +138,14 @@ class CharInfo extends Component {
 
 const View = ({character}) => {
 	const {name, description, thumbnail, homepage, wiki, comics} = character;
+    let imgStyle = {'objectFit' : 'cover'};
+    if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
+        imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
+    }
 	return ( // используем React фрагмент, так как нет ни одного родительского компонента
 		<> 			
 			<div className="char__basics">
-				<img src={thumbnail} alt={name}/>
+				<img src={thumbnail} alt={name} style={imgStyle}/>
 				<div>
 					<div className="char__info-name">{name}</div>
 					<div className="char__btns">
@@ -157,8 +161,10 @@ const View = ({character}) => {
 			<div className="char__descr">{description}</div>
 			<div className="char__comics">Comics:</div>
 			<ul className="char__comics-list">
-				{
+				{comics.length > 0 ? null : 'There is no comics with this character'}
+				{ // если количество комиксов больше нуля, то ничего не выводим, иначе - выводим сообщение
 					comics.map((item, i) => { // данная функция будет перебирать методом map() комиксы как item с индексом i по порядку, {item.name} - название комикса, 
+						if (i > 9) return; // ограничивает количество строк комиксов в 10 штук
 						return ( // в атрибут key={i} ставим номер по порядку, так как комиксы динамически меняться не будут, при нажатии на конкретного персонажа данные его полностью заменяются в верстке
 							<li key={i} className="char__comics-item">
 								{item.name}

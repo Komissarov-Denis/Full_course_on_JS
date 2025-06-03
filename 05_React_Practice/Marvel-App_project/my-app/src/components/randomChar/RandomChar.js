@@ -31,7 +31,7 @@ class RandomChar extends Component {
 	
 	componentDidMount () { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
 		this.updateCharacter();
-		this.timerId = setInterval(this.updateCharacter, 3200000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
+		// this.timerId = setInterval(this.updateCharacter, 3200000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
 		// console.log('mount');
 	}
 
