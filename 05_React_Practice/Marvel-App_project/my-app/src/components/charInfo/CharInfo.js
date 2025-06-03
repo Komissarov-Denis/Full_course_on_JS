@@ -5,7 +5,7 @@ import { ErrorMessageImg } from '../errorMessage/ErrorMessage';
 import Skeleton from '../skeleton/Skeleton';
 
 import './charInfo.scss';
-import thor from '../../resources/img/thor.jpeg';
+// import thor from '../../resources/img/thor.jpeg';
 
 class CharInfo extends Component {	
 
@@ -23,7 +23,14 @@ class CharInfo extends Component {
 	marvelService = new MarvelService();
 
 	componentDidMount () {
-		this.updateCharacter();
+		this.updateCharacter();  // ХУК этапа монтажа компонента с обновлением данных персонажа
+	}
+
+	componentDidUpdate (prevProps) { // ХУК этапа обновления компонента c аргументами предыдущих свойств и предыдущего состояния: componentDidUpdate (prevProps, prevState)
+		if (this.props.characterId !== prevProps.characterId) { // если свойства конкретного персонажа с индивидуальным id не соответствуют предыдущим свойствам, только тогда запускаем метод обновления данных персонажа
+			this.updateCharacter();
+		}
+		// console.log('component updated');
 	}
 
 	updateCharacter = () => { // в приеме ПОДЪЕМА СОСТОЯНИЯ, из родительского компонента App, получаем /props/ метода /characterId={this.state.selectedCharacter}/ по каждому элементу /item/ персонажа с персональным /ID/, т.е по клику по клику обновляем персонажа с конкретным id
@@ -62,10 +69,10 @@ class CharInfo extends Component {
 
 	render () {
 		const {character, loading, error} = this.state;
-		const skeleton = character || loading || error ? null : <Skeleton/>; // если есть данные персонажа либо идет загрузка, либо вышла ошибка загрузки - ставим ничего, иначе выводит заглушку - компонент Skeleton
-		const errorMessageImg = error ? <ErrorMessageImg/> : null; // в переменной errorMessageImg будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - ничего
+		const skeleton = character || loading || error ? null : <Skeleton/>; // если есть данные персонажа либо идет загрузка, либо вышла ошибка загрузки - ставим "ничего", иначе рендерим заглушку - компонент Skeleton
+		const errorMessageImg = error ? <ErrorMessageImg/> : null; // в переменной errorMessageImg будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - "ничего"
 		const spinner = loading ? <Spinner/> : null; // в переменной spinner будет содержаться: при загрузке - либо компонент Spinner, либо при её отсутствии - ничего
-		const content = !(loading || error || !character) ? <View character={character}/> : null; // в переменной content будет содержаться: если сейчас у нас нет загрузки или нет ошибок при загрузке,  но есть данные персонажа, то выводим компонент <View character={character}/> с данными персонажа /character/, либо при их наличии - ничего
+		const content = !(loading || error || !character) ? <View character={character}/> : null; // в переменной content будет рендериться: если сейчас у нас нет загрузки или нет ошибок при загрузке, но есть данные персонажа, то рендерим компонент <View character={character}/> с данными персонажа /character/, либо при их наличии - "ничего"
 
 
 		return (
@@ -130,28 +137,36 @@ class CharInfo extends Component {
 }
 
 const View = ({character}) => {
-	return ( // используем React фрагмент, так как нет одного родительского компонента
+	const {name, description, thumbnail, homepage, wiki, comics} = character;
+	return ( // используем React фрагмент, так как нет ни одного родительского компонента
 		<> 			
 			<div className="char__basics">
-				<img src={thor} alt="abyss"/>
+				<img src={thumbnail} alt={name}/>
 				<div>
-					<div className="char__info-name">thor</div>
+					<div className="char__info-name">{name}</div>
 					<div className="char__btns">
-						<a href="#" className="button button__main">
+						<a href={homepage} className="button button__main">
 							<div className="inner">homepage</div>
 						</a>
-						<a href="#" className="button button__secondary">
+						<a href={wiki} className="button button__secondary">
 							<div className="inner">Wiki</div>
 						</a>
 					</div>
 				</div>
 			</div>
-			<div className="char__descr">
-				In Norse mythology, Loki is a god or jötunn (or both). Loki is the son of Fárbauti and Laufey, and the brother of Helblindi and Býleistr. By the jötunn Angrboða, Loki is the father of Hel, the wolf Fenrir, and the world serpent Jörmungandr. By Sigyn, Loki is the father of Nari and/or Narfi and with the stallion Svaðilfari as the father, Loki gave birth—in the form of a mare—to the eight-legged horse Sleipnir. In addition, Loki is referred to as the father of Váli in the Prose Edda.
-			</div>
+			<div className="char__descr">{description}</div>
 			<div className="char__comics">Comics:</div>
 			<ul className="char__comics-list">
-				<li className="char__comics-item">
+				{
+					comics.map((item, i) => { // данная функция будет перебирать методом map() комиксы как item с индексом i по порядку, {item.name} - название комикса, 
+						return ( // в атрибут key={i} ставим номер по порядку, так как комиксы динамически меняться не будут, при нажатии на конкретного персонажа данные его полностью заменяются в верстке
+							<li key={i} className="char__comics-item">
+								{item.name}
+							</li>
+						)
+					})
+				}
+				{/* <li className="char__comics-item">
 					All-Winners Squad: Band of Heroes (2011) #3
 				</li>
 				<li className="char__comics-item">
@@ -180,7 +195,7 @@ const View = ({character}) => {
 				</li>
 				<li className="char__comics-item">
 					Avengers (1996) #1
-				</li>
+				</li> */}
 			</ul>
 		</>
 	)

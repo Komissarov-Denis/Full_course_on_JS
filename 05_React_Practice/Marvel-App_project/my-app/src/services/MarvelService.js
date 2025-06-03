@@ -54,6 +54,7 @@ class MarvelService { // в данном случае не нужен препр
 			thumbnail: character.thumbnail.path + '.' + character.thumbnail.extension, // прописываем путь к картинке с соответствующими полями path и extension
 			homepage: character.urls[0].url,
 			wiki: character.urls[1].url,
+			comics: character.comics.items, // получаем данные для компонента CharInfo
 		}		
 	}
 }
