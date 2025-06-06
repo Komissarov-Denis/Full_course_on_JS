@@ -8,6 +8,7 @@ class MarvelService { // в данном случае не нужен препр
 	_apiPrivateKey = 'apikey=863599558f7a3696fbf6a2b87f4f0d10';
 	_apiTs = 'ts=1';
 	_apiHash = 'hash=edc92231018e77ce4048ac2de6ce6c99';
+	_apiBaseOffset = 210;
 	
 	getResource = async (url) => {
 		const result = await fetch(url);
@@ -35,8 +36,8 @@ class MarvelService { // в данном случае не нужен препр
 		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через цепочку .then() - так как это АСИНХРОННЫЙ КОД + await() дожидается обработки данных в result.json()!!!
 	};
 
-	getAllCharacters = async () => { // метод получения целого объекта, содержащего все персонажи /v1/public/characters из асинхронной функции
-		const result = await this.getResources(`${this._apiBase}characters?limit=9&offset=210&${this._apiPrivateKey}`); // сохраним промежуточный результат в переменную result как большой объект, в котором есть массив с полученными результатами
+	getAllCharacters = async (offset = this._apiBaseOffset) => { // метод получения целого объекта, содержащего все персонажи /v1/public/characters из асинхронной функции, аргумент offset = this._apiBaseOffset делает функцию getAllCharacters() более гибкой для манипуляций со стороны, так как она будет отталкиваться от аргумента, а если мы его не передаем, то по умолчанию offset = 210
+		const result = await this.getResources(`${this._apiBase}characters?limit=9&offset=${offset}&${this._apiPrivateKey}`); // сохраним промежуточный результат в переменную result как большой объект, в котором есть массив с полученными результатами
 		return result.data.results.map(this._transformCharacter) // большой массив содержится в result.data.results и так как это массив, мы можем применить метод map() для формирования массива с новыми объектами по порядку, полученными из метода _transformCharacter()
 	}
 

@@ -15,25 +15,40 @@ class CharList extends Component {
 
 	state = {
 		characterList: [],
-		loading: true,
+		loading: true, // тут загрузка первоначальная в принципе должна быть в true, так как при загрузке приложения происходит подгрузка данных персонажей
 		error: false,
+		newItemLoading: false, // тут загрузка в должна быть в false, так как вызывается вручную по клику на кнопку
+		offset: 210, // данное состояние передаем в метод onCharacterListLoaded() для изменения состояние путем наращивания по клику на кнопку, число может быть любое
 	}
 
 	marvelService = new MarvelService();
 
-	componentDidMount () {
-		this.marvelService.getAllCharacters()
-			.then(this.onCharacterListLoaded)
-			.catch(this.onError)
+	componentDidMount () { // в момент создания компонента первый раз, запускается метод onRequest() без аргумента, т.е. offset = null =>
+		this.onRequest();
 
 		// this.foo.bar = 0; // вносим для проверки ErrorBoundary несуществующее свойство
 	}
+	//=>
+	onRequest = (offset) => { // далее уходит запрос к серверу и в offset ничего не передается, а это значит что из модуля MarvelService() будет подставлен базовый отступ offset = this._apiBaseOffset = 210 =>
+ 		this.onCharacterListLoading(); // при первом запуске данного метода, состояние объекта setState({newItemLoading}) переключится в позицию true, это нормально, так как интерфейс не постоен, но после первичной загрузки данных персонажей, нам нужно состояние объекта setState({newItemLoading}) перевести в false через метод onCharacterListLoaded() =>
+		this.marvelService.getAllCharacters(offset) // но, при повторном изменении компонента, при клике на кнопку в offset будет подставляться число, которое будет формировать новый запрос
+			.then(this.onCharacterListLoaded)
+			.catch(this.onError)
+	}
 
-	onCharacterListLoaded = (characterList) => {
+	onCharacterListLoading = () => { // метод процесса запуска подгрузки данных персонажей по клику на кнопку
 		this.setState({
-			characterList,
-			loading: false,
+			newItemLoading: true,
 		})
+	}
+
+	onCharacterListLoaded = (newCharacterList) => { // тут персонажи загрузились
+		this.setState(({offset, characterList}) => ({ // деструктурируем объект, берем аргумент characterList, который изначально был в текущем state={characterList: []}, в начале это пустой массив, потом 9 элементов, 18 элементов, 27 и т.д.
+			characterList: [...characterList, ...newCharacterList], // данное состояние объекта будет формироваться из двух сущностей для подгрузки дополнительных персонажей по клику на кнопку, поэтому помещаем все в коллбэк функцию, для возвращения нового объекта из этой функции с новым состоянием, зависящем от предыдущего
+			loading: false, // [...characterList, ...newCharacterList] разворачиваем старый массив и добавляем в него новые элементы, которые пришли от сервера в onRequest(offset) в .then(this.onCharacterListLoaded) уже с offset
+			newItemLoading: false, // => отрабатывает после onRequest() и как только тут персонажи загрузились, newItemLoading переключаем в false
+			offset: offset + 9, // состояние отступа offset будет прирастать по клику на кнопку: 210 + 9 = 219, 219 + 9 = 228 и т.д.
+		}))
 	}
 
 	onError = () => {
@@ -66,7 +81,7 @@ class CharList extends Component {
 	}
 
 	render () {
-		const {characterList, loading, error} = this.state;
+		const {characterList, loading, error, offset, newItemLoading} = this.state;
 		const items = this.renderItems(characterList);
 		const errorMessageImg = error ? <ErrorMessageImg/> : null;
 		const spinner = loading ? <Spinner/> : null;
@@ -115,7 +130,10 @@ class CharList extends Component {
 						<div className="char__name">Abyss</div>
 					</li>
 				</ul> */}
-				<button className="button button__main button__long">
+				<button 
+					className="button button__main button__long"
+					disabled={newItemLoading}
+					onClick={() => this.onRequest(offset)}>
 					<div className="inner">load more</div>
 				</button>
 			</div>
