@@ -75,6 +75,8 @@ class RandomChar extends Component {
 			// .getAllCharacters().then(character => console.log(character)) // тестовый вариант для проверки получения всего массива персонажей для .getAllCharacters()
 			.then(this.onCharacterLoaded) // при использовании промисов в цепочке через /.then()/, если в данную функцию updateCharacter() приходит аргумент /character/ из onCharacterLoaded(), то в /this.onCharacterLoaded/ подставляется данный аргумент через /.then()/, т.е. character запишется внутрь state
 			.catch(this.onError); // данный метод отлавливает и отображает ошибку при возникновении её в загруженных данных
+		
+		// this.foo.bar = 0; // вносим для проверки ErrorBoundary несуществующее свойство	
 	}
 
 	render() { // применим принцип деструктуризации объекта character{}
