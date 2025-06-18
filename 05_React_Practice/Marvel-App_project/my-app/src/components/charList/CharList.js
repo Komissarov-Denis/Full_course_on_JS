@@ -8,32 +8,40 @@ import './charList.scss';
 
 class CharList extends Component {
 
-	// constructor(props) { // используем конструктор для вызова метода updateCharacter()
-	// 	super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
-	// 	console.log('constructor');
-	// }
+	constructor(props) { // используем конструктор для вызова метода updateCharacter()
+		super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
+		console.log('constructor');
+	}
 
-	state = {
+	state = { // у компонента прописываем индивидуальное состояние
 		characterList: [],
 		loading: true, // тут загрузка первоначальная в принципе должна быть в true, так как при загрузке приложения происходит подгрузка данных персонажей
 		error: false,
-		newItemLoading: false, // тут загрузка в должна быть в false, так как вызывается вручную по клику на кнопку
+		newItemLoading: false, // тут загрузка повторная и должна быть в false, так как вызывается вручную по клику на кнопку
 		offset: 210, // данное состояние передаем в метод onCharacterListLoaded() для изменения состояние путем наращивания по клику на кнопку, число может быть любое
 	}
 
-	marvelService = new MarvelService();
+	marvelService = new MarvelService(); // применим СИНТАКСИС ПОЛЕЙ КЛАССОВ и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
 
 	componentDidMount () { // в момент создания компонента первый раз, запускается метод onRequest() без аргумента, т.е. offset = null =>
 		this.onRequest();
-
+		console.log('mount + onRequest');
 		// this.foo.bar = 0; // вносим для проверки ErrorBoundary несуществующее свойство
 	}
 	//=>
 	onRequest = (offset) => { // далее уходит запрос к серверу и в offset ничего не передается, а это значит что из модуля MarvelService() будет подставлен базовый отступ offset = this._apiBaseOffset = 210 =>
- 		this.onCharacterListLoading(); // при первом запуске данного метода, состояние объекта setState({newItemLoading}) переключится в позицию true, это нормально, так как интерфейс не постоен, но после первичной загрузки данных персонажей, нам нужно состояние объекта setState({newItemLoading}) перевести в false через метод onCharacterListLoaded() =>
+ 		this.onCharacterListLoading(); // при первом запуске данного метода, состояние объекта setState({newItemLoading}) переключится в позицию true, это нормально, так как интерфейс не построен, но после первичной загрузки данных персонажей, нам нужно состояние объекта setState({newItemLoading}) перевести в false через метод onCharacterListLoaded() =>
 		this.marvelService.getAllCharacters(offset) // но, при повторном изменении компонента, при клике на кнопку в offset будет подставляться число, которое будет формировать новый запрос
 			.then(this.onCharacterListLoaded)
 			.catch(this.onError)
+	}
+
+	componentDidUpdate () { // ХУК этапа обновления компонента
+		console.log('component updated');
+	}
+
+	componentWillUnmount () { // ХУК этапа демонтажа компонента по прохождению определенного интервала времени
+		console.log('unmount');
 	}
 
 	onCharacterListLoading = () => { // метод процесса запуска подгрузки данных персонажей по клику на кнопку
@@ -81,6 +89,7 @@ class CharList extends Component {
 	}
 
 	render () {
+		console.log('render'); // тест этапа рендеринга
 		const {characterList, loading, error, offset, newItemLoading} = this.state;
 		const items = this.renderItems(characterList);
 		const errorMessageImg = error ? <ErrorMessageImg/> : null;

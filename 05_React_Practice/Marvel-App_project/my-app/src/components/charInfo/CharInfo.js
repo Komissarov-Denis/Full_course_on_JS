@@ -14,7 +14,7 @@ class CharInfo extends Component {
 	// 	console.log('constructor');
 	// }
 
-	state = {
+	state = { // у компонента прописываем индивидуальное состояние
 		character: null,
 		loading: false, // в данном случае загрузка информации о персонаже начнется с момента осуществления действий пользователи при выборе из 9 персонажей, но сначала будет заглушка skeleton
 		error: false,
@@ -22,8 +22,8 @@ class CharInfo extends Component {
 
 	marvelService = new MarvelService();
 
-	componentDidMount () {
-		this.updateCharacter();  // ХУК этапа монтажа компонента с обновлением данных персонажа
+	componentDidMount () { // ХУК этапа монтажа компонента с обновлением данных персонажа, который указывает, что компонент отрендерился
+		this.updateCharacter(); 
 	}
 
 	componentDidUpdate (prevProps) { // ХУК этапа обновления компонента c аргументами предыдущих свойств и предыдущего состояния: componentDidUpdate (prevProps, prevState)

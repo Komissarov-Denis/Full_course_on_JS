@@ -8,7 +8,7 @@ class MarvelService { // в данном случае не нужен препр
 	_apiPrivateKey = 'apikey=863599558f7a3696fbf6a2b87f4f0d10';
 	_apiTs = 'ts=1';
 	_apiHash = 'hash=edc92231018e77ce4048ac2de6ce6c99';
-	_apiBaseOffset = 210;
+	_apiBaseOffset = 210; // отступ задан эмпирическим путем, чтобы более менее интересные персонажи подгружались
 	
 	getResource = async (url) => {
 		const result = await fetch(url);

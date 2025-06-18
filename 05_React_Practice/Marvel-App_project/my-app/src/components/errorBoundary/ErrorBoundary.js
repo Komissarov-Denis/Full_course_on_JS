@@ -3,7 +3,7 @@ import { ErrorMessageImg } from "../errorMessage/ErrorMessage";
 
 class ErrorBoundary extends Component {
 
-	state = { // это основной и единственный state, у которого изначально нет ошибки error в false
+	state = { // у компонента прописываем индивидуальное состояние, это основной и единственный state, у которого изначально нет ошибки error в false
 		error: false,
 	}    
 
