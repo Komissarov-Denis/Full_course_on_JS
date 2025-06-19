@@ -9,10 +9,10 @@ import './charInfo.scss';
 
 class CharInfo extends Component {	
 
-	// constructor(props) { // используем конструктор для вызова метода updateCharacter()
-	// 	super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
-	// 	console.log('constructor');
-	// }
+	constructor(props) { // используем конструктор для вызова метода updateCharacter()
+		super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
+		console.log('CharInfo constructor started');
+	}
 
 	state = { // у компонента прописываем индивидуальное состояние
 		character: null,
@@ -24,13 +24,14 @@ class CharInfo extends Component {
 
 	componentDidMount () { // ХУК этапа монтажа компонента с обновлением данных персонажа, который указывает, что компонент отрендерился
 		this.updateCharacter(); 
+		console.log('CharInfo mounted + updateCharacter');
 	}
 
 	componentDidUpdate (prevProps) { // ХУК этапа обновления компонента c аргументами предыдущих свойств и предыдущего состояния: componentDidUpdate (prevProps, prevState)
 		if (this.props.characterId !== prevProps.characterId) { // если свойства конкретного персонажа с индивидуальным id не соответствуют предыдущим свойствам, только тогда запускаем метод обновления данных персонажа
 			this.updateCharacter();
 		}
-		// console.log('component updated');
+		console.log('CharInfo updated');
 	}
 
 	updateCharacter = () => { // в приеме ПОДЪЕМА СОСТОЯНИЯ, из родительского компонента App, получаем /props/ метода /characterId={this.state.selectedCharacter}/ по каждому элементу /item/ персонажа с персональным /ID/, т.е по клику по клику обновляем персонажа с конкретным id
@@ -76,7 +77,7 @@ class CharInfo extends Component {
 		const errorMessageImg = error ? <ErrorMessageImg/> : null; // в переменной errorMessageImg будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - "ничего"
 		const spinner = loading ? <Spinner/> : null; // в переменной spinner будет содержаться: при загрузке - либо компонент Spinner, либо при её отсутствии - ничего
 		const content = !(loading || error || !character) ? <View character={character}/> : null; // в переменной content будет рендериться: если сейчас у нас нет загрузки или нет ошибок при загрузке, но есть данные персонажа, то рендерим компонент <View character={character}/> с данными персонажа /character/, либо при их наличии - "ничего"
-
+		console.log('CharInfo rendered');
 
 		return (
 			<div className="char__info">
@@ -141,9 +142,9 @@ class CharInfo extends Component {
 
 const View = ({character}) => {
 	const {name, description, thumbnail, homepage, wiki, comics} = character;
-    let imgStyle = {'objectFit' : 'cover'};
+    let imgStyle = {'objectFit' : 'cover'}; // создаем объект картинки со свойством заполнить блок 
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
-        imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
+        imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки на вместить в блок при возникновении картинки с указанием отсутствия изображения
     }
 	return ( // используем React фрагмент, так как нет ни одного родительского компонента
 		<> 			

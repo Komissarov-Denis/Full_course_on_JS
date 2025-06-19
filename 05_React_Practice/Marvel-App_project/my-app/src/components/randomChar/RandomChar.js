@@ -10,10 +10,10 @@ import mjolnir from '../../resources/img/mjolnir.png';
 
 class RandomChar extends Component {
 
-	// constructor(props) { // используем конструктор для вызова метода updateCharacter()
-	// 	super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
-	// 	console.log('constructor');
-	// }
+	constructor(props) { // используем конструктор для вызова метода updateCharacter()
+		super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
+		console.log('RandomChar constructor started');
+	}
 
 	state = { // у компонента прописываем индивидуальное состояние и применим синтаксис полей классов, конструктора не будет
 		character: {}, // это тоже самое, если бы все наши объекты записывались в null как тут =>
@@ -32,16 +32,16 @@ class RandomChar extends Component {
 	componentDidMount () { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
 		this.updateCharacter();
 		// this.timerId = setInterval(this.updateCharacter, 3200000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
-		// console.log('mount');
+		console.log('RandomChar mounted');
 	}
 
 	componentDidUpdate () { // ХУК этапа обновления компонента
-		// console.log('component updated');
+		console.log('RandomChar updated');
 	}
 
 	componentWillUnmount () { // ХУК этапа демонтажа компонента по прохождению определенного интервала времени
 		clearInterval(this.timerId); // размонтирование компонента и направляется новый запрос после демонтажа
-		// console.log('unmount');
+		console.log('RandomChar unmounted');
 	}
 
 	onCharacterLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
@@ -80,7 +80,7 @@ class RandomChar extends Component {
 	}
 
 	render() { // применим принцип деструктуризации объекта character{}
-		// console.log('render'); // тест этапа рендеринга
+		console.log('RandomChar rendered'); // тест этапа рендеринга
 		const {character, loading, error} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
 		const errorMessageImg = error ? <ErrorMessageImg/> : null; // в переменной errorMessageImg будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - "ничего"
 		const spinner = loading ? <Spinner/> : null; // в переменной spinner будет содержаться: при загрузке - либо компонент Spinner, либо при её отсутствии - "ничего"

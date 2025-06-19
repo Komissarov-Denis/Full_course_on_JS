@@ -10,7 +10,7 @@ class CharList extends Component {
 
 	constructor(props) { // используем конструктор для вызова метода updateCharacter()
 		super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
-		console.log('constructor');
+		console.log('CharList constructor started');
 	}
 
 	state = { // у компонента прописываем индивидуальное состояние
@@ -25,7 +25,7 @@ class CharList extends Component {
 
 	componentDidMount () { // в момент создания компонента первый раз, запускается метод onRequest() без аргумента, т.е. offset = null =>
 		this.onRequest();
-		console.log('mount + onRequest');
+		console.log('CharList mounted + onRequest');
 		// this.foo.bar = 0; // вносим для проверки ErrorBoundary несуществующее свойство
 	}
 	//=>
@@ -36,17 +36,20 @@ class CharList extends Component {
 			.catch(this.onError)
 	}
 
-	componentDidUpdate () { // ХУК этапа обновления компонента
-		console.log('component updated');
+	componentDidUpdate (prevState) { // ХУК этапа обновления компонента
+		// if (this.characterList !== prevState.characterId) { // если свойства конкретного персонажа с индивидуальным id не соответствуют предыдущим свойствам, только тогда запускаем метод обновления данных персонажа
+		// 	this.onCharacterListLoading();
+		// }??????????????????????????????????
+		console.log('CharList updated');
 	}
 
 	componentWillUnmount () { // ХУК этапа демонтажа компонента по прохождению определенного интервала времени
-		console.log('unmount');
+		console.log('CharList unmounted');
 	}
 
-	onCharacterListLoading = () => { // метод процесса запуска подгрузки данных персонажей по клику на кнопку
+	onCharacterListLoading = () => { // метод процесса запуска подгрузки данных персонажей по клику на кнопку =>
 		this.setState({
-			newItemLoading: true,
+			newItemLoading: true, // по клику меняем состояние newItemLoading в true
 		})
 	}
 
@@ -89,7 +92,7 @@ class CharList extends Component {
 	}
 
 	render () {
-		console.log('render'); // тест этапа рендеринга
+		console.log('CharList rendered'); // тест этапа рендеринга
 		const {characterList, loading, error, offset, newItemLoading} = this.state;
 		const items = this.renderItems(characterList);
 		const errorMessageImg = error ? <ErrorMessageImg/> : null;
@@ -146,7 +149,7 @@ class CharList extends Component {
 					<div className="inner">load more</div>
 				</button>
 			</div>
-		)
+		) //onClick={() => this.onRequest(offset)} - использован стрелочный тип записи для передачи аргумента offset в onClick
 	}
 }
 
