@@ -14,13 +14,14 @@ class CharList extends Component {
 	}
 
 	state = { // у компонента прописываем индивидуальное состояние
-		characterList: [],
+		characterList: [], 
 		loading: true, // тут загрузка первоначальная в принципе должна быть в true, так как при загрузке приложения происходит подгрузка данных персонажей
 		error: false,
 		newItemLoading: false, // тут загрузка повторная и должна быть в false, так как вызывается вручную по клику на кнопку
 		offset: 210, // данное состояние передаем в метод onCharacterListLoaded() для изменения состояние путем наращивания по клику на кнопку, число может быть любое
+		characterEnded: false,
 	}
-
+	
 	marvelService = new MarvelService(); // применим СИНТАКСИС ПОЛЕЙ КЛАССОВ и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
 
 	componentDidMount () { // в момент создания компонента первый раз, запускается метод onRequest() без аргумента, т.е. offset = null =>
@@ -51,12 +52,12 @@ class CharList extends Component {
 	}
 		
 	onCharacterListLoaded = (newCharacterList) => { // тут персонажи загрузились
-		this.setState(({offset, characterList}) => ({ // деструктурируем объект, берем аргумент characterList, который изначально был в текущем state={characterList: []}, в начале это пустой массив, потом 9 элементов, 18 элементов, 27 и т.д.
+		this.setState(({offset, characterList}) => ({ // деструктурируем объект, берем аргумент characterList, который изначально был в текущем state={characterList: []}, в начале это пустой массив и ни во что не разворачивается, потом 9 элементов, 18 элементов, 27 и т.д.
 			characterList: [...characterList, ...newCharacterList], // данное состояние объекта будет формироваться из двух сущностей для подгрузки дополнительных персонажей по клику на кнопку, поэтому помещаем все в коллбэк функцию, для возвращения нового объекта из этой функции с новым состоянием, зависящем от предыдущего
 			loading: false, // [...characterList, ...newCharacterList] разворачиваем старый массив и добавляем в него новые элементы, которые пришли от сервера в onRequest(offset) в .then(this.onCharacterListLoaded) уже с offset
 			newItemLoading: false, // => отрабатывает после onRequest() и как только тут персонажи загрузились, newItemLoading переключаем в false
 			offset: offset + 9, // состояние отступа offset будет прирастать по клику на кнопку: 210 + 9 = 219, 219 + 9 = 228 и т.д.
-		})) // [...characterList, ...newCharacterList] ???????? есть серьезная проблема, спред разворачивает дважды не 9, а 18 персонажей, удваивая их???? видимо это связано с REACT19
+		})) // [...characterList, ...newCharacterList] ???????? есть серьезная проблема, спред разворачивает дубль не 9, а 18 персонажей, удваивая их???? видимо это связано с REACT19 и изначально characterList: [] === newCharacterList []
 	}
 
 	onError = () => {
