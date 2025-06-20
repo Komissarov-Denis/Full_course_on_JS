@@ -36,10 +36,7 @@ class CharList extends Component {
 			.catch(this.onError)
 	}
 
-	componentDidUpdate (prevState) { // ХУК этапа обновления компонента
-		// if (this.characterList !== prevState.characterId) { // если свойства конкретного персонажа с индивидуальным id не соответствуют предыдущим свойствам, только тогда запускаем метод обновления данных персонажа
-		// 	this.onCharacterListLoading();
-		// }??????????????????????????????????
+	componentDidUpdate () { // ХУК этапа обновления компонента
 		console.log('CharList updated');
 	}
 
@@ -52,14 +49,14 @@ class CharList extends Component {
 			newItemLoading: true, // по клику меняем состояние newItemLoading в true
 		})
 	}
-
+		
 	onCharacterListLoaded = (newCharacterList) => { // тут персонажи загрузились
 		this.setState(({offset, characterList}) => ({ // деструктурируем объект, берем аргумент characterList, который изначально был в текущем state={characterList: []}, в начале это пустой массив, потом 9 элементов, 18 элементов, 27 и т.д.
 			characterList: [...characterList, ...newCharacterList], // данное состояние объекта будет формироваться из двух сущностей для подгрузки дополнительных персонажей по клику на кнопку, поэтому помещаем все в коллбэк функцию, для возвращения нового объекта из этой функции с новым состоянием, зависящем от предыдущего
 			loading: false, // [...characterList, ...newCharacterList] разворачиваем старый массив и добавляем в него новые элементы, которые пришли от сервера в onRequest(offset) в .then(this.onCharacterListLoaded) уже с offset
 			newItemLoading: false, // => отрабатывает после onRequest() и как только тут персонажи загрузились, newItemLoading переключаем в false
 			offset: offset + 9, // состояние отступа offset будет прирастать по клику на кнопку: 210 + 9 = 219, 219 + 9 = 228 и т.д.
-		}))
+		})) // [...characterList, ...newCharacterList] ???????? есть серьезная проблема, спред разворачивает дважды не 9, а 18 персонажей, удваивая их???? видимо это связано с REACT19
 	}
 
 	onError = () => {
