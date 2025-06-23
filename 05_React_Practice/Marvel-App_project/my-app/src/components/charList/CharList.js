@@ -38,7 +38,10 @@ class CharList extends Component {
 			.catch(this.onError)
 	}
 
-	componentDidUpdate () { // ХУК этапа обновления компонента
+	componentDidUpdate (prevState) { // ХУК этапа обновления компонента
+		// if (this.props.characterList !== prevState.newCharacterList) {
+		// 	this.onCharacterListLoaded();
+		// }
 		console.log('CharList updated');
 	}
 
@@ -54,7 +57,7 @@ class CharList extends Component {
 		
 	onCharacterListLoaded = (newCharacterList) => { // тут персонажи загрузились
 		this.setState(({offset, characterList}) => ({ // деструктурируем объект, берем аргумент characterList, который изначально был в текущем state={characterList: []}, в начале это пустой массив и ни во что не разворачивается, потом 9 элементов, 18 элементов, 27 и т.д.
-			characterList: [...newCharacterList], // данное состояние объекта будет формироваться из двух сущностей для подгрузки дополнительных персонажей по клику на кнопку, поэтому помещаем все в коллбэк функцию, для возвращения нового объекта из этой функции с новым состоянием, зависящем от предыдущего
+			characterList: [...characterList, ...newCharacterList], // данное состояние объекта будет формироваться из двух сущностей для подгрузки дополнительных персонажей по клику на кнопку, поэтому помещаем все в коллбэк функцию, для возвращения нового объекта из этой функции с новым состоянием, зависящем от предыдущего
 			loading: false, // [...characterList, ...newCharacterList] разворачиваем старый массив и добавляем в него новые элементы, которые пришли от сервера в onRequest(offset) в .then(this.onCharacterListLoaded) уже с offset
 			newItemLoading: false, // => отрабатывает после onRequest() и как только тут персонажи загрузились, newItemLoading переключаем в false
 			offset: offset + 9, // состояние отступа offset будет прирастать по клику на кнопку: 210 + 9 = 219, 219 + 9 = 228 и т.д.
@@ -69,14 +72,14 @@ class CharList extends Component {
 	}
 
 	renderItems (array) { // Этот метод создан для оптимизации, чтобы не помещать такую конструкцию в метод render
-		const items = array.map((item) => {
+		const items = array.map((item) => { // метод перебора массива данных персонажей
 			let imgStyle = { objectFit: 'cover'};
 			if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' || 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif') {
 				imgStyle = {'objectFit' : 'unset'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
 			}		
 			return ( // в приеме ПОДЪЕМА СОСТОЯНИЯ, из родительского компонента App, получаем /props/ метода /onCharacterSelected()/ по каждому элементу /item/ персонажа с персональным /ID/, т.е по клику получаем id
 				<li	className="char__item"
-					key = {item.id} // данный ID получаем из компонента MarvelService из метода _transformCharacter()
+					key = {item.id} // данный ID получаем из компонента MarvelService из метода _transformCharacter() и применяем его как аттрибут key в <li>
 					onClick={() => this.props.onCharacterSelected(item.id)}> 
 					<img src={item.thumbnail} alt={item.name} style={imgStyle}/>
 					<div className="char__name">{item.name}</div>
