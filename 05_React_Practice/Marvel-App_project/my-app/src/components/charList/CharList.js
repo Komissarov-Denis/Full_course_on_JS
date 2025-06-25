@@ -14,7 +14,7 @@ class CharList extends Component {
 	}
 
 	state = { // у компонента прописываем индивидуальное состояние
-		characterList: [], 
+		characterList: [], // тут действительно пустой массив Array(0)
 		loading: true, // тут загрузка первоначальная в принципе должна быть в true, так как при загрузке приложения происходит подгрузка данных персонажей
 		error: false,
 		newCharactersOnClickLoading: false, // тут загрузка повторная и должна быть в false, так как вызывается вручную по клику на кнопку newCharactersOnClickLoading
@@ -51,7 +51,7 @@ class CharList extends Component {
 			newCharactersOnClickLoading: true, // по клику меняем состояние newCharactersOnClickLoading в true
 		})
 	}
-		
+
 	onCharacterListLoaded = (newCharacterList) => { // тут персонажи загрузились
 		let characterListEnded = false;
 		if (newCharacterList.length < 9) {
