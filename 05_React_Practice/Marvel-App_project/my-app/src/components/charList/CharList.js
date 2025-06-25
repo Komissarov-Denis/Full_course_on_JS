@@ -16,10 +16,10 @@ class CharList extends Component {
 	state = { // у компонента прописываем индивидуальное состояние
 		characterList: [], // тут действительно пустой массив Array(0)
 		loading: true, // тут загрузка первоначальная в принципе должна быть в true, так как при загрузке приложения происходит подгрузка данных персонажей
-		error: false,
+		error: false, // состояние наличия ошибки, первоначально оно в false, но при наличии - будет переключаться в true
 		newCharactersOnClickLoading: false, // тут загрузка повторная и должна быть в false, так как вызывается вручную по клику на кнопку newCharactersOnClickLoading
 		offset: 210, // данное состояние передаем в метод onCharacterListLoaded() для изменения состояние путем наращивания по клику на кнопку, число может быть любое
-		characterListEnded: false,
+		characterListEnded: false, // данное состояние указывает на окончание списка персонажей, первоначально оно в false, но по окончании списка будет переключаться в true
 	}
 	
 	marvelService = new MarvelService(); // применим СИНТАКСИС ПОЛЕЙ КЛАССОВ и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
@@ -53,8 +53,8 @@ class CharList extends Component {
 	}
 
 	onCharacterListLoaded = (newCharacterList) => { // тут персонажи загрузились
-		let characterListEnded = false;
-		if (newCharacterList.length < 9) {
+		let characterListEnded = false; // переменная изначально в false
+		if (newCharacterList.length < 9) { // если количество персонажей меньше 9, переключаем characterListEnded в true
 			characterListEnded = true;
 		}
 		this.setState(({offset, characterList}) => ({ // деструктурируем объект, берем аргумент characterList, который изначально был в текущем state={characterList: []}, в начале это пустой массив и ни во что не разворачивается, потом 9 элементов, 18 элементов, 27 и т.д.
@@ -149,12 +149,12 @@ class CharList extends Component {
 				<button 
 					className="button button__main button__long"
 					disabled={newCharactersOnClickLoading} // переводим кнопку в состояние деактивирована/недоступна, чтобы пользователь не натыкал на нее множествами кликов и не сломал приложение
-					style={{'display' : characterListEnded ? 'none' : 'block'}}
+					style={{'display' : characterListEnded ? 'none' : 'block'}} // по окончании списка персонажей создаем для кнопки условие, если достигнуто окончание списка - скрываем кнопку, иначе - продолжаем отображать
 					onClick={() => this.onRequest(offset)}>
 					<div className="inner">load more</div>
 				</button>
 			</div>
-		) //onClick={() => this.onRequest(offset)} - использован стрелочный тип записи для передачи аргумента offset в onClick
+		) // onClick={() => this.onRequest(offset)} - использован стрелочный тип записи для передачи аргумента offset в onClick
 	}
 }
 
