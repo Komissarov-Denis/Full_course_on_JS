@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types'; // не работает теперь в React19
 import Spinner from '../spinner/Spinner';
 import MarvelService from '../../services/MarvelService';
 import { ErrorMessageImg } from '../errorMessage/ErrorMessage';
@@ -210,6 +211,10 @@ const View = ({character}) => {
 			</ul>
 		</>
 	)
+}
+
+CharInfo.propTypes = {
+	characterId: PropTypes.number, // не проверяет PropTypes в React19, не работает...
 }
 
 export default CharInfo;
