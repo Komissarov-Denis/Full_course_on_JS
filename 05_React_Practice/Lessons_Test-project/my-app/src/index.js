@@ -2,7 +2,6 @@ import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import BootstrapTest from './BootstrapTest';
-import BootstrapTest2 from './BootstrapTest2';
 
 import { Button } from './App';
 
@@ -22,6 +21,5 @@ root.render(
 		<App/>
 		<BigButton as="a">Отправить отчёт</BigButton>
 		<BootstrapTest/>
-		<BootstrapTest2/>
 	</StrictMode>	
 );

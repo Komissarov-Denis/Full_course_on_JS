@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BootstrapTest2 from './BootstrapTest2';
 
 import styled from 'styled-components';
 import './App.css';
@@ -104,6 +105,19 @@ function App () {
 				<h2>This wheel was hard</h2>
 				<h2>Hallo world</h2>
 			</DynamicGreatings>
+			<BootstrapTest2
+				left = {					
+					<DynamicGreatings color={'primary'}>
+						<h2>This wheel was hard</h2>
+						<h2>Hallo world</h2>
+					</DynamicGreatings>
+				}
+				right = {					
+					<DynamicGreatings color={'primary'}>
+						<h2>RIGHT!</h2>
+					</DynamicGreatings>
+				}
+			/>
 			<div className="App">
 				<WhoAmI
 					name = "John"
