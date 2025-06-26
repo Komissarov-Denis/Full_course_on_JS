@@ -86,7 +86,7 @@ const Wrapper = styled.div`
 	margin: 80px auto 0 auto;
 `;
 
-const DynamicGreatings = (props) => {
+const DynamicGreatings = (props) => { // пример props.children
 	return (
 		<div className={'mb-3 p-3 border border-' + props.color}>
 			{
@@ -98,13 +98,62 @@ const DynamicGreatings = (props) => {
 	)
 }
 
+const HalloGreatings = () => { // пример композиции !!!
+	return (
+		<div style={{'width': '600px', 'margin': '0 auto'}}>
+			<DynamicGreatings color={'primary'}>
+				<h2>Hallo WIDE world</h2>
+			</DynamicGreatings>
+		</div>
+	)
+}
+
+//---------------------------------------------------------RENDER-PROPS - как props можно передать функцию
+const Massage = (props) => {
+	return (
+		<h2>The counter is {props.counter}</h2>
+	)
+} 
+
+class Counter extends Component {
+	state = {
+		counter: 0,
+	}
+	changeCounter = () => {
+		this.setState(({counter}) => ({
+			counter: counter + 1,
+		}))
+	}
+	render() {
+		return (
+			<>
+				<button
+					className={'btn btn-primary'}
+					onClick={this.changeCounter}>
+					Click me
+				</button>
+				{this.props.render(this.state.counter)} 
+			</>
+		)
+	}
+}
+//---------------------------------------------------------
+
 function App () {
 	return (
 		<Wrapper>
+
 			<DynamicGreatings color={'primary'}>
 				<h2>This wheel was hard</h2>
 				<h2>Hallo world</h2>
 			</DynamicGreatings>
+
+			<HalloGreatings/> 
+
+			<Counter render={counter => ( // RENDER-PROPS - как props можно передать функцию
+				<Massage counter={counter}/>
+			)}/>	
+
 			<BootstrapTest2
 				left = {					
 					<DynamicGreatings color={'primary'}>
