@@ -1,12 +1,12 @@
 //-------------------------------------------------------------
 import {Container, Row, Col} from 'react-bootstrap';
 
-const BootstrapTest2 = (props) => {
+const BootstrapTest2 = (props) => { // в  {props.left} и {props.right} передаем значение из <BootstrapTest2/> left и right 
 	return (
 		<Container className='mt-5 mb-5'>
 			<Row>
 				<Col>
-                    {props.left}
+                    {props.left} 
 				</Col>
 				<Col>
                     {props.right}
@@ -23,7 +23,7 @@ import BootstrapTest2 from './BootstrapTest2';
 
 function App () {
 	return (
-		<Wrapper>			
+		<Wrapper>
 
 			<BootstrapTest2
 				left = {					
