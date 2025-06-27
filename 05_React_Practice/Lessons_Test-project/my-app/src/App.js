@@ -115,9 +115,9 @@ const Massage = (props) => {
 	return (
 		<h2>The counter is {props.counter}</h2>
 	)
-} 
+} // это может быть совершенно независимый компонент
 
-class Counter extends Component {
+class Counter extends Component { // это может быть совершенно независимый компонент
 	state = {
 		counter: 0,
 	}
@@ -134,9 +134,10 @@ class Counter extends Component {
 					onClick={this.changeCounter}>
 					Click me
 				</button>
-				{this.props.render(this.state.counter)} 
+				{this.props.renderProps(this.state.counter)} 
+				{this.props.renderProps(this.state.counter)} 
 			</>
-		)
+		) // props из компонента Massage с запуском коллбэк функции renderProps из компонента Counter меняет состояние state счетчика counter
 	}
 }
 //---------------------------------------------------------
@@ -152,7 +153,7 @@ function App () {
 
 			<HalloGreatings/> 
 
-			<Counter render={counter => ( // RENDER-PROPS - как props можно передать функцию
+			<Counter renderProps={counter => ( // RENDER-PROPS - как props можно передать функцию renderProps с аргументом counter и возвращаем компонент <Massage/>
 				<Massage counter={counter}/>
 			)}/>	
 
