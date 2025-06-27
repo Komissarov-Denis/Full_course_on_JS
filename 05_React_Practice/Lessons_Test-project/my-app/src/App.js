@@ -12,7 +12,7 @@ const EmpItem = styled.div`
 	a {
 		display: block;
 		margin: 10px 0 10px 0;
-		color: ${props=> props.active ? 'red' : 'blue'}; 
+		color: ${props => props.active ? 'red' : 'blue'}; 
 	}
 	input {		
 		display: block;
@@ -86,18 +86,20 @@ const Wrapper = styled.div`
 	margin: 80px auto 0 auto;
 `;
 
+//--------------------------------------------------------------
 const DynamicGreatings = (props) => { // пример props.children
 	return (
 		<div className={'mb-3 p-3 border border-' + props.color}>
 			{
 				React.Children.map(props.children, child => {
 					return React.cloneElement(child, {className: 'shadow p-3 m-3 border rounded'})
-				})
+				}) // всем наследуемым потомкам передаем через props общие одинаковые свойства, это очень оптимизирует работу
 			}
 		</div>
 	)
 }
 
+//-------------------------------------------------------------
 const HalloGreatings = () => { // пример композиции !!!
 	return (
 		<div style={{'width': '600px', 'margin': '0 auto'}}>
@@ -167,6 +169,7 @@ function App () {
 					</DynamicGreatings>
 				}
 			/>
+
 			<div className="App">
 				<WhoAmI
 					name = "John"
