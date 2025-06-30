@@ -9,16 +9,16 @@ class MarvelService { // в данном случае не нужен препр
 	_apiTs = 'ts=1';
 	_apiHash = 'hash=edc92231018e77ce4048ac2de6ce6c99';
 	_apiBaseOffset = 210; // отступ задан эмпирическим путем, чтобы более менее интересные персонажи подгружались из всего списка
-	
-	getResource = async (url) => {
-		const result = await fetch(url);
-		if (!result.ok) {
-			throw new Error(`Could not fetch ${url}, status: ${result.status}`);
-		}
-		return await result.json();
-	};
 
 	//------------------------------------TEST---------------------------------------
+	// getResource = async (url) => { // образец запроса
+	// 	const result = await fetch(url);
+	// 	if (!result.ok) {
+	// 		throw new Error(`Could not fetch ${url}, status: ${result.status}`);
+	// 	}
+	// 	return await result.json();
+	// };
+	
 	// getAllChars = () => { // тестовые запросы
 	// 	return this.getResource(`${this._apiBase}characters?${this._apiTs}&${this._apiPrivateKey}&${this._apiHash}`);
 	// }
@@ -38,7 +38,7 @@ class MarvelService { // в данном случае не нужен препр
 
 	getAllCharacters = async (offset = this._apiBaseOffset) => { // метод получения целого объекта, содержащего все персонажи /v1/public/characters из асинхронной функции, аргумент offset = this._apiBaseOffset делает функцию getAllCharacters() более гибкой для манипуляций со стороны, так как она будет отталкиваться от аргумента, а если мы его не передаем, то по умолчанию offset = 210
 		const result = await this.getResources(`${this._apiBase}characters?limit=9&offset=${offset}&${this._apiPrivateKey}`); // сохраним промежуточный результат в переменную result как большой объект, в котором есть массив с полученными результатами
-		return result.data.results.map(this._transformCharacter) // большой массив содержится в result.data.results и так как это массив, мы можем применить метод map() для формирования массива с новыми объектами по порядку, полученными из метода _transformCharacter()
+		return result.data.results.map(this._transformCharacter); // большой массив содержится в result.data.results и так как это массив, мы можем применить метод map() для формирования массива с новыми объектами по порядку, полученными из метода _transformCharacter()
 	}
 
 	getCharacter = async (id) => { // метод получения только одного конкретного персонажа по ID /v1/public/characters/{characterid} из асинхронной функции
@@ -51,7 +51,7 @@ class MarvelService { // в данном случае не нужен препр
             id: character.id, // данный id приходит из данных каждого персонажа, по нему идет заполнение карточек в компоненте CharList
 			name: character.name, // чтобы null заменил на реальные данные нужно: берем получаемый результат character как один большой объект, ссылаемся на свойство data /полученные данные от сервера/ и выбираем в data поле results /массив с данными/, и так как берем один персонаж - [0] и берем его name
 			// description: character.description ? `${character.description.slice(0, 210)}...` : '!!! There is no description for this character !!!', // стандартное условие: если character.description в true, то обрезаем длину по 210 символ, если в false - выводим сообщение
-			description: character.description ? `${character.description.slice(0, 210)}...` : errorMessageText,
+			description: character.description ? `${character.description.slice(0, 210)}...` : errorMessageText, // если есть описание персонажа, то обрезаем длину текста по 210 символ, иначе выводим сообщение об ошибке
 			thumbnail: character.thumbnail.path + '.' + character.thumbnail.extension, // прописываем путь к картинке с соответствующими полями path и extension
 			homepage: character.urls[0].url,
 			wiki: character.urls[1].url,

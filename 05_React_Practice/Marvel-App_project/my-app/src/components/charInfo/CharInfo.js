@@ -21,7 +21,7 @@ class CharInfo extends Component {
 		error: false,
 	}
 
-	marvelService = new MarvelService();
+	marvelService = new MarvelService(); // создаем новый экземпляр компонента MarvelService()
 
 	componentDidMount () { // ХУК этапа монтажа компонента с обновлением данных персонажа, который указывает, что компонент отрендерился
 		this.updateCharacter(); 
