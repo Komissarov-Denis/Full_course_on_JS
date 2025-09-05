@@ -1,5 +1,5 @@
 // REF - это ссылка на элемент или компонент в DOM дереве в уже отрисованном интерфейсе на странице браузера, поэтому можно использовать DOM API !!!
-// могут назначаться как в ХУКАХ как componentDidMount(), так и перед componentDidMount() и componentDidUpdate(), но нельзя назначать на функциональные компоненты
+// могут назначаться в ХУКАХ как componentDidMount(), так и перед componentDidMount() и componentDidUpdate(), но нельзя назначать на функциональные компоненты
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 
