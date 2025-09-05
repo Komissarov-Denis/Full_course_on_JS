@@ -42,6 +42,7 @@ class CharInfo extends Component {
 		}
 
 		this.onCharacterLoading(); // будет отображаться Spinner при процессе загрузки
+
 		this.marvelService // если в characterId есть данные, то делаем запрос на сервер
 			.getCharacter(characterId) // когда придет ответ от нашего сервиса marvelService по characterId в формате одного объекта с персонажем =>
 			.then(this.onCharacterLoaded) // он попадет в onCharacterLoaded в качестве аргумента character и запишется в наше состояние state
@@ -147,7 +148,7 @@ const View = ({character}) => {
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' || 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif') {
         imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки на вместить в блок при возникновении картинки с указанием отсутствия изображения
     }
-	return ( // используем React фрагмент, так как нет ни одного родительского компонента
+	return ( // используем React фрагмент <>...</>, так как нет ни одного родительского компонента
 		<> 			
 			<div className="char__basics">
 				<img src={thumbnail} alt={name} style={imgStyle}/>
@@ -178,6 +179,8 @@ const View = ({character}) => {
 						)
 					})
 				}
+
+
 				{/* <li className="char__comics-item">
 					All-Winners Squad: Band of Heroes (2011) #3
 				</li>
@@ -208,13 +211,15 @@ const View = ({character}) => {
 				<li className="char__comics-item">
 					Avengers (1996) #1
 				</li> */}
+
+
 			</ul>
 		</>
 	)
 }
 
 CharInfo.propTypes = {
-	characterId: PropTypes.number, // не проверяет PropTypes в React19, не работает...
+	characterId: PropTypes.string, // не проверяет PropTypes в React19, не работает...
 }
 
 export default CharInfo;

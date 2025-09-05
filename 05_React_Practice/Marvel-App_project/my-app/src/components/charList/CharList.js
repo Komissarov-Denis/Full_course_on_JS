@@ -62,7 +62,7 @@ class CharList extends Component {
 			loading: false, // [...characterList, ...newCharacterList] разворачиваем старый массив и добавляем в него новые элементы, которые пришли от сервера в onRequest(offset) в .then(this.onCharacterListLoaded) уже с offset
 			newCharactersOnClickLoading: false, // => отрабатывает после onRequest() и как только тут персонажи загрузились, newCharactersOnClickLoading переключаем в false
 			offset: offset + 9, // состояние отступа offset будет прирастать по клику на кнопку: 210 + 9 = 219, 219 + 9 = 228 и т.д.
-			characterListEnded: characterListEnded, // 
+			characterListEnded: characterListEnded, // состояние переключается в true и помещается в setState()
 		})) // [...characterList, ...newCharacterList] ???????? есть серьезная проблема, спред разворачивает дубль не 9, а 18 персонажей, удваивая их???? видимо это связано с REACT19 и изначально characterList: [] === newCharacterList [], видимо нужно перересовывать первые 9 персонажей на последующие
 	}
 
@@ -80,7 +80,8 @@ class CharList extends Component {
 				imgStyle = {'objectFit' : 'unset'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
 			}		
 			return ( // в приеме ПОДЪЕМА СОСТОЯНИЯ, из родительского компонента App, получаем /props/ метода /onCharacterSelected()/ по каждому элементу /item/ персонажа с персональным /ID/, т.е по клику получаем id
-				<li	className="char__item"
+				<li
+					className="char__item"
 					key = {item.id} // данный ID получаем из компонента MarvelService из метода _transformCharacter() и применяем его как аттрибут key в <li>
 					onClick={() => this.props.onCharacterSelected(item.id)}> 
 					<img src={item.thumbnail} alt={item.name} style={imgStyle}/>
@@ -108,6 +109,7 @@ class CharList extends Component {
 				{errorMessageImg}
 				{spinner}
 				{content}
+
 				{/* <ul className="char__grid">
 					<li className="char__item">
 						<img src={abyss} alt="abyss"/>
@@ -146,6 +148,7 @@ class CharList extends Component {
 						<div className="char__name">Abyss</div>
 					</li>
 				</ul> */}
+
 				<button 
 					className="button button__main button__long"
 					disabled={newCharactersOnClickLoading} // переводим кнопку в состояние деактивирована/недоступна, чтобы пользователь не натыкал на нее множествами кликов и не сломал приложение

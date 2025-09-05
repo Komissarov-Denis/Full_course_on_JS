@@ -3,7 +3,7 @@ import { ErrorMessageImg } from "../errorMessage/ErrorMessage";
 
 class ErrorBoundary extends Component {
 
-	state = { // у компонента прописываем индивидуальное состояние, это основной и единственный state, у которого изначально нет ошибки error в false
+	state = { // у компонента прописываем индивидуальное состояние, это основной и единственный state, у которого изначально нет ошибки: error в false
 		error: false,
 	}    
 
@@ -14,7 +14,7 @@ class ErrorBoundary extends Component {
 	componentDidCatch(error, errorInfo) { // ХУК отлова ошибок с двумя аргументами error - сама ошибка, errorInfo - информация о том компоненте, в котором произошла ошибка
 		console.log(error, errorInfo); // СЕЙЧАС ПРИМЕНЯЮТСЯ ERROR BOUNDARIES!!!
 		this.setState({
-			error: true
+			error: true,
 		})
 	}
 
