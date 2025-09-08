@@ -88,7 +88,7 @@ const Wrapper = styled.div`
 
 //--------------------------------------------------------------данная конструкция называется ВСТАВКА!!!
 const DynamicGreatings = (props) => { // пример props.children - передаем пустым дочерним элементам <h2/> родительского компонента <DynamicGreatings/> свойства, из уже существующих, для их динамической замены
-	return (
+	return ( // className={'mb-3 p-3 border border-' + props.color} - это общее свойство всего компонента <DynamicGreatings/>, а {className: 'shadow p-3 m-3 border rounded'} - это динамически меняемые свойства пустых дочерних элементов <h2/>
 		<div className={'mb-3 p-3 border border-' + props.color}> 
 			{
 				React.Children.map(props.children, child => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //--------------------------------------------------------------данная конструкция называется ВСТАВКА!!!
 const DynamicGreatings = (props) => { // пример props.children - передаем пустым дочерним элементам <h2/> родительского компонента <DynamicGreatings/> свойства, из уже существующих, для их динамической замены
-	return (
+	return ( // className={'mb-3 p-3 border border-' + props.color} - это общее свойство всего компонента <DynamicGreatings/>, а {className: 'shadow p-3 m-3 border rounded'} - это динамически меняемые свойства пустых дочерних элементов <h2/>
 		<div className={'mb-3 p-3 border border-' + props.color}> 
 			{
 				React.Children.map(props.children, child => { // child - аргумент, ему применяем свойства бутстрапа и назначаем их на каждый клонированный элемент <DynamicGreatings/> через props.children
