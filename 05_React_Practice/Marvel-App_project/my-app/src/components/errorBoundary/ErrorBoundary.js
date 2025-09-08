@@ -23,7 +23,7 @@ class ErrorBoundary extends Component {
 			return <ErrorMessageImg/>
 		}
 
-		return this.props.children; // 
+		return this.props.children; // данная конструкция называется ВСТАВКА!!! передаем пустым дочерним элементам определенного родительского компонента свойства, из уже существующих, для их динамической замены
 	}    
 
 }

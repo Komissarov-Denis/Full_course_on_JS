@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-//--------------------------------------------------------------
-const DynamicGreatings = (props) => { // пример props.children
+//--------------------------------------------------------------данная конструкция называется ВСТАВКА!!!
+const DynamicGreatings = (props) => { // пример props.children - передаем пустым дочерним элементам <h2/> родительского компонента <DynamicGreatings/> свойства, из уже существующих, для их динамической замены
 	return (
 		<div className={'mb-3 p-3 border border-' + props.color}> 
 			{
 				React.Children.map(props.children, child => { // child - аргумент, ему применяем свойства бутстрапа и назначаем их на каждый клонированный элемент <DynamicGreatings/> через props.children
-					return React.cloneElement(child, {className: 'shadow p-3 m-3 border rounded'})
+					return React.cloneElement(child, {className: 'shadow p-3 m-3 border rounded'}) // React.cloneElement может принимать аргументы: (element, [config], [...children])
 				}) // всем наследуемым потомкам передаем через props общие одинаковые свойства, это очень оптимизирует работу
 			} 
 		</div>
