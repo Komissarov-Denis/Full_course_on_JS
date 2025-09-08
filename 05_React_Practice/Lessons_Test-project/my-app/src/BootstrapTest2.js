@@ -1,5 +1,5 @@
 import {Container, Row, Col} from 'react-bootstrap';
-
+//---------------------------------------------------второй вариант конструкции ВСТАВКА!!!
 const BootstrapTest2 = (props) => {
 	return (
 		<Container className='mt-5 mb-5'>
