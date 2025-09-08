@@ -54,6 +54,13 @@ function App () {
 	return (
 		<Wrapper>
 
+			<DynamicGreatings color={'primary'}>
+				<h2>This wheel was hard</h2>
+				<h2>Hallo world!</h2>
+			</DynamicGreatings>
+
+			<HalloGreatings/> 
+
 			<BootstrapTest2
 				left = {					
 					<DynamicGreatings color={'primary'}>
