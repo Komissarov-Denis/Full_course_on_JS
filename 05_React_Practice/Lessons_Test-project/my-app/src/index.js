@@ -19,9 +19,9 @@ const BigButton = styled(Button)`
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<StrictMode>
+		<Form/>
 		<App/>
 		<BigButton as="a">Отправить отчёт</BigButton>
 		<BootstrapTest/>
-		<Form/>
 	</StrictMode>	
 );
