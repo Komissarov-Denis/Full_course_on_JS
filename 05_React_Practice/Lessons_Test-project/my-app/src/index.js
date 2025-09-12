@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import BootstrapTest from './BootstrapTest';
 import Form from './BootstrapTest3';
+import SecondForm from'./BootstrapTest4';
 
 import { Button } from './App';
 
@@ -20,6 +21,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<StrictMode>
 		<Form/>
+		<SecondForm/>
 		<App/>
 		<BigButton as="a">Отправить отчёт</BigButton>
 		<BootstrapTest/>
