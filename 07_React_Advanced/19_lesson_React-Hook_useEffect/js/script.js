@@ -27,7 +27,7 @@ reportWebVitals();
 
 //---------------------------------------------App.js---------------------------------------------классовый компонент
 
-import {Component, useState} from 'react';
+import {Component, useState, useEffect} from 'react';
 import {Container} from 'react-bootstrap';
 
 import './App.css';
