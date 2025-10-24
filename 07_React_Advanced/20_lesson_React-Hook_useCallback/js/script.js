@@ -1,18 +1,38 @@
-// import {Component} from 'react';
+// Hooks (Хуки) - следует вызывать только на верхнем уровне, не вызываем их внутри циклов, условий или вложенных функций!!!
+// Hooks (Хуки) - следует вызывать только из функциональных компонентов React, не следует вызывать их из функций JavaScript!!!
+// Hooks (Хуки) и Lifecycle Hooks (Хуки Жизненного Цикла) - это разные вещи, так как componentDidMount(), componentDidUpdate()
+// и componentWillUnmount() относятся к Lifecycle Hooks, остальное просто Hooks - useState(), useEffect() и т.д.
+
+//---------------------------------------------index.js---------------------------------------------
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+
+import './index.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+//---------------------------------------------App.js---------------------------------------------
+
 import {useState, useEffect, useCallback} from 'react';
 import {Container} from 'react-bootstrap';
 
 import './App.css';
 
-// Hooks (Хуки) - следует вызывать только на верхнем уровне, не вызываем их внутри циклов, условий или вложенных функций!!!
-// Hooks (Хуки) - следует вызывать только из функциональных компонентов React, не следует вызывать их из функций JavaScript!!!
-// Hooks (Хуки) и Lifecycle Hooks (Хуки Жизненного Цикла) - это разные вещи, так как componentDidMount(), componentDidUpdate()
-// и componentWillUnmount() относятся к Lifecycle Hooks, остальное просто Hooks - useState(), useEffect(), useCallback и т.д.
-
-
-
 //-------------------------------------------------------------------------------------классовый компонент
-
 // class Slider extends Component {
 
 // 	constructor(props) {
@@ -22,17 +42,6 @@ import './App.css';
 // 			slide: 0
 // 		}
 // 	}
-
-// 	componentDidMount() {
-// 		document.title = `Slide: ${this.state.slide}`; // обратились к заголовку окна браузера и передали значение slide: 0, 
-// 	} // но без componentDidUpdate() значение меняться не будет, создаем componentDidUpdate() 
-
-// 	componentDidUpdate() {
-// 		document.title = `Slide: ${this.state.slide}`; // обратились к заголовку окна браузера и передали значение slide: 0,
-// 	} // в данном случае по клику в заголовке окна браузера изменяются данные состояния слайда, т.е. возникает эффект!!!
-
-// Но в данном случае идет повторение document.title = `Slide: ${this.state.slide}`; засоряющее код, избежать этого можно с 
-// помощью useEffect()
 
 // 	changeSlide = (i) => {
 // 		this.setState(({slide}) => ({
@@ -51,18 +60,6 @@ import './App.css';
 // 			<Container>
 // 				<div className="slider w-50 m-auto">
 // 					<img className="d-block w-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="slide" />
-// 					{
-// 						getSomeImages().map((url, i) => { // возьмем выше созданную функцию getSomeImages(), переберем ее элементы с помощью метода перебора map() с аргументами url - адрес изображения, 
-// 							return( // i - номер порядковый и вернем кусочек верстки с изображением. ОБЯЗАТЕЛЬНО НЕОБХОДИМО УКАЗАТЬ АТТРИБУТ key={i} с номером по-порядку, чтобы исключить повторы и ошибки!!! 
-// 								<img
-// 									key={i}
-// 									className="d-block w-100"
-// 									src={url}
-// 									alt="slide"
-// 								/>
-// 							)
-// 						})
-// 					}
 // 					<div className="text-center mt-5">Active slide {this.state.slide} <br/> {this.state.autoplay ? 'auto' : null}</div>
 // 					<div className="buttons mt-3">
 // 						<button 
