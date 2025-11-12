@@ -1,18 +1,38 @@
-// import {Component} from 'react';
+// Hooks (Хуки) - следует вызывать только на верхнем уровне, не вызываем их внутри циклов, условий или вложенных функций!!!
+// Hooks (Хуки) - следует вызывать только из функциональных компонентов React, не следует вызывать их из функций JavaScript!!!
+// Hooks (Хуки) и Lifecycle Hooks (Хуки Жизненного Цикла) - это разные вещи, так как componentDidMount(), componentDidUpdate()
+// и componentWillUnmount() относятся к Lifecycle Hooks, остальное просто Hooks - useState(), useEffect() и т.д.
+
+//---------------------------------------------index.js---------------------------------------------
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+
+import './index.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+//---------------------------------------------App.js---------------------------------------------
+
 import {useState, useEffect, useCallback, useMemo} from 'react';
 import {Container} from 'react-bootstrap';
 
 import './App.css';
 
-// Hooks (Хуки) - следует вызывать только на верхнем уровне, не вызываем их внутри циклов, условий или вложенных функций!!!
-// Hooks (Хуки) - следует вызывать только из функциональных компонентов React, не следует вызывать их из функций JavaScript!!!
-// Hooks (Хуки) и Lifecycle Hooks (Хуки Жизненного Цикла) - это разные вещи, так как componentDidMount(), componentDidUpdate()
-// и componentWillUnmount() относятся к Lifecycle Hooks, остальное просто Hooks - useState(), useEffect(), useCallback и т.д.
-
-
-
 //-------------------------------------------------------------------------------------классовый компонент
-
 // class Slider extends Component {
 
 // 	constructor(props) {
