@@ -33,7 +33,7 @@ class Form extends Component {
 	//---------------------------------------------------
 
 	setInputRef = (elem) => { // второй способ создания REF, это коллбэк REF, это когда мы их создаем не при помощи createRef, а при помощи функции и записываем как экземпляр класса
-		this.myRef = elem; // setInputRef - это метод, принимающий в себя аргумент elem, мы создаем реф this.myRef  со ссылкой на elem
+		this.myRef = elem; // setInputRef - это метод, принимающий в себя аргумент elem, мы создаем реф this.myRef со ссылкой на elem
 	} // по факту у нас функция setInputRef создает новое поле this.myRef и в него помещает ссылку на этот elem
 
 	focusFistTextInput = () => {
@@ -59,11 +59,12 @@ class Form extends Component {
 					</div>
 					<div class="mb-3">
 						<label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
-						<textarea onClick={this.ficusFistTextInput} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+						<textarea onClick={this.focusFistTextInput} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 					</div>
 				</form>
             </Container>
-        ) // вызываем функцию setInputRef() посредством ref={this.setInputRef}, когда создастся DOM структура <input/>, запустится ref={this.setInputRef} и она возьмет elem, на котором она была вызвана и запишет его в this.myRef = elem, т.е. в ссылку внутри экземпляра класса
+        ) // вызываем функцию setInputRef() посредством ref={this.setInputRef}, когда создастся DOM структура <input/>, запустится ref={this.setInputRef} и она возьмет elem, на котором она была 
+		// вызвана и запишет его в this.myRef = elem, т.е. в ссылку внутри экземпляра класса
     } // используем метод focusFistTextInput() на элементе <textarea/> по средством обработчика onClick, тогда при фокусе на второй input - идет перенаправление на первый input
 
 }
