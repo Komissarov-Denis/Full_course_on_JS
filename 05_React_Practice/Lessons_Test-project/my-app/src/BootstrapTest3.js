@@ -9,63 +9,43 @@
 // т.е не нужно выполнять отписку, как это обычно бывает с обычными обработчиками событий или интервалами во избежание утечки памяти. 
 // REF нельзя назначать на функциональные компоненты так как они не являются классами и они не создают экземпляры, соответственно мы компонент преобразуем в классовый и тогда
 // ошибки не будет!!!
+// useRef - мощный ХУК для создания рефов
 
-import React, { Component } from "react";
+import { useRef } from "react";
 import { Container } from "react-bootstrap";
 
 import './App.css';
 
-class Form extends Component {
-
-	//----------------------------------------------------первый классовый функционал
-    // constructor(props) {
-    //     super(props);
-	// 	this.myRef = React.createRef(); // можно заменить без контекста конструктора =>
-    // }
-	// =>
-	// myRef = React.createRef(); // стандартный способ создания REF
-	// mySecondRef = React.createRef();	
-	// myThirdRef = React.createRef();
-
-	// componentDidMount() {
-	// 	this.myRef.current.focus(); // метод current - обязательный для данной структуры, НЕ ЗАБЫВАЕМ ПРО НЕГО!!!
-	// }
-	//---------------------------------------------------
-
-	setInputRef = (elem) => { // второй способ создания REF, это коллбэк REF, это когда мы их создаем не при помощи createRef, а при помощи функции и записываем как экземпляр класса
-		this.myRef = elem; // setInputRef - это метод, принимающий в себя аргумент elem, мы создаем реф this.myRef со ссылкой на elem
-	} // по факту у нас функция setInputRef создает новое поле this.myRef и в него помещает ссылку на этот elem
-
-	focusFistTextInput = () => {
-		if (this.myRef) { // проверяем наличие или создание элемента input, только тогда запускаем focus()
-			this.myRef.focus(); // в данном случае коллбэк рефа свойство current не требуется
-		}
+const Form = () => { // создаем переменную формы Form, в Form создаем переменную myRef, при помощи метода useRef() для использования ХУКА useRef() и помещаем начальное значение рефа (null),
+	const myRef = useRef(null); // т.к. в переменной изначально ничего не будет, но как только приложение создаст верстку <Container>, вместо (null) будет помещена ссылка на элемент в DOM структуре
+	
+	const focusFistTextInput = () => {
+		myRef.current.focus(); // метод current - обязательный для данной структуры, НЕ ЗАБЫВАЕМ ПРО НЕГО!!!
 	}
 
-    render () {
-        return (
-            <Container>
-                <form className="w-50 border mt-5 mb-5 p-3 m-auto">
-					<div class="mb-3">
-						<label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
-						<input	
-							// ref={this.myRef} - первый способ создания REF
-							ref={this.setInputRef} //- второй способ создания REF
-							type="email" 
-							className="form-control" 
-							id="exampleFormControlInput1" 
-							placeholder="name@example.com"
-						/>
-					</div>
-					<div class="mb-3">
-						<label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
-						<textarea onClick={this.focusFistTextInput} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-					</div>
-				</form>
-            </Container>
-        ) // вызываем функцию setInputRef() посредством ref={this.setInputRef}, когда создастся DOM структура <input/>, запустится ref={this.setInputRef} и она возьмет elem, на котором она была 
-		// вызвана и запишет его в this.myRef = elem, т.е. в ссылку внутри экземпляра класса
-    } // используем метод focusFistTextInput() на элементе <textarea/> по средством обработчика onClick, тогда при фокусе на второй input - идет перенаправление на первый input
+    
+	return (
+		<Container>
+			<form className="w-50 border mt-5 mb-5 p-3 m-auto">
+				<div class="mb-3">
+					<label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+					<input	
+						ref={myRef}
+						type="email" 
+						className="form-control" 
+						id="exampleFormControlInput1" 
+						placeholder="name@example.com"
+					/>
+				</div>
+				<div class="mb-3">
+					<label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+					<textarea onClick={focusFistTextInput} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+				</div>
+			</form>
+		</Container>
+	) // вызываем функцию setInputRef() посредством ref={this.setInputRef}, когда создастся DOM структура <input/>, запустится ref={this.setInputRef} и она возьмет elem, на котором она была 
+	// вызвана и запишет его в this.myRef = elem, т.е. в ссылку внутри экземпляра класса
+	// используем метод focusFistTextInput() на элементе <textarea/> по средством обработчика onClick, тогда при фокусе на второй input - идет перенаправление на первый input
 
 }
 export default Form;
