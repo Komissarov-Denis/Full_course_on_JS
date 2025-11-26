@@ -4,6 +4,7 @@
     &__header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
     &__title {
         font-weight: bold;
@@ -27,5 +28,8 @@
                 }
             }
         }
+    }
+    &__decoration {
+        width: 340px;
     }
 }

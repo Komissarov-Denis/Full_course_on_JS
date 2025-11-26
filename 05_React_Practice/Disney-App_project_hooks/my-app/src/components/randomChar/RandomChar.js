@@ -5,7 +5,7 @@ import { ErrorMessageImg } from '../errorMessage/ErrorMessage';
 
 import './randomChar.scss';
 
-import mjolnir from '../../resources/img/mjolnir.png';
+import logo from '../../resources/img/disney_logo_img.gif';
 
 
 class RandomChar extends Component {
@@ -103,10 +103,10 @@ class RandomChar extends Component {
 					<p className="randomchar__title">
 						Or choose another one
 					</p>
-					<button onClick={this.updateCharacter} className="button button__main">
+					<button onClick={this.updateCharacter} className="button button__main" type="button">
 						<div className="inner">try it</div>
 					</button>
-					<img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
+					<img src={logo} alt="disney-logo" className="randomchar__decoration"/>
 				</div>
 			</div>
 		) // <button onClick={this.updateCharacter} className="button button__main"> - через контекст вызова /this./ вызываем по клику на кнопку /try it/ выполнение метода updateCharacter()
