@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import Spinner from '../spinner/Spinner';
-import MarvelService from '../../services/MarvelService';
+import DisneyService from '../../services/DisneyService';
 import { ErrorMessageImg } from '../errorMessage/ErrorMessage';
 
 import './charList.scss';
@@ -22,7 +22,7 @@ class CharList extends Component {
 		characterListEnded: false, // данное состояние указывает на окончание списка персонажей, первоначально оно в false, но по окончании списка будет переключаться в true
 	}
 	
-	marvelService = new MarvelService(); // применим СИНТАКСИС ПОЛЕЙ КЛАССОВ и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
+	disneyService = new DisneyService(); // применим СИНТАКСИС ПОЛЕЙ КЛАССОВ и создадим в переменной disneyService новый экземпляр или нового потомка класса disneyService() внутри класса RandomChar
 
 	componentDidMount () { // в момент создания компонента первый раз, запускается метод onRequest() без аргумента, т.е. offset = null =>
 		this.onRequest(); // при первом запуске состояние this.onCharacterListLoading(), а именно setState({newCharactersOnClickLoading: false,}) переключится в true
@@ -30,9 +30,9 @@ class CharList extends Component {
 		// this.foo.bar = 0; // вносим для проверки ErrorBoundary несуществующее свойство
 	}
 	//=>
-	onRequest = (offset) => { // далее уходит запрос к серверу и в offset ничего не передается, а это значит что из модуля MarvelService() будет подставлен базовый отступ offset = this._apiBaseOffset = 210 =>
+	onRequest = (offset) => { // далее уходит запрос к серверу и в offset ничего не передается, а это значит что из модуля disneyService() будет подставлен базовый отступ offset = this._apiBaseOffset = 210 =>
  		this.onCharacterListLoading(); // при первом запуске данного метода, состояние объекта setState({newCharactersOnClickLoading}) переключится в позицию true, это нормально, так как интерфейс не построен, но после первичной загрузки данных персонажей, нам нужно состояние объекта setState({newCharactersOnClickLoading}) перевести в false через метод onCharacterListLoaded() => {this.setState(({offset, characterList}) => ({loading: false,}))
-		this.marvelService
+		this.disneyService
 			.getAllCharacters(offset) // но, при повторном изменении компонента, при клике на кнопку, в offset будет подставляться число, которое будет формировать новый запрос
 			// .then(this.onFirstCharacterListLoaded)
 			.then(this.onCharacterListLoaded) // при получении данных персонажей от сервера, запускаем onCharacterListLoaded(), который принимает как аргумент newCharacterList новые данные персонажей, из этих новых данных формируется characterList: [...characterList, ...newCharacterList], при первом запуске подразумевалось, что в characterList: [] - пустой массив, а будет только newCharacterList с новыми данными персонажей и оба массива будут объединяться
@@ -83,7 +83,7 @@ class CharList extends Component {
 			return ( // в приеме ПОДЪЕМА СОСТОЯНИЯ, из родительского компонента App, получаем /props/ метода /onCharacterSelected()/ по каждому элементу /item/ персонажа с персональным /ID/, т.е по клику получаем id
 				<li
 					className="char__item"
-					key = {item.id} // данный ID получаем из компонента MarvelService из метода _transformCharacter() и применяем его как аттрибут key в <li>
+					key = {item.id} // данный ID получаем из компонента disneyService из метода _transformCharacter() и применяем его как аттрибут key в <li>
 					onClick={() => this.props.onCharacterSelected(item.id)}> 
 					<img src={item.thumbnail} alt={item.name} style={imgStyle}/>
 					<div className="char__name">{item.name}</div>

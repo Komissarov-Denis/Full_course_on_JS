@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import Spinner from '../spinner/Spinner';
-import MarvelService from '../../services/MarvelService';
+import DisneyService from '../../services/DisneyService';
 import { ErrorMessageImg } from '../errorMessage/ErrorMessage';
 
 import './randomChar.scss';
@@ -26,8 +26,8 @@ class RandomChar extends Component {
 		error: false, // параметр при ошибке 404, обрабатываем как замена на другого персонажа при отсутствии данных по текущему персонажу		
 	}
 
-	marvelService = new MarvelService(); // применим СИНТАКСИС ПОЛЕЙ КЛАССОВ и создадим в переменной marvelService новый экземпляр или нового потомка класса MarvelService() внутри класса RandomChar
-	// marvelService.getAllCharacters().then(result => result.data.results.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data.results, чтобы перебрать элементы массива по именам - применим метод forEach()
+	disneyService = new DisneyService(); // применим СИНТАКСИС ПОЛЕЙ КЛАССОВ и создадим в переменной disneyService новый экземпляр или нового потомка класса disneyService() внутри класса RandomChar
+	// disneyService.getAllCharacters().then(result => result.data.results.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data.results, чтобы перебрать элементы массива по именам - применим метод forEach()
 	
 	componentDidMount () { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
 		this.updateCharacter();
@@ -67,11 +67,11 @@ class RandomChar extends Component {
 	updateCharacter = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова
 		const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); // для получения СЛУЧАЙНОГО id применим метод Math.floor() для округления результата, так как id только целые числа
 		this.onCharacterLoading(); // при обновлении данных персонажа, реализуем спиннер, чтобы видеть процесс загрузки, когда Loading/загрузка имеет значение true
-		this.marvelService
+		this.disneyService
 			.getCharacter(id) // данные персонажа /объект/ будем получать по уникальному идентификатору и передавать в аргумент коллбэк функции .then(character => {})
 			// .then(result => { // далее result /объект/ передаем в this.setState(result)
 				// this.setState(result) // тут нет зависимости от предыдущего state потому, что каждый раз приходит какой-то другой персонаж, даже если это один и тот же..., поэтому раскрываем объект и формируем =>				
-			// }) // весь result /объект/ передается из _transformCharacter  '../../services/MarvelService.js'
+			// }) // весь result /объект/ передается из _transformCharacter  '../../services/disneyService.js'
 			// .getAllCharacters().then(character => console.log(character)) // тестовый вариант для проверки получения всего массива персонажей для .getAllCharacters()
 			.then(this.onCharacterLoaded) // при использовании промисов в цепочке через /.then()/, если в данную функцию updateCharacter() приходит аргумент /character/ из onCharacterLoaded(), то в /this.onCharacterLoaded/ подставляется данный аргумент через /.then()/, т.е. character запишется внутрь state
 			.catch(this.onError); // данный метод отлавливает и отображает ошибку при возникновении её в загруженных данных

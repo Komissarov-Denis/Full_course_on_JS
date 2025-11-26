@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types'; // не работает теперь в React19
 import Spinner from '../spinner/Spinner';
-import MarvelService from '../../services/MarvelService';
+import DisneyService from '../../services/DisneyService';
 import { ErrorMessageImg } from '../errorMessage/ErrorMessage';
 import Skeleton from '../skeleton/Skeleton';
 
@@ -21,7 +21,7 @@ class CharInfo extends Component {
 		error: false,
 	}
 
-	marvelService = new MarvelService(); // создаем новый экземпляр компонента MarvelService()
+	disneyService = new DisneyService(); // создаем новый экземпляр компонента DisneyService()
 
 	componentDidMount () { // ХУК этапа монтажа компонента с обновлением данных персонажа, который указывает, что компонент отрендерился
 		this.updateCharacter(); 
@@ -43,8 +43,8 @@ class CharInfo extends Component {
 
 		this.onCharacterLoading(); // будет отображаться Spinner при процессе загрузки
 
-		this.marvelService // если в characterId есть данные, то делаем запрос на сервер
-			.getCharacter(characterId) // когда придет ответ от нашего сервиса marvelService по characterId в формате одного объекта с персонажем =>
+		this.disneyService // если в characterId есть данные, то делаем запрос на сервер
+			.getCharacter(characterId) // когда придет ответ от нашего сервиса disneyService по characterId в формате одного объекта с персонажем =>
 			.then(this.onCharacterLoaded) // он попадет в onCharacterLoaded в качестве аргумента character и запишется в наше состояние state
 			.catch(this.onError); // если произошла ошибка, то обрабатываем ее методом catch()
 
