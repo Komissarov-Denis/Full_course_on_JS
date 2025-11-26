@@ -5,7 +5,7 @@ import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
-import decoration from '../../resources/img/vision.png';
+import decoration from '../../resources/img/disney_vision.gif';
 
 class App extends Component {
 
@@ -35,7 +35,7 @@ class App extends Component {
 							<CharInfo characterId={this.state.selectedCharacter}/>							
 						</ErrorBoundary>
 					</div>
-					<img className="bg-decoration" src={decoration} alt="vision"/>
+					<img className="bg-decoration" src={decoration} alt="disney_vision"/>
 				</main>
 			</div>
 		)
