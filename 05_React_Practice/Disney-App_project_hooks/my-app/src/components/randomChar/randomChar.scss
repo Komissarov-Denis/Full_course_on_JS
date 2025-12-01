@@ -18,19 +18,22 @@
     }
     &__info {
         display: grid;
-        grid-template-rows: minmax(29px, auto) 90px 38px;
+        grid-template-rows: minmax(29px, auto) 40px 29px 29px 29px;
         row-gap: 10px;
         padding-top: 3px;
     }
-    &__name {
+    &__name{
         font-weight: bold;
         font-size: 22px;
         line-height: 29px;
         text-transform: uppercase;
     }
-    &__descr {
+    &__descr, &__shortFilms, &__tvShows, &__videoGames, &__parkAttractions {
         font-size: 14px;
         line-height: 18px;
+        span {
+            font-weight: bold;
+        }
     }
     &__btns {
         a:nth-child(1) {
