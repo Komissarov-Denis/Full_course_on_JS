@@ -1,4 +1,4 @@
-import {ErrorMessageText} from '../components/errorMessage/ErrorMessage.js';
+import { ErrorMessageText } from '../components/errorMessage/ErrorMessage.js';
 	const errorMessageText = <ErrorMessageText/>;
 	
 class DisneyService { // в данном случае не нужен препроцессор JSX и Props, не наследуем компонент и не прописываем данный класс как в React Component принято, а прописываем как отдельный класс на чистом JavaScript
@@ -38,7 +38,7 @@ class DisneyService { // в данном случае не нужен препр
 	} //&offset=${offset}
 
 	getCharacter = async (id) => { // метод получения только одного конкретного персонажа по ID из асинхронной функции
-		const result = await this.getResources(`${this._apiBase}character/${id}?page=1&pageSize=10104`); // сохраним промежуточный результат в переменную result
+		const result = await this.getResources(`${this._apiBase}character/${id}?`); // сохраним промежуточный результат в переменную result
 		console.log(result);
 		return this._transformCharacter(result.data); // в _transformCharacter(result) передаем полученный большой объект для трансформации
 	}
@@ -47,17 +47,17 @@ class DisneyService { // в данном случае не нужен препр
 		console.log(character);
 		return { // это и есть трансформация данных!!!
             id: character._id, // данный id приходит из данных каждого персонажа, по нему идет заполнение карточек в компоненте CharList
-			name: character.name, // чтобы null заменился на реальные данные нужно: взять получаемый результат character как один большой объект, сослаться на свойство data /полученные данные от сервера/ и выбирать в data поле [с индексом] /массив с данными/, и т.е. берем один персонаж - [0] со значением name
+			name: character.name ? `${character.name.slice(0, 210)} ...` : errorMessageText, // чтобы null заменился на реальные данные нужно: взять получаемый результат character как один большой объект, сослаться на свойство data /полученные данные от сервера/ и выбирать в data поле [с индексом] /массив с данными/, и т.е. берем один персонаж - [0] со значением name
 			// description: character.description ? `${character.description.slice(0, 210)}...` : '!!! There is no description for this character !!!', // стандартное условие: если character.description в true, то обрезаем длину по 210 символ, если в false - выводим сообщение
 			// description: character.description ? `${character.description.slice(0, 210)}...` : errorMessageText, // если есть описание персонажа, то обрезаем длину текста по 210 символ, иначе выводим сообщение об ошибке
 			thumbnail: character.imageUrl, // прописываем путь к картинке с соответствующими полями path и extension
 			// homepage: character.urls[0].url,
 			// wiki: character.urls[1].url,
 			// comics: character.comics.items, // получаем данные для компонента CharInfo по комиксам
-			shortFilms: character.shortFilms,
-			tvShows: character.tvShows,
-			videoGames: character.videoGames,
-			parkAttractions: character.parkAttractions,		
+			shortFilms: character.shortFilms ? `${character.shortFilms.slice(0, 210)} ...` : errorMessageText,
+			tvShows: character.tvShows ? `${character.tvShows.slice(0, 210)} ...` : errorMessageText,
+			videoGames: character.videoGames ? `${character.videoGames.slice(0, 210)} ...` : errorMessageText,
+			parkAttractions: character.parkAttractions ? `${character.parkAttractions.slice(0, 210)} ...` : errorMessageText,
 				
 		}		
 	}

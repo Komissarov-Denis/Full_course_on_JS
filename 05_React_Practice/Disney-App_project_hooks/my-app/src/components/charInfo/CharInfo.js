@@ -143,7 +143,7 @@ class CharInfo extends Component {
 }
 
 const View = ({character}) => {
-	const {name, description, thumbnail, homepage, wiki, comics} = character;
+	const {name, thumbnail, homepage, wiki, comics} = character;
     let imgStyle = {'objectFit' : 'cover'}; // создаем объект картинки со свойством заполнить блок 
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' || 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif') {
         imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки на вместить в блок при возникновении картинки с указанием отсутствия изображения

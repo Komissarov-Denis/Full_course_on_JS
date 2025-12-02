@@ -30,18 +30,18 @@ class RandomChar extends Component {
 	// disneyService.getAllCharacters().then(result => result.data.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data, чтобы перебрать элементы массива по именам - применим метод forEach()
 	
 	componentDidMount () { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
-		this.updateCharacter();
+		this.updateCharacter(); // т.е. на данном этапе ВЫПОЛНЯЮТСЯ ЗАПРОСЫ К СЕРВЕРУ И ОБНОВЛЕНИЯ
 		// this.timerId = setInterval(this.updateCharacter, 3200000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
-		// console.log('RandomChar mounted');
+		console.log('RandomChar mounted');
 	}
 
 	componentDidUpdate () { // ХУК этапа обновления компонента
-		// console.log('RandomChar updated');
+		console.log('RandomChar updated');
 	}
 
 	componentWillUnmount () { // ХУК этапа демонтажа компонента по прохождению определенного интервала времени
 		clearInterval(this.timerId); // размонтирование компонента и направляется новый запрос после демонтажа
-		// console.log('RandomChar unmounted');
+		console.log('RandomChar unmounted');
 	}
 
 	onCharacterLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
@@ -65,7 +65,7 @@ class RandomChar extends Component {
 	}
 	
 	updateCharacter = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова
-		const id = Math.floor(Math.random() * (10104 - 8000) + 8000); // для получения СЛУЧАЙНОГО id применим метод Math.floor() для округления результата, так как id только целые числа
+		const id = Math.floor(Math.random() * (600 - 40) + 40); // для получения СЛУЧАЙНОГО id применим метод Math.floor() для округления результата, так как id только целые числа /Math.random() * (max - min) + min;/
 		this.onCharacterLoading(); // при обновлении данных персонажа, реализуем спиннер, чтобы видеть процесс загрузки, когда Loading/загрузка имеет значение true
 		this.disneyService
 			.getCharacter(id) // данные персонажа /объект/ будем получать по уникальному идентификатору и передавать в аргумент коллбэк функции .then(character => {})
@@ -80,7 +80,7 @@ class RandomChar extends Component {
 	}
 
 	render() { // применим принцип деструктуризации объекта character{}
-		// console.log('RandomChar rendered'); // тест этапа рендеринга
+		console.log('RandomChar rendered'); // тест этапа рендеринга
 		const {character, loading, error} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
 		const errorMessageImg = error ? <ErrorMessageImg/> : null; // в переменной errorMessageImg будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - "ничего"
 		const spinner = loading ? <Spinner/> : null; // в переменной spinner будет содержаться: при загрузке - либо компонент Spinner, либо при её отсутствии - "ничего"
@@ -114,23 +114,23 @@ class RandomChar extends Component {
 }
 
 const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМПОНЕНТ" без логики, данный компонент будет отображать определенный кусочек верстки и он в качестве аргумента принимает /character/ объект с данными о персонаже
-	const {name, description, thumbnail, homepage, wiki, shortFilms, tvShows, videoGames, parkAttractions} = character; 
+	const {name, thumbnail, homepage, wiki, shortFilms, tvShows, videoGames, parkAttractions} = character; 
 	console.log(character);
     let imgStyle = {'objectFit' : 'cover'};
-    if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' || 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif') {
+	console.log(thumbnail)
+    if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' || 'undefined') {
         imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
     }
-
+	
 	return ( // возвращаем кусочек верстки
 		<div className="randomchar__block">
 			<img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle}/>
 			<div className="randomchar__info">
 				<p className="randomchar__name">Name: {name}</p>
-				<p className="randomchar__shortFilms"><span>Short Films:</span> {shortFilms}</p>
 				<p className="randomchar__tvShows"><span>Tv Shows:</span> {tvShows}</p>
+				<p className="randomchar__shortFilms"><span>Short Films:</span> {shortFilms}</p>
 				<p className="randomchar__videoGames"><span>Video Games:</span> {videoGames}</p>
 				<p className="randomchar__parkAttractions"><span>Park Attractions:</span> {parkAttractions}</p>
-				{/* <p className="randomchar__descr">{description}</p> */}
 				<div className="randomchar__btns">
 					<a href={homepage} className="button button__main">
 						<div className="inner">homepage</div>
