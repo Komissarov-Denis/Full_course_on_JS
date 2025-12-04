@@ -143,9 +143,10 @@ class CharInfo extends Component {
 }
 
 const View = ({character}) => {
-	const {name, thumbnail, homepage, wiki, comics} = character;
+	const {name, thumbnail, homepage, wiki, films, tvShows, shortFilms, videoGames, parkAttractions} = character;
+	console.log(films);
     let imgStyle = {'objectFit' : 'cover'}; // создаем объект картинки со свойством заполнить блок 
-    if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' || 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif') {
+    if (thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || 'undefined') {
         imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки на вместить в блок при возникновении картинки с указанием отсутствия изображения
     }
 	return ( // используем React фрагмент <>...</>, так как нет ни одного родительского компонента
@@ -164,17 +165,16 @@ const View = ({character}) => {
 					</div>
 				</div>
 			</div>
-			{/* <div className="char__descr">{description}</div> */}
-			<div className="char__comics">Comics:</div>
-			<ul className="char__comics-list">
-				{comics.length > 0 ? null : 'There is no comics with this character'} 
-				{ // если количество комиксов больше нуля, то ничего не выводим, иначе - выводим сообщение
-					comics.map((item, i) => { // данная функция будет перебирать методом map() комиксы как item с индексом i по порядку, {item.name} - название комикса, 
+			<div className="char__films">Films: </div>
+			<ul className="char__films-list">
+				{films.length > 0 ? null : 'There is no Films with this character...'} 
+				{ // если количество фильмов больше нуля, то ничего не выводим, иначе - выводим сообщение
+					films.map((item, i) => { // данная функция будет перебирать методом map() комиксы как item с индексом i по порядку, {item.name} - название комикса, 
 						// eslint-disable-next-line
 						if (i > 9) return; // ограничивает количество строк комиксов в 10 штук, но если комиксов будет больше 1000, то производительность просядет, так как цикл продолжит передирать все комиксы, поэтому ESLint ругается и просит переписать на цикл в break
 						return ( // в атрибут key={i} ставим номер по порядку, так как комиксы динамически меняться не будут, при нажатии на конкретного персонажа данные его полностью заменяются в верстке
-							<li key={i} className="char__comics-item">
-								{item.name}
+							<li key={i} className="char__films-item">
+								{item}
 							</li>
 						)
 					})
@@ -212,7 +212,66 @@ const View = ({character}) => {
 					Avengers (1996) #1
 				</li> */}
 
-
+			</ul>
+			<div className="char__tvShows">Tv Shows: </div>
+			<ul className="char__tvShows-list">
+				{tvShows.length > 0 ? null : 'There is no Tv Shows with this character...'} 
+				{ // если количество шоу больше нуля, то ничего не выводим, иначе - выводим сообщение
+					tvShows.map((item, i) => { // данная функция будет перебирать методом map() комиксы как item с индексом i по порядку, {item.name} - название комикса, 
+						// eslint-disable-next-line
+						if (i > 9) return; // ограничивает количество строк комиксов в 10 штук, но если комиксов будет больше 1000, то производительность просядет, так как цикл продолжит передирать все комиксы, поэтому ESLint ругается и просит переписать на цикл в break
+						return ( // в атрибут key={i} ставим номер по порядку, так как комиксы динамически меняться не будут, при нажатии на конкретного персонажа данные его полностью заменяются в верстке
+							<li key={i} className="char__tvShows-item">
+								{item}
+							</li>
+						)
+					})
+				}
+			</ul>
+			<div className="char__shortFilms">Short Films: </div>
+			<ul className="char__shortFilms-list">
+				{shortFilms.length > 0 ? null : 'There is no Short Films with this character...'} 
+				{ // если количество шоу больше нуля, то ничего не выводим, иначе - выводим сообщение
+					shortFilms.map((item, i) => { // данная функция будет перебирать методом map() комиксы как item с индексом i по порядку, {item.name} - название комикса, 
+						// eslint-disable-next-line
+						if (i > 9) return; // ограничивает количество строк комиксов в 10 штук, но если комиксов будет больше 1000, то производительность просядет, так как цикл продолжит передирать все комиксы, поэтому ESLint ругается и просит переписать на цикл в break
+						return ( // в атрибут key={i} ставим номер по порядку, так как комиксы динамически меняться не будут, при нажатии на конкретного персонажа данные его полностью заменяются в верстке
+							<li key={i} className="char__shortFilms-item">
+								{item}
+							</li>
+						)
+					})
+				}
+			</ul>
+			<div className="char__videoGames">Video Games: </div>
+			<ul className="char__videoGames-list">
+				{videoGames.length > 0 ? null : 'There is no Video Games with this character...'} 
+				{ // если количество шоу больше нуля, то ничего не выводим, иначе - выводим сообщение
+					videoGames.map((item, i) => { // данная функция будет перебирать методом map() комиксы как item с индексом i по порядку, {item.name} - название комикса, 
+						// eslint-disable-next-line
+						if (i > 9) return; // ограничивает количество строк комиксов в 10 штук, но если комиксов будет больше 1000, то производительность просядет, так как цикл продолжит передирать все комиксы, поэтому ESLint ругается и просит переписать на цикл в break
+						return ( // в атрибут key={i} ставим номер по порядку, так как комиксы динамически меняться не будут, при нажатии на конкретного персонажа данные его полностью заменяются в верстке
+							<li key={i} className="char__videoGames-item">
+								{item}
+							</li>
+						)
+					})
+				}
+			</ul>
+			<div className="char__parkAttractions">Park Attractions: </div>
+			<ul className="char__parkAttractions-list">
+				{parkAttractions.length > 0 ? null : 'There is no Park Attractions with this character...'} 
+				{ // если количество шоу больше нуля, то ничего не выводим, иначе - выводим сообщение
+					parkAttractions.map((item, i) => { // данная функция будет перебирать методом map() комиксы как item с индексом i по порядку, {item.name} - название комикса, 
+						// eslint-disable-next-line
+						if (i > 9) return; // ограничивает количество строк комиксов в 10 штук, но если комиксов будет больше 1000, то производительность просядет, так как цикл продолжит передирать все комиксы, поэтому ESLint ругается и просит переписать на цикл в break
+						return ( // в атрибут key={i} ставим номер по порядку, так как комиксы динамически меняться не будут, при нажатии на конкретного персонажа данные его полностью заменяются в верстке
+							<li key={i} className="char__parkAttractions-item">
+								{item}
+							</li>
+						)
+					})
+				}
 			</ul>
 		</>
 	)

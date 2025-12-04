@@ -30,35 +30,45 @@ class DisneyService { // в данном случае не нужен препр
 		}
 		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через цепочку .then() - так как это АСИНХРОННЫЙ КОД + await() дожидается обработки данных в result.json()!!!
 	};
-	//offset = this._apiBaseOffset
+	//offset = this._apiBaseOffset // page=1&pageSize=9
 	getAllCharacters = async () => { // метод получения целого объекта, содержащего все персонажи из асинхронной функции, аргумент offset = this._apiBaseOffset делает функцию getAllCharacters() более гибкой для манипуляций со стороны, так как она будет отталкиваться от аргумента, а если мы его не передаем, то по умолчанию offset = 0
 		const result = await this.getResources(`${this._apiBase}character?page=1&pageSize=9`); // сохраним промежуточный результат в переменную result как большой объект, в котором есть массив с полученными результатами
-		console.log(result);
+		// console.log(result);
 		return result.data.map(this._transformCharacter); // большой массив содержится в result.data и так как это массив, мы можем применить метод map() для формирования массива с новыми объектами по порядку, полученными из метода _transformCharacter()
 	} //&offset=${offset}
 
 	getCharacter = async (id) => { // метод получения только одного конкретного персонажа по ID из асинхронной функции
 		const result = await this.getResources(`${this._apiBase}character/${id}?`); // сохраним промежуточный результат в переменную result
-		console.log(result);
+		// console.log(result);
 		return this._transformCharacter(result.data); // в _transformCharacter(result) передаем полученный большой объект для трансформации
 	}
 		
 	_transformCharacter = (character) => { // не изменяемым методом _transformCharacter() будем трансформировать данные: получаем результат character в качестве аргумента и возвращаем трансформированный объект		
-		console.log(character);
+		// console.log(character.films.length);
+		// console.log(character.shortFilms.length);
+		// console.log(character.tvShows.length);
+		// console.log(character.videoGames.length);
+		// console.log(character.parkAttractions.length);
+		// console.log(character);
 		return { // это и есть трансформация данных!!!
             id: character._id, // данный id приходит из данных каждого персонажа, по нему идет заполнение карточек в компоненте CharList
-			name: character.name ? `${character.name.slice(0, 210)} ...` : errorMessageText, // чтобы null заменился на реальные данные нужно: взять получаемый результат character как один большой объект, сослаться на свойство data /полученные данные от сервера/ и выбирать в data поле [с индексом] /массив с данными/, и т.е. берем один персонаж - [0] со значением name
+			name: character.name ? `${character.name.slice(0, 210)}` : errorMessageText, // чтобы null заменился на реальные данные нужно: взять получаемый результат character как один большой объект, сослаться на свойство data /полученные данные от сервера/ и выбирать в data поле [с индексом] /массив с данными/, и т.е. берем один персонаж - [0] со значением name
 			// description: character.description ? `${character.description.slice(0, 210)}...` : '!!! There is no description for this character !!!', // стандартное условие: если character.description в true, то обрезаем длину по 210 символ, если в false - выводим сообщение
 			// description: character.description ? `${character.description.slice(0, 210)}...` : errorMessageText, // если есть описание персонажа, то обрезаем длину текста по 210 символ, иначе выводим сообщение об ошибке
 			thumbnail: character.imageUrl, // прописываем путь к картинке с соответствующими полями path и extension
 			// homepage: character.urls[0].url,
 			// wiki: character.urls[1].url,
 			// comics: character.comics.items, // получаем данные для компонента CharInfo по комиксам
-			shortFilms: character.shortFilms ? `${character.shortFilms.slice(0, 210)} ...` : errorMessageText,
-			tvShows: character.tvShows ? `${character.tvShows.slice(0, 210)} ...` : errorMessageText,
-			videoGames: character.videoGames ? `${character.videoGames.slice(0, 210)} ...` : errorMessageText,
-			parkAttractions: character.parkAttractions ? `${character.parkAttractions.slice(0, 210)} ...` : errorMessageText,
-				
+			films: character.films, // получаем данные для компонента CharInfo по фильмам
+			tvShows: character.tvShows,
+			shortFilms: character.shortFilms,
+			videoGames: character.videoGames,
+			parkAttractions: character.parkAttractions,
+			filmsLength: character.films.length,
+			shortFilmsLength: character.shortFilms.length,
+			tvShowsLength: character.tvShows.length,
+			videoGamesLength: character.videoGames.length,
+			parkAttractionsLength: character.parkAttractions.length,
 		}		
 	}
 }	

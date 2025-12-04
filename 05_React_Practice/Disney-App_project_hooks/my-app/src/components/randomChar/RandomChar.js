@@ -114,11 +114,11 @@ class RandomChar extends Component {
 }
 
 const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМПОНЕНТ" без логики, данный компонент будет отображать определенный кусочек верстки и он в качестве аргумента принимает /character/ объект с данными о персонаже
-	const {name, thumbnail, homepage, wiki, shortFilms, tvShows, videoGames, parkAttractions} = character; 
-	console.log(character);
+	const {name, thumbnail, homepage, wiki, filmsLength, tvShowsLength, shortFilmsLength, videoGamesLength, parkAttractionsLength} = character; 
+	// console.log(character);
     let imgStyle = {'objectFit' : 'cover'};
 	console.log(thumbnail)
-    if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' || 'undefined') {
+    if (thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || 'undefined') {
         imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
     }
 	
@@ -127,10 +127,11 @@ const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМП
 			<img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle}/>
 			<div className="randomchar__info">
 				<p className="randomchar__name">Name: {name}</p>
-				<p className="randomchar__tvShows"><span>Tv Shows:</span> {tvShows}</p>
-				<p className="randomchar__shortFilms"><span>Short Films:</span> {shortFilms}</p>
-				<p className="randomchar__videoGames"><span>Video Games:</span> {videoGames}</p>
-				<p className="randomchar__parkAttractions"><span>Park Attractions:</span> {parkAttractions}</p>
+				<p className="randomchar__films"><span>Films: </span> {filmsLength}</p>
+				<p className="randomchar__tvShows"><span>Tv Shows: </span> {tvShowsLength}</p>
+				<p className="randomchar__shortFilms"><span>Short Films: </span> {shortFilmsLength}</p>
+				<p className="randomchar__videoGames"><span>Video Games: </span> {videoGamesLength}</p>
+				<p className="randomchar__parkAttractions"><span>Park Attractions: </span> {parkAttractionsLength}</p>
 				<div className="randomchar__btns">
 					<a href={homepage} className="button button__main">
 						<div className="inner">homepage</div>

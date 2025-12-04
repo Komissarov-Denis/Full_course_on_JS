@@ -14,21 +14,20 @@
     &__img {
         width: 180px;
         height: 180px;
-        object-fit: cover;
+        object-fit: cover;        
     }
     &__info {
         display: grid;
-        grid-template-rows: minmax(29px, auto) 40px 29px 29px 29px;
-        row-gap: 10px;
-        padding-top: 3px;
+        grid-template-rows: minmax(22px, auto) 14px 14px 14px 14px 14px;
+        row-gap: 8px;
     }
     &__name{
         font-weight: bold;
         font-size: 22px;
-        line-height: 29px;
+        line-height: 22px;
         text-transform: uppercase;
     }
-    &__descr, &__shortFilms, &__tvShows, &__videoGames, &__parkAttractions {
+    &__descr, &__films, &__shortFilms, &__tvShows, &__videoGames, &__parkAttractions {
         font-size: 14px;
         line-height: 18px;
         span {

@@ -16,10 +16,16 @@ import './style/style.scss';
 // disneyService.getChar(308).then(result => console.log(result.data._id)); // вариант обработки промиса с получением персонажа по идентификатору id+++
 // disneyService.getChar(308).then(result => console.log(result.data.name));
 // disneyService.getChar(308).then(result => console.log(result.data.imageUrl));
+// disneyService.getChar(308).then(result => console.log(result.data.films));
+// disneyService.getChar(308).then(result => console.log(result.data.films.length));	
 // disneyService.getChar(308).then(result => console.log(result.data.shortFilms));
+// disneyService.getChar(308).then(result => console.log(result.data.shortFilms.length));
 // disneyService.getChar(308).then(result => console.log(result.data.tvShows));
+// disneyService.getChar(308).then(result => console.log(result.data.tvShows.length));
 // disneyService.getChar(308).then(result => console.log(result.data.videoGames));
+// disneyService.getChar(308).then(result => console.log(result.data.videoGames.length));
 // disneyService.getChar(308).then(result => console.log(result.data.parkAttractions));
+// disneyService.getChar(308).then(result => console.log(result.data.parkAttractions.length));
 //--------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

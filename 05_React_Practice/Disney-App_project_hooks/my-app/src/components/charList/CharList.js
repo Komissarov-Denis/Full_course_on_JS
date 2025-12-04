@@ -77,7 +77,7 @@ class CharList extends Component {
 	renderItems (array) { // Этот метод создан для оптимизации, чтобы не помещать такую конструкцию в метод render
 		const items = array.map((item) => { // метод перебора массива данных персонажей
 			let imgStyle = { objectFit: 'cover'};
-			if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' || 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif') {
+			if (item.thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || 'undefined') {
 				imgStyle = {'objectFit' : 'unset'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
 			}		
 			return ( // в приеме ПОДЪЕМА СОСТОЯНИЯ, из родительского компонента App, получаем /props/ метода /onCharacterSelected()/ по каждому элементу /item/ персонажа с персональным /ID/, т.е по клику получаем id
