@@ -7,7 +7,9 @@ import './style/style.scss';
 //---------------------------TEST-------------------------------
 // import DisneyService from './services/DisneyService'; // тестовые запросы
 // const disneyService = new DisneyService();  // создаем экземпляр класса DisneyService для работы с классами, соответственно в disneyService хранится потомок класса
-// disneyService.getAllChars().then(result => console.log(result)); // then ключевой оператор промиса++++
+// disneyService.getAllChars(1).then(result => console.log(result)); // then ключевой оператор промиса++++
+// disneyService.getAllChars(2).then(result => console.log(result)); // then ключевой оператор промиса++++
+// disneyService.getAllChars(3).then(result => console.log(result)); // then ключевой оператор промиса++++
 // disneyService.getAllChars().then(result => console.log(result.data[0])); // then ключевой оператор промиса++++
 // disneyService.getAllChars().then(result => result.data.forEach(item => console.log(item.name))); // вариант обработки промиса с получением имени персонажа+++
 // disneyService.getAllChars().then(result => result.data.forEach(item => console.log(item._id))); // вариант обработки промиса с получением идентификатора персонажей+++
@@ -29,7 +31,7 @@ import './style/style.scss';
 //--------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+root.render( // React.StrictMode вызывает двойной рендеринг для обнаружения сбойных событий, удваивает количество запросов к серверу, его нужно отключать при проверке
 	// <React.StrictMode>
 		<App />
 	// </React.StrictMode>

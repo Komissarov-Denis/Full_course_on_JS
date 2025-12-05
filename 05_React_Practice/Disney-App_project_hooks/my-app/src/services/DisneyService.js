@@ -4,7 +4,7 @@ import { ErrorMessageText } from '../components/errorMessage/ErrorMessage.js';
 class DisneyService { // в данном случае не нужен препроцессор JSX и Props, не наследуем компонент и не прописываем данный класс как в React Component принято, а прописываем как отдельный класс на чистом JavaScript
 	
 	_apiBase = 'https://api.disneyapi.dev/'; // нижнее подчеркивание /lodash/ указывает, что просто так программисты не меняют эти значения!!!
-	// _apiBaseOffset = 0; // отступ задан эмпирическим путем, чтобы более менее интересные персонажи подгружались из всего списка
+	_apiBaseOffset = 1; // отступ задан эмпирическим путем, чтобы более менее интересные персонажи подгружались из всего списка
 
 	//------------------------------------TEST---------------------------------------
 	// getResource = async (url) => { // образец запроса
@@ -14,11 +14,11 @@ class DisneyService { // в данном случае не нужен препр
 	// 	}
 	// 	return await result.json();
 	// };	
-	// getAllChars = async () => { // тестовые запросы
-	// 	return this.getResource(`${this._apiBase}character?page=1&pageSize=9`);
+	// getAllChars = async (offset = this._apiBaseOffset) => { // тестовые запросы
+	// 	return this.getResource(`${this._apiBase}character?page=${offset}&pageSize=9`);
 	// }
 	// getChar = async (id) => {
-	// 	return this.getResource(`${this._apiBase}character/${id}?page=1&pageSize=11000`);
+	// 	return this.getResource(`${this._apiBase}character/${id}?`);
 	// }
 	//-------------------------------------------------------------------------------
 
@@ -30,12 +30,12 @@ class DisneyService { // в данном случае не нужен препр
 		}
 		return await result.json(); // возвращаем из функции postData промис (result.json()) для дальнейшей обработки через цепочку .then() - так как это АСИНХРОННЫЙ КОД + await() дожидается обработки данных в result.json()!!!
 	};
-	//offset = this._apiBaseOffset // page=1&pageSize=9
-	getAllCharacters = async () => { // метод получения целого объекта, содержащего все персонажи из асинхронной функции, аргумент offset = this._apiBaseOffset делает функцию getAllCharacters() более гибкой для манипуляций со стороны, так как она будет отталкиваться от аргумента, а если мы его не передаем, то по умолчанию offset = 0
-		const result = await this.getResources(`${this._apiBase}character?page=1&pageSize=9`); // сохраним промежуточный результат в переменную result как большой объект, в котором есть массив с полученными результатами
+	
+	getAllCharacters = async (offset = this._apiBaseOffset) => { // метод получения целого объекта, содержащего все персонажи из асинхронной функции, аргумент offset = this._apiBaseOffset делает функцию getAllCharacters() более гибкой для манипуляций со стороны, так как она будет отталкиваться от аргумента, а если мы его не передаем, то по умолчанию offset = 0
+		const result = await this.getResources(`${this._apiBase}character?page=${offset}&pageSize=9`); // сохраним промежуточный результат в переменную result как большой объект, в котором есть массив с полученными результатами
 		// console.log(result);
 		return result.data.map(this._transformCharacter); // большой массив содержится в result.data и так как это массив, мы можем применить метод map() для формирования массива с новыми объектами по порядку, полученными из метода _transformCharacter()
-	} //&offset=${offset}
+	}
 
 	getCharacter = async (id) => { // метод получения только одного конкретного персонажа по ID из асинхронной функции
 		const result = await this.getResources(`${this._apiBase}character/${id}?`); // сохраним промежуточный результат в переменную result

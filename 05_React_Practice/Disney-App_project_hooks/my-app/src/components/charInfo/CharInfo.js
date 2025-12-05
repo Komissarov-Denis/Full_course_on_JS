@@ -49,7 +49,6 @@ class CharInfo extends Component {
 			.catch(this.onError); // если произошла ошибка, то обрабатываем ее методом catch()
 
 		// this.foo.bar = 0; // вносим для проверки ErrorBoundary несуществующее свойство
-
 	} // в запросе мы опираемся на props (из App передали props = characterId, в котором id нашего персонажа) 
 
 	onCharacterLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
