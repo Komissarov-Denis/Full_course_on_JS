@@ -49,13 +49,15 @@ class DisneyService { // в данном случае не нужен препр
 		// console.log(character.tvShows.length);
 		// console.log(character.videoGames.length);
 		// console.log(character.parkAttractions.length);
-		// console.log(character);
+		console.log(character);
 		return { // это и есть трансформация данных!!!
             id: character._id, // данный id приходит из данных каждого персонажа, по нему идет заполнение карточек в компоненте CharList
 			name: character.name ? `${character.name.slice(0, 210)}` : errorMessageText, // чтобы null заменился на реальные данные нужно: взять получаемый результат character как один большой объект, сослаться на свойство data /полученные данные от сервера/ и выбирать в data поле [с индексом] /массив с данными/, и т.е. берем один персонаж - [0] со значением name
 			// description: character.description ? `${character.description.slice(0, 210)}...` : '!!! There is no description for this character !!!', // стандартное условие: если character.description в true, то обрезаем длину по 210 символ, если в false - выводим сообщение
 			// description: character.description ? `${character.description.slice(0, 210)}...` : errorMessageText, // если есть описание персонажа, то обрезаем длину текста по 210 символ, иначе выводим сообщение об ошибке
 			thumbnail: character.imageUrl, // прописываем путь к картинке с соответствующими полями path и extension
+			wiki: 'https://ru.wikipedia.org/wiki/The_Walt_Disney_Company',
+			homepage: 'https://www.disney.com/',
 			// homepage: character.urls[0].url,
 			// wiki: character.urls[1].url,
 			// comics: character.comics.items, // получаем данные для компонента CharInfo по комиксам

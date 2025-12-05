@@ -18,10 +18,10 @@ class RandomChar extends Component {
 	state = { // у компонента прописываем индивидуальное состояние и применим синтаксис полей классов, конструктора не будет
 		character: {}, // это тоже самое, если бы все наши объекты записывались в null как тут =>
 																								// name: null,
-																								// description: null,
+																								// filmsLength: null,
 																								// thumbnail: null, это превью картинка персонажа
 																								// homepage: null,
-																								// wiki: null,
+																								// wiki: null, и т.д.
 		loading: true,	//	данный параметр будет отвечать за наличие или отсутствие загрузки компонента, это состояние компонента в целом
 		error: false, // параметр при ошибке 404, обрабатываем как замена на другого персонажа при отсутствии данных по текущему персонажу		
 	}
@@ -40,7 +40,7 @@ class RandomChar extends Component {
 	}
 
 	componentWillUnmount () { // ХУК этапа демонтажа компонента по прохождению определенного интервала времени
-		clearInterval(this.timerId); // размонтирование компонента и направляется новый запрос после демонтажа
+		// clearInterval(this.timerId); // размонтирование компонента и направляется новый запрос после демонтажа
 		console.log('RandomChar unmounted');
 	}
 
@@ -117,7 +117,7 @@ const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМП
 	const {name, thumbnail, homepage, wiki, filmsLength, tvShowsLength, shortFilmsLength, videoGamesLength, parkAttractionsLength} = character; 
 	// console.log(character);
     let imgStyle = {'objectFit' : 'cover'};
-	console.log(thumbnail)
+	// console.log(thumbnail)
     if (thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || 'undefined') {
         imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
     }
