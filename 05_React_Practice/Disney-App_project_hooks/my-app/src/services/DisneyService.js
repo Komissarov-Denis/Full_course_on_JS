@@ -34,12 +34,15 @@ class DisneyService { // в данном случае не нужен препр
 	getAllCharacters = async (offset = this._apiBaseOffset) => { // метод получения целого объекта, содержащего все персонажи из асинхронной функции, аргумент offset = this._apiBaseOffset делает функцию getAllCharacters() более гибкой для манипуляций со стороны, так как она будет отталкиваться от аргумента, а если мы его не передаем, то по умолчанию offset = 0
 		const result = await this.getResources(`${this._apiBase}character?page=${offset}&pageSize=9`); // сохраним промежуточный результат в переменную result как большой объект, в котором есть массив с полученными результатами
 		// console.log(result);
+		// console.log(result.data[0]);
+		// console.log(result.data.length);
 		return result.data.map(this._transformCharacter); // большой массив содержится в result.data и так как это массив, мы можем применить метод map() для формирования массива с новыми объектами по порядку, полученными из метода _transformCharacter()
 	}
 
 	getCharacter = async (id) => { // метод получения только одного конкретного персонажа по ID из асинхронной функции
-		const result = await this.getResources(`${this._apiBase}character/${id}?`); // сохраним промежуточный результат в переменную result
+		const result = await this.getResources(`${this._apiBase}character/${id}?page=1&pageSize=11000`); // сохраним промежуточный результат в переменную result
 		// console.log(result);
+		// console.log(id);
 		return this._transformCharacter(result.data); // в _transformCharacter(result) передаем полученный большой объект для трансформации
 	}
 		
@@ -49,7 +52,11 @@ class DisneyService { // в данном случае не нужен препр
 		// console.log(character.tvShows.length);
 		// console.log(character.videoGames.length);
 		// console.log(character.parkAttractions.length);
-		console.log(character);
+		// console.log(character);
+		// console.log(character.imageUrl);
+		// console.log(character.imageUrl.status);
+		// console.log(character.imageUrl.statusText);
+		// console.log(character._id);		
 		return { // это и есть трансформация данных!!!
             id: character._id, // данный id приходит из данных каждого персонажа, по нему идет заполнение карточек в компоненте CharList
 			name: character.name ? `${character.name.slice(0, 210)}` : errorMessageText, // чтобы null заменился на реальные данные нужно: взять получаемый результат character как один большой объект, сослаться на свойство data /полученные данные от сервера/ и выбирать в data поле [с индексом] /массив с данными/, и т.е. берем один персонаж - [0] со значением name
@@ -66,13 +73,14 @@ class DisneyService { // в данном случае не нужен препр
 			shortFilms: character.shortFilms,
 			videoGames: character.videoGames,
 			parkAttractions: character.parkAttractions,
+			dataLength: character.length,
 			filmsLength: character.films.length,
 			shortFilmsLength: character.shortFilms.length,
 			tvShowsLength: character.tvShows.length,
 			videoGamesLength: character.videoGames.length,
 			parkAttractionsLength: character.parkAttractions.length,
 		}		
-	}
+	}	
 }	
 
 export default DisneyService;

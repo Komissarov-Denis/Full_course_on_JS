@@ -19,7 +19,7 @@ class CharList extends Component {
 		error: false, // состояние наличия ошибки, первоначально оно в false, но при наличии - будет переключаться в true
 		newCharactersOnClickLoading: false, // тут загрузка повторная и должна быть в false, так как вызывается вручную по клику на кнопку newCharactersOnClickLoading
 		offset: 1, // данное состояние передаем в метод onCharacterListLoaded() для изменения состояние путем наращивания по клику на кнопку, число может быть любое
-		characterListEnded: false, // данное состояние указывает на окончание списка персонажей, первоначально оно в false, но по окончании списка будет переключаться в true
+		characterListEnded: false, // данное состояние указывает на окончание списка персонажей, первоначально оно в false, но по окончании списка будет переключаться в true		characterObject: {},
 	}
 	
 	disneyService = new DisneyService(); // применим СИНТАКСИС ПОЛЕЙ КЛАССОВ и создадим в переменной disneyService новый экземпляр или нового потомка класса disneyService() внутри класса RandomChar
@@ -76,8 +76,9 @@ class CharList extends Component {
 	renderItems (array) { // Этот метод создан для оптимизации, чтобы не помещать такую конструкцию в метод render
 		const items = array.map((item) => { // метод перебора массива данных персонажей
 			let imgStyle = { objectFit: 'cover'};
-			if (item.thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || 'undefined') {
+			if (item.thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || undefined) {
 				imgStyle = {'objectFit' : 'unset'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
+				console.log("Превьюшка не определена!");
 			}		
 			return ( // в приеме ПОДЪЕМА СОСТОЯНИЯ, из родительского компонента App, получаем /props/ метода /onCharacterSelected()/ по каждому элементу /item/ персонажа с персональным /ID/, т.е по клику получаем id
 				<li

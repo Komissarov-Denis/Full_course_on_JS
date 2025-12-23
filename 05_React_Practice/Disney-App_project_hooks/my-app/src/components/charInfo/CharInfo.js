@@ -145,8 +145,9 @@ const View = ({character}) => {
 	const {name, thumbnail, homepage, wiki, films, tvShows, shortFilms, videoGames, parkAttractions} = character;
 	console.log(films);
     let imgStyle = {'objectFit' : 'cover'}; // создаем объект картинки со свойством заполнить блок 
-    if (thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || 'undefined') {
+    if (thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || undefined) {
         imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки на вместить в блок при возникновении картинки с указанием отсутствия изображения
+		console.log("Превьюшка не определена!");
     }
 	return ( // используем React фрагмент <>...</>, так как нет ни одного родительского компонента
 		<> 			

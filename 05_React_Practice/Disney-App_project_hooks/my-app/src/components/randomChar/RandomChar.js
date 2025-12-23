@@ -7,11 +7,11 @@ import './randomChar.scss';
 
 import logo from '../../resources/img/disney_logo_img.gif';
 
-
 class RandomChar extends Component {
 
 	// constructor(props) { // используем конструктор для вызова метода updateCharacter()
 	// 	super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
+	// 	this.updateCharacter();	
 	// 	console.log('RandomChar constructor started');
 	// }
 
@@ -19,28 +19,28 @@ class RandomChar extends Component {
 		character: {}, // это тоже самое, если бы все наши объекты записывались в null как тут =>
 																								// name: null,
 																								// filmsLength: null,
-																								// thumbnail: null, это превью картинка персонажа
+																								// thumbnail: null, - это превью картинка персонажа
 																								// homepage: null,
-																								// wiki: null, и т.д.
+																								// wiki: null, и т.д.		
 		loading: true,	//	данный параметр будет отвечать за наличие или отсутствие загрузки компонента, это состояние компонента в целом
-		error: false, // параметр при ошибке 404, обрабатываем как замена на другого персонажа при отсутствии данных по текущему персонажу		
+		error: false, // параметр при ошибке 404, обрабатываем как замена на другого персонажа при отсутствии данных по текущему персонажу	
 	}
 
 	disneyService = new DisneyService(); // применим СИНТАКСИС ПОЛЕЙ КЛАССОВ и создадим в переменной disneyService новый экземпляр или нового потомка класса disneyService() внутри класса RandomChar
-	// disneyService.getAllCharacters().then(result => result.data.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data, чтобы перебрать элементы массива по именам - применим метод forEach()
-	
+	//как пример: disneyService.getAllCharacters().then(result => result.data.forEach(item => console.log(item.name))); // получаем массив данных персонажей, которые будут храниться в data, чтобы перебрать элементы массива по именам - применим метод forEach()
+		
 	componentDidMount () { // ХУК этапа монтирования компонента для обновления данных, после того как реакт прорендерит первоначальную структуру, он туда помещает данные от сервера
 		this.updateCharacter(); // т.е. на данном этапе ВЫПОЛНЯЮТСЯ ЗАПРОСЫ К СЕРВЕРУ И ОБНОВЛЕНИЯ
-		// this.timerId = setInterval(this.updateCharacter, 3200000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
+		// this.timerId = setInterval(this.updateCharacter, 3000); // !!!!!!!!! для автоматической смены отображаемой информации через каждый интервал времени применим метод setInterval()
 		console.log('RandomChar mounted');
 	}
-
+	
 	componentDidUpdate () { // ХУК этапа обновления компонента
 		console.log('RandomChar updated');
 	}
 
 	componentWillUnmount () { // ХУК этапа демонтажа компонента по прохождению определенного интервала времени
-		// clearInterval(this.timerId); // размонтирование компонента и направляется новый запрос после демонтажа
+		clearInterval(this.timerId); // размонтирование компонента и направляется новый запрос после демонтажа
 		console.log('RandomChar unmounted');
 	}
 
@@ -49,7 +49,7 @@ class RandomChar extends Component {
 			character,
 			loading: false,
 		}) // выполняется заполнение объекта state = {character: character}, лаконично записывать this.setState({character}) и как только данные загружены loading: true преобразуется в loading: false
-	}
+	} 
 
 	onCharacterLoading = () => {
 		this.setState ({
@@ -64,11 +64,13 @@ class RandomChar extends Component {
 		})
 	}
 	
-	updateCharacter = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова
-		const id = Math.floor(Math.random() * (600 - 40) + 40); // для получения СЛУЧАЙНОГО id применим метод Math.floor() для округления результата, так как id только целые числа /Math.random() * (max - min) + min;/
+	updateCharacter = () => { // данный метод будет обновлять данные нашего персонажа, используем стрелочную функцию, чтобы не терять контекст вызова /первоначально запускать будем из конструктора constructor(props){}/
+		
+		// const id = 112; // для начала захардкодили в качестве id число 112, т.е. первого персонажа, затем переделали на рандомного персонажа:
+		const id = Math.floor(Math.random() * (800 - 20) + 20); // для получения СЛУЧАЙНОГО id применим метод Math.floor() для округления результата, так как id только целые числа /Math.random() * (max - min) + min;/
 		this.onCharacterLoading(); // при обновлении данных персонажа, реализуем спиннер, чтобы видеть процесс загрузки, когда Loading/загрузка имеет значение true
-		this.disneyService
-			.getCharacter(id) // данные персонажа /объект/ будем получать по уникальному идентификатору и передавать в аргумент коллбэк функции .then(character => {})
+		this.disneyService // обращаемся первоначально к экземпляру disneyService =>
+			.getCharacter(id) // => данные персонажа /объект/ будем получать по уникальному идентификатору и передавать в аргумент коллбэк функции .then(character => {})
 			// .then(result => { // далее result /объект/ передаем в this.setState(result)
 				// this.setState(result) // тут нет зависимости от предыдущего state потому, что каждый раз приходит какой-то другой персонаж, даже если это один и тот же..., поэтому раскрываем объект и формируем =>				
 			// }) // весь result /объект/ передается из _transformCharacter  '../../services/disneyService.js'
@@ -116,10 +118,12 @@ class RandomChar extends Component {
 const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМПОНЕНТ" без логики, данный компонент будет отображать определенный кусочек верстки и он в качестве аргумента принимает /character/ объект с данными о персонаже
 	const {name, thumbnail, homepage, wiki, filmsLength, tvShowsLength, shortFilmsLength, videoGamesLength, parkAttractionsLength} = character; 
 	// console.log(character);
+	// console.log(dataLength);
     let imgStyle = {'objectFit' : 'cover'};
 	// console.log(thumbnail)
-    if (thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || 'undefined') {
+    if (thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || undefined) {
         imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
+		console.log("Превьюшка не определена!");
     }
 	
 	return ( // возвращаем кусочек верстки

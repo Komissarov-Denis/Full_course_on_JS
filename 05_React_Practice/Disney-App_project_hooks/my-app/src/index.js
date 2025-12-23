@@ -28,6 +28,9 @@ import './style/style.scss';
 // disneyService.getChar(308).then(result => console.log(result.data.videoGames.length));
 // disneyService.getChar(308).then(result => console.log(result.data.parkAttractions));
 // disneyService.getChar(308).then(result => console.log(result.data.parkAttractions.length));
+
+// disneyService.getAllIds().then(result => console.log(result.length));
+// disneyService.getAllIds().then(result => console.log(result));
 //--------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
