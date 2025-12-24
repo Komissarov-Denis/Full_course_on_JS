@@ -44,7 +44,7 @@ class RandomChar extends Component {
 		console.log('RandomChar unmounted');
 	}
 
-	onCharacterLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился
+	onCharacterLoaded = (character) => { // метод загрузки данных персонажа, если он действительно загрузился с аргументом объекта {character: character}
 		this.setState ({
 			character,
 			loading: false,
@@ -76,14 +76,14 @@ class RandomChar extends Component {
 			// }) // весь result /объект/ передается из _transformCharacter  '../../services/disneyService.js'
 			// .getAllCharacters().then(character => console.log(character)) // тестовый вариант для проверки получения всего массива персонажей для .getAllCharacters()
 			.then(this.onCharacterLoaded) // при использовании промисов в цепочке через /.then()/, если в данную функцию updateCharacter() приходит аргумент /character/ из onCharacterLoaded(), то в /this.onCharacterLoaded/ подставляется данный аргумент через /.then()/, т.е. character запишется внутрь state
-			.catch(this.onError); // данный метод отлавливает и отображает ошибку при возникновении её в загруженных данных
+			.catch(this.onError); // данный метод отлавливает и отображает ошибку при возникновении её в загруженных данных при {loading: false}, {error: true}
 		
 		// this.foo.bar = 0; // вносим для проверки ErrorBoundary несуществующее свойство	
 	}
 
 	render() { // применим принцип деструктуризации объекта character{}
 		console.log('RandomChar rendered'); // тест этапа рендеринга
-		const {character, loading, error} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki
+		const {character, loading, error} = this.state; // с помощью контекста вызова this.state и с применением принципа деструктуризации, вытаскиваем из state переменные name, description, thumbnail, homepage, wiki и т.д. из {character: character}, {loading: true/false}, {error: false/true}
 		const errorMessageImg = error ? <ErrorMessageImg/> : null; // в переменной errorMessageImg будет содержаться: при ошибке - либо компонент с ошибкой, либо при её отсутствии - "ничего"
 		const spinner = loading ? <Spinner/> : null; // в переменной spinner будет содержаться: при загрузке - либо компонент Spinner, либо при её отсутствии - "ничего"
 		const content = !(loading || error) ? <View character={character}/> : null; // в переменной content будет содержаться: если сейчас у нас нет загрузки или нет ошибок при загрузке, выводим компонент <View character={character}/> с данными персонажа /character/, либо при их наличии - "ничего"
@@ -126,7 +126,7 @@ const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМП
 		console.log("Превьюшка не определена!");
     }
 	
-	return ( // возвращаем кусочек верстки
+	return ( // возвращаем кусочек верстки, так как данный участок кода будет меняться динамически при обновлении данных персонажа
 		<div className="randomchar__block">
 			<img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle}/>
 			<div className="randomchar__info">
