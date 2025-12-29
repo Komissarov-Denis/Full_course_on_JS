@@ -6,14 +6,14 @@ import { ErrorMessageImg } from '../errorMessage/ErrorMessage';
 import Skeleton from '../skeleton/Skeleton';
 
 import './charInfo.scss';
-// import thor from '../../resources/img/thor.jpeg';
+import errorImg from '../../components/errorMessage/error.gif';
 
 class CharInfo extends Component {	
 
-	// constructor(props) { // используем конструктор для вызова метода updateCharacter()
-	// 	super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
-	// 	console.log('CharInfo constructor started');
-	// }
+	constructor(props) { // используем конструктор для вызова метода updateCharacter()
+		super(props); // теперь конструктор не нужен при применении ХУКОВ: componentDidMount() и 
+		console.log('CharInfo constructor started');
+	}
 
 	state = { // у компонента прописываем индивидуальное состояние
 		character: null,
@@ -40,14 +40,11 @@ class CharInfo extends Component {
 		if (!characterId) { // если в characterId ничего нет, то останавливаем выполнение этого метода и это условие будет срабатывать каждый раз вначале, так как в App в state = {selectedCharacter: null}
 			return; // поэтому отображаться будет заглушка skeleton
 		}
-
 		this.onCharacterLoading(); // будет отображаться Spinner при процессе загрузки
-
 		this.disneyService // если в characterId есть данные, то делаем запрос на сервер
 			.getCharacter(characterId) // когда придет ответ от нашего сервиса disneyService по characterId в формате одного объекта с персонажем =>
 			.then(this.onCharacterLoaded) // он попадет в onCharacterLoaded в качестве аргумента character и запишется в наше состояние state
 			.catch(this.onError); // если произошла ошибка, то обрабатываем ее методом catch()
-
 		// this.foo.bar = 0; // вносим для проверки ErrorBoundary несуществующее свойство
 	} // в запросе мы опираемся на props (из App передали props = characterId, в котором id нашего персонажа) 
 
@@ -69,8 +66,7 @@ class CharInfo extends Component {
 			loading: false, // при ошибке - загрузка отсутствует, то /error: true/ - и это корректная логика
 			error: true,
 		})
-	}
-
+	} 
 
 	render () {
 		const {character, loading, error} = this.state;
@@ -146,7 +142,10 @@ const View = ({character}) => {
 	console.log(films);
     let imgStyle = {'objectFit' : 'cover'}; // создаем объект картинки со свойством заполнить блок 
     if (thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || undefined) {
-        imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки на вместить в блок при возникновении картинки с указанием отсутствия изображения
+        imgStyle = {
+			'objectFit' : 'contain',
+			'background-image': `url(${errorImg})`,
+		}; // меняем стиль картинки на вместить в блок при возникновении картинки с указанием отсутствия изображения
 		console.log("Превьюшка не определена!");
     }
 	return ( // используем React фрагмент <>...</>, так как нет ни одного родительского компонента
