@@ -16,8 +16,8 @@ class CharInfo extends Component {
 	}
 
 	state = { // у компонента прописываем индивидуальное состояние
-		character: null,
-		loading: false, // в данном случае загрузка информации о персонаже начнется с момента осуществления действий пользователи при выборе из 9 персонажей, но сначала будет заглушка skeleton
+		character: null, // так как пустой объект в логическом контексте это сущность или true, а вот когда мы поставили null, то у нас прорендерится компонент Skeleton
+		loading: false, // в данном случае загрузка информации о персонаже начнется с момента осуществления действий пользователя при выборе из 9 персонажей, но сначала будет заглушка skeleton
 		error: false,
 	}
 
@@ -36,7 +36,7 @@ class CharInfo extends Component {
 	}
 
 	updateCharacter = () => { // в приеме ПОДЪЕМА СОСТОЯНИЯ, из родительского компонента App, получаем /props/ метода /characterId={this.state.selectedCharacter}/ по каждому элементу /item/ персонажа с персональным /ID/, т.е по клику по клику обновляем персонажа с конкретным id
-		const {characterId} = this.props; // деструктурируем characterId из props
+		const {characterId} = this.props; // деструктурируем characterId из props, так как мы characterId передавали через родительский компонент в качестве props при выборе персонажа в CharList!!!
 		if (!characterId) { // если в characterId ничего нет, то останавливаем выполнение этого метода и это условие будет срабатывать каждый раз вначале, так как в App в state = {selectedCharacter: null}
 			return; // поэтому отображаться будет заглушка skeleton
 		}

@@ -6,6 +6,8 @@ import { ErrorMessageImg } from '../errorMessage/ErrorMessage';
 import './randomChar.scss';
 
 import logo from '../../resources/img/disney_logo_img.gif';
+import errorImg from '../../components/errorMessage/error.gif';
+
 
 class RandomChar extends Component {
 
@@ -120,11 +122,14 @@ const View = ({character}) => { // простой "РЕНДАРЯЩИЙ КОМП
 	// console.log(character);
 	// console.log(dataLength);
     let imgStyle = {'objectFit' : 'cover'};
-	// console.log(thumbnail)
-    if (thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || undefined) {
-        imgStyle = {'objectFit' : 'contain'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
+	// console.log(thumbnail) 
+	if (thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || undefined) {
+		imgStyle = {
+			'objectFit' : 'contain',
+			'background-image': `url(${errorImg})`,
+		}; // меняем стиль картинки на вместить в блок при возникновении картинки с указанием отсутствия изображения
 		console.log("Превьюшка не определена!");
-    }
+	}
 	
 	return ( // возвращаем кусочек верстки, так как данный участок кода будет меняться динамически при обновлении данных персонажа
 		<div className="randomchar__block">

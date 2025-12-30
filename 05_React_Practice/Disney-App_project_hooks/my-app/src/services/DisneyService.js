@@ -41,7 +41,7 @@ class DisneyService { // в данном случае не нужен препр
 
 	getCharacter = async (id) => { // метод получения только одного конкретного персонажа по ID из асинхронной функции
 		const result = await this.getResources(`${this._apiBase}character/${id}?page=1&pageSize=11000`); // сохраним промежуточный результат в переменную result
-		// console.log(result);
+		// console.log(result.imageUrl.status());
 		// console.log(id);
 		return this._transformCharacter(result.data); // в _transformCharacter(result) передаем полученный большой объект для трансформации
 	}
@@ -63,6 +63,7 @@ class DisneyService { // в данном случае не нужен препр
 			// description: character.description ? `${character.description.slice(0, 210)}...` : '!!! There is no description for this character !!!', // стандартное условие: если character.description в true, то обрезаем длину по 210 символ, если в false - выводим сообщение
 			// description: character.description ? `${character.description.slice(0, 210)}...` : errorMessageText, // если есть описание персонажа, то обрезаем длину текста по 210 символ, иначе выводим сообщение об ошибке
 			thumbnail: character.imageUrl, // прописываем путь к картинке с соответствующими полями path и extension
+			// thumbnailResponseStatus: character.imageUrl.response.status,
 			wiki: 'https://ru.wikipedia.org/wiki/The_Walt_Disney_Company',
 			homepage: 'https://www.disney.com/',
 			// homepage: character.urls[0].url,

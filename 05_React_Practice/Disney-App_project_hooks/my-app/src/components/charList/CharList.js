@@ -4,6 +4,7 @@ import DisneyService from '../../services/DisneyService';
 import { ErrorMessageImg } from '../errorMessage/ErrorMessage';
 
 import './charList.scss';
+import errorImg from '../../components/errorMessage/error.gif';
 // import abyss from '../../resources/img/abyss.jpg';
 
 class CharList extends Component {
@@ -73,11 +74,14 @@ class CharList extends Component {
 		})
 	}
 
-	renderItems (array) { // Этот метод создан для оптимизации, чтобы не помещать такую конструкцию в метод render
+	renderItems (array) { // Этот метод создан для оптимизации, чтобы не помещать такую объемную конструкцию в метод render
 		const items = array.map((item) => { // метод перебора массива данных персонажей
 			let imgStyle = { objectFit: 'cover'};
 			if (item.thumbnail === 'https://static.wikia.nocookie.net/disney/images/7/7c/Noimage.png' || undefined) {
-				imgStyle = {'objectFit' : 'unset'}; // меняем стиль картинки при возникновении картинки с указанием отсутствия изображения
+				imgStyle = {
+							'objectFit' : 'contain',
+							'background-image': `url(${errorImg})`,
+						}; // меняем стиль картинки на вместить в блок при возникновении картинки с указанием отсутствия изображения
 				console.log("Превьюшка не определена!");
 			}		
 			return ( // в приеме ПОДЪЕМА СОСТОЯНИЯ, из родительского компонента App, получаем /props/ метода /onCharacterSelected()/ по каждому элементу /item/ персонажа с персональным /ID/, т.е по клику получаем id
