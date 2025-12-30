@@ -60,6 +60,9 @@
             line-height: 25px;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             margin-top: 10px;
+            span {
+                color: $main-color;
+            }
         }
     }
     &__select {
@@ -68,5 +71,4 @@
         line-height: 24px;
         text-align: center;
     }
-
 }
